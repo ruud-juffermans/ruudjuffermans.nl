@@ -1,0 +1,155 @@
+---
+const skillCategories = [
+  {
+    name: "Languages & Databases",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="16 18 22 12 16 6"/>
+      <polyline points="8 6 2 12 8 18"/>
+    </svg>`,
+    skills: ["SQL", "Python", "NoSQL Databases"]
+  },
+  {
+    name: "Data Engineering",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <ellipse cx="12" cy="5" rx="9" ry="3"/>
+      <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+      <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+    </svg>`,
+    skills: ["Data Warehousing", "Data Modeling", "ETL", "Data Pipeline Design", "Data Governance"]
+  },
+  {
+    name: "Big Data & Processing",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+      <path d="M2 17l10 5 10-5"/>
+      <path d="M2 12l10 5 10-5"/>
+    </svg>`,
+    skills: ["Apache Hadoop", "Apache Spark", "Stream Processing", "Big Data", "Performance Optimization"]
+  },
+  {
+    name: "Cloud & Infrastructure",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>
+    </svg>`,
+    skills: ["Cloud Computing Services", "Machine Learning Basics"]
+  },
+  {
+    name: "Blockchain & Web3",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+    </svg>`,
+    skills: ["Smart Contracts", "Blockchain Architecture", "Cryptocurrency Analysis", "DeFi Protocols", "On-chain Analytics"]
+  }
+];
+---
+
+<section id="skills" class="section skills">
+  <div class="container">
+    <h2 class="section-title">Skills & Technologies</h2>
+    <div class="skills-grid">
+      {skillCategories.map((category, index) => (
+        <div class="skill-category" style={`animation-delay: ${index * 0.1}s`}>
+          <div class="category-header">
+            <div class="category-icon" set:html={category.icon} />
+            <h3 class="category-name">{category.name}</h3>
+          </div>
+          <ul class="skill-list">
+            {category.skills.map(skill => (
+              <li class="skill-item">{skill}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .skills {
+    background: var(--bg-secondary);
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-6);
+  }
+
+  .skill-category {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    animation: fadeIn 0.6s ease forwards;
+    opacity: 0;
+    transition: border-color var(--transition-fast), transform var(--transition-fast);
+  }
+
+  .skill-category:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+  }
+
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .category-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-muted);
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+  }
+
+  .category-icon :global(svg) {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--accent);
+  }
+
+  .category-name {
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .skill-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .skill-item {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--border);
+    transition: color var(--transition-fast), padding-left var(--transition-fast);
+  }
+
+  .skill-item:last-child {
+    border-bottom: none;
+  }
+
+  .skill-item:hover {
+    color: var(--text-primary);
+    padding-left: var(--space-2);
+  }
+
+  @media (max-width: 640px) {
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

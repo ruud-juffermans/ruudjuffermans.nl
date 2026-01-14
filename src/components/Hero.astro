@@ -1,0 +1,252 @@
+---
+
+---
+
+<section class="hero">
+  <div class="container hero-content">
+    <div class="hero-text">
+      <p class="hero-greeting animate-fade-in">Hi, I'm</p>
+      <h1 class="hero-name animate-fade-in" style="animation-delay: 0.1s">Ruud Juffermans</h1>
+      <p class="hero-title animate-fade-in" style="animation-delay: 0.2s">Data Engineer & Blockchain Specialist</p>
+      <p class="hero-description animate-fade-in" style="animation-delay: 0.3s">
+        I'm passionate about designing and managing data architectures that
+        are scalable, efficient, and that meet the organization's analytical needs.
+      </p>
+      <div class="hero-actions animate-fade-in" style="animation-delay: 0.4s">
+        <a href="#contact" class="btn btn-primary">Get in Touch</a>
+        <a href="/cv.pdf" class="btn btn-secondary" download>Download CV</a>
+      </div>
+    </div>
+    <div class="hero-visual animate-fade-in" style="animation-delay: 0.5s">
+      <div class="hero-graphic">
+        <div class="graphic-ring"></div>
+        <div class="graphic-ring"></div>
+        <div class="graphic-ring"></div>
+        <div class="graphic-dot"></div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll to explore</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 5v14M19 12l-7 7-7-7"/>
+    </svg>
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: var(--header-height);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+    align-items: center;
+    padding: var(--space-16) 0;
+  }
+
+  .hero-text {
+    max-width: 600px;
+  }
+
+  .hero-greeting {
+    font-size: var(--text-lg);
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: var(--space-2);
+  }
+
+  .hero-name {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--space-2);
+    letter-spacing: -0.03em;
+  }
+
+  .hero-title {
+    font-size: var(--text-xl);
+    color: var(--text-secondary);
+    margin-bottom: var(--space-6);
+    font-weight: 500;
+  }
+
+  .hero-description {
+    font-size: var(--text-lg);
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-8);
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-hover);
+    color: white;
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--border-hover);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+  }
+
+  .hero-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-graphic {
+    position: relative;
+    width: 300px;
+    height: 300px;
+  }
+
+  .graphic-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  .graphic-ring:nth-child(1) {
+    width: 100px;
+    height: 100px;
+    animation-delay: 0s;
+  }
+
+  .graphic-ring:nth-child(2) {
+    width: 180px;
+    height: 180px;
+    animation-delay: 0.5s;
+  }
+
+  .graphic-ring:nth-child(3) {
+    width: 260px;
+    height: 260px;
+    animation-delay: 1s;
+  }
+
+  .graphic-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 30px var(--accent);
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 0.3;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+      opacity: 0.6;
+      transform: translate(-50%, -50%) scale(1.05);
+    }
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: var(--space-8);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  .scroll-indicator svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateX(-50%) translateY(0);
+    }
+    50% {
+      transform: translateX(-50%) translateY(10px);
+    }
+  }
+
+  @media (max-width: 968px) {
+    .hero-content {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .hero-text {
+      max-width: 100%;
+    }
+
+    .hero-actions {
+      justify-content: center;
+    }
+
+    .hero-visual {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-actions {
+      flex-direction: column;
+    }
+
+    .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
