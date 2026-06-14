@@ -1,0 +1,48 @@
+---
+title: "End-to-end analytics pipeline for sales data"
+industry: "Showcase project"
+summary: "From raw CSV files to an automated pipeline with a data warehouse and interactive Power BI dashboard."
+tags: ["Python", "SQL", "Power BI", "Data Engineering"]
+duration: "3 weeks"
+---
+
+## The challenge
+
+A company with sales data spread across dozens of CSV files, hand-maintained Excel sheets and a legacy CRM. Monthly reports took 2 days of manual work and were regularly inconsistent.
+
+## The approach
+
+### Architecture
+
+A layered data architecture:
+
+1. **Source layer** — Raw data from CSV, Excel and CRM exports
+2. **Transformation layer** — Python scripts for cleaning, validation and transformation
+3. **Warehouse** — PostgreSQL with a dimensional model (star schema)
+4. **Presentation layer** — Power BI dashboard with a direct connection to the warehouse
+
+### Data transformation
+
+Python scripts running daily:
+- Automatic detection of new source files
+- Data validation and quality checks
+- Deduplication and standardization
+- Loading into the warehouse with upsert logic
+
+### Dashboard
+
+An interactive Power BI dashboard with:
+- Revenue by region, product and time period
+- Customer analysis: retention, lifetime value, churn indicators
+- Trend analysis with year-over-year comparison
+- Drill-down from national to individual salesperson
+
+## The result
+
+- Reporting time: from 2 days to 15 minutes
+- Data quality: 99.5% consistency after automated validation
+- Insights: first-ever visibility into customer churn and regional trends
+
+## Technology
+
+Python, pandas, PostgreSQL, Power BI, Power Query, DAX, cron scheduling

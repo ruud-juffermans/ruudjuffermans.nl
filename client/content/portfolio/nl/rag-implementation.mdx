@@ -1,0 +1,37 @@
+---
+title: "RAG-systeem voor interne kennisbank"
+industry: "Showcase project"
+summary: "Een AI-gestuurde zoekfunctie die honderden bedrijfsdocumenten doorzoekbaar maakt in natuurlijke taal."
+tags: ["GenAI", "RAG", "Python", "LLM"]
+duration: "4 weken"
+---
+
+## De uitdaging
+
+Honderden beleidsdocumenten, handleidingen en rapporten in verschillende formaten. Medewerkers besteedden gemiddeld 45 minuten per zoekactie. Bestaande zoekfuncties werkten alleen op exacte trefwoorden.
+
+## De aanpak
+
+Een Retrieval-Augmented Generation (RAG) systeem dat:
+1. Documenten verwerkt en opslaat als doorzoekbare embeddings
+2. Vragen in natuurlijke taal accepteert
+3. Relevante passages vindt via semantische zoekfunctionaliteit
+4. Een samenhangend antwoord formuleert met bronverwijzingen
+
+### Architectuur
+
+- **Document processing**: PDF/Word extractie, chunking met overlap
+- **Embedding**: Tekst-naar-vector conversie voor semantische vergelijking
+- **Vector store**: Efficiënte opslag en zoekfunctionaliteit
+- **Query engine**: Vraag → retrieval → LLM → antwoord met bronnen
+- **Frontend**: Eenvoudige chat-interface voor eindgebruikers
+
+## Het resultaat
+
+- Zoektijd: van 45 minuten naar 30 seconden
+- Nauwkeurigheid: 92% correct bij validatie
+- Adoptie: 80% dagelijks gebruik binnen 2 weken
+
+## Technologie
+
+Python, LangChain, OpenAI embeddings, ChromaDB, Streamlit

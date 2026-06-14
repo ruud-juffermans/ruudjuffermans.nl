@@ -1,0 +1,75 @@
+---
+title: "Hoe ik een RAG-systeem bouwde dat bedrijfsdocumenten doorzoekbaar maakt"
+date: "2026-04-15"
+excerpt: "Een technische deep-dive in het bouwen van een Retrieval-Augmented Generation systeem — van architectuur tot productie."
+tags: ["GenAI", "RAG", "Python", "Technical"]
+---
+
+## Het probleem
+
+Een bedrijf met honderden beleidsdocumenten, handleidingen en rapporten. Medewerkers besteedden gemiddeld 45 minuten per zoekactie. Niemand wist precies welke informatie waar stond.
+
+De vraag: **kun je een systeem bouwen waar we in gewone taal vragen aan kunnen stellen?**
+
+## De architectuur
+
+Een RAG-systeem (Retrieval-Augmented Generation) combineert twee componenten:
+
+1. **Retrieval** — het vinden van relevante documentfragmenten
+2. **Generation** — het formuleren van een antwoord op basis van die fragmenten
+
+```python
+# Vereenvoudigde architectuur
+documenten → chunking → embeddings → vector database
+                                          ↓
+gebruikersvraag → embedding → similarity search → context
+                                                      ↓
+                                              LLM → antwoord + bronverwijzingen
+```
+
+## Stap 1: Document processing
+
+De eerste uitdaging: documenten in allerlei formaten (PDF, Word, Excel) omzetten naar doorzoekbare tekst.
+
+```python
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+
+splitter = RecursiveCharacterTextSplitter(
+    chunk_size=1000,
+    chunk_overlap=200,
+    separators=["\n\n", "\n", ". ", " "]
+)
+
+chunks = splitter.split_documents(documents)
+```
+
+De `chunk_overlap` is cruciaal — zonder overlap verlies je context op de grenzen van je chunks.
+
+## Stap 2: Embeddings en vector store
+
+Elk chunk wordt omgezet naar een embedding — een numerieke representatie van de betekenis. Vergelijkbare teksten krijgen vergelijkbare embeddings.
+
+## Stap 3: Query pipeline
+
+Wanneer een gebruiker een vraag stelt:
+
+1. De vraag wordt omgezet naar een embedding
+2. We zoeken de meest relevante chunks via cosine similarity
+3. De gevonden chunks worden als context meegegeven aan het LLM
+4. Het LLM formuleert een antwoord en verwijst naar de bronnen
+
+## Het resultaat
+
+- Zoektijd: van 45 minuten naar 30 seconden
+- Nauwkeurigheid: 92% van de antwoorden was correct bij validatie
+- Adoptie: binnen 2 weken gebruikte 80% van het team het systeem dagelijks
+
+## Lessons learned
+
+1. **Chunk size matters.** Te klein = geen context. Te groot = te veel ruis. Test met echte vragen.
+2. **Metadata is goud waard.** Documentnaam, datum, auteur — voeg het toe aan je chunks. Het verbetert zowel retrieval als het vertrouwen van de gebruiker.
+3. **Start simpel.** Een basis RAG-systeem levert al enorme waarde. Optimaliseer pas als je weet waar de zwakke plekken zitten.
+
+## De businesswaarde
+
+Dit project laat zien wat er mogelijk is als je GenAI combineert met echte bedrijfsdata. Geen generieke chatbot, maar een tool die specifieke vragen beantwoordt over jouw documenten, met bronverwijzingen.

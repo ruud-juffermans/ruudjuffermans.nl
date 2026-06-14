@@ -1,0 +1,37 @@
+---
+title: "RAG system for an internal knowledge base"
+industry: "Showcase project"
+summary: "An AI-powered search tool that makes hundreds of company documents searchable in natural language."
+tags: ["GenAI", "RAG", "Python", "LLM"]
+duration: "4 weeks"
+---
+
+## The challenge
+
+Hundreds of policy documents, manuals and reports across different formats. Employees spent an average of 45 minutes per search. The existing search only worked on exact keywords.
+
+## The approach
+
+A Retrieval-Augmented Generation (RAG) system that:
+1. Processes documents and stores them as searchable embeddings
+2. Accepts questions in natural language
+3. Finds relevant passages via semantic search
+4. Formulates a coherent answer with source references
+
+### Architecture
+
+- **Document processing**: PDF/Word extraction, chunking with overlap
+- **Embedding**: text-to-vector conversion for semantic comparison
+- **Vector store**: efficient storage and search
+- **Query engine**: question → retrieval → LLM → answer with sources
+- **Frontend**: a simple chat interface for end users
+
+## The result
+
+- Search time: from 45 minutes to 30 seconds
+- Accuracy: 92% correct on validation
+- Adoption: 80% daily use within 2 weeks
+
+## Technology
+
+Python, LangChain, OpenAI embeddings, ChromaDB, Streamlit

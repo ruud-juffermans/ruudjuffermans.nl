@@ -1,0 +1,75 @@
+---
+title: "How I built a RAG system that makes company documents searchable"
+date: "2026-04-15"
+excerpt: "A technical deep-dive into building a Retrieval-Augmented Generation system — from architecture to production."
+tags: ["GenAI", "RAG", "Python", "Technical"]
+---
+
+## The problem
+
+A company with hundreds of policy documents, manuals and reports. Employees spent an average of 45 minutes per search. Nobody knew exactly what information lived where.
+
+The question: **can you build a system we can ask questions in plain language?**
+
+## The architecture
+
+A RAG (Retrieval-Augmented Generation) system combines two components:
+
+1. **Retrieval** — finding the relevant document fragments
+2. **Generation** — formulating an answer based on those fragments
+
+```python
+# Simplified architecture
+documents → chunking → embeddings → vector database
+                                          ↓
+user question → embedding → similarity search → context
+                                                      ↓
+                                              LLM → answer + source references
+```
+
+## Step 1: Document processing
+
+The first challenge: turning documents in all kinds of formats (PDF, Word, Excel) into searchable text.
+
+```python
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+
+splitter = RecursiveCharacterTextSplitter(
+    chunk_size=1000,
+    chunk_overlap=200,
+    separators=["\n\n", "\n", ". ", " "]
+)
+
+chunks = splitter.split_documents(documents)
+```
+
+The `chunk_overlap` is crucial — without overlap you lose context at chunk boundaries.
+
+## Step 2: Embeddings and vector store
+
+Every chunk is turned into an embedding — a numerical representation of its meaning. Similar texts get similar embeddings.
+
+## Step 3: Query pipeline
+
+When a user asks a question:
+
+1. The question is turned into an embedding
+2. We find the most relevant chunks via cosine similarity
+3. The retrieved chunks are passed to the LLM as context
+4. The LLM formulates an answer and references the sources
+
+## The result
+
+- Search time: from 45 minutes to 30 seconds
+- Accuracy: 92% of answers were correct on validation
+- Adoption: within 2 weeks 80% of the team used it daily
+
+## Lessons learned
+
+1. **Chunk size matters.** Too small = no context. Too large = too much noise. Test with real questions.
+2. **Metadata is gold.** Document name, date, author — add them to your chunks. It improves retrieval and user trust.
+3. **Start simple.** A basic RAG system already delivers enormous value. Only optimize once you know where the weak spots are.
+
+## The business value
+
+This project shows what's possible when you combine GenAI with real company data. Not a generic chatbot, but a tool that answers specific questions about your documents, with citations.

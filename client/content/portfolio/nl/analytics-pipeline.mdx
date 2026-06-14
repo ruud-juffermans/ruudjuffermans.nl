@@ -1,0 +1,48 @@
+---
+title: "End-to-end analytics pipeline voor verkoopdata"
+industry: "Showcase project"
+summary: "Van ruwe CSV-bestanden naar een geautomatiseerde pipeline met data warehouse en interactief Power BI dashboard."
+tags: ["Python", "SQL", "Power BI", "Data Engineering"]
+duration: "3 weken"
+---
+
+## De uitdaging
+
+Een bedrijf met verkoopdata verspreid over tientallen CSV-bestanden, handmatig bijgehouden Excel-sheets en een legacy CRM. Maandelijkse rapportages kostten 2 dagen handmatig werk en waren regelmatig inconsistent.
+
+## De aanpak
+
+### Architectuur
+
+Een gelaagde data-architectuur:
+
+1. **Bronlaag** — Ruwe data uit CSV, Excel en CRM-exports
+2. **Transformatielaag** — Python scripts voor cleaning, validatie en transformatie
+3. **Warehouse** — PostgreSQL met een dimensionaal model (star schema)
+4. **Presentatielaag** — Power BI dashboard met directe connectie naar het warehouse
+
+### Data transformatie
+
+Python scripts die dagelijks draaien:
+- Automatische detectie van nieuwe bronbestanden
+- Data validatie en kwaliteitscontroles
+- Deduplicatie en standaardisatie
+- Laden in het warehouse met upsert-logica
+
+### Dashboard
+
+Een interactief Power BI dashboard met:
+- Omzet per regio, product en tijdsperiode
+- Klantanalyse: retentie, lifetime value, churn-indicatoren
+- Trend-analyse met year-over-year vergelijking
+- Drill-down van nationaal naar individuele verkopers
+
+## Het resultaat
+
+- Rapportagetijd: van 2 dagen naar 15 minuten
+- Data-kwaliteit: 99.5% consistentie na automatische validatie
+- Inzichten: voor het eerst zicht op klant-churn en regionale trends
+
+## Technologie
+
+Python, pandas, PostgreSQL, Power BI, Power Query, DAX, cron scheduling
