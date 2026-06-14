@@ -1,0 +1,331 @@
+{
+  "site": {
+    "title": "Ruud Juffermans — Data Analytics & AI",
+    "titleTemplate": "%s | Ruud Juffermans",
+    "description": "Ik help bedrijven data-gedreven en AI-enabled te worden. Van strategie tot implementatie, van dashboards tot AI-oplossingen.",
+    "siteName": "Ruud Juffermans — Data Analytics & AI"
+  },
+  "common": {
+    "cta": "Plan een gesprek",
+    "contact": "Contact",
+    "readMore": "Lees meer",
+    "backToBlog": "Terug naar blog",
+    "backToPortfolio": "Terug naar portfolio",
+    "readingTimeSuffix": "leestijd",
+    "languageLabel": "Taal",
+    "switchToEnglish": "Engels",
+    "switchToDutch": "Nederlands",
+    "themeLabel": "Thema",
+    "themeLight": "Licht thema",
+    "themeDark": "Donker thema",
+    "themeSystem": "Systeemvoorkeur"
+  },
+  "nav": {
+    "services": "Diensten",
+    "portfolio": "Portfolio",
+    "blog": "Blog",
+    "about": "Over mij",
+    "contact": "Contact"
+  },
+  "home": {
+    "metaTitle": "Ruud Juffermans — Data Analytics & AI",
+    "hero": {
+      "eyebrow": "Data Analytics & AI Consultant",
+      "title": "Ik help bedrijven data-gedreven en AI-enabled te worden",
+      "subtitle": "Van data-architectuur tot dashboards, van AI-strategie tot werkende oplossingen. Met training zodat je team het zelf kan.",
+      "ctaPrimary": "Plan een gesprek",
+      "ctaSecondary": "Bekijk mijn werk"
+    },
+    "problem": {
+      "eyebrow": "Herkenbaar?",
+      "title": "De uitdagingen die ik elke dag tegenkom",
+      "card1Title": "Data waar je niets mee doet",
+      "card1Body": "Je verzamelt data in tientallen systemen, maar niemand maakt er inzichten van. Rapportages zijn handmatig, inconsistent of bestaan niet.",
+      "card2Title": "Geen fundament",
+      "card2Body": "Geen warehouse, geen pipelines, geen single source of truth. Zelfs als je een analist zou aannemen, is er niets solides om mee te werken.",
+      "card3Title": "AI-onzekerheid",
+      "card3Body": "Iedereen heeft het over AI. Concurrenten bewegen. Maar intern weet niemand wat realistisch is, wat hype is, en waar de echte ROI zit.",
+      "closer": "Als dit klinkt als jouw bedrijf — ik kan helpen."
+    },
+    "services": {
+      "eyebrow": "Wat ik doe",
+      "title": "Van strategie tot implementatie",
+      "service1Title": "Data Analytics",
+      "service1Body": "Van losse spreadsheets naar een betrouwbaar datafundament met dashboards die antwoorden geven.",
+      "service2Title": "AI & GenAI",
+      "service2Body": "Praktische AI-oplossingen: documentverwerking, RAG-systemen, automatiseringen, en AI-strategie die werkt.",
+      "service3Title": "Training & Workshops",
+      "service3Body": "Ik bouw het, train je team om het te draaien, en vertrek. Elke opdracht bevat kennisoverdracht.",
+      "learnMore": "Meer over {topic}"
+    },
+    "process": {
+      "eyebrow": "Hoe ik werk",
+      "title": "Van eerste gesprek tot werkende oplossing",
+      "step1Title": "Scan",
+      "step1Body": "Ik breng in kaart waar je staat met data en AI, en waar de kansen liggen.",
+      "step2Title": "Plan",
+      "step2Body": "Op basis van de scan maken we een concreet plan met prioriteiten en quick wins.",
+      "step3Title": "Bouw",
+      "step3Body": "Ik bouw de oplossing: data-pipelines, dashboards, AI-tools, automatiseringen.",
+      "step4Title": "Draag over",
+      "step4Body": "Ik train je team, documenteer alles, en zorg dat jullie het zelf kunnen draaien."
+    },
+    "blog": {
+      "eyebrow": "Blog",
+      "title": "Laatste artikelen",
+      "all": "Alle artikelen"
+    },
+    "cta": {
+      "title": "Benieuwd wat data en AI voor jouw bedrijf kunnen betekenen?",
+      "subtitle": "Plan een vrijblijvend kennismakingsgesprek.",
+      "primary": "Plan een gesprek",
+      "secondary": "Bekijk mijn diensten"
+    }
+  },
+  "services": {
+    "metaTitle": "Diensten — Data, AI & Analytics Consulting",
+    "metaDescription": "Data-architectuur, Power BI dashboards, AI-strategie, GenAI-oplossingen en training. Van scan tot volledige transformatie.",
+    "hero": {
+      "eyebrow": "Diensten",
+      "title": "Van strategie tot implementatie",
+      "subtitle": "Alles wat je nodig hebt om data en AI voor je te laten werken. Eén aanspreekpunt, geen doorverwijzingen."
+    },
+    "labels": {
+      "forWhom": "Voor wie",
+      "deliverables": "Deliverables",
+      "duration": "Typische duur: {value}"
+    },
+    "categories": {
+      "data": "Data Analytics",
+      "ai": "AI & GenAI",
+      "knowledge": "Kennisoverdracht"
+    },
+    "items": {
+      "dataTransformation": {
+        "title": "Data-gedreven transformatie",
+        "description": "Assessment van je data-volwassenheid, roadmap, en uitvoering. Van overal spreadsheets naar gestructureerde, betrouwbare, bruikbare data.",
+        "forWhom": "Bedrijven die weten dat ze meer met hun data moeten doen maar niet weten waar te beginnen.",
+        "deliverables": ["Maturity assessment", "Data strategie document", "Implementatie roadmap", "Quick win identificatie"],
+        "duration": "2-8 weken (assessment), 3-6 maanden (implementatie)"
+      },
+      "dashboards": {
+        "title": "Dashboards & Rapportages",
+        "description": "Power BI dashboards die stakeholders de antwoorden geven die ze nodig hebben — zonder elke keer een analist te hoeven vragen.",
+        "forWhom": "Management dat beslissingen neemt op gevoel in plaats van data.",
+        "deliverables": ["Interactieve Power BI dashboards", "Geautomatiseerde rapportages", "KPI-frameworks"],
+        "duration": "2-6 weken"
+      },
+      "analysis": {
+        "title": "Data-analyse & Inzichten",
+        "description": "Diepgaande analyses die ruwe data vertalen naar concrete aanbevelingen. Niet alleen wat er gebeurt, maar wat je moet doen.",
+        "forWhom": "Bedrijven die data hebben maar geen inzichten.",
+        "deliverables": ["Analyse rapport", "Aanbevelingen", "Presentatie voor management"],
+        "duration": "1-4 weken"
+      },
+      "engineering": {
+        "title": "Data Engineering",
+        "description": "Het fundament bouwen: pipelines, data warehouses, integraties en ETL-processen die al het andere mogelijk maken.",
+        "forWhom": "Bedrijven zonder een single source of truth. Data zit in silo's.",
+        "deliverables": ["Data warehouse ontwerp", "ETL/ELT pipelines", "Data integraties", "Documentatie"],
+        "duration": "4-12 weken"
+      },
+      "genai": {
+        "title": "LLM/GenAI Oplossingen",
+        "description": "Documentverwerking, RAG-systemen, AI-agents, en conversational AI — op maat gebouwd voor jouw data en workflows.",
+        "forWhom": "Bedrijven die AI willen inzetten maar niet weten hoe.",
+        "deliverables": ["Werkend prototype of productie-systeem", "Technische documentatie", "Training voor gebruikers"],
+        "duration": "4-8 weken"
+      },
+      "aiStrategy": {
+        "title": "AI-strategie",
+        "description": "Helpen begrijpen waar AI past en waar niet, wat realistisch is, en wat prioriteit verdient. Geen hype — eerlijk advies.",
+        "forWhom": "Management dat weet dat ze iets met AI moeten maar niet weet wat.",
+        "deliverables": ["AI readiness assessment", "Geprioriteerde use case lijst", "Business case per use case"],
+        "duration": "2-4 weken"
+      },
+      "modelDevelopment": {
+        "title": "AI Model Development",
+        "description": "Custom modellen voor specifieke bedrijfsproblemen: classificatie, voorspelling, extractie, en meer.",
+        "forWhom": "Bedrijven met een specifiek probleem dat met standaard tools niet opgelost wordt.",
+        "deliverables": ["Getraind model", "Evaluatierapport", "Integratie in bestaande systemen"],
+        "duration": "4-12 weken"
+      },
+      "automation": {
+        "title": "Automatiseringen",
+        "description": "Systemen verbinden, handmatig werk elimineren, en AI inzetten voor repetitieve processen. Workflows herontwerpen, niet tools stapelen.",
+        "forWhom": "Teams die dagelijks uren kwijt zijn aan kopiëren, plakken, en handmatig verwerken.",
+        "deliverables": ["Geautomatiseerde workflows", "Integraties tussen systemen", "Monitoring en alerting"],
+        "duration": "2-8 weken"
+      },
+      "training": {
+        "title": "Training & Workshops",
+        "description": "Teams leren werken met AI-tools, dataplatforms en analytics. De investering laten renderen nadat ik vertrek.",
+        "forWhom": "Bedrijven die een oplossing laten bouwen maar het daarna zelf willen draaien.",
+        "deliverables": ["Hands-on workshops", "Coaching trajecten", "Op maat trainingen"],
+        "duration": "Halve dag tot 8 weken"
+      }
+    },
+    "cta": {
+      "title": "Wil je weten wat dit voor jouw bedrijf kan betekenen?",
+      "subtitle": "Plan een vrijblijvend kennismakingsgesprek en we kijken samen waar de kansen liggen.",
+      "button": "Plan een gesprek"
+    }
+  },
+  "about": {
+    "metaTitle": "Over Ruud Juffermans — Data Analytics & AI Consultant",
+    "metaDescription": "Data Analytics & AI consultant met ervaring in data engineering, Power BI, GenAI en het trainen van teams.",
+    "eyebrow": "Over mij",
+    "name": "Ruud Juffermans",
+    "intro1": "Ik ben Data Analytics & AI consultant met een achtergrond in computer science, data engineering en AI-toepassingen. Ik heb gewerkt in de luchtvaartsector, bij de politie, en duizenden studenten bereikt via online cursussen.",
+    "intro2": "Bij het Nederlands Lucht- en Ruimtevaartcentrum (NLR) bouwde ik als data engineer aan een groot aantal uiteenlopende projecten. Bij de Politie Noord-Holland paste ik AI, data-analyse en automation toe binnen het domein strafrecht — van ongestructureerde data naar bruikbare inzichten.",
+    "intro3": "Dezelfde thema's kwamen terug: bedrijven die op waardevolle data zitten zonder relevante informatie hieruit te ontsluiten, en AI-hype volgen maar niet verder komen dat Copilot voor werknemers. Ik startte deze praktijk om dat gat te dichten — voor bedrijven die geen datateam van 20 man hebben.",
+    "pullQuote": "Ik heb gezien wat er gebeurt als data en AI wél werken.",
+    "expertiseTitle": "Expertise",
+    "skills": {
+      "data": "Data Analytics",
+      "ai": "AI & GenAI",
+      "engineering": "Engineering",
+      "tools": "Tools"
+    },
+    "timelineEyebrow": "Mijn pad",
+    "timelineTitle": "Van student tot consultant",
+    "timeline": [
+      { "year": "2019", "label": "Start Computer Science — Business Data Management" },
+      { "year": "2020", "label": "Eerste Udemy-cursussen gepubliceerd" },
+      { "year": "2023", "label": "Afgestudeerd, start bij NLR (data engineering, EU COMPASS-project)" },
+      { "year": "2024", "label": "Data Analist bij Politie Noord-Holland" },
+      { "year": "2025", "label": "Start freelance Data & AI consultancy" }
+    ],
+    "cta": {
+      "title": "Wil je samenwerken?",
+      "subtitle": "Neem contact op voor een vrijblijvend kennismakingsgesprek.",
+      "primary": "Contact",
+      "secondary": "Bekijk mijn diensten"
+    }
+  },
+  "contact": {
+    "metaTitle": "Contact — Ruud Juffermans",
+    "metaDescription": "Neem contact op met Ruud Juffermans voor een vrijblijvend gesprek over data- en AI-vraagstukken.",
+    "eyebrow": "Contact",
+    "title": "Laten we praten",
+    "subtitle": "Benieuwd wat ik voor je kan betekenen? Laat en bericht achter of neem contact op.",
+    "form": {
+      "name": "Naam",
+      "email": "E-mail",
+      "company": "Bedrijf (optioneel)",
+      "message": "Bericht",
+      "messagePlaceholder": "Vertel me waar je mee bezig bent en hoe ik kan helpen...",
+      "submit": "Verstuur bericht",
+      "submitting": "Verzenden...",
+      "genericError": "Er ging iets mis"
+    },
+    "success": {
+      "title": "Bericht verzonden",
+      "body": "Bedankt voor je bericht! Ik neem zo snel mogelijk contact met je op, meestal binnen 24 uur."
+    },
+    "direct": {
+      "title": "Direct contact",
+      "email": "ruudjuffermans@pm.me",
+      "linkedin": "LinkedIn",
+      "github": "GitHub",
+      "location": "Amsterdam, Nederland",
+      "remote": "Werkzaam door heel Nederland en remote."
+    }
+  },
+  "blog": {
+    "metaTitle": "Blog — Data, AI & Analytics Insights",
+    "metaDescription": "Artikelen over data-strategie, AI-implementatie en hoe bedrijven meer uit hun data halen.",
+    "eyebrow": "Blog",
+    "title": "Artikelen over data en AI",
+    "subtitle": "Over wat er echt voor nodig is om een data-gedreven organisatie te worden.",
+    "empty": {
+      "title": "Eerste artikelen komen eraan",
+      "body": "Ik werk aan diepgaande artikelen over data, AI en de praktijk van data-gedreven werken. Schrijf je in voor de nieuwsbrief om niets te missen."
+    },
+    "post": {
+      "ctaTitle": "Meer lezen?",
+      "ctaBody": "Schrijf je in voor de nieuwsbrief en ontvang maandelijks een artikel over data, AI en hoe je er als bedrijf iets aan hebt.",
+      "ctaButton": "Neem contact op",
+      "fallbackNotice": "Dit artikel is nog niet vertaald naar het Nederlands. Je leest de Engelse versie."
+    }
+  },
+  "portfolio": {
+    "metaTitle": "Portfolio — Data & AI Projecten",
+    "metaDescription": "Projecten en case studies: dashboards, data-pipelines, RAG-systemen en AI-automatiseringen.",
+    "eyebrow": "Portfolio",
+    "title": "Projecten en case studies",
+    "subtitle": "Van data-architectuur tot AI-oplossingen. Elk project bevat het probleem, de aanpak, en het resultaat.",
+    "view": "Bekijk project",
+    "empty": {
+      "title": "Portfolio in opbouw",
+      "body": "Ik werk aan case studies en showcase-projecten. Kom binnenkort terug, of neem alvast contact op voor een gesprek."
+    },
+    "detail": {
+      "fallbackNotice": "Dit project is nog niet vertaald naar het Nederlands. Je leest de Engelse versie."
+    }
+  },
+  "privacy": {
+    "metaTitle": "Privacyverklaring",
+    "metaDescription": "Privacyverklaring van Ruud Juffermans — Data Analytics & AI Consultant.",
+    "title": "Privacyverklaring",
+    "lastUpdated": "Laatste update: april 2026",
+    "sections": [
+      {
+        "title": "1. Wie ben ik",
+        "content": "Ruud Juffermans, handelend als Data Analytics & AI Consultant, gevestigd in Noord-Holland, Nederland. E-mail: ruudjuffermans@pm.me."
+      },
+      {
+        "title": "2. Welke gegevens verzamel ik",
+        "content": "Via het contactformulier: naam, e-mailadres, eventueel bedrijfsnaam en uw bericht. Via de nieuwsbrief: e-mailadres. Ik gebruik privacy-vriendelijke analytics (geen cookies, geen persoonsgegevens)."
+      },
+      {
+        "title": "3. Waarom verzamel ik deze gegevens",
+        "content": "Om uw vraag te beantwoorden en contact met u op te nemen. Om de nieuwsbrief te versturen waarvoor u zich heeft aangemeld. Om de website te verbeteren op basis van geanonimiseerde gebruiksstatistieken."
+      },
+      {
+        "title": "4. Hoe lang bewaar ik gegevens",
+        "content": "Contactformulier-gegevens worden bewaard zolang nodig voor de afhandeling van uw vraag, met een maximum van 12 maanden. Nieuwsbrief-gegevens worden bewaard totdat u zich uitschrijft."
+      },
+      {
+        "title": "5. Delen met derden",
+        "content": "Ik deel uw gegevens niet met derden, behalve waar nodig voor de dienstverlening: Resend (e-mailverzending) en Buttondown (nieuwsbrief). Deze verwerkers handelen onder verwerkersovereenkomsten."
+      },
+      {
+        "title": "6. Uw rechten",
+        "content": "U heeft recht op inzage, correctie, verwijdering en overdraagbaarheid van uw gegevens. Ook kunt u bezwaar maken tegen de verwerking. Neem hiervoor contact op via ruudjuffermans@pm.me. U kunt ook een klacht indienen bij de Autoriteit Persoonsgegevens."
+      },
+      {
+        "title": "7. Cookies",
+        "content": "Deze website maakt geen gebruik van tracking cookies. Er is geen cookie-banner nodig."
+      },
+      {
+        "title": "8. Wijzigingen",
+        "content": "Deze privacyverklaring kan worden aangepast. De laatste versie is altijd beschikbaar op deze pagina."
+      }
+    ]
+  },
+  "footer": {
+    "tagline": "Data Analytics & AI Consultant. Ik help bedrijven data-gedreven en AI-enabled te worden.",
+    "servicesHeading": "Diensten",
+    "moreHeading": "Meer",
+    "newsletterHeading": "Nieuwsbrief",
+    "newsletterBody": "Maandelijks een artikel over data, AI en hoe je er als bedrijf iets aan hebt.",
+    "newsletterPlaceholder": "jouw@email.nl",
+    "newsletterSubmit": "Inschrijven",
+    "newsletterSuccess": "Ingeschreven!",
+    "newsletterError": "Er ging iets mis. Probeer het opnieuw.",
+    "servicesLinks": {
+      "data": "Data Analytics",
+      "ai": "AI & GenAI",
+      "training": "Training"
+    },
+    "moreLinks": {
+      "portfolio": "Portfolio",
+      "blog": "Blog",
+      "about": "Over mij",
+      "privacy": "Privacy"
+    },
+    "copyright": "© {year} Ruud Juffermans",
+    "contactInfo": "ruudjuffermans@pm.me · Amsterdam, Nederland"
+  }
+}

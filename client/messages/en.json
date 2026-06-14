@@ -1,0 +1,331 @@
+{
+  "site": {
+    "title": "Ruud Juffermans — Data Analytics & AI",
+    "titleTemplate": "%s | Ruud Juffermans",
+    "description": "I help mid-market companies become data-driven and AI-enabled. From strategy to implementation, from dashboards to AI solutions.",
+    "siteName": "Ruud Juffermans — Data Analytics & AI"
+  },
+  "common": {
+    "cta": "Book a call",
+    "contact": "Contact",
+    "readMore": "Read more",
+    "backToBlog": "Back to blog",
+    "backToPortfolio": "Back to portfolio",
+    "readingTimeSuffix": "read",
+    "languageLabel": "Language",
+    "switchToEnglish": "English",
+    "switchToDutch": "Dutch",
+    "themeLabel": "Theme",
+    "themeLight": "Light theme",
+    "themeDark": "Dark theme",
+    "themeSystem": "System preference"
+  },
+  "nav": {
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "blog": "Blog",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "home": {
+    "metaTitle": "Ruud Juffermans — Data Analytics & AI",
+    "hero": {
+      "eyebrow": "Data Analytics & AI Consultant",
+      "title": "I help companies become data-driven and AI-enabled",
+      "subtitle": "From data architecture to dashboards, from AI strategy to working solutions. With training so your team can run it themselves.",
+      "ctaPrimary": "Book a call",
+      "ctaSecondary": "See my work"
+    },
+    "problem": {
+      "eyebrow": "Sound familiar?",
+      "title": "The challenges I see every day",
+      "card1Title": "Data you do nothing with",
+      "card1Body": "You collect data in dozens of systems, but nobody turns it into insights. Reporting is manual, inconsistent or non-existent.",
+      "card2Title": "No foundation",
+      "card2Body": "No warehouse, no pipelines, no single source of truth. Even if you hired an analyst, there would be nothing solid to work with.",
+      "card3Title": "AI uncertainty",
+      "card3Body": "Everyone's talking about AI. Competitors are moving. But internally nobody knows what's realistic, what's hype, and where the real ROI is.",
+      "closer": "If this sounds like your company — I can help."
+    },
+    "services": {
+      "eyebrow": "What I do",
+      "title": "From strategy to implementation",
+      "service1Title": "Data Analytics",
+      "service1Body": "From scattered spreadsheets to a reliable data foundation with dashboards that actually answer questions.",
+      "service2Title": "AI & GenAI",
+      "service2Body": "Practical AI solutions: document processing, RAG systems, automations, and AI strategy that works.",
+      "service3Title": "Training & Workshops",
+      "service3Body": "I build it, train your team to run it, then leave. Every engagement includes knowledge transfer.",
+      "learnMore": "More on {topic}"
+    },
+    "process": {
+      "eyebrow": "How I work",
+      "title": "From first conversation to working solution",
+      "step1Title": "Scan",
+      "step1Body": "I map where you stand with data and AI, and where the opportunities are.",
+      "step2Title": "Plan",
+      "step2Body": "Based on the scan we draw up a concrete plan with priorities and quick wins.",
+      "step3Title": "Build",
+      "step3Body": "I build the solution: data pipelines, dashboards, AI tools, automations.",
+      "step4Title": "Hand over",
+      "step4Body": "I train your team, document everything, and make sure you can run it yourselves."
+    },
+    "blog": {
+      "eyebrow": "Blog",
+      "title": "Latest articles",
+      "all": "All articles"
+    },
+    "cta": {
+      "title": "Curious what data and AI could mean for your business?",
+      "subtitle": "Book a no-obligation intro call.",
+      "primary": "Book a call",
+      "secondary": "See my services"
+    }
+  },
+  "services": {
+    "metaTitle": "Services — Data, AI & Analytics Consulting",
+    "metaDescription": "Data architecture, Power BI dashboards, AI strategy, GenAI solutions and training. From scan to full transformation.",
+    "hero": {
+      "eyebrow": "Services",
+      "title": "From strategy to implementation",
+      "subtitle": "Everything you need to make data and AI work for you. One point of contact, no hand-offs."
+    },
+    "labels": {
+      "forWhom": "For whom",
+      "deliverables": "Deliverables",
+      "duration": "Typical duration: {value}"
+    },
+    "categories": {
+      "data": "Data Analytics",
+      "ai": "AI & GenAI",
+      "knowledge": "Knowledge transfer"
+    },
+    "items": {
+      "dataTransformation": {
+        "title": "Data-driven transformation",
+        "description": "Assessment of your data maturity, roadmap, and delivery. From spreadsheets everywhere to structured, reliable, usable data.",
+        "forWhom": "Companies who know they should do more with their data but don't know where to start.",
+        "deliverables": ["Maturity assessment", "Data strategy document", "Implementation roadmap", "Quick-win identification"],
+        "duration": "2-8 weeks (assessment), 3-6 months (implementation)"
+      },
+      "dashboards": {
+        "title": "Dashboards & Reporting",
+        "description": "Power BI dashboards that give stakeholders the answers they need — without having to ask an analyst every time.",
+        "forWhom": "Management making decisions on gut feel instead of data.",
+        "deliverables": ["Interactive Power BI dashboards", "Automated reporting", "KPI frameworks"],
+        "duration": "2-6 weeks"
+      },
+      "analysis": {
+        "title": "Data analysis & Insights",
+        "description": "In-depth analyses that turn raw data into concrete recommendations. Not just what's happening, but what to do about it.",
+        "forWhom": "Companies that have data but no insights.",
+        "deliverables": ["Analysis report", "Recommendations", "Management presentation"],
+        "duration": "1-4 weeks"
+      },
+      "engineering": {
+        "title": "Data Engineering",
+        "description": "Building the foundation: pipelines, data warehouses, integrations and ETL processes that make everything else possible.",
+        "forWhom": "Companies without a single source of truth. Data sits in silos.",
+        "deliverables": ["Data warehouse design", "ETL/ELT pipelines", "Data integrations", "Documentation"],
+        "duration": "4-12 weeks"
+      },
+      "genai": {
+        "title": "LLM/GenAI Solutions",
+        "description": "Document processing, RAG systems, AI agents, and conversational AI — custom-built for your data and workflows.",
+        "forWhom": "Companies that want to apply AI but don't know how.",
+        "deliverables": ["Working prototype or production system", "Technical documentation", "User training"],
+        "duration": "4-8 weeks"
+      },
+      "aiStrategy": {
+        "title": "AI strategy",
+        "description": "Helping you understand where AI fits and where it doesn't, what's realistic, and what deserves priority. No hype — honest advice.",
+        "forWhom": "Management that knows they should do something with AI but not what.",
+        "deliverables": ["AI readiness assessment", "Prioritized use-case list", "Business case per use case"],
+        "duration": "2-4 weeks"
+      },
+      "modelDevelopment": {
+        "title": "AI Model Development",
+        "description": "Custom models for specific business problems: classification, prediction, extraction, and more.",
+        "forWhom": "Companies with a specific problem that off-the-shelf tools don't solve.",
+        "deliverables": ["Trained model", "Evaluation report", "Integration into existing systems"],
+        "duration": "4-12 weeks"
+      },
+      "automation": {
+        "title": "Automations",
+        "description": "Connecting systems, eliminating manual work, and applying AI to repetitive processes. Redesigning workflows, not stacking tools.",
+        "forWhom": "Teams that spend hours daily copying, pasting, and processing by hand.",
+        "deliverables": ["Automated workflows", "System integrations", "Monitoring and alerting"],
+        "duration": "2-8 weeks"
+      },
+      "training": {
+        "title": "Training & Workshops",
+        "description": "Teaching teams to work with AI tools, data platforms and analytics. Making the investment pay off after I'm gone.",
+        "forWhom": "Companies that have a solution built but want to run it themselves afterwards.",
+        "deliverables": ["Hands-on workshops", "Coaching tracks", "Tailored training"],
+        "duration": "Half a day to 8 weeks"
+      }
+    },
+    "cta": {
+      "title": "Want to know what this could mean for your business?",
+      "subtitle": "Book a no-obligation intro call and we'll look at where the opportunities are together.",
+      "button": "Book a call"
+    }
+  },
+  "about": {
+    "metaTitle": "About Ruud Juffermans — Data Analytics & AI Consultant",
+    "metaDescription": "Data Analytics & AI consultant with experience in data engineering, Power BI, GenAI and training teams.",
+    "eyebrow": "About",
+    "name": "Ruud Juffermans",
+    "intro1": "I'm a Data Analytics & AI consultant with a background in computer science, data engineering and AI applications. I've worked in aerospace, with the police, and reached thousands of students through online courses.",
+    "intro2": "At the Netherlands Aerospace Centre (NLR) I built data platforms for EU research projects. At Noord-Holland Police I applied AI and data analysis to real investigations — turning unstructured data into actionable insights.",
+    "intro3": "Everywhere I saw the same pattern: companies sitting on valuable data without a way to unlock it, and AI hype without practical implementation. I started this practice to close that gap — for companies that don't have a 20-person data team.",
+    "pullQuote": "I've seen what happens when data and AI work — and what happens when they don't.",
+    "expertiseTitle": "Expertise",
+    "skills": {
+      "data": "Data Analytics",
+      "ai": "AI & GenAI",
+      "engineering": "Engineering",
+      "tools": "Tools"
+    },
+    "timelineEyebrow": "My path",
+    "timelineTitle": "From student to consultant",
+    "timeline": [
+      { "year": "2019", "label": "Started Computer Science — Business Data Management" },
+      { "year": "2020", "label": "Published first Udemy courses" },
+      { "year": "2023", "label": "Graduated, started at NLR (data engineering, EU COMPASS project)" },
+      { "year": "2024", "label": "Data Analyst at Noord-Holland Police" },
+      { "year": "2025", "label": "Launched freelance Data & AI consultancy" }
+    ],
+    "cta": {
+      "title": "Want to work together?",
+      "subtitle": "Get in touch for a no-obligation intro call.",
+      "primary": "Contact",
+      "secondary": "See my services"
+    }
+  },
+  "contact": {
+    "metaTitle": "Contact — Ruud Juffermans",
+    "metaDescription": "Get in touch with Ruud Juffermans for a no-obligation conversation about data and AI.",
+    "eyebrow": "Contact",
+    "title": "Let's talk",
+    "subtitle": "Curious what I can do for you? Leave a message or reach out.",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "company": "Company (optional)",
+      "message": "Message",
+      "messagePlaceholder": "Tell me what you're working on and how I can help...",
+      "submit": "Send message",
+      "submitting": "Sending...",
+      "genericError": "Something went wrong"
+    },
+    "success": {
+      "title": "Message sent",
+      "body": "Thanks for your message! I'll get back to you as soon as possible, usually within 24 hours."
+    },
+    "direct": {
+      "title": "Direct contact",
+      "email": "ruudjuffermans@pm.me",
+      "linkedin": "LinkedIn",
+      "github": "GitHub",
+      "location": "Amsterdam, Netherlands",
+      "remote": "Working across the Netherlands and remote."
+    }
+  },
+  "blog": {
+    "metaTitle": "Blog — Data, AI & Analytics Insights",
+    "metaDescription": "Articles on data strategy, AI implementation and how companies get more out of their data.",
+    "eyebrow": "Blog",
+    "title": "Articles on data and AI",
+    "subtitle": "On what it really takes to become a data-driven organization.",
+    "empty": {
+      "title": "First articles coming soon",
+      "body": "I'm working on in-depth articles about data, AI and the practice of data-driven working. Subscribe to the newsletter so you don't miss them."
+    },
+    "post": {
+      "ctaTitle": "More to read?",
+      "ctaBody": "Subscribe to the newsletter for a monthly article on data, AI and what it means for your business.",
+      "ctaButton": "Get in touch",
+      "fallbackNotice": "This article hasn't been translated to English yet. You're reading the Dutch version."
+    }
+  },
+  "portfolio": {
+    "metaTitle": "Portfolio — Data & AI Projects",
+    "metaDescription": "Projects and case studies: dashboards, data pipelines, RAG systems and AI automations.",
+    "eyebrow": "Portfolio",
+    "title": "Projects and case studies",
+    "subtitle": "From data architecture to AI solutions. Every project covers the problem, the approach, and the result.",
+    "view": "View project",
+    "empty": {
+      "title": "Portfolio in progress",
+      "body": "I'm working on case studies and showcase projects. Check back soon, or reach out for a conversation in the meantime."
+    },
+    "detail": {
+      "fallbackNotice": "This project hasn't been translated to English yet. You're reading the Dutch version."
+    }
+  },
+  "privacy": {
+    "metaTitle": "Privacy statement",
+    "metaDescription": "Privacy statement of Ruud Juffermans — Data Analytics & AI Consultant.",
+    "title": "Privacy statement",
+    "lastUpdated": "Last updated: April 2026",
+    "sections": [
+      {
+        "title": "1. Who I am",
+        "content": "Ruud Juffermans, operating as Data Analytics & AI Consultant, based in Noord-Holland, Netherlands. Email: ruudjuffermans@pm.me."
+      },
+      {
+        "title": "2. What data I collect",
+        "content": "Via the contact form: name, email address, optional company name and your message. Via the newsletter: email address. I use privacy-friendly analytics (no cookies, no personal data)."
+      },
+      {
+        "title": "3. Why I collect this data",
+        "content": "To answer your question and contact you. To send the newsletter you signed up for. To improve the website based on anonymized usage statistics."
+      },
+      {
+        "title": "4. How long I keep data",
+        "content": "Contact-form data is kept as long as needed to handle your request, up to a maximum of 12 months. Newsletter data is kept until you unsubscribe."
+      },
+      {
+        "title": "5. Sharing with third parties",
+        "content": "I don't share your data with third parties, except where needed for service delivery: Resend (email sending) and Buttondown (newsletter). These processors operate under data-processing agreements."
+      },
+      {
+        "title": "6. Your rights",
+        "content": "You have the right to access, correct, delete and transfer your data. You can also object to processing. Contact ruudjuffermans@pm.me for any of these. You can also file a complaint with the Dutch Data Protection Authority."
+      },
+      {
+        "title": "7. Cookies",
+        "content": "This website doesn't use tracking cookies. No cookie banner is needed."
+      },
+      {
+        "title": "8. Changes",
+        "content": "This privacy statement may be updated. The latest version is always available on this page."
+      }
+    ]
+  },
+  "footer": {
+    "tagline": "Data Analytics & AI Consultant. I help companies become data-driven and AI-enabled.",
+    "servicesHeading": "Services",
+    "moreHeading": "More",
+    "newsletterHeading": "Newsletter",
+    "newsletterBody": "A monthly article on data, AI and what it means for your business.",
+    "newsletterPlaceholder": "you@email.com",
+    "newsletterSubmit": "Subscribe",
+    "newsletterSuccess": "Subscribed!",
+    "newsletterError": "Something went wrong. Please try again.",
+    "servicesLinks": {
+      "data": "Data Analytics",
+      "ai": "AI & GenAI",
+      "training": "Training"
+    },
+    "moreLinks": {
+      "portfolio": "Portfolio",
+      "blog": "Blog",
+      "about": "About",
+      "privacy": "Privacy"
+    },
+    "copyright": "© {year} Ruud Juffermans",
+    "contactInfo": "ruudjuffermans@pm.me · Amsterdam, Netherlands"
+  }
+}
