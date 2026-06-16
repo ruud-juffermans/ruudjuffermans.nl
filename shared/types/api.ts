@@ -19,6 +19,12 @@ export interface NewsletterResponse {
   message: string;
 }
 
+export interface PageViewRequest {
+  path: string;
+  locale?: string;
+  referrer?: string;
+}
+
 export interface ApiError {
   error: string;
   details?: string;
