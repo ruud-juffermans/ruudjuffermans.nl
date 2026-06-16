@@ -12,7 +12,7 @@ plus contact and newsletter forms wired to a hardened backend.
 | Frontend | Next.js 15 (App Router), React 19, Material UI 6, next-intl, MDX |
 | Backend  | Express 5, Zod, Helmet, Resend, Pino, express-rate-limit |
 | Shared   | TypeScript types shared between client and server |
-| Tooling  | npm workspaces, TypeScript, Docker / Docker Compose |
+| Tooling  | TypeScript, Docker / Docker Compose |
 
 ## Project structure
 
@@ -33,16 +33,13 @@ plus contact and newsletter forms wired to a hardened backend.
 
 ## Getting started
 
+The project runs via Docker Compose — each service installs its own
+dependencies inside its container, so no host-side `npm install` is required.
+See [DEV.md](./DEV.md) for the full development workflow.
+
 ### Prerequisites
 
-- Node.js 20+ (developed on Node 23)
-- npm 9+
-
-### Install
-
-```bash
-npm install
-```
+- Docker + Docker Compose
 
 ### Configure environment
 
@@ -74,27 +71,21 @@ Client variables (`client/.env.local`):
 ### Run in development
 
 ```bash
-npm run dev
+docker compose -f docker-compose.dev.yml up --build
 ```
 
 Starts the client (http://localhost:3000) and server (http://localhost:4000)
-concurrently.
+with hot reload. Stop with `docker compose -f docker-compose.dev.yml down`.
 
-### Build & run for production
-
-```bash
-npm run build
-npm start
-```
-
-## Docker
+### Run for production
 
 ```bash
 docker compose up --build
 ```
 
-The API exposes a health check at `GET /api/v1/health`; the client waits for it
-before starting.
+This expects the external `frontend` / `backend` networks from the infra stack
+— bring that up first. The API exposes a health check at `GET /api/v1/health`;
+the client waits for it before starting.
 
 ## API
 
