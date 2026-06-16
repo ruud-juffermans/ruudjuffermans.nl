@@ -190,103 +190,48 @@ export default async function Home({
       </Box>
 
       {/* How I Work */}
-      <Box
-        sx={{
-          py: { xs: 8, md: 12 },
-          backgroundColor: palette.navy,
-          color: palette.white,
-          position: "relative",
-          overflow: "hidden",
-          "&::before": {
-            content: '""',
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundImage: `radial-gradient(circle at 20% 50%, rgba(221, 46, 90, 0.08) 0%, transparent 50%),
-                             radial-gradient(circle at 80% 50%, rgba(221, 46, 90, 0.05) 0%, transparent 50%)`,
-            pointerEvents: "none",
-          },
-        }}
-      >
-        <Container sx={{ position: "relative" }}>
+      <Box sx={{ py: { xs: 8, md: 12 } }}>
+        <Container>
           <Reveal variant="rise">
-            <Typography variant="overline" sx={{ mb: 1, display: "block", color: palette.redLight }}>
+            <Typography variant="overline" sx={{ mb: 1, display: "block" }}>
               {t("process.eyebrow")}
             </Typography>
-            <Typography variant="h2" sx={{ mb: 8, color: palette.white, maxWidth: 500 }}>
+            <Typography variant="h2" sx={{ mb: 6, maxWidth: 600 }}>
               {t("process.title")}
             </Typography>
           </Reveal>
-          <Grid container spacing={3}>
+          <Grid container spacing={4}>
             {steps.map((item, i) => (
               <Grid size={{ xs: 12, sm: 6, md: 3 }} key={item.step}>
-                <Reveal variant="rise" delay={i * 140} sx={{ height: "100%" }}>
-                  <Box
-                    sx={{
-                      position: "relative",
-                      height: "100%",
-                      display: "flex",
-                      flexDirection: "column",
-                      p: { xs: 3, md: 3.5 },
-                      backgroundColor: "rgba(255, 255, 255, 0.03)",
-                      border: "1px solid rgba(255, 255, 255, 0.08)",
-                      borderRadius: "14px",
-                      backdropFilter: "blur(6px)",
-                      WebkitBackdropFilter: "blur(6px)",
-                      transition:
-                        "transform 0.3s ease, border-color 0.3s ease, background-color 0.3s ease",
-                      "&:hover": {
-                        transform: "translateY(-3px)",
-                        borderColor: "rgba(248, 113, 144, 0.035)",
-                        backgroundColor: "rgba(255, 255, 255, 0.05)",
-                      },
-                      // Top red hairline
-                      "&::after": {
-                        content: '""',
-                        position: "absolute",
-                        top: 0,
-                        left: 16,
-                        right: 16,
-                        height: 1,
-                        background: `linear-gradient(90deg, transparent, ${palette.red}, transparent)`,
-                        opacity: 0.025,
-                      },
-                    }}
-                  >
-                    {/* Step numeral chip */}
-                    <Box
-                      sx={{
-                        mb: 2,
-                      }}
-                    >
-                      <Typography
+                <Reveal variant="rise" delay={i * 120} sx={{ height: "100%" }}>
+                  <Card sx={{ height: "100%" }}>
+                    <CardContent sx={{ p: 4 }}>
+                      <Box
                         sx={{
+                          width: 56,
+                          height: 56,
+                          borderRadius: 3,
+                          backgroundColor: palette.redMuted,
+                          color: palette.red,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          mb: 3,
                           fontWeight: 700,
-                          fontSize: "0.85rem",
-                          color: palette.redLight,
-                          letterSpacing: "0.06em",
+                          fontSize: "1.1rem",
                           fontVariantNumeric: "tabular-nums",
-                          lineHeight: 1,
                         }}
                       >
                         {item.step}
+                      </Box>
+                      <Typography variant="h4" sx={{ mb: 1.5 }}>
+                        {item.title}
                       </Typography>
-                    </Box>
-                    <Typography
-                      variant="h4"
-                      sx={{ color: palette.white, mb: 1.25, fontSize: "1.25rem" }}
-                    >
-                      {item.title}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{ color: palette.gray300, lineHeight: 1.65 }}
-                    >
-                      {item.description}
-                    </Typography>
-                  </Box>
+                      <Typography variant="body1">
+                        {item.description}
+                      </Typography>
+                    </CardContent>
+                  </Card>
                 </Reveal>
               </Grid>
             ))}
@@ -295,7 +240,7 @@ export default async function Home({
       </Box>
 
       {/* Problem Statement */}
-      <Box sx={{ py: { xs: 8, md: 12 } }}>
+      <Box sx={{ py: { xs: 8, md: 12 }, backgroundColor: palette.offWhite }}>
         <Container>
           <Reveal variant="rise">
             <Typography variant="overline" sx={{ mb: 1, display: "block" }}>
