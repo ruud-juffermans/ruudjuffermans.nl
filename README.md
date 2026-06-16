@@ -28,33 +28,35 @@ plus contact and newsletter forms wired to a hardened backend.
 │       ├── routes/       # /contact, /newsletter
 │       └── services/     # email (Resend), newsletter
 ├── shared/          # Shared TypeScript types
-├── .env.example     # Root env template (copy to .env)
-├── DEV.md           # Development workflow
-├── docker-compose.yml       # Production stack
-└── docker-compose.dev.yml   # Local dev stack (hot reload)
+├── setup-dev.sh     # Generates the local .env + docker-compose.override.yml
+├── .env.example     # Root env template
+└── docker-compose.yml       # Production stack (joins the infra networks)
 ```
 
 ## Getting started
 
 The project runs via Docker Compose — each service installs its own
 dependencies inside its container, so no host-side `npm install` is required.
-See [DEV.md](./DEV.md) for the full development workflow.
 
 ### Prerequisites
 
 - Docker + Docker Compose
 
-### Configure environment
-
-All configuration lives in a single root `.env`. Copy the example and fill in
-your values:
+### Set up the local-dev files
 
 ```bash
-cp .env.example .env
+./setup-dev.sh
 ```
 
-Docker Compose auto-loads this file. When running a service directly on the host,
-export it first: `set -a && . .env && set +a`.
+This writes the two gitignored local-dev files: `.env` (from `.env.example`) and
+`docker-compose.override.yml` — a self-contained dev stack with its own Postgres
+and hot-reload `dev` build targets that Compose auto-merges onto
+`docker-compose.yml`. No infra repo required. Re-run with `--force` to regenerate
+them.
+
+All configuration lives in the single root `.env`; Docker Compose auto-loads it.
+When running a service directly on the host, export it first:
+`set -a && . .env && set +a`.
 
 | Variable               | Description                                   | Default |
 | ---------------------- | --------------------------------------------- | ------- |
@@ -72,22 +74,63 @@ export it first: `set -a && . .env && set +a`.
 
 ### Run in development
 
+After `./setup-dev.sh`, Compose merges the override automatically:
+
 ```bash
-docker compose -f docker-compose.dev.yml up --build
+docker compose up --build   # start
+docker compose down         # stop
 ```
 
 Starts the client (http://localhost:3000) and server (http://localhost:4000)
-with hot reload. Stop with `docker compose -f docker-compose.dev.yml down`.
+with hot reload, plus a bundled Postgres on `localhost:5432`
+(`postgres` / `devpassword`, db `ruudjuffermans`).
+
+### Database
+
+The API uses PostgreSQL via [Prisma](https://www.prisma.io/). On `up`, the server
+runs `prisma generate` + `prisma migrate deploy` automatically, so the schema is
+always current; data persists in the `ruudjuffermans_dev_db` volume. Persisted:
+contact-form submissions (`contact_submissions`), newsletter subscribers
+(`newsletter_subscribers`), and page views (`page_views`).
+
+```bash
+# psql shell against the dev db
+docker compose exec db psql -U postgres -d ruudjuffermans
+
+# create a new migration after editing server/prisma/schema.prisma
+docker compose exec server npx prisma migrate dev --name <change>
+
+# inspect data in a browser
+docker compose exec server npx prisma studio
+```
 
 ### Run for production
 
+`docker-compose.yml` alone expects the external `frontend` / `backend` networks
+from the infra stack — bring that up first. The API exposes a health check at
+`GET /api/v1/health`; the client waits for it before starting. In production the
+DB is provided by the infra stack; the server applies `prisma migrate deploy` on
+boot.
+
+On the VPS there is no `docker-compose.override.yml` (it's gitignored), so a plain
+`docker compose up` is the production stack. **Locally**, where the override
+exists, that same command auto-merges it — so pass the base file explicitly to
+run prod without the override:
+
 ```bash
-docker compose up --build
+docker compose -f docker-compose.yml up --build
 ```
 
-This expects the external `frontend` / `backend` networks from the infra stack
-— bring that up first. The API exposes a health check at `GET /api/v1/health`;
-the client waits for it before starting.
+### Working on a single service (on the host)
+
+Each workspace can also run directly without Docker. Export the root `.env`
+first so both services pick up the shared config:
+
+```bash
+set -a && . .env && set +a                 # export root .env into the shell
+cd server && npm install && npm run dev     # API on :4000
+cd client && npm install && npm run dev     # frontend on :3000
+```
 
 ## API
 
