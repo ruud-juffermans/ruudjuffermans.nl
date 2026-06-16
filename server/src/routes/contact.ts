@@ -2,6 +2,7 @@ import { Router } from "express";
 import { z } from "zod";
 import { validate } from "../middleware/validation.js";
 import { sendContactEmail } from "../services/email.js";
+import { prisma } from "../lib/db.js";
 
 const router = Router();
 
@@ -14,6 +15,8 @@ const contactSchema = z.object({
 
 router.post("/", validate(contactSchema), async (req, res, next) => {
   try {
+    // Persist first so the submission survives even if the email send fails.
+    await prisma.contactSubmission.create({ data: req.body });
     await sendContactEmail(req.body);
     res.json({
       success: true,

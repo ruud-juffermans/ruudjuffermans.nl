@@ -1,9 +1,17 @@
 import { config } from "../lib/config.js";
 import { logger } from "../lib/logger.js";
+import { prisma } from "../lib/db.js";
 
 export async function subscribeToNewsletter(email: string): Promise<void> {
+  // Keep a local mirror of the subscriber list. Re-subscribing reactivates.
+  await prisma.newsletterSubscriber.upsert({
+    where: { email },
+    create: { email },
+    update: { active: true, unsubscribedAt: null },
+  });
+
   if (config.NEWSLETTER_API_KEY === "placeholder") {
-    logger.info({ email }, "Newsletter signup skipped (no API key configured)");
+    logger.info({ email }, "Newsletter signup stored locally (no provider API key configured)");
     return;
   }
 

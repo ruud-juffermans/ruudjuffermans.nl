@@ -10,3 +10,14 @@ export const formRateLimit = rateLimit({
     error: "Te veel verzoeken. Probeer het later opnieuw.",
   },
 });
+
+// Looser limit for analytics — normal browsing must not hit the form cap.
+export const analyticsRateLimit = rateLimit({
+  windowMs: 60 * 1000, // 1 minute
+  limit: 60, // max page-view beacons per IP per minute
+  standardHeaders: "draft-7",
+  legacyHeaders: false,
+  message: {
+    error: "Te veel verzoeken. Probeer het later opnieuw.",
+  },
+});
