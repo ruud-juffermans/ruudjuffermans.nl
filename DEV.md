@@ -13,9 +13,10 @@ Dockerfile). See [README.md](./README.md) for the full overview.
 
 ## First-time setup
 
+All configuration lives in a single root `.env`:
+
 ```bash
-cp server/.env.example server/.env         # fill in your values
-cp client/.env.local.example client/.env.local
+cp .env.example .env                        # fill in your values
 ```
 
 No `npm install` needed on the host — dependencies are installed in the images.
@@ -71,11 +72,13 @@ docker compose up --build
 
 ## Working on a single service (optional, on host)
 
-Each workspace can still be run directly without Docker:
+Each workspace can still be run directly without Docker. Export the root `.env`
+first so both services pick up the shared config:
 
 ```bash
-cd server && npm install && npm run dev    # API on :4000
-cd client && npm install && npm run dev    # frontend on :3000
+set -a && . .env && set +a                 # export root .env into the shell
+cd server && npm install && npm run dev     # API on :4000
+cd client && npm install && npm run dev     # frontend on :3000
 ```
 
 This creates a local `node_modules/` inside that workspace only.

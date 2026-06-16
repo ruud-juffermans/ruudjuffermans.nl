@@ -28,7 +28,10 @@ plus contact and newsletter forms wired to a hardened backend.
 │       ├── routes/       # /contact, /newsletter
 │       └── services/     # email (Resend), newsletter
 ├── shared/          # Shared TypeScript types
-└── docker-compose.yml
+├── .env.example     # Root env template (copy to .env)
+├── DEV.md           # Development workflow
+├── docker-compose.yml       # Production stack
+└── docker-compose.dev.yml   # Local dev stack (hot reload)
 ```
 
 ## Getting started
@@ -43,30 +46,29 @@ See [DEV.md](./DEV.md) for the full development workflow.
 
 ### Configure environment
 
-Copy the example env files and fill in your values:
+All configuration lives in a single root `.env`. Copy the example and fill in
+your values:
 
 ```bash
-cp server/.env.example server/.env
-cp client/.env.local.example client/.env.local
+cp .env.example .env
 ```
 
-Server variables (`server/.env`):
+Docker Compose auto-loads this file. When running a service directly on the host,
+export it first: `set -a && . .env && set +a`.
 
-| Variable             | Description                                   | Default |
-| -------------------- | --------------------------------------------- | ------- |
-| `PORT`               | API port                                      | `4000` |
-| `NODE_ENV`           | `development` \| `production` \| `test`       | `development` |
-| `CORS_ORIGIN`        | Allowed frontend origin                       | `http://localhost:3000` |
-| `RESEND_API_KEY`     | [Resend](https://resend.com) API key          | `re_placeholder` |
-| `CONTACT_EMAIL`      | Address that contact submissions are sent to  | — |
-| `NEWSLETTER_API_KEY` | Newsletter provider API key                   | `placeholder` |
-
-Client variables (`client/.env.local`):
-
-| Variable               | Description           | Default |
-| ---------------------- | --------------------- | ------- |
-| `NEXT_PUBLIC_API_URL`  | Base URL of the API   | `http://localhost:4000` |
-| `NEXT_PUBLIC_SITE_URL` | Public site URL       | `http://localhost:3000` |
+| Variable               | Description                                   | Default |
+| ---------------------- | --------------------------------------------- | ------- |
+| `PORT`                 | API port                                      | `4000` |
+| `NODE_ENV`             | `development` \| `production` \| `test`       | `development` |
+| `CORS_ORIGIN`          | Allowed frontend origin                       | `http://localhost:3000` |
+| `DATABASE_URL`         | Postgres connection string (host-run only)    | `…@localhost:5432/ruudjuffermans` |
+| `RESEND_API_KEY`       | [Resend](https://resend.com) API key          | `re_placeholder` |
+| `CONTACT_EMAIL`        | Address that contact submissions are sent to  | — |
+| `NEWSLETTER_API_KEY`   | Newsletter provider API key                   | `placeholder` |
+| `POSTGRES_USER`        | Shared Postgres user (match infra in prod)    | `postgres` |
+| `POSTGRES_PASSWORD`    | Shared Postgres password (match infra in prod)| `devpassword` |
+| `NEXT_PUBLIC_API_URL`  | Base URL of the API (client)                  | `http://localhost:4000` |
+| `NEXT_PUBLIC_SITE_URL` | Public site URL (client)                      | `http://localhost:3000` |
 
 ### Run in development
 
