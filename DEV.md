@@ -23,12 +23,84 @@ No `npm install` needed on the host — dependencies are installed in the images
 
 ## Run the dev stack (hot reload)
 
-Uses `docker-compose.dev.yml`. Source is bind-mounted; `node_modules` stays in
-the container.
+Dev runs as an auto-merged Compose **override**: the committed
+`docker-compose.yml` (production) plus a local, gitignored
+`docker-compose.override.yml` that adds a self-contained Postgres and flips the
+server/client to their hot-reload `dev` build targets. No infra repo required.
+Source is bind-mounted; `node_modules` stays in the container.
+
+The override is gitignored (local-only, never used on the VPS). Create it once
+in the repo root:
+
+```yaml
+# docker-compose.override.yml
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-devpassword}
+      POSTGRES_DB: ${POSTGRES_DB:-ruudjuffermans}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - ruudjuffermans_dev_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-ruudjuffermans}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks: [backend]
+
+  server:
+    build:
+      target: dev
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=development
+      - CORS_ORIGIN=http://localhost:3000
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-devpassword}@db:5432/${POSTGRES_DB:-ruudjuffermans}?schema=public
+      - CHOKIDAR_USEPOLLING=true
+    command: sh -c "npx prisma generate && npx prisma migrate deploy && npm run dev"
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+
+  client:
+    build:
+      target: dev
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=http://localhost:4000
+      - NEXT_PUBLIC_SITE_URL=http://localhost:3000
+      - WATCHPACK_POLLING=true
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+      - /app/.next
+
+volumes:
+  ruudjuffermans_dev_db:
+
+networks:
+  backend:
+    external: false
+  frontend:
+    external: false
+```
+
+Then bring the stack up — Compose merges both files automatically:
 
 ```bash
-docker compose -f docker-compose.dev.yml up --build   # start
-docker compose -f docker-compose.dev.yml down         # stop
+docker compose up --build   # start
+docker compose down         # stop
 ```
 
 - Client: http://localhost:3000
@@ -49,13 +121,13 @@ subscribers (`newsletter_subscribers`), and blog/portfolio page views
 
 ```bash
 # Open a psql shell against the dev db
-docker compose -f docker-compose.dev.yml exec db psql -U postgres -d ruudjuffermans
+docker compose exec db psql -U postgres -d ruudjuffermans
 
 # Create a new migration after editing server/prisma/schema.prisma
-docker compose -f docker-compose.dev.yml exec server npx prisma migrate dev --name <change>
+docker compose exec server npx prisma migrate dev --name <change>
 
 # Inspect data in a browser
-docker compose -f docker-compose.dev.yml exec server npx prisma studio
+docker compose exec server npx prisma studio
 ```
 
 In production (`docker-compose.yml`) the DB is provided by the
@@ -63,11 +135,16 @@ In production (`docker-compose.yml`) the DB is provided by the
 
 ## Run the production stack
 
-Uses `docker-compose.yml`. This expects the external `frontend` / `backend`
+Uses `docker-compose.yml` alone. It expects the external `frontend` / `backend`
 networks from the infra stack — bring that up first.
 
+On the VPS there is no `docker-compose.override.yml` (it's gitignored), so a plain
+`docker compose up` is the production stack. **Locally**, where the dev override
+exists, that same command would auto-merge it — so pass the base file explicitly
+to run prod without the override:
+
 ```bash
-docker compose up --build
+docker compose -f docker-compose.yml up --build
 ```
 
 ## Working on a single service (optional, on host)

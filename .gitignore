@@ -33,3 +33,6 @@ Thumbs.db
 # Misc
 *.local
 coverage/
+
+# Local dev compose override (auto-merged onto docker-compose.yml; not used on the VPS)
+docker-compose.override.yml
