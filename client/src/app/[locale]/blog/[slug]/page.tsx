@@ -8,6 +8,7 @@ import { Link } from "@/i18n/navigation";
 import { getBlogPost, getBlogPosts } from "@/lib/content";
 import { routing, type Locale } from "@/i18n/routing";
 import { palette } from "@/theme/theme";
+import PageViewTracker from "@/components/PageViewTracker";
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) =>
@@ -44,6 +45,7 @@ export default async function BlogPostPage({
 
   return (
     <Box sx={{ py: { xs: 4, md: 8 } }}>
+      <PageViewTracker path={`/blog/${slug}`} locale={locale} />
       <Container maxWidth="lg">
         <Button
           component={Link}

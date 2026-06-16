@@ -9,6 +9,7 @@ const envSchema = z.object({
     .enum(["development", "production", "test"])
     .default("development"),
   CORS_ORIGIN: z.string().default("http://localhost:3000"),
+  DATABASE_URL: z.string().url(),
   RESEND_API_KEY: z.string().default("re_placeholder"),
   CONTACT_EMAIL: z.string().email().default("ruudjuffermans@pm.me"),
   NEWSLETTER_API_KEY: z.string().default("placeholder"),
