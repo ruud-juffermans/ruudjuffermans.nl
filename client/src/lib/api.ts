@@ -33,3 +33,18 @@ export async function subscribeNewsletter(email: string) {
     { method: "POST", body: JSON.stringify({ email }) },
   );
 }
+
+// Fire-and-forget page-view beacon. Never throws — analytics must not break a page.
+export function recordPageView(path: string, locale?: string) {
+  const body = JSON.stringify({
+    path,
+    locale,
+    referrer: typeof document !== "undefined" ? document.referrer || undefined : undefined,
+  });
+  void fetch(`${API_URL}/api/v1/analytics`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body,
+    keepalive: true,
+  }).catch(() => {});
+}

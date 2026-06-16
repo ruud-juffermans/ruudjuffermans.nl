@@ -3,32 +3,49 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-    ports:
-      - "4000:4000"
+    # No host port publishing; reachable internally as "ruudjuffermans-server".
     environment:
       - NODE_ENV=production
       - PORT=4000
-      - CORS_ORIGIN=http://localhost:3000
+      - CORS_ORIGIN=https://ruudjuffermans.nl
       - RESEND_API_KEY=${RESEND_API_KEY:-re_placeholder}
       - CONTACT_EMAIL=${CONTACT_EMAIL:-ruudjuffermans@pm.me}
       - NEWSLETTER_API_KEY=${NEWSLETTER_API_KEY:-placeholder}
+      # Postgres is provisioned by the ruudjuffermans-infra stack (reachable as "db").
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/ruudjuffermans?schema=public
+    # Apply migrations before the server boots.
+    command: sh -c "npx prisma migrate deploy && node dist/index.js"
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:4000/api/v1/health"]
       interval: 30s
       timeout: 5s
       retries: 3
     restart: unless-stopped
+    networks:
+      backend:
+        aliases: [ruudjuffermans-server]
+      frontend:
+        aliases: [ruudjuffermans-server]
 
   client:
     build:
       context: ./client
       dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
+    # No host port publishing; the Caddy proxy fronts this on the "frontend" net.
     environment:
-      - NEXT_PUBLIC_API_URL=http://server:4000
-      - NEXT_PUBLIC_SITE_URL=http://localhost:3000
+      - NEXT_PUBLIC_API_URL=https://ruudjuffermans.nl
+      - NEXT_PUBLIC_SITE_URL=https://ruudjuffermans.nl
     depends_on:
       server:
         condition: service_healthy
     restart: unless-stopped
+    networks:
+      frontend:
+        aliases: [ruudjuffermans-client]
+
+networks:
+  # Created by the ruudjuffermans-infra stack; bring that up first.
+  backend:
+    external: true
+  frontend:
+    external: true

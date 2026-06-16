@@ -4,9 +4,10 @@ import helmet from "helmet";
 import { config } from "./lib/config.js";
 import { logger } from "./lib/logger.js";
 import { errorHandler } from "./middleware/errorHandler.js";
-import { formRateLimit } from "./middleware/rateLimit.js";
+import { formRateLimit, analyticsRateLimit } from "./middleware/rateLimit.js";
 import contactRouter from "./routes/contact.js";
 import newsletterRouter from "./routes/newsletter.js";
+import analyticsRouter from "./routes/analytics.js";
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.get("/api/v1/health", (_req, res) => {
 
 app.use("/api/v1/contact", formRateLimit, contactRouter);
 app.use("/api/v1/newsletter", formRateLimit, newsletterRouter);
+app.use("/api/v1/analytics", analyticsRateLimit, analyticsRouter);
 
 app.use(errorHandler);
 
