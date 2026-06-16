@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Outfit } from "next/font/google";
+// Self-hosted fonts (no CDN) — bundled from node_modules into the build.
+// The variable font families are referenced via --font-heading / --font-body,
+// which are defined in the MUI theme's CssBaseline.
+import "@fontsource-variable/bricolage-grotesque";
+import "@fontsource-variable/outfit";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -8,20 +12,6 @@ import ThemeRegistry from "@/theme/ThemeRegistry";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { routing } from "@/i18n/routing";
-
-const headingFont = Bricolage_Grotesque({
-  subsets: ["latin"],
-  variable: "--font-heading",
-  display: "swap",
-  weight: ["300", "400", "600", "700"],
-});
-
-const bodyFont = Outfit({
-  subsets: ["latin"],
-  variable: "--font-body",
-  display: "swap",
-  weight: ["200", "300", "400", "500", "600", "700"],
-});
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -69,7 +59,7 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
 
   return (
-    <html lang={locale} className={`${headingFont.variable} ${bodyFont.variable}`} suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         <InitColorSchemeScript
           defaultMode="system"
