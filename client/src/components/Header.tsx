@@ -48,21 +48,32 @@ export default function Header() {
       <AppBar position="sticky">
         <Container>
           <Toolbar disableGutters sx={{ justifyContent: "space-between", py: 0.5 }}>
-            <Box
-              component={Link}
-              href="/"
-              sx={{
-                textDecoration: "none",
-                fontFamily: "var(--font-heading)",
-                fontWeight: 700,
-                fontSize: "1.35rem",
-                color: palette.gray900,
-                letterSpacing: "-0.02em",
-                "&:hover": { color: palette.red },
-                transition: "color 0.2s",
-              }}
-            >
-              Ruud Juffermans
+            <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+              {isMobile && (
+                <IconButton
+                  onClick={() => setDrawerOpen(true)}
+                  aria-label="Open menu"
+                  sx={{ color: palette.gray900, ml: -1 }}
+                >
+                  <MenuIcon />
+                </IconButton>
+              )}
+              <Box
+                component={Link}
+                href="/"
+                sx={{
+                  textDecoration: "none",
+                  fontFamily: "var(--font-heading)",
+                  fontWeight: 700,
+                  fontSize: "1.35rem",
+                  color: palette.gray900,
+                  letterSpacing: "-0.02em",
+                  "&:hover": { color: palette.red },
+                  transition: "color 0.2s",
+                }}
+              >
+                Ruud Juffermans
+              </Box>
             </Box>
 
             {!isMobile && (
@@ -117,31 +128,31 @@ export default function Header() {
             )}
 
             {isMobile && (
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <Button
-                  variant="contained"
-                  component={Link}
-                  href="/contact"
-                  size="small"
-                  sx={{ py: 0.8, px: 2, fontSize: "0.85rem" }}
-                >
-                  {tc("contact")}
-                </Button>
-                <IconButton onClick={() => setDrawerOpen(true)} sx={{ color: palette.gray900 }}>
-                  <MenuIcon />
-                </IconButton>
-              </Box>
+              <Button
+                variant="contained"
+                component={Link}
+                href="/contact"
+                size="small"
+                sx={{ py: 0.8, px: 2, fontSize: "0.85rem" }}
+              >
+                {tc("contact")}
+              </Button>
             )}
           </Toolbar>
         </Container>
       </AppBar>
 
       <Drawer
-        anchor="right"
+        anchor="left"
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
         PaperProps={{
-          sx: { width: 280, pt: 2 },
+          sx: {
+            width: 280,
+            pt: 2,
+            backgroundColor: palette.offWhite,
+            backgroundImage: "none",
+          },
         }}
       >
         <Box sx={{ display: "flex", justifyContent: "flex-end", px: 2, mb: 1 }}>
