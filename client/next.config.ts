@@ -17,6 +17,19 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      // Canonical host: send www.ruudjuffermans.nl → ruudjuffermans.nl (apex is
+      // canonical, matching NEXT_PUBLIC_SITE_URL). Only fires when Traefik
+      // actually routes the www host to this app — see the Dokploy note below.
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www\\.ruudjuffermans\\.nl" }],
+        destination: "https://ruudjuffermans.nl/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async rewrites() {
     return [
       {
