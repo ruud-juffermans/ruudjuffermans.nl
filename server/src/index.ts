@@ -5,9 +5,11 @@ import { config } from "./lib/config.js";
 import { logger } from "./lib/logger.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { formRateLimit, analyticsRateLimit } from "./middleware/rateLimit.js";
+import { requireServiceToken } from "./middleware/serviceAuth.js";
 import contactRouter from "./routes/contact.js";
 import newsletterRouter from "./routes/newsletter.js";
 import analyticsRouter from "./routes/analytics.js";
+import adminRouter from "./routes/admin.js";
 
 const app = express();
 
@@ -33,6 +35,9 @@ app.get("/api/v1/health", (_req, res) => {
 app.use("/api/v1/contact", formRateLimit, contactRouter);
 app.use("/api/v1/newsletter", formRateLimit, newsletterRouter);
 app.use("/api/v1/analytics", analyticsRateLimit, analyticsRouter);
+
+// Admin API — service-token gated, called only by the central admin app.
+app.use("/api/v1/admin", requireServiceToken, adminRouter);
 
 app.use(errorHandler);
 

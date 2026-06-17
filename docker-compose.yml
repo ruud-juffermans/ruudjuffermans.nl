@@ -12,6 +12,9 @@ services:
       - RESEND_API_KEY=${RESEND_API_KEY:-re_placeholder}
       - CONTACT_EMAIL=${CONTACT_EMAIL:-ruudjuffermans@pm.me}
       - NEWSLETTER_API_KEY=${NEWSLETTER_API_KEY:-placeholder}
+      # Shared secret the central admin app presents to reach /api/v1/admin/*.
+      # Must match ADMIN_SERVICE_TOKEN in the admin app's env. Empty disables it.
+      - ADMIN_SERVICE_TOKEN=${ADMIN_SERVICE_TOKEN:-}
       # Postgres is provisioned by the ruudjuffermans-infra stack (reachable as "db").
       - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/ruudjuffermans?schema=public
     # Apply migrations before the server boots.
