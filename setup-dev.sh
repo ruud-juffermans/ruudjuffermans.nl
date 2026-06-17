@@ -53,8 +53,8 @@ if should_write "docker-compose.override.yml"; then
 #
 # It flips the server/client to their `dev` build targets (hot reload via
 # bind-mounted source), adds a self-contained Postgres so no infra repo is
-# required, makes the backend/frontend networks local instead of external, and
-# publishes the dev ports:
+# required, makes the backend/dokploy-network networks local instead of external,
+# and publishes the dev ports:
 #
 #   Client:  http://localhost:3000
 #   API:     http://localhost:4000   (health at /api/v1/health)
@@ -121,11 +121,11 @@ volumes:
   ruudjuffermans_dev_db:
 
 networks:
-  # Local dev creates its own networks instead of joining the infra stack's
-  # external ones (overrides external: true from docker-compose.yml).
+  # Local dev creates its own networks instead of joining the shared/Dokploy
+  # ones (overrides external: true from docker-compose.yml).
   backend:
     external: false
-  frontend:
+  dokploy-network:
     external: false
 OVERRIDE_EOF
   echo "created: docker-compose.override.yml"

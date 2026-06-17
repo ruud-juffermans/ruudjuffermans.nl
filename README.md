@@ -106,11 +106,13 @@ docker compose exec server npx prisma studio
 
 ### Run for production
 
-`docker-compose.yml` alone expects the external `frontend` / `backend` networks
-from the infra stack — bring that up first. The API exposes a health check at
-`GET /api/v1/health`; the client waits for it before starting. In production the
-DB is provided by the infra stack; the server applies `prisma migrate deploy` on
-boot.
+`docker-compose.yml` alone expects the external `backend` network from the infra
+stack (for the DB) and Dokploy's `dokploy-network` (for Traefik routing) — bring
+the infra stack up first. The API exposes a health check at `GET /api/v1/health`;
+the client waits for it before starting. In production the DB is provided by the
+infra stack; the server applies `prisma migrate deploy` on boot. HTTPS and
+public routing are handled by Dokploy's Traefik (domains set per service:
+client `/`, server `/api`).
 
 On the VPS there is no `docker-compose.override.yml` (it's gitignored), so a plain
 `docker compose up` is the production stack. **Locally**, where the override
