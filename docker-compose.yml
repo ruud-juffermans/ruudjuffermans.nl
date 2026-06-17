@@ -3,7 +3,8 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-    # No host port publishing; reachable internally as "ruudjuffermans-server".
+    # No host port publishing. Reached internally by the client and, for /api/*,
+    # by Dokploy's Traefik over "dokploy-network".
     environment:
       - NODE_ENV=production
       - PORT=4000
@@ -22,30 +23,32 @@ services:
       retries: 3
     restart: unless-stopped
     networks:
-      backend:
-        aliases: [ruudjuffermans-server]
-      frontend:
-        aliases: [ruudjuffermans-server]
+      # "backend" to reach the db; "dokploy-network" so Traefik can route /api/*.
+      - backend
+      - dokploy-network
 
   client:
     build:
       context: ./client
       dockerfile: Dockerfile
-    # No host port publishing; the Caddy proxy fronts this on the "frontend" net.
+    # No host port publishing; Dokploy's Traefik fronts this on "dokploy-network".
     environment:
-      - NEXT_PUBLIC_API_URL=https://ruudjuffermans.nl
+      # Empty -> the browser calls the API same-origin (/api/*), which Traefik
+      # routes to the server. Note: NEXT_PUBLIC_* is baked at build time, so this
+      # runtime value has no effect on the built client.
+      - NEXT_PUBLIC_API_URL=
       - NEXT_PUBLIC_SITE_URL=https://ruudjuffermans.nl
     depends_on:
       server:
         condition: service_healthy
     restart: unless-stopped
     networks:
-      frontend:
-        aliases: [ruudjuffermans-client]
+      - dokploy-network
 
 networks:
-  # Created by the ruudjuffermans-infra stack; bring that up first.
+  # Shared DB network created by the ruudjuffermans-infra stack; bring it up first.
   backend:
     external: true
-  frontend:
+  # Dokploy's proxy network; Traefik routes public traffic to services on it.
+  dokploy-network:
     external: true
