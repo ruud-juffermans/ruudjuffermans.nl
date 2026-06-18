@@ -10,7 +10,7 @@ plus contact and newsletter forms wired to a hardened backend.
 | Layer    | Technology |
 | -------- | ---------- |
 | Frontend | Next.js 15 (App Router), React 19, Material UI 6, next-intl, MDX |
-| Backend  | Express 5, Zod, Helmet, Resend, Pino, express-rate-limit |
+| Backend  | Express 5, Zod, Helmet, Nodemailer, Pino, express-rate-limit |
 | Shared   | TypeScript types shared between client and server |
 | Tooling  | TypeScript, Docker / Docker Compose |
 
@@ -26,7 +26,7 @@ plus contact and newsletter forms wired to a hardened backend.
 │   └── src/
 │       ├── middleware/   # validation, rate limiting, error handling
 │       ├── routes/       # /contact, /newsletter
-│       └── services/     # email (Resend), newsletter
+│       └── services/     # email (SMTP / Nodemailer), newsletter
 ├── shared/          # Shared TypeScript types
 ├── setup-dev.sh     # Generates the local .env + docker-compose.override.yml
 ├── .env.example     # Root env template
@@ -64,7 +64,12 @@ When running a service directly on the host, export it first:
 | `NODE_ENV`             | `development` \| `production` \| `test`       | `development` |
 | `CORS_ORIGIN`          | Allowed frontend origin                       | `http://localhost:3000` |
 | `DATABASE_URL`         | Postgres connection string (host-run only)    | `…@localhost:5432/ruudjuffermans` |
-| `RESEND_API_KEY`       | [Resend](https://resend.com) API key          | `re_placeholder` |
+| `SMTP_HOST`            | SMTP server host (empty = log to console)     | — |
+| `SMTP_PORT`            | SMTP port (`587` STARTTLS, `465` TLS)         | `587` |
+| `SMTP_SECURE`          | `true` for implicit TLS (port 465)            | `false` |
+| `SMTP_USER`            | SMTP username                                 | — |
+| `SMTP_PASS`            | SMTP password / token                         | — |
+| `MAIL_FROM`            | From address for outgoing mail                | `Website <noreply@ruudjuf.nl>` |
 | `CONTACT_EMAIL`        | Address that contact submissions are sent to  | — |
 | `NEWSLETTER_API_KEY`   | Newsletter provider API key                   | `placeholder` |
 | `POSTGRES_USER`        | Shared Postgres user (match infra in prod)    | `postgres` |
