@@ -13,6 +13,9 @@ const envSchema = z.object({
   RESEND_API_KEY: z.string().default("re_placeholder"),
   CONTACT_EMAIL: z.string().email().default("ruudjuffermans@pm.me"),
   NEWSLETTER_API_KEY: z.string().default("placeholder"),
+  // Shared secret the central admin app (ruudjuffermans-infra) presents in the
+  // X-Service-Token header to reach /api/v1/admin/*. Empty disables the admin API.
+  ADMIN_SERVICE_TOKEN: z.string().default(""),
 });
 
 export const config = envSchema.parse(process.env);
