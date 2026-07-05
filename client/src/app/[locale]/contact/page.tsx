@@ -56,10 +56,10 @@ export default function ContactPage() {
   ];
 
   return (
-    <Box sx={{ pt: { xs: 8, md: 12 }, pb: { xs: 8, md: 12 } }}>
+    <Box sx={{ pt: { xs: 10, md: 15 }, pb: { xs: 10, md: 14 } }}>
       <Container>
-        <Box sx={{ maxWidth: 600, mb: 8 }}>
-          <Typography variant="overline" sx={{ mb: 1, display: "block" }}>
+        <Box sx={{ maxWidth: 600, mb: { xs: 7, md: 9 } }}>
+          <Typography variant="overline" sx={{ mb: 2, display: "block" }}>
             {t("eyebrow")}
           </Typography>
           <Typography variant="h1" sx={{ mb: 3 }}>
@@ -74,12 +74,13 @@ export default function ContactPage() {
               <Alert
                 severity="success"
                 sx={{
-                  borderRadius: 3,
-                  backgroundColor: palette.redGlow,
-                  border: `2px solid ${palette.red}`,
+                  borderRadius: "16px",
+                  backgroundColor: palette.redMuted,
+                  border: `1px solid ${palette.red}`,
                   py: 3,
                   px: 4,
-                  "& .MuiAlert-message": { fontSize: "1.05rem", color: palette.gray700   },
+                  "& .MuiAlert-icon": { color: palette.red },
+                  "& .MuiAlert-message": { fontSize: "1.05rem", color: palette.gray700 },
                 }}
               >
                 <Typography variant="h4" sx={{ mb: 1 }}>
@@ -140,7 +141,7 @@ export default function ContactPage() {
                       variant="contained"
                       size="large"
                       disabled={status === "loading"}
-                      sx={{ px: 5 }}
+                      sx={{ px: 7, width: { xs: "100%", sm: "auto" } }}
                     >
                       {status === "loading" ? t("form.submitting") : t("form.submit")}
                     </Button>
@@ -154,9 +155,9 @@ export default function ContactPage() {
             <Box
               sx={{
                 backgroundColor: palette.offWhite,
-                borderRadius: 4,
-                p: 5,
-                border: `1px solid ${palette.gray100}`,
+                borderRadius: "20px",
+                p: { xs: 4, md: 5 },
+                border: `1px solid var(--app-border-soft)`,
               }}
             >
               <Typography variant="h4" sx={{ mb: 3 }}>

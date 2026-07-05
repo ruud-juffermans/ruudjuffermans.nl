@@ -3,6 +3,7 @@ import Grid from "@mui/material/Grid2";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import Reveal from "@/components/Reveal";
 import { getPortfolioItems } from "@/lib/content";
 import type { Locale } from "@/i18n/routing";
 import { palette } from "@/theme/theme";
@@ -33,50 +34,66 @@ export default async function PortfolioPage({
 
   return (
     <>
-      <Box sx={{ pt: { xs: 8, md: 12 }, pb: { xs: 6, md: 8 } }}>
+      <Box sx={{ pt: { xs: 10, md: 15 }, pb: { xs: 6, md: 9 } }}>
         <Container>
           <Box sx={{ maxWidth: 700 }}>
-            <Typography variant="overline" sx={{ mb: 1, display: "block" }}>
-              {t("eyebrow")}
-            </Typography>
-            <Typography variant="h1" sx={{ mb: 3 }}>
-              {t("title")}
-            </Typography>
-            <Typography variant="subtitle1">{t("subtitle")}</Typography>
+            <Reveal variant="rise" delay={0}>
+              <Typography variant="overline" sx={{ mb: 2, display: "block" }}>
+                {t("eyebrow")}
+              </Typography>
+            </Reveal>
+            <Reveal variant="rise" delay={100}>
+              <Typography variant="h1" sx={{ mb: 3 }}>
+                {t("title")}
+              </Typography>
+            </Reveal>
+            <Reveal variant="rise" delay={200}>
+              <Typography variant="subtitle1">{t("subtitle")}</Typography>
+            </Reveal>
           </Box>
         </Container>
       </Box>
 
-      <Box sx={{ pb: { xs: 8, md: 12 } }}>
+      <Box sx={{ pb: { xs: 10, md: 14 } }}>
         <Container>
           {items.length === 0 ? (
-            <Box
-              sx={{
-                textAlign: "center",
-                py: 10,
-                px: 4,
-                backgroundColor: palette.offWhite,
-                borderRadius: 4,
-              }}
-            >
-              <Typography variant="h3" sx={{ mb: 2 }}>
-                {t("empty.title")}
-              </Typography>
-              <Typography variant="body1" sx={{ maxWidth: 500, mx: "auto" }}>
-                {t("empty.body")}
-              </Typography>
-            </Box>
+            <Reveal variant="zoom">
+              <Box
+                sx={{
+                  textAlign: "center",
+                  py: 10,
+                  px: 4,
+                  backgroundColor: palette.offWhite,
+                  borderRadius: 4,
+                }}
+              >
+                <Typography variant="h3" sx={{ mb: 2 }}>
+                  {t("empty.title")}
+                </Typography>
+                <Typography variant="body1" sx={{ maxWidth: 500, mx: "auto" }}>
+                  {t("empty.body")}
+                </Typography>
+              </Box>
+            </Reveal>
           ) : (
             <Grid container spacing={3}>
-              {items.map((item) => (
+              {items.map((item, i) => (
                 <Grid size={{ xs: 12, md: 6 }} key={item.slug}>
+                  <Reveal variant="rise" delay={(i % 2) * 100} sx={{ height: "100%" }}>
                   <Card
                     component={Link}
                     href={{ pathname: "/portfolio/[slug]", params: { slug: item.slug } }}
                     sx={{ height: "100%", cursor: "pointer" }}
                   >
-                    <CardContent sx={{ p: 4 }}>
-                      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
+                    <CardContent sx={{ p: { xs: 4, md: 6 }, "&:last-child": { pb: { xs: 4, md: 6 } } }}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          mb: 3,
+                        }}
+                      >
                         <Chip
                           label={item.industry}
                           size="small"
@@ -115,6 +132,7 @@ export default async function PortfolioPage({
                       </Typography>
                     </CardContent>
                   </Card>
+                  </Reveal>
                 </Grid>
               ))}
             </Grid>

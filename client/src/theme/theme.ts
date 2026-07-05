@@ -1,6 +1,6 @@
-import { createTheme, responsiveFontSizes } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 
-// Fonts loaded via next/font in layout.tsx
+// Fonts loaded via @fontsource imports in layout.tsx
 // --font-heading: Bricolage Grotesque
 // --font-body: Outfit
 
@@ -21,7 +21,7 @@ const LIGHT = {
   surface: "#F7F8FA",
   surfaceElevated: "#FFFFFF",
   border: "#E2E8F0",
-  borderSoft: "#F1F5F9",
+  borderSoft: "#EDF1F6",
   divider: "#F1F5F9",
   gray50: "#F8FAFC",
   gray100: "#F1F5F9",
@@ -36,23 +36,23 @@ const LIGHT = {
   red: "#dd2e5a",
   redHover: "#b8244c",
   redLight: "#f87190",
-  redMuted: "rgba(221, 46, 90, 0.12)",
-  redGlow: "rgba(221, 46, 90, 0.24)",
+  redMuted: "rgba(221, 46, 90, 0.10)",
+  redGlow: "rgba(221, 46, 90, 0.22)",
   textPrimary: "#0F172A",
-  textSecondary: "#64748B",
+  textSecondary: "#5B6B81",
   textMuted: "#94A3B8",
 };
 
 const DARK = {
   bg: "#0A0F1C",
-  surface: "#121826",
-  surfaceElevated: "#1A2032",
-  border: "#2A3244",
-  borderSoft: "#1F2636",
-  divider: "#1F2636",
-  gray50: "#1A2032",
-  gray100: "#1F2636",
-  gray200: "#2A3244",
+  surface: "#111726",
+  surfaceElevated: "#161D30",
+  border: "#283048",
+  borderSoft: "#1E2538",
+  divider: "#1E2538",
+  gray50: "#161D30",
+  gray100: "#1E2538",
+  gray200: "#283048",
   gray300: "#3B475C",
   gray400: "#64748B",
   gray500: "#94A3B8",
@@ -60,13 +60,13 @@ const DARK = {
   gray700: "#DBE3EE",
   gray800: "#E8EDF5",
   gray900: "#F4F7FB",
-  red: "#dd2e5a",
+  red: "#ef4d76",
   redHover: "#f87190",
   redLight: "#fcabc0",
-  redMuted: "rgba(248, 113, 144, 0.16)",
-  redGlow: "rgba(248, 113, 144, 0.32)",
+  redMuted: "rgba(248, 113, 144, 0.14)",
+  redGlow: "rgba(248, 113, 144, 0.30)",
   textPrimary: "#F4F7FB",
-  textSecondary: "#CBD5E1",
+  textSecondary: "#B9C4D6",
   textMuted: "#94A3B8",
 };
 
@@ -133,7 +133,16 @@ export const palette = {
   gray900: "var(--app-gray-900)",
 };
 
-let theme = createTheme({
+// ── Shared motion + shape tokens ─────────────────────────────────────────────
+const EASE = "cubic-bezier(0.22, 0.61, 0.36, 1)";
+export const radii = {
+  panel: 24,
+  card: 16,
+  control: 12,
+  pill: 999,
+};
+
+const theme = createTheme({
   cssVariables: {
     colorSchemeSelector: "data-mui-color-scheme",
   },
@@ -189,34 +198,37 @@ let theme = createTheme({
       },
     },
   },
+  // Fluid type scale — clamp() replaces responsiveFontSizes so headings stay
+  // large and confident on desktop while fitting comfortably on phones.
   typography: {
     fontFamily: "var(--font-body), 'Segoe UI', sans-serif",
     h1: {
       fontFamily: "var(--font-heading), Georgia, serif",
-      fontWeight: 700,
-      fontSize: "3.5rem",
-      lineHeight: 1.1,
-      letterSpacing: "-0.03em",
+      fontWeight: 800,
+      fontSize: "clamp(2.5rem, 5.2vw + 1rem, 4.25rem)",
+      lineHeight: 1.04,
+      letterSpacing: "-0.035em",
     },
     h2: {
       fontFamily: "var(--font-heading), Georgia, serif",
       fontWeight: 700,
-      fontSize: "2.5rem",
-      lineHeight: 1.15,
-      letterSpacing: "-0.02em",
+      fontSize: "clamp(1.9rem, 2.6vw + 1rem, 2.75rem)",
+      lineHeight: 1.12,
+      letterSpacing: "-0.025em",
     },
     h3: {
       fontFamily: "var(--font-heading), Georgia, serif",
-      fontWeight: 600,
-      fontSize: "1.75rem",
-      lineHeight: 1.25,
-      letterSpacing: "-0.01em",
+      fontWeight: 650,
+      fontSize: "clamp(1.4rem, 1.2vw + 1rem, 1.75rem)",
+      lineHeight: 1.22,
+      letterSpacing: "-0.015em",
     },
     h4: {
       fontFamily: "var(--font-heading), Georgia, serif",
-      fontWeight: 600,
-      fontSize: "1.35rem",
+      fontWeight: 650,
+      fontSize: "1.3rem",
       lineHeight: 1.3,
+      letterSpacing: "-0.01em",
     },
     h5: {
       fontFamily: "var(--font-heading), Georgia, serif",
@@ -231,19 +243,21 @@ let theme = createTheme({
       lineHeight: 1.4,
     },
     body1: {
-      fontSize: "1.125rem",
-      fontWeight: 300,
+      fontSize: "1.0625rem",
+      fontWeight: 400,
       lineHeight: 1.7,
+      color: "var(--app-text-secondary)",
     },
     body2: {
-      fontSize: "1rem",
-      fontWeight: 500,
-      lineHeight: 1.7,
+      fontSize: "0.95rem",
+      fontWeight: 400,
+      lineHeight: 1.65,
     },
     subtitle1: {
-      fontSize: "1.25rem",
+      fontSize: "clamp(1.05rem, 0.6vw + 0.9rem, 1.25rem)",
       lineHeight: 1.6,
       fontWeight: 400,
+      color: "var(--app-text-secondary)",
     },
     button: {
       fontFamily: "var(--font-body), 'Segoe UI', sans-serif",
@@ -253,16 +267,16 @@ let theme = createTheme({
     },
     overline: {
       fontFamily: "var(--font-body), 'Segoe UI', sans-serif",
-      fontWeight: 700,
-      fontSize: "0.75rem",
-      letterSpacing: "0.12em",
+      fontWeight: 600,
+      fontSize: "0.72rem",
+      letterSpacing: "0.18em",
       textTransform: "uppercase" as const,
     },
   },
   shape: {
     borderRadius: 12,
   },
-  spacing: 8,
+  spacing: 6,
   components: {
     MuiCssBaseline: {
       styleOverrides: {
@@ -272,8 +286,10 @@ let theme = createTheme({
         html: {
           scrollBehavior: "smooth",
           colorScheme: "light dark",
+          WebkitFontSmoothing: "antialiased",
+          MozOsxFontSmoothing: "grayscale",
+          textRendering: "optimizeLegibility",
           // Self-hosted variable-font families (see @fontsource imports in layout.tsx).
-          // Replaces the CSS vars previously generated by next/font.
           "--font-heading": "'Bricolage Grotesque Variable'",
           "--font-body": "'Outfit Variable'",
         },
@@ -281,11 +297,16 @@ let theme = createTheme({
           overflowX: "hidden",
           backgroundColor: "var(--app-bg)",
           color: "var(--app-text-primary)",
+          WebkitTapHighlightColor: "transparent",
           transition: "background-color 0.3s ease, color 0.3s ease",
         },
         "::selection": {
           backgroundColor: "var(--app-red-muted)",
           color: "var(--app-text-primary)",
+        },
+        ":focus-visible": {
+          outline: "2px solid var(--app-red)",
+          outlineOffset: 2,
         },
         // Subtle scrollbar styling that adapts to scheme
         "::-webkit-scrollbar": { width: 10, height: 10 },
@@ -303,39 +324,71 @@ let theme = createTheme({
         },
       },
     },
+    MuiContainer: {
+      defaultProps: { maxWidth: "lg" },
+      styleOverrides: {
+        root: {
+          paddingLeft: 20,
+          paddingRight: 20,
+          "@media (min-width:600px)": {
+            paddingLeft: 32,
+            paddingRight: 32,
+          },
+        },
+      },
+    },
     MuiButton: {
       defaultProps: { disableElevation: true },
       styleOverrides: {
         root: {
-          borderRadius: 10,
-          padding: "12px 28px",
-          fontSize: "1rem",
+          borderRadius: radii.pill,
+          padding: "10px 26px",
+          fontSize: "0.95rem",
           fontWeight: 600,
-          transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+          minHeight: 44, // comfortable tap target on touch devices
+          transition: `all 0.25s ${EASE}`,
+          "&:active": { transform: "scale(0.98)" },
+        },
+        sizeLarge: {
+          padding: "14px 34px",
+          fontSize: "1rem",
+          minHeight: 52,
+        },
+        sizeSmall: {
+          padding: "7px 18px",
+          fontSize: "0.875rem",
+          minHeight: 38,
         },
         containedPrimary: {
           backgroundColor: "var(--app-red)",
           color: ABS.white,
-          "&:hover": {
-            backgroundColor: "var(--app-red-hover)",
-            transform: "translateY(-1px)",
-            boxShadow: `0 8px 24px var(--app-red-glow)`,
+          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.18), 0 1px 2px rgba(11,17,32,0.12)",
+          "@media (hover: hover)": {
+            "&:hover": {
+              backgroundColor: "var(--app-red-hover)",
+              transform: "translateY(-1px)",
+              boxShadow: `inset 0 1px 0 rgba(255,255,255,0.18), 0 10px 28px var(--app-red-glow)`,
+            },
           },
         },
         outlinedPrimary: {
           borderColor: "var(--app-border)",
           color: "var(--app-text-primary)",
           borderWidth: 1.5,
-          "&:hover": {
-            borderColor: "var(--app-red)",
-            backgroundColor: "var(--app-red-muted)",
-            borderWidth: 1.5,
+          "@media (hover: hover)": {
+            "&:hover": {
+              borderColor: "var(--app-red)",
+              backgroundColor: "var(--app-red-muted)",
+              borderWidth: 1.5,
+            },
           },
         },
         text: {
           color: "var(--app-red)",
-          "&:hover": {
-            backgroundColor: "var(--app-red-muted)",
+          "@media (hover: hover)": {
+            "&:hover": {
+              backgroundColor: "var(--app-red-muted)",
+            },
           },
         },
       },
@@ -352,21 +405,28 @@ let theme = createTheme({
           textDecoration: "none",
           backgroundColor: "var(--app-surface-elevated)",
           border: `1px solid var(--app-border-soft)`,
-          borderRadius: 16,
-          transition:
-            "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s",
-          "&:hover": {
-            borderColor: "var(--app-border)",
-            boxShadow: `0 12px 40px rgba(11, 17, 32, 0.08)`,
-            transform: "translateY(-2px)",
-            textDecoration: "none",
+          borderRadius: radii.card,
+          transition: `transform 0.35s ${EASE}, box-shadow 0.35s ${EASE}, border-color 0.35s`,
+          // Lift only on devices that can actually hover — on touch it just
+          // causes a sticky, half-applied state that feels broken.
+          "@media (hover: hover)": {
+            "&:hover": {
+              borderColor: "var(--app-border)",
+              boxShadow: `0 16px 44px rgba(11, 17, 32, 0.09)`,
+              transform: "translateY(-3px)",
+              textDecoration: "none",
+            },
+            "[data-mui-color-scheme='dark'] &:hover": {
+              boxShadow: `0 16px 44px rgba(0, 0, 0, 0.55)`,
+            },
           },
           "&:focus-visible": {
             outline: `2px solid var(--app-red)`,
             outlineOffset: 2,
           },
-          "[data-mui-color-scheme='dark'] &:hover": {
-            boxShadow: `0 12px 40px rgba(0, 0, 0, 0.5)`,
+          // Faint top highlight gives surfaces a machined, layered feel in dark mode
+          "[data-mui-color-scheme='dark'] &": {
+            backgroundImage: "linear-gradient(rgba(255,255,255,0.025), rgba(255,255,255,0))",
           },
         },
       },
@@ -375,18 +435,25 @@ let theme = createTheme({
       defaultProps: { elevation: 0 },
       styleOverrides: {
         root: {
-          backgroundColor: "color-mix(in srgb, var(--app-bg) 82%, transparent)",
-          backdropFilter: "blur(14px) saturate(140%)",
-          WebkitBackdropFilter: "blur(14px) saturate(140%)",
-          borderBottom: `1px solid var(--app-border)`,
+          backgroundColor: "color-mix(in srgb, var(--app-bg) 78%, transparent)",
+          backdropFilter: "blur(18px) saturate(160%)",
+          WebkitBackdropFilter: "blur(18px) saturate(160%)",
+          borderBottom: `1px solid var(--app-border-soft)`,
           color: "var(--app-text-primary)",
         },
       },
     },
     MuiChip: {
       styleOverrides: {
-        root: { fontWeight: 500, borderRadius: 8 },
-        outlined: { borderColor: "var(--app-border)" },
+        root: {
+          fontWeight: 500,
+          borderRadius: radii.pill,
+          fontSize: "0.78rem",
+        },
+        outlined: {
+          borderColor: "var(--app-border)",
+          color: "var(--app-text-secondary)",
+        },
       },
     },
     MuiTextField: {
@@ -394,20 +461,21 @@ let theme = createTheme({
       styleOverrides: {
         root: {
           "& .MuiOutlinedInput-root": {
-            borderRadius: 10,
+            borderRadius: radii.control,
+            transition: "box-shadow 0.2s ease",
             "&:hover .MuiOutlinedInput-notchedOutline": {
               borderColor: "var(--app-gray-300)",
             },
+            "&.Mui-focused": {
+              boxShadow: "0 0 0 4px var(--app-red-muted)",
+            },
             "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
               borderColor: "var(--app-red)",
-              borderWidth: 2,
+              borderWidth: 1.5,
             },
           },
         },
       },
-    },
-    MuiContainer: {
-      defaultProps: { maxWidth: "lg" },
     },
     MuiDivider: {
       styleOverrides: {
@@ -421,6 +489,7 @@ let theme = createTheme({
     },
     MuiAlert: {
       styleOverrides: {
+        root: { borderRadius: radii.control },
         standardInfo: {
           backgroundColor: "var(--app-red-muted)",
           color: "var(--app-text-primary)",
@@ -428,9 +497,12 @@ let theme = createTheme({
         },
       },
     },
+    MuiListItemButton: {
+      styleOverrides: {
+        root: { borderRadius: radii.control },
+      },
+    },
   },
 });
-
-theme = responsiveFontSizes(theme);
 
 export default theme;
