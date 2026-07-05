@@ -55,11 +55,11 @@ export default async function ServicesPage({
   return (
     <>
       {/* Hero */}
-      <Box sx={{ pt: { xs: 8, md: 12 }, pb: { xs: 6, md: 8 } }}>
+      <Box sx={{ pt: { xs: 10, md: 15 }, pb: { xs: 6, md: 9 } }}>
         <Container>
           <Box sx={{ maxWidth: 700 }}>
             <Reveal variant="rise" delay={0}>
-              <Typography variant="overline" sx={{ mb: 1, display: "block" }}>
+              <Typography variant="overline" sx={{ mb: 2, display: "block" }}>
                 {t("hero.eyebrow")}
               </Typography>
             </Reveal>
@@ -80,8 +80,10 @@ export default async function ServicesPage({
         <Box
           key={categoryKey}
           sx={{
-            py: { xs: 6, md: 8 },
+            py: { xs: 8, md: 11 },
             backgroundColor: categoryKey === "data" ? palette.offWhite : "transparent",
+            borderTop: categoryKey === "data" ? `1px solid var(--app-border-soft)` : "none",
+            borderBottom: categoryKey === "data" ? `1px solid var(--app-border-soft)` : "none",
           }}
         >
           <Container>
@@ -105,7 +107,7 @@ export default async function ServicesPage({
                   <Grid size={{ xs: 12, md: 6 }} key={key}>
                     <Reveal variant="rise" delay={i * 100} sx={{ height: "100%" }}>
                       <Card sx={{ height: "100%" }}>
-                      <CardContent sx={{ p: 4 }}>
+                      <CardContent sx={{ p: { xs: 4, md: 5 }, "&:last-child": { pb: { xs: 4, md: 5 } } }}>
                         <Typography variant="h4" sx={{ mb: 2 }}>
                           {t(`items.${key}.title`)}
                         </Typography>
@@ -147,13 +149,13 @@ export default async function ServicesPage({
       ))}
 
       {/* CTA */}
-      <Box sx={{ py: { xs: 8, md: 10 }, textAlign: "center", backgroundColor: palette.offWhite }}>
+      <Box sx={{ py: { xs: 10, md: 14 }, textAlign: "center" }}>
         <Container maxWidth="md">
           <Reveal variant="zoom">
-            <Typography variant="h2" sx={{ mb: 2 }}>
+            <Typography variant="h2" sx={{ mb: 2.5 }}>
               {t("cta.title")}
             </Typography>
-            <Typography variant="subtitle1" sx={{ mb: 5 }}>
+            <Typography variant="subtitle1" sx={{ mb: 6, maxWidth: 560, mx: "auto" }}>
               {t("cta.subtitle")}
             </Typography>
             <Button
@@ -162,7 +164,7 @@ export default async function ServicesPage({
               component={Link}
               href="/contact"
               endIcon={<ArrowForwardIcon />}
-              sx={{ px: 5 }}
+              sx={{ px: 7, width: { xs: "100%", sm: "auto" }, maxWidth: 360 }}
             >
               {t("cta.button")}
             </Button>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Container, Typography, TextField, Button, IconButton, Divider } from "@mui/material";
+import { Box, Container, Typography, TextField, Button, IconButton } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid2";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -35,7 +35,6 @@ const FC = {
   inputBorderHover: "rgba(255, 255, 255, 0.24)",
   inputText: "#FFFFFF",
   inputPlaceholder: "rgba(255, 255, 255, 0.40)",
-  divider: "rgba(255, 255, 255, 0.08)",
 };
 
 export default function Footer() {
@@ -56,6 +55,12 @@ export default function Footer() {
     }
   };
 
+  // Split the tagline at the first sentence so it can wrap after "Consultant."
+  // on mobile while staying on one line where there's room.
+  const tagline = t("tagline");
+  const [taglineLead, ...taglineRest] = tagline.split(". ");
+  const taglineTail = taglineRest.join(". ");
+
   const servicesLinks: { label: string; href: StaticPathname }[] = [
     { label: t("servicesLinks.data"), href: "/services" },
     { label: t("servicesLinks.ai"), href: "/services" },
@@ -75,8 +80,8 @@ export default function Footer() {
       sx={{
         backgroundColor: palette.navy,
         color: FC.body,
-        pt: 10,
-        pb: 4,
+        pt: { xs: 9, md: 12 },
+        pb: 0,
         position: "relative",
         "&::after": {
           content: '""',
@@ -85,8 +90,8 @@ export default function Footer() {
           top: 0,
           left: 0,
           right: 0,
-          height: 1,
-          background: `linear-gradient(90deg, transparent, ${palette.red}, transparent)`,
+          height: "1px",
+          background: `linear-gradient(to right, transparent, ${palette.red})`,
           opacity: 0.3,
         },
       }}
@@ -105,8 +110,10 @@ export default function Footer() {
             >
               Ruud Juffermans
             </Typography>
-            <Typography variant="body2" sx={{ color: FC.body, mb: 3, maxWidth: 280 }}>
-              {t("tagline")}
+            <Typography variant="body2" sx={{ color: FC.body, mb: 3, maxWidth: { xs: 400, md: 280 } }}>
+              {taglineLead}.
+              <Box component="br" sx={{ display: { xs: "block", md: "none" } }} />{" "}
+              {taglineTail}
             </Typography>
             <Box sx={{ display: "flex", gap: 1 }}>
               <IconButton
@@ -194,7 +201,15 @@ export default function Footer() {
             <Typography variant="body2" sx={{ color: FC.body, mb: 2 }}>
               {t("newsletterBody")}
             </Typography>
-            <Box component="form" onSubmit={handleNewsletter} sx={{ display: "flex", gap: 1 }}>
+            <Box
+              component="form"
+              onSubmit={handleNewsletter}
+              sx={{
+                display: "flex",
+                gap: 1.5,
+                flexDirection: { xs: "column", sm: "row" },
+              }}
+            >
               <TextField
                 size="small"
                 placeholder={t("newsletterPlaceholder")}
@@ -206,6 +221,8 @@ export default function Footer() {
                   "& .MuiOutlinedInput-root": {
                     backgroundColor: FC.inputBg,
                     color: FC.inputText,
+                    borderRadius: 999,
+                    px: 1,
                     "& .MuiOutlinedInput-notchedOutline": {
                       borderColor: FC.inputBorder,
                     },
@@ -224,7 +241,7 @@ export default function Footer() {
                 variant="contained"
                 size="small"
                 disabled={status === "loading"}
-                sx={{ px: 3, whiteSpace: "nowrap", height: 46 }}
+                sx={{ px: 4, whiteSpace: "nowrap", height: 44, alignSelf: { xs: "stretch", sm: "auto" } }}
               >
                 {status === "success" ? t("newsletterSuccess") : t("newsletterSubmit")}
               </Button>
@@ -236,26 +253,37 @@ export default function Footer() {
             )}
           </Grid>
         </Grid>
-
-        <Divider sx={{ my: 5, borderColor: FC.divider }} />
-
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: 2,
-          }}
-        >
-          <Typography variant="body2" sx={{ color: FC.copyright, fontSize: "0.85rem" }}>
-            {t("copyright", { year: new Date().getFullYear() })}
-          </Typography>
-          <Typography variant="body2" sx={{ color: FC.contactInfo, fontSize: "0.85rem" }}>
-            {t("contactInfo")}
-          </Typography>
-        </Box>
       </Container>
+
+      <Box
+        sx={{
+          mt: { xs: 7, md: 9 },
+          py: 2.5,
+          pb: "calc(15px + env(safe-area-inset-bottom))",
+          backgroundColor: "rgba(0, 0, 0, 0.35)",
+          borderTop: "1px solid rgba(255, 255, 255, 0.05)",
+        }}
+      >
+        <Container>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: { xs: "center", sm: "space-between" },
+              alignItems: "center",
+              flexWrap: "wrap",
+              textAlign: "center",
+              gap: { xs: 0.5, sm: 2 },
+            }}
+          >
+            <Typography variant="body2" sx={{ color: FC.copyright, fontSize: "0.85rem" }}>
+              {t("copyright", { year: new Date().getFullYear() })}
+            </Typography>
+            <Typography variant="body2" sx={{ color: FC.contactInfo, fontSize: "0.85rem" }}>
+              {t("contactInfo")}
+            </Typography>
+          </Box>
+        </Container>
+      </Box>
     </Box>
   );
 }

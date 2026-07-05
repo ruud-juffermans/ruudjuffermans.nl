@@ -249,8 +249,9 @@ export default async function BlogPostPage({
         <Box
           sx={{
             backgroundColor: palette.offWhite,
-            borderRadius: 3,
-            p: 3.5,
+            border: `1px solid var(--app-border-soft)`,
+            borderRadius: "20px",
+            p: { xs: 4, md: 5 },
             textAlign: "center",
           }}
         >
