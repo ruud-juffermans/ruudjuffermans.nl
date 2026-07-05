@@ -40,12 +40,12 @@ export default async function AboutPage({
 
   return (
     <>
-      <Box sx={{ pt: { xs: 8, md: 12 }, pb: { xs: 6, md: 8 } }}>
+      <Box sx={{ pt: { xs: 10, md: 15 }, pb: { xs: 8, md: 10 } }}>
         <Container>
-          <Grid container spacing={8} alignItems="flex-start">
+          <Grid container spacing={{ xs: 6, md: 8 }} alignItems="flex-start">
             <Grid size={{ xs: 12, md: 7 }}>
               <Reveal variant="rise" delay={0}>
-                <Typography variant="overline" sx={{ mb: 1, display: "block" }}>
+                <Typography variant="overline" sx={{ mb: 2, display: "block" }}>
                   {t("eyebrow")}
                 </Typography>
                 <Typography variant="h1" sx={{ mb: 4 }}>
@@ -72,9 +72,9 @@ export default async function AboutPage({
               <Box
                 sx={{
                   backgroundColor: palette.offWhite,
-                  borderRadius: 4,
-                  p: 5,
-                  border: `1px solid ${palette.gray100}`,
+                  borderRadius: "20px",
+                  p: { xs: 4, md: 5 },
+                  border: `1px solid var(--app-border-soft)`,
                 }}
               >
                 <Typography variant="overline" sx={{ mb: 3, display: "block" }}>
@@ -109,7 +109,14 @@ export default async function AboutPage({
       </Box>
 
       {/* Timeline */}
-      <Box sx={{ py: { xs: 6, md: 10 }, backgroundColor: palette.offWhite }}>
+      <Box
+        sx={{
+          py: { xs: 9, md: 13 },
+          backgroundColor: palette.offWhite,
+          borderTop: `1px solid var(--app-border-soft)`,
+          borderBottom: `1px solid var(--app-border-soft)`,
+        }}
+      >
         <Container maxWidth="md">
           <Reveal variant="rise">
             <Typography variant="overline" sx={{ mb: 1, display: "block" }}>
@@ -177,17 +184,31 @@ export default async function AboutPage({
       </Box>
 
       {/* CTA */}
-      <Box sx={{ py: { xs: 8, md: 10 }, textAlign: "center" }}>
+      <Box sx={{ py: { xs: 10, md: 14 }, textAlign: "center" }}>
         <Container maxWidth="md">
           <Reveal variant="zoom">
-            <Typography variant="h2" sx={{ mb: 2 }}>
+            <Typography variant="h2" sx={{ mb: 2.5 }}>
               {t("cta.title")}
             </Typography>
-            <Typography variant="subtitle1" sx={{ mb: 5 }}>
+            <Typography variant="subtitle1" sx={{ mb: 6, maxWidth: 560, mx: "auto" }}>
               {t("cta.subtitle")}
             </Typography>
-            <Box sx={{ display: "flex", gap: 2, justifyContent: "center", flexWrap: "wrap" }}>
-              <Button variant="contained" size="large" component={Link} href="/contact" sx={{ px: 5 }}>
+            <Box
+              sx={{
+                display: "flex",
+                gap: 2,
+                justifyContent: "center",
+                flexDirection: { xs: "column", sm: "row" },
+                alignItems: "center",
+              }}
+            >
+              <Button
+                variant="contained"
+                size="large"
+                component={Link}
+                href="/contact"
+                sx={{ px: 7, width: { xs: "100%", sm: "auto" }, maxWidth: 360 }}
+              >
                 {t("cta.primary")}
               </Button>
               <Button
@@ -196,6 +217,7 @@ export default async function AboutPage({
                 component={Link}
                 href="/services"
                 endIcon={<ArrowForwardIcon />}
+                sx={{ px: 7, width: { xs: "100%", sm: "auto" }, maxWidth: 360 }}
               >
                 {t("cta.secondary")}
               </Button>

@@ -3,7 +3,6 @@ import Grid from "@mui/material/Grid2";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import StorageIcon from "@mui/icons-material/StorageOutlined";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesomeOutlined";
-import SchoolIcon from "@mui/icons-material/SchoolOutlined";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Reveal from "@/components/Reveal";
@@ -23,19 +22,19 @@ export default async function Home({
   const posts = getBlogPosts(locale).slice(0, 3);
 
   const problemCards = [
-    { title: t("problem.card1Title"), description: t("problem.card1Body"), accent: palette.redLight },
-    { title: t("problem.card2Title"), description: t("problem.card2Body"), accent: palette.redGlow },
-    { title: t("problem.card3Title"), description: t("problem.card3Body"), accent: "#10B981" },
+    { title: t("problem.card1Title"), description: t("problem.card1Body") },
+    { title: t("problem.card2Title"), description: t("problem.card2Body") },
+    { title: t("problem.card3Title"), description: t("problem.card3Body") },
   ];
 
   const servicesList = [
     {
-      icon: <StorageIcon sx={{ fontSize: 32 }} />,
+      icon: <StorageIcon sx={{ fontSize: 28 }} />,
       title: t("services.service1Title"),
       description: t("services.service1Body"),
     },
     {
-      icon: <AutoAwesomeIcon sx={{ fontSize: 32 }} />,
+      icon: <AutoAwesomeIcon sx={{ fontSize: 28 }} />,
       title: t("services.service2Title"),
       description: t("services.service2Body"),
     },
@@ -54,58 +53,67 @@ export default async function Home({
       <Box
         sx={{
           position: "relative",
-          pt: { xs: 10, md: 16 },
-          pb: { xs: 10, md: 14 },
+          pt: { xs: 12, md: 20 },
+          pb: { xs: 12, md: 18 },
           overflow: "hidden",
+          // Restrained backdrop: one soft brand glow + a faint dot grid that
+          // fades out toward the content, instead of the loud red circles.
           "&::before": {
             content: '""',
             position: "absolute",
-            top: -200,
-            right: -200,
-            width: 600,
-            height: 600,
+            top: -280,
+            right: -160,
+            width: 720,
+            height: 720,
             borderRadius: "50%",
-            background: `radial-gradient(circle, ${palette.redMuted} 0%, transparent 70%)`,
+            background: `radial-gradient(circle, ${palette.redMuted} 0%, transparent 62%)`,
             pointerEvents: "none",
           },
           "&::after": {
             content: '""',
             position: "absolute",
-            bottom: -200,
-            left: -200,
-            width: 800,
-            height: 800,
-            borderRadius: "50%",
-            background: `radial-gradient(circle, rgba(221, 46, 90, 0.5) 0%, rgba(221, 46, 90, 0.5) 0%, transparent 70%)`,
+            inset: 0,
+            backgroundImage: `radial-gradient(var(--app-gray-200) 1px, transparent 1px)`,
+            backgroundSize: "26px 26px",
+            maskImage: "radial-gradient(ellipse 90% 70% at 80% 10%, black 0%, transparent 68%)",
+            WebkitMaskImage:
+              "radial-gradient(ellipse 90% 70% at 80% 10%, black 0%, transparent 68%)",
+            opacity: 0.7,
             pointerEvents: "none",
           },
         }}
       >
-        <Container>
-          <Box sx={{ maxWidth: 800 }}>
+        <Container sx={{ position: "relative" }}>
+          <Box sx={{ maxWidth: 820 }}>
             <Reveal variant="rise" delay={0}>
-              <Typography variant="overline" sx={{ mb: 2, display: "block" }}>
+              <Typography variant="overline" sx={{ mb: 2.5, display: "block" }}>
                 {t("hero.eyebrow")}
               </Typography>
             </Reveal>
             <Reveal variant="rise" delay={120}>
-              <Typography variant="h1" sx={{ mb: 3 }}>
+              <Typography variant="h1" sx={{ mb: 3.5 }}>
                 {t("hero.title")}
               </Typography>
             </Reveal>
             <Reveal variant="rise" delay={240}>
-              <Typography variant="subtitle1" sx={{ mb: 5, maxWidth: 650 }}>
+              <Typography variant="subtitle1" sx={{ mb: 6, maxWidth: 620 }}>
                 {t("hero.subtitle")}
               </Typography>
             </Reveal>
             <Reveal variant="rise" delay={360}>
-              <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: 2,
+                  flexDirection: { xs: "column", sm: "row" },
+                }}
+              >
                 <Button
                   variant="contained"
                   size="large"
                   component={Link}
                   href="/contact"
-                  sx={{ px: 4, py: 1.5 }}
+                  sx={{ px: 6, width: { xs: "100%", sm: "auto" } }}
                 >
                   {t("hero.ctaPrimary")}
                 </Button>
@@ -115,7 +123,7 @@ export default async function Home({
                   component={Link}
                   href="/portfolio"
                   endIcon={<ArrowForwardIcon />}
-                  sx={{ px: 4, py: 1.5 }}
+                  sx={{ px: 6, width: { xs: "100%", sm: "auto" } }}
                 >
                   {t("hero.ctaSecondary")}
                 </Button>
@@ -125,18 +133,25 @@ export default async function Home({
         </Container>
       </Box>
 
-        {/* Services Overview */}
-        <Box sx={{ py: { xs: 8, md: 12 }, backgroundColor: palette.offWhite}}>
+      {/* Services Overview */}
+      <Box
+        sx={{
+          py: { xs: 10, md: 14 },
+          backgroundColor: palette.offWhite,
+          borderTop: `1px solid var(--app-border-soft)`,
+          borderBottom: `1px solid var(--app-border-soft)`,
+        }}
+      >
         <Container>
           <Reveal variant="rise">
-            <Typography variant="overline" sx={{ mb: 1, display: "block" }}>
+            <Typography variant="overline" sx={{ mb: 1.5, display: "block" }}>
               {t("services.eyebrow")}
             </Typography>
-            <Typography variant="h2" sx={{ mb: 6, maxWidth: 600 }}>
+            <Typography variant="h2" sx={{ mb: { xs: 5, md: 8 }, maxWidth: 600 }}>
               {t("services.title")}
             </Typography>
           </Reveal>
-          <Grid container spacing={4}>
+          <Grid container spacing={{ xs: 2.5, md: 4 }}>
             {servicesList.map((service, i) => (
               <Grid size={{ xs: 12, md: 6 }} key={service.title}>
                 <Reveal variant="rise" delay={i * 120} sx={{ height: "100%" }}>
@@ -145,18 +160,19 @@ export default async function Home({
                     href="/services"
                     sx={{ height: "100%", cursor: "pointer" }}
                   >
-                    <CardContent sx={{ p: 4 }}>
+                    <CardContent sx={{ p: { xs: 4, md: 6 }, "&:last-child": { pb: { xs: 4, md: 6 } } }}>
                       <Box
                         sx={{
-                          width: 56,
-                          height: 56,
-                          borderRadius: 3,
-                          backgroundColor: palette.redMuted,
+                          width: 52,
+                          height: 52,
+                          borderRadius: "16px",
+                          background: `linear-gradient(135deg, ${palette.redMuted}, transparent 130%)`,
+                          border: `1px solid ${palette.redMuted}`,
                           color: palette.red,
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          mb: 3,
+                          mb: 3.5,
                         }}
                       >
                         {service.icon}
@@ -164,7 +180,7 @@ export default async function Home({
                       <Typography variant="h4" sx={{ mb: 1.5 }}>
                         {service.title}
                       </Typography>
-                      <Typography variant="body1" sx={{ mb: 2 }}>
+                      <Typography variant="body1" sx={{ mb: 3 }}>
                         {service.description}
                       </Typography>
                       <Typography
@@ -189,49 +205,55 @@ export default async function Home({
         </Container>
       </Box>
 
-      {/* How I Work */}
-      <Box sx={{ py: { xs: 8, md: 12 } }}>
+      {/* How I Work — ghost-numbered steps, no card chrome */}
+      <Box sx={{ py: { xs: 10, md: 14 } }}>
         <Container>
           <Reveal variant="rise">
-            <Typography variant="overline" sx={{ mb: 1, display: "block" }}>
+            <Typography variant="overline" sx={{ mb: 1.5, display: "block" }}>
               {t("process.eyebrow")}
             </Typography>
-            <Typography variant="h2" sx={{ mb: 6, maxWidth: 600 }}>
+            <Typography variant="h2" sx={{ mb: { xs: 5, md: 8 }, maxWidth: 600 }}>
               {t("process.title")}
             </Typography>
           </Reveal>
-          <Grid container spacing={4}>
+          <Grid container spacing={{ xs: 0, sm: 5, md: 6 }}>
             {steps.map((item, i) => (
               <Grid size={{ xs: 12, sm: 6, md: 3 }} key={item.step}>
-                <Reveal variant="rise" delay={i * 120} sx={{ height: "100%" }}>
-                  <Card sx={{ height: "100%" }}>
-                    <CardContent sx={{ p: 4 }}>
-                      <Box
-                        sx={{
-                          width: 56,
-                          height: 56,
-                          borderRadius: 3,
-                          backgroundColor: palette.redMuted,
-                          color: palette.red,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          mb: 3,
-                          fontWeight: 700,
-                          fontSize: "1.1rem",
-                          fontVariantNumeric: "tabular-nums",
-                        }}
-                      >
-                        {item.step}
-                      </Box>
-                      <Typography variant="h4" sx={{ mb: 1.5 }}>
-                        {item.title}
-                      </Typography>
-                      <Typography variant="body1">
-                        {item.description}
-                      </Typography>
-                    </CardContent>
-                  </Card>
+                <Reveal variant="rise" delay={i * 100} sx={{ height: "100%" }}>
+                  <Box
+                    sx={{
+                      height: "100%",
+                      position: "relative",
+                      py: { xs: 3.5, sm: 0 },
+                      pl: { xs: 0, sm: 0 },
+                      borderTop: {
+                        xs: i > 0 ? `1px solid var(--app-border-soft)` : "none",
+                        sm: "none",
+                      },
+                    }}
+                  >
+                    <Typography
+                      aria-hidden
+                      sx={{
+                        fontFamily: "var(--font-heading)",
+                        fontWeight: 800,
+                        fontSize: { xs: "2.6rem", md: "3.2rem" },
+                        lineHeight: 1,
+                        letterSpacing: "-0.04em",
+                        color: "transparent",
+                        WebkitTextStroke: `1.5px ${palette.red}`,
+                        opacity: 0.55,
+                        mb: 2,
+                        fontVariantNumeric: "tabular-nums",
+                      }}
+                    >
+                      {item.step}
+                    </Typography>
+                    <Typography variant="h4" sx={{ mb: 1.5 }}>
+                      {item.title}
+                    </Typography>
+                    <Typography variant="body1">{item.description}</Typography>
+                  </Box>
                 </Reveal>
               </Grid>
             ))}
@@ -240,29 +262,50 @@ export default async function Home({
       </Box>
 
       {/* Problem Statement */}
-      <Box sx={{ py: { xs: 8, md: 12 }, backgroundColor: palette.offWhite }}>
+      <Box
+        sx={{
+          py: { xs: 10, md: 14 },
+          backgroundColor: palette.offWhite,
+          borderTop: `1px solid var(--app-border-soft)`,
+          borderBottom: `1px solid var(--app-border-soft)`,
+        }}
+      >
         <Container>
           <Reveal variant="rise">
-            <Typography variant="overline" sx={{ mb: 1, display: "block" }}>
+            <Typography variant="overline" sx={{ mb: 1.5, display: "block" }}>
               {t("problem.eyebrow")}
             </Typography>
-            <Typography variant="h2" sx={{ mb: 6, maxWidth: 600 }}>
+            <Typography variant="h2" sx={{ mb: { xs: 5, md: 8 }, maxWidth: 600 }}>
               {t("problem.title")}
             </Typography>
           </Reveal>
-          <Grid container spacing={3}>
+          <Grid container spacing={{ xs: 2.5, md: 3 }}>
             {problemCards.map((card, i) => (
               <Grid size={{ xs: 12, md: 4 }} key={card.title}>
                 <Reveal variant="rise" delay={i * 120} sx={{ height: "100%" }}>
                   <Card
                     sx={{
                       height: "100%",
-                      borderTop: `3px solid ${card.accent}`,
-                      borderRadius: "4px 4px 16px 16px",
+                      position: "relative",
+                      overflow: "hidden",
+                      "&::before": {
+                        content: '""',
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: 2,
+                        background: `linear-gradient(to right, ${palette.red}, transparent 70%)`,
+                        opacity: 0.6,
+                        transition: "opacity 0.3s",
+                      },
+                      "@media (hover: hover)": {
+                        "&:hover::before": { opacity: 1 },
+                      },
                     }}
                   >
-                    <CardContent sx={{ p: 4 }}>
-                      <Typography variant="h4" sx={{ mb: 2 }}>
+                    <CardContent sx={{ p: { xs: 4, md: 5 }, "&:last-child": { pb: { xs: 4, md: 5 } } }}>
+                      <Typography variant="h4" sx={{ mb: 1.5 }}>
                         {card.title}
                       </Typography>
                       <Typography variant="body1">{card.description}</Typography>
@@ -273,7 +316,10 @@ export default async function Home({
             ))}
           </Grid>
           <Reveal variant="fade" delay={400}>
-            <Typography variant="body1" sx={{ mt: 4, fontWeight: 500, color: palette.gray900 }}>
+            <Typography
+              variant="body1"
+              sx={{ mt: 5, fontWeight: 500, color: palette.gray900, maxWidth: 700 }}
+            >
               {t("problem.closer")}
             </Typography>
           </Reveal>
@@ -282,7 +328,7 @@ export default async function Home({
 
       {/* Latest Articles */}
       {posts.length > 0 && (
-        <Box sx={{ py: { xs: 8, md: 12 } }}>
+        <Box sx={{ py: { xs: 10, md: 14 } }}>
           <Container>
             <Reveal variant="rise">
               <Box
@@ -290,11 +336,11 @@ export default async function Home({
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "flex-end",
-                  mb: 6,
+                  mb: { xs: 5, md: 8 },
                 }}
               >
                 <Box>
-                  <Typography variant="overline" sx={{ mb: 1, display: "block" }}>
+                  <Typography variant="overline" sx={{ mb: 1.5, display: "block" }}>
                     {t("blog.eyebrow")}
                   </Typography>
                   <Typography variant="h2">{t("blog.title")}</Typography>
@@ -303,13 +349,13 @@ export default async function Home({
                   component={Link}
                   href="/blog"
                   endIcon={<ArrowForwardIcon />}
-                  sx={{ display: { xs: "none", sm: "flex" } }}
+                  sx={{ display: { xs: "none", sm: "inline-flex" }, flexShrink: 0 }}
                 >
                   {t("blog.all")}
                 </Button>
               </Box>
             </Reveal>
-            <Grid container spacing={3}>
+            <Grid container spacing={{ xs: 2.5, md: 3 }}>
               {posts.map((post, i) => (
                 <Grid size={{ xs: 12, md: 4 }} key={post.slug}>
                   <Reveal variant="rise" delay={i * 120} sx={{ height: "100%" }}>
@@ -318,25 +364,22 @@ export default async function Home({
                       href={{ pathname: "/blog/[slug]", params: { slug: post.slug } }}
                       sx={{ height: "100%", cursor: "pointer" }}
                     >
-                      <CardContent sx={{ p: 4 }}>
-                        <Box sx={{ display: "flex", gap: 1, mb: 2, flexWrap: "wrap" }}>
+                      <CardContent sx={{ p: { xs: 4, md: 5 }, "&:last-child": { pb: { xs: 4, md: 5 } } }}>
+                        <Box sx={{ display: "flex", gap: 1, mb: 2.5, flexWrap: "wrap" }}>
                           {post.tags.slice(0, 2).map((tag) => (
-                            <Chip
-                              key={tag}
-                              label={tag}
-                              size="small"
-                              variant="outlined"
-                              sx={{ fontSize: "0.75rem" }}
-                            />
+                            <Chip key={tag} label={tag} size="small" variant="outlined" />
                           ))}
                         </Box>
                         <Typography variant="h4" sx={{ mb: 1.5 }}>
                           {post.title}
                         </Typography>
-                        <Typography variant="body2" sx={{ mb: 2, fontWeight: 200, color: palette.gray700 }}>
+                        <Typography variant="body2" sx={{ mb: 2.5, color: palette.gray500 }}>
                           {post.excerpt}
                         </Typography>
-                        <Typography variant="body2" sx={{ color: palette.gray400, fontSize: "0.85rem" }}>
+                        <Typography
+                          variant="body2"
+                          sx={{ color: palette.gray400, fontSize: "0.85rem" }}
+                        >
                           {post.date} &middot; {post.readingTime} {tc("readingTimeSuffix")}
                         </Typography>
                       </CardContent>
@@ -349,7 +392,7 @@ export default async function Home({
               component={Link}
               href="/blog"
               endIcon={<ArrowForwardIcon />}
-              sx={{ mt: 4, display: { xs: "flex", sm: "none" } }}
+              sx={{ mt: 4, display: { xs: "inline-flex", sm: "none" } }}
             >
               {t("blog.all")}
             </Button>
@@ -357,52 +400,48 @@ export default async function Home({
         </Box>
       )}
 
-      {/* CTA Banner */}
-      <Box
-        sx={{
-          py: { xs: 8, md: 10 },
-          backgroundColor: palette.offWhite,
-          textAlign: "center",
-        }}
-      >
-        <Container maxWidth="md">
+      {/* CTA Banner — navy panel, identical in both color schemes */}
+      <Box sx={{ pb: { xs: 10, md: 14 }, pt: { xs: 2, md: 4 } }}>
+        <Container>
           <Reveal variant="zoom">
             <Box
               sx={{
                 position: "relative",
-                px: { xs: 3, md: 6 },
-                py: { xs: 6, md: 8 },
+                overflow: "hidden",
+                borderRadius: { xs: 5, md: 7 },
+                backgroundColor: palette.navy,
+                backgroundImage: `radial-gradient(ellipse 80% 90% at 85% -10%, rgba(221, 46, 90, 0.28), transparent 60%), linear-gradient(${palette.navyLight}, ${palette.navy})`,
+                border: "1px solid rgba(255,255,255,0.08)",
+                px: { xs: 4, md: 10 },
+                py: { xs: 9, md: 13 },
+                textAlign: "center",
               }}
             >
-              {/* Corner brackets — 4 absolutely positioned L-shaped frames */}
-              {(
-                [
-                  { top: 0, left: 0, borderTop: 4, borderLeft: 4 },
-                  { top: 0, right: 0, borderTop: 4, borderRight: 4 },
-                  { bottom: 0, left: 0, borderBottom: 4, borderLeft: 4},
-                  { bottom: 0, right: 0, borderBottom: 4, borderRight: 4},
-                ] as const
-              ).map((pos, i) => (
-                <Box
-                  key={i}
-                  aria-hidden
-                  sx={{
-                    position: "absolute",
-                    width: { xs: 18, md: 24 },
-                    height: { xs: 18, md: 24 },
-                    ...pos,
-                  }}
-                />
-              ))}
-              <Box sx={{ position: "relative" }}>
-              <Typography variant="h2" sx={{ mb: 2 }}>
+              <Typography variant="h2" sx={{ mb: 2.5, color: palette.white }}>
                 {t("cta.title")}
               </Typography>
-              <Typography variant="subtitle1" sx={{ mb: 5 }}>
+              <Typography
+                variant="subtitle1"
+                sx={{ mb: 6, color: "rgba(255,255,255,0.65)", maxWidth: 560, mx: "auto" }}
+              >
                 {t("cta.subtitle")}
               </Typography>
-              <Box sx={{ display: "flex", gap: 2, justifyContent: "center", flexWrap: "wrap" }}>
-                <Button variant="contained" size="large" component={Link} href="/contact" sx={{ px: 5 }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: 2,
+                  justifyContent: "center",
+                  flexDirection: { xs: "column", sm: "row" },
+                  alignItems: "center",
+                }}
+              >
+                <Button
+                  variant="contained"
+                  size="large"
+                  component={Link}
+                  href="/contact"
+                  sx={{ px: 7, width: { xs: "100%", sm: "auto" }, maxWidth: 360 }}
+                >
                   {t("cta.primary")}
                 </Button>
                 <Button
@@ -411,10 +450,22 @@ export default async function Home({
                   component={Link}
                   href="/services"
                   endIcon={<ArrowForwardIcon />}
+                  sx={{
+                    px: 7,
+                    width: { xs: "100%", sm: "auto" },
+                    maxWidth: 360,
+                    color: palette.white,
+                    borderColor: "rgba(255,255,255,0.28)",
+                    "@media (hover: hover)": {
+                      "&:hover": {
+                        borderColor: palette.white,
+                        backgroundColor: "rgba(255,255,255,0.08)",
+                      },
+                    },
+                  }}
                 >
                   {t("cta.secondary")}
                 </Button>
-              </Box>
               </Box>
             </Box>
           </Reveal>

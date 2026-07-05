@@ -192,9 +192,8 @@
     "timeline": [
       { "year": "2019", "label": "Started Computer Science — Business Data Management" },
       { "year": "2020", "label": "Published first Udemy courses" },
-      { "year": "2023", "label": "Graduated, started at NLR (data engineering, EU COMPASS project)" },
-      { "year": "2024", "label": "Data Analyst at Noord-Holland Police" },
-      { "year": "2025", "label": "Launched freelance Data & AI consultancy" }
+      { "year": "2023", "label": "Data Engineer at Netherlands Aerospace Centre" },
+      { "year": "2024", "label": "Data Analyst at Noord-Holland Police" }
     ],
     "cta": {
       "title": "Want to work together?",
