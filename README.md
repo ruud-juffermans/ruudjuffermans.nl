@@ -1,154 +1,95 @@
-# ruudjuf-website
+# ruudjuffermans.nl
 
-Personal / freelance (ZZP) website built as a TypeScript monorepo: a Next.js
-frontend, an Express API, and a shared types package. It includes a bilingual
-(Dutch / English) site with blog and portfolio sections backed by MDX content,
-plus contact and newsletter forms wired to a hardened backend.
+Personal / freelance (ZZP) website: a bilingual (Dutch / English) Next.js site
+with blog and portfolio sections backed by MDX content, plus contact and
+newsletter forms. Runs at `ruudjuffermans.nl`.
+
+**Client-only since the platform consolidation.** The site's backend (contact
+form, newsletter signups, page-view analytics and their admin API) moved into
+[`../ruudjuffermans-server`](../ruudjuffermans-server) — the shared platform
+API at `api.ruudjuffermans.nl` — as its `website` module. See
+`../PLATFORM_ARCHITECTURE_PLAN.md` for the architecture. Unlike the maxxing
+apps this site has no user accounts; its API calls are anonymous and
+rate-limited server-side.
 
 ## Tech stack
 
 | Layer    | Technology |
 | -------- | ---------- |
 | Frontend | Next.js 15 (App Router), React 19, Material UI 6, next-intl, MDX |
-| Backend  | Express 5, Zod, Helmet, Nodemailer, Pino, express-rate-limit |
-| Shared   | TypeScript types shared between client and server |
+| Backend  | [`ruudjuffermans-server`](../ruudjuffermans-server) — Express + Prisma, `website` module |
+| Shared   | TypeScript types shared between client and (legacy) server |
 | Tooling  | TypeScript, Docker / Docker Compose |
 
 ## Project structure
 
 ```
 .
-├── client/          # Next.js frontend
+├── client/          # Next.js frontend (the deployed artifact)
 │   ├── content/     # MDX blog & portfolio content (nl / en)
 │   ├── messages/    # i18n translation files
 │   └── src/
-├── server/          # Express API (contact + newsletter)
-│   └── src/
-│       ├── middleware/   # validation, rate limiting, error handling
-│       ├── routes/       # /contact, /newsletter
-│       └── services/     # email (SMTP / Nodemailer), newsletter
+├── server/          # LEGACY pre-consolidation Express API — not deployed
 ├── shared/          # Shared TypeScript types
-├── setup-dev.sh     # Generates the local .env + docker-compose.override.yml
-├── .env.example     # Root env template
-└── docker-compose.yml       # Production stack (joins the infra networks)
+├── setup-dev.sh     # LEGACY (targeted the old full-stack dev setup)
+├── .env.example     # Client env template
+└── docker-compose.yml   # Production stack: client-only Next.js image
 ```
 
-## Getting started
+## Local development
 
-The project runs via Docker Compose — each service installs its own
-dependencies inside its container, so no host-side `npm install` is required.
-
-### Prerequisites
-
-- Docker + Docker Compose
-
-### Set up the local-dev files
+Run the platform API first, then the site:
 
 ```bash
-./setup-dev.sh
+# 1. API — in ../ruudjuffermans-server (see its README):
+docker compose -f docker-compose.dev.yml up -d && npm run dev   # :4000
+
+# 2. This site:
+cd client
+npm install
+npm run dev                                                     # :3000
 ```
 
-This writes the two gitignored local-dev files: `.env` (from `.env.example`) and
-`docker-compose.override.yml` — a self-contained dev stack with its own Postgres
-and hot-reload `dev` build targets that Compose auto-merges onto
-`docker-compose.yml`. No infra repo required. Re-run with `--force` to regenerate
-them.
+With `NEXT_PUBLIC_API_URL` unset (the dev default), the browser calls
+same-origin `/api/*` and `next.config.ts` rewrites it to the local platform
+server on `:4000` — no CORS involved in dev. Contact/verification emails print
+to the platform server's console when it has no `SMTP_HOST` configured.
 
-All configuration lives in the single root `.env`; Docker Compose auto-loads it.
-When running a service directly on the host, export it first:
-`set -a && . .env && set +a`.
+> Dev-port note: Next's default port (3000) is also the fitnessmaxxing client's
+> dev port — run one of the two at a time locally.
 
-| Variable               | Description                                   | Default |
-| ---------------------- | --------------------------------------------- | ------- |
-| `PORT`                 | API port                                      | `4000` |
-| `NODE_ENV`             | `development` \| `production` \| `test`       | `development` |
-| `CORS_ORIGIN`          | Allowed frontend origin                       | `http://localhost:3000` |
-| `DATABASE_URL`         | Postgres connection string (host-run only)    | `…@localhost:5432/ruudjuffermans` |
-| `SMTP_HOST`            | SMTP server host (empty = log to console)     | — |
-| `SMTP_PORT`            | SMTP port (`587` STARTTLS, `465` TLS)         | `587` |
-| `SMTP_SECURE`          | `true` for implicit TLS (port 465)            | `false` |
-| `SMTP_USER`            | SMTP username                                 | — |
-| `SMTP_PASS`            | SMTP password / token                         | — |
-| `MAIL_FROM`            | From address for outgoing mail                | `Website <noreply@ruudjuf.nl>` |
-| `CONTACT_EMAIL`        | Address that contact submissions are sent to  | — |
-| `NEWSLETTER_API_KEY`   | Newsletter provider API key                   | `placeholder` |
-| `POSTGRES_USER`        | Shared Postgres user (match infra in prod)    | `postgres` |
-| `POSTGRES_PASSWORD`    | Shared Postgres password (match infra in prod)| `devpassword` |
-| `NEXT_PUBLIC_API_URL`  | Base URL of the API (client)                  | `http://localhost:4000` |
-| `NEXT_PUBLIC_SITE_URL` | Public site URL (client)                      | `http://localhost:3000` |
+Configuration (see [`.env.example`](.env.example)):
 
-### Run in development
+| Variable               | Description                                              | Dev default |
+| ---------------------- | -------------------------------------------------------- | ----------- |
+| `NEXT_PUBLIC_API_URL`  | Platform API origin; empty = same-origin + dev rewrite   | *(empty)* |
+| `NEXT_PUBLIC_SITE_URL` | Public site URL (metadata, www→apex redirect)            | `http://localhost:3000` |
 
-After `./setup-dev.sh`, Compose merges the override automatically:
+`CONTACT_EMAIL`, `NEWSLETTER_API_KEY`, `SMTP_*` and `ADMIN_SERVICE_TOKEN` now
+live in `../ruudjuffermans-server/.env.example`.
 
-```bash
-docker compose up --build   # start
-docker compose down         # stop
-```
+## Deployment
 
-Starts the client (http://localhost:3000) and server (http://localhost:4000)
-with hot reload, plus a bundled Postgres on `localhost:5432`
-(`postgres` / `devpassword`, db `ruudjuffermans`).
+`docker-compose.yml` builds the standalone Next.js image (build args bake
+`NEXT_PUBLIC_API_URL=https://api.ruudjuffermans.nl` and the site URL in) on the
+external `dokploy-network`; Traefik routes `ruudjuffermans.nl` (and `www.`,
+which the app 308-redirects to the apex) to it. No server or database here —
+those belong to the `ruudjuffermans-server` stack, whose CORS allowlists this
+site's origin.
 
-### Database
+## API (served by ruudjuffermans-server)
 
-The API uses PostgreSQL via [Prisma](https://www.prisma.io/). On `up`, the server
-runs `prisma generate` + `prisma migrate deploy` automatically, so the schema is
-always current; data persists in the `ruudjuffermans_dev_db` volume. Persisted:
-contact-form submissions (`contact_submissions`), newsletter subscribers
-(`newsletter_subscribers`), and page views (`page_views`).
+| Method | Endpoint                             | Description             |
+| ------ | ------------------------------------ | ----------------------- |
+| `GET`  | `/api/health`                        | Platform health check   |
+| `POST` | `/api/website/contact`               | Submit the contact form |
+| `POST` | `/api/website/newsletter`            | Subscribe to newsletter |
+| `POST` | `/api/website/analytics`             | Page-view beacon        |
+| `GET`  | `/api/website/analytics/views?path=` | View count for a path   |
+| *      | `/api/website/admin/…`               | Contact/newsletter/analytics management (service token or platform admin) |
 
-```bash
-# psql shell against the dev db
-docker compose exec db psql -U postgres -d ruudjuffermans
-
-# create a new migration after editing server/prisma/schema.prisma
-docker compose exec server npx prisma migrate dev --name <change>
-
-# inspect data in a browser
-docker compose exec server npx prisma studio
-```
-
-### Run for production
-
-`docker-compose.yml` alone expects the external `backend` network from the infra
-stack (for the DB) and Dokploy's `dokploy-network` (for Traefik routing) — bring
-the infra stack up first. The API exposes a health check at `GET /api/v1/health`;
-the client waits for it before starting. In production the DB is provided by the
-infra stack; the server applies `prisma migrate deploy` on boot. HTTPS and
-public routing are handled by Dokploy's Traefik (domains set per service:
-client `/`, server `/api`).
-
-On the VPS there is no `docker-compose.override.yml` (it's gitignored), so a plain
-`docker compose up` is the production stack. **Locally**, where the override
-exists, that same command auto-merges it — so pass the base file explicitly to
-run prod without the override:
-
-```bash
-docker compose -f docker-compose.yml up --build
-```
-
-### Working on a single service (on the host)
-
-Each workspace can also run directly without Docker. Export the root `.env`
-first so both services pick up the shared config:
-
-```bash
-set -a && . .env && set +a                 # export root .env into the shell
-cd server && npm install && npm run dev     # API on :4000
-cd client && npm install && npm run dev     # frontend on :3000
-```
-
-## API
-
-| Method | Endpoint                | Description            |
-| ------ | ----------------------- | ---------------------- |
-| `GET`  | `/api/v1/health`        | Health check           |
-| `POST` | `/api/v1/contact`       | Submit the contact form |
-| `POST` | `/api/v1/newsletter`    | Subscribe to newsletter |
-
-Both `POST` endpoints validate input with Zod and are rate limited (5 requests
-per IP per 15 minutes).
+The `POST` form endpoints validate input with Zod and are rate limited (5 per
+IP per 15 minutes; the analytics beacon 60 per minute).
 
 ## License
 

@@ -1,3 +1,7 @@
+// The platform API (ruudjuffermans-server, api.ruudjuffermans.nl) — the site's
+// backend moved there as the "website" module. Production bakes the absolute
+// origin in at build time; in dev this stays "" and the Next rewrite proxies
+// /api/* to the local platform server (see next.config.ts).
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 async function request<T>(endpoint: string, options?: RequestInit): Promise<T> {
@@ -22,14 +26,14 @@ export async function submitContact(body: {
   message: string;
 }) {
   return request<{ success: boolean; message: string }>(
-    "/api/v1/contact",
+    "/api/website/contact",
     { method: "POST", body: JSON.stringify(body) },
   );
 }
 
 export async function subscribeNewsletter(email: string) {
   return request<{ success: boolean; message: string }>(
-    "/api/v1/newsletter",
+    "/api/website/newsletter",
     { method: "POST", body: JSON.stringify({ email }) },
   );
 }
@@ -41,7 +45,7 @@ export function recordPageView(path: string, locale?: string) {
     locale,
     referrer: typeof document !== "undefined" ? document.referrer || undefined : undefined,
   });
-  void fetch(`${API_URL}/api/v1/analytics`, {
+  void fetch(`${API_URL}/api/website/analytics`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body,

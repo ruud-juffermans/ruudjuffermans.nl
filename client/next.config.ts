@@ -32,6 +32,10 @@ const nextConfig: NextConfig = {
   },
   async rewrites() {
     return [
+      // Dev convenience: with NEXT_PUBLIC_API_URL unset the browser calls
+      // same-origin /api/*, which this rewrite proxies to the local platform
+      // server (ruudjuffermans-server on :4000). Production bakes the absolute
+      // API origin into the client instead, so this never fires there.
       {
         source: "/api/:path*",
         destination: `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000"}/api/:path*`,

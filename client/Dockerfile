@@ -22,6 +22,12 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
+# NEXT_PUBLIC_* is inlined at build time. The API is the platform server
+# (ruudjuffermans-server), reached cross-origin; its CORS allowlists this site.
+ARG NEXT_PUBLIC_API_URL=https://api.ruudjuffermans.nl
+ARG NEXT_PUBLIC_SITE_URL=https://ruudjuffermans.nl
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
 RUN npm run build
 
 FROM base AS runner
