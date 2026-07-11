@@ -26,8 +26,93 @@
     "services": "Diensten",
     "portfolio": "Portfolio",
     "blog": "Blog",
+    "apps": "Apps",
     "about": "Over mij",
     "contact": "Contact"
+  },
+  "menus": {
+    "services": {
+      "dataEngineering": {
+        "title": "Data Engineering",
+        "desc": "Pipelines, warehousing en een solide datafundament"
+      },
+      "dataAnalytics": {
+        "title": "Data Analytics",
+        "desc": "Dashboards en KPI's die echte vragen beantwoorden"
+      },
+      "aiGenai": {
+        "title": "AI & GenAI",
+        "desc": "Praktische AI, van strategie tot werkende software"
+      },
+      "all": "Bekijk alle diensten"
+    },
+    "apps": {
+      "tagline": "Gratis tools die ik bouwde — één account voor alles",
+      "fitness": {
+        "title": "Fitnessmaxxing",
+        "desc": "Plan workouts, log sets en volg je progressie"
+      },
+      "habit": {
+        "title": "Habitmaxxing",
+        "desc": "Bouw gewoontes met streaks, doelen en schema's"
+      },
+      "journal": {
+        "title": "Journalmaxxing",
+        "desc": "Een strak, privé dagboek"
+      }
+    }
+  },
+  "serviceDetail": {
+    "whatTitle": "Wat ik doe",
+    "backToServices": "Alle diensten",
+    "ctaTitle": "Benieuwd hoe dit er voor jouw bedrijf uitziet?",
+    "ctaBody": "Laten we kort bellen om te verkennen waar de kansen liggen — geheel vrijblijvend.",
+    "ctaButton": "Plan een gesprek",
+    "data-engineering": {
+      "metaTitle": "Data Engineering",
+      "metaDescription": "Datapipelines, warehousing en cloudplatformen: een betrouwbaar fundament waar je analytics en AI op kunnen bouwen.",
+      "eyebrow": "Dienst",
+      "title": "Data Engineering",
+      "intro": "Analytics en AI zijn zo goed als het fundament eronder. Ik ontwerp en bouw dataplatformen die betrouwbaar, testbaar en uitlegbaar zijn — zodat elk rapport en elk model met dezelfde waarheid werkt.",
+      "item1Title": "Dataplatform-architectuur",
+      "item1Body": "Een pragmatische architectuur die past bij jouw omvang en jouw stack — warehouse, lakehouse of iets eenvoudigers. Geen overengineering.",
+      "item2Title": "Pipelines & integratie",
+      "item2Body": "Geautomatiseerde ETL/ELT-pipelines die je bronnen samenbrengen — betrouwbaar, gemonitord en gedocumenteerd.",
+      "item3Title": "Modellering & warehousing",
+      "item3Body": "Schone, geteste datamodellen die ruwe data omzetten in definities waar het hele bedrijf het over eens is.",
+      "item4Title": "Kwaliteit & beheer",
+      "item4Body": "Testen, orkestratie, monitoring en alerting — zodat problemen zichtbaar worden vóórdat je stakeholders ze zien."
+    },
+    "data-analytics": {
+      "metaTitle": "Data Analytics",
+      "metaDescription": "Dashboards, KPI-frameworks en analyses die echte bedrijfsvragen beantwoorden — zo gebouwd dat je eigen team ermee verder kan.",
+      "eyebrow": "Dienst",
+      "title": "Data Analytics",
+      "intro": "Data wordt pas waardevol als iemand ernaar handelt. Ik bouw dashboards en KPI-frameworks die de vragen beantwoorden die je team écht stelt — en zorg dat ze er zelf mee verder kunnen.",
+      "item1Title": "Dashboards & rapportage",
+      "item1Body": "Dashboards gemaakt om beslissingen te nemen, niet ter decoratie — van managementoverzicht tot operationeel detail.",
+      "item2Title": "KPI-frameworks",
+      "item2Body": "Samen bepalen we de metrics die ertoe doen, met heldere definities en één bron van waarheid.",
+      "item3Title": "Ad-hoc analyses",
+      "item3Body": "Deep-dives in specifieke vragen — pricing, churn, funnel — met heldere, bruikbare conclusies.",
+      "item4Title": "Self-service & adoptie",
+      "item4Body": "Documentatie, training en governance, zodat inzichten niet bij één analist blijven hangen."
+    },
+    "ai-genai": {
+      "metaTitle": "AI & GenAI",
+      "metaDescription": "AI-strategie en werkende GenAI-oplossingen: documentverwerking, RAG en automatisering — praktisch, veilig en meetbaar.",
+      "eyebrow": "Dienst",
+      "title": "AI & GenAI",
+      "intro": "AI is geen strategieslide — het is werkende software. Ik help je de use-cases met echte ROI te vinden en bouw ze vervolgens: van documentverwerking en RAG tot automatiseringen die wekelijks uren besparen.",
+      "item1Title": "Use-case discovery & AI-strategie",
+      "item1Body": "We brengen je processen in kaart en vinden waar AI zich écht terugbetaalt — realistisch, meetbaar, zonder hype.",
+      "item2Title": "GenAI-toepassingen",
+      "item2Body": "Documentverwerking, chatten met je eigen kennisbank (RAG), contentgeneratie — veilig gebouwd op jouw data.",
+      "item3Title": "Automatisering",
+      "item3Body": "AI-gedreven automatiseringen in je bestaande tools en workflows, van intake tot rapportage.",
+      "item4Title": "Verantwoord & beheersbaar",
+      "item4Body": "Evaluatie, guardrails en monitoring, zodat resultaten betrouwbaar blijven na livegang en je team aan het stuur blijft."
+    }
   },
   "home": {
     "metaTitle": "Ruud Juffermans — Data Analytics & AI",

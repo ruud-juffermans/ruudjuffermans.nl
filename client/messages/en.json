@@ -26,8 +26,93 @@
     "services": "Services",
     "portfolio": "Portfolio",
     "blog": "Blog",
+    "apps": "Apps",
     "about": "About",
     "contact": "Contact"
+  },
+  "menus": {
+    "services": {
+      "dataEngineering": {
+        "title": "Data Engineering",
+        "desc": "Pipelines, warehousing and a solid data foundation"
+      },
+      "dataAnalytics": {
+        "title": "Data Analytics",
+        "desc": "Dashboards and KPIs that answer real questions"
+      },
+      "aiGenai": {
+        "title": "AI & GenAI",
+        "desc": "Practical AI, from strategy to working software"
+      },
+      "all": "View all services"
+    },
+    "apps": {
+      "tagline": "Free tools I built — one account for everything",
+      "fitness": {
+        "title": "Fitnessmaxxing",
+        "desc": "Plan workouts, log sets and track progress"
+      },
+      "habit": {
+        "title": "Habitmaxxing",
+        "desc": "Build habits with streaks, goals and schedules"
+      },
+      "journal": {
+        "title": "Journalmaxxing",
+        "desc": "A clean, private daily journal"
+      }
+    }
+  },
+  "serviceDetail": {
+    "whatTitle": "What I do",
+    "backToServices": "All services",
+    "ctaTitle": "Curious what this could look like for your company?",
+    "ctaBody": "Let's have a short call to explore where the opportunities are — no strings attached.",
+    "ctaButton": "Book a call",
+    "data-engineering": {
+      "metaTitle": "Data Engineering",
+      "metaDescription": "Data pipelines, warehousing and cloud platforms: a reliable foundation your analytics and AI can build on.",
+      "eyebrow": "Service",
+      "title": "Data Engineering",
+      "intro": "Analytics and AI are only as good as the foundation underneath. I design and build data platforms that are reliable, testable and explainable — so every report and every model works from the same truth.",
+      "item1Title": "Data platform architecture",
+      "item1Body": "A pragmatic architecture that fits your size and your stack — warehouse, lakehouse or something simpler. No overengineering.",
+      "item2Title": "Pipelines & integration",
+      "item2Body": "Automated ETL/ELT pipelines that bring your sources together — reliable, monitored and documented.",
+      "item3Title": "Modelling & warehousing",
+      "item3Body": "Clean, tested data models that turn raw data into definitions the whole company agrees on.",
+      "item4Title": "Quality & operations",
+      "item4Body": "Testing, orchestration, monitoring and alerting — so problems surface before your stakeholders see them."
+    },
+    "data-analytics": {
+      "metaTitle": "Data Analytics",
+      "metaDescription": "Dashboards, KPI frameworks and analyses that answer real business questions — built so your own team can run them.",
+      "eyebrow": "Service",
+      "title": "Data Analytics",
+      "intro": "Data only becomes valuable when someone acts on it. I build dashboards and KPI frameworks that answer the questions your team actually asks — and make sure they can run it themselves.",
+      "item1Title": "Dashboards & reporting",
+      "item1Body": "Dashboards designed for decisions, not decoration — from management overview down to operational detail.",
+      "item2Title": "KPI frameworks",
+      "item2Body": "Together we define the metrics that matter, with clear definitions and one source of truth.",
+      "item3Title": "Ad-hoc analysis",
+      "item3Body": "Deep-dives into specific questions — pricing, churn, funnel — with clear, actionable conclusions.",
+      "item4Title": "Self-service & adoption",
+      "item4Body": "Documentation, training and governance, so insights don't stay locked up with a single analyst."
+    },
+    "ai-genai": {
+      "metaTitle": "AI & GenAI",
+      "metaDescription": "AI strategy and working GenAI solutions: document processing, RAG and automation — practical, safe and measurable.",
+      "eyebrow": "Service",
+      "title": "AI & GenAI",
+      "intro": "AI isn't a strategy slide — it's working software. I help you find the use cases with real ROI and then build them: from document processing and RAG to automations that save hours every week.",
+      "item1Title": "Use-case discovery & AI strategy",
+      "item1Body": "We map your processes and find where AI genuinely pays off — realistic, measurable, no hype.",
+      "item2Title": "GenAI applications",
+      "item2Body": "Document processing, chat over your own knowledge base (RAG), content generation — built safely on your data.",
+      "item3Title": "Automation",
+      "item3Body": "AI-powered automations inside your existing tools and workflows, from intake to reporting.",
+      "item4Title": "Responsible & maintainable",
+      "item4Body": "Evaluation, guardrails and monitoring, so results stay reliable after go-live and your team stays in control."
+    }
   },
   "home": {
     "metaTitle": "Ruud Juffermans — Data Analytics & AI",

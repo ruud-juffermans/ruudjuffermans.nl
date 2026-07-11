@@ -21,15 +21,26 @@ import { palette } from "@/theme/theme";
 import { useSession, logoutSession } from "@/lib/session";
 import LanguageSwitcher from "./LanguageSwitcher";
 import ThemeSwitcher from "./ThemeSwitcher";
+import NavDropdown, { type NavDropdownItem } from "./NavDropdown";
 
 type StaticPathname = Exclude<AppPathname, `${string}[${string}]${string}`>;
 
 // The central account app (login lives there, not on this site).
 const accountLoginUrl = `${process.env.NEXT_PUBLIC_ACCOUNT_URL ?? "https://account.ruudjuffermans.nl"}/login`;
 
+// The platform's apps, shown in the header's Apps dropdown.
+const APP_URLS = {
+  fitness: "https://fitness.ruudjuffermans.nl",
+  habit: "https://habit.ruudjuffermans.nl",
+  journal: "https://journal.ruudjuffermans.nl",
+} as const;
+
+const SERVICE_SLUGS = ["data-engineering", "data-analytics", "ai-genai"] as const;
+
 export default function Header() {
   const t = useTranslations("nav");
   const tc = useTranslations("common");
+  const tm = useTranslations("menus");
   const pathname = usePathname();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { user, loading } = useSession();
@@ -62,12 +73,25 @@ export default function Header() {
   );
 
   const navItems: { label: string; href: StaticPathname }[] = [
-    { label: t("services"), href: "/services" },
     { label: t("portfolio"), href: "/portfolio" },
     { label: t("blog"), href: "/blog" },
     { label: t("about"), href: "/about" },
     { label: t("contact"), href: "/contact" },
   ];
+
+  const serviceMenuKeys = ["dataEngineering", "dataAnalytics", "aiGenai"] as const;
+  const serviceItems: NavDropdownItem[] = serviceMenuKeys.map((key, i) => ({
+    title: tm(`services.${key}.title`),
+    desc: tm(`services.${key}.desc`),
+    href: { pathname: "/services/[slug]", params: { slug: SERVICE_SLUGS[i] } },
+  }));
+
+  const appItems: NavDropdownItem[] = (["fitness", "habit", "journal"] as const).map((app) => ({
+    title: tm(`apps.${app}.title`),
+    desc: tm(`apps.${app}.desc`),
+    external: APP_URLS[app],
+    icon: tm(`apps.${app}.title`).charAt(0),
+  }));
 
   return (
     <>
@@ -116,6 +140,12 @@ export default function Header() {
                 gap: 0.5,
               }}
             >
+              <NavDropdown
+                label={t("services")}
+                active={pathname.startsWith("/services")}
+                items={serviceItems}
+                footer={{ label: tm("services.all"), href: "/services" }}
+              />
               {navItems.map((item) => (
                 <Button
                   key={item.href}
@@ -151,6 +181,7 @@ export default function Header() {
                   {item.label}
                 </Button>
               ))}
+              <NavDropdown label={t("apps")} items={appItems} tagline={tm("apps.tagline")} />
               <Box sx={{ ml: 1.5, display: "flex", alignItems: "center", gap: 0.5 }}>
                 <ThemeSwitcher />
                 <LanguageSwitcher />
@@ -227,7 +258,65 @@ export default function Header() {
           </IconButton>
         </Box>
 
-        <Box component="nav" sx={{ flex: 1, px: 2, pt: 3 }}>
+        <Box component="nav" sx={{ flex: 1, px: 2, pt: 3, overflowY: "auto" }}>
+          {/* Services: big link to the overview + the three service pages. */}
+          <Box
+            component={Link}
+            href="/services"
+            onClick={() => setDrawerOpen(false)}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              textDecoration: "none",
+              px: 2,
+              py: 1.8,
+              borderRadius: 3,
+              fontFamily: "var(--font-heading)",
+              fontWeight: pathname === "/services" ? 700 : 600,
+              fontSize: "1.55rem",
+              letterSpacing: "-0.02em",
+              color: pathname === "/services" ? palette.red : palette.gray900,
+              backgroundColor: pathname === "/services" ? palette.redMuted : "transparent",
+              animation: drawerOpen ? `navItemIn 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) both` : "none",
+              animationDelay: "80ms",
+              "&:active": { backgroundColor: palette.redMuted },
+            }}
+          >
+            {t("services")}
+            {pathname === "/services" && <ArrowForwardIcon sx={{ fontSize: 20, color: palette.red }} />}
+          </Box>
+          <Box sx={{ pl: 2, mb: 1 }}>
+            {serviceItems.map((item, i) => {
+              const slug = SERVICE_SLUGS[i];
+              const active = pathname === `/services/${slug}`;
+              return (
+                <Box
+                  key={item.title}
+                  component={Link}
+                  href={item.href!}
+                  onClick={() => setDrawerOpen(false)}
+                  sx={{
+                    display: "block",
+                    textDecoration: "none",
+                    px: 2,
+                    py: 0.9,
+                    borderRadius: 2,
+                    fontWeight: active ? 600 : 500,
+                    fontSize: "1.02rem",
+                    color: active ? palette.red : "var(--app-text-secondary)",
+                    animation: drawerOpen
+                      ? `navItemIn 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) both`
+                      : "none",
+                    animationDelay: `${115 + i * 40}ms`,
+                    "&:active": { backgroundColor: palette.redMuted },
+                  }}
+                >
+                  {item.title}
+                </Box>
+              );
+            })}
+          </Box>
           {navItems.map((item, i) => {
             const active = pathname === item.href;
             return (
@@ -254,7 +343,7 @@ export default function Header() {
                   animation: drawerOpen
                     ? `navItemIn 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) both`
                     : "none",
-                  animationDelay: `${80 + i * 55}ms`,
+                  animationDelay: `${260 + i * 55}ms`,
                   "&:active": { backgroundColor: palette.redMuted },
                 }}
               >
@@ -263,6 +352,67 @@ export default function Header() {
               </Box>
             );
           })}
+
+          {/* Apps: the platform's tools, external links. */}
+          <Box
+            sx={{
+              px: 2,
+              pt: 2.5,
+              pb: 0.75,
+              fontSize: "0.72rem",
+              fontWeight: 600,
+              letterSpacing: "0.06em",
+              textTransform: "uppercase",
+              color: "var(--app-text-secondary)",
+              animation: drawerOpen ? `navItemIn 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) both` : "none",
+              animationDelay: "480ms",
+            }}
+          >
+            {t("apps")}
+          </Box>
+          {appItems.map((item, i) => (
+            <Box
+              key={item.title}
+              component="a"
+              href={item.external}
+              onClick={() => setDrawerOpen(false)}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1.5,
+                textDecoration: "none",
+                px: 2,
+                py: 0.9,
+                borderRadius: 2,
+                animation: drawerOpen ? `navItemIn 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) both` : "none",
+                animationDelay: `${515 + i * 40}ms`,
+                "&:active": { backgroundColor: palette.redMuted },
+              }}
+            >
+              <Box
+                aria-hidden
+                sx={{
+                  width: 30,
+                  height: 30,
+                  flexShrink: 0,
+                  borderRadius: "9px",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: palette.redMuted,
+                  color: palette.red,
+                  fontFamily: "var(--font-heading)",
+                  fontWeight: 800,
+                  fontSize: "0.85rem",
+                }}
+              >
+                {item.icon}
+              </Box>
+              <Box sx={{ fontWeight: 500, fontSize: "1.02rem", color: "var(--app-text-secondary)" }}>
+                {item.title}
+              </Box>
+            </Box>
+          ))}
         </Box>
 
         <Divider sx={{ mx: 3.5 }} />
