@@ -95,7 +95,7 @@ export default function Header() {
 
   return (
     <>
-      <AppBar position="sticky" sx={{px:5}}>
+      <AppBar position="sticky" sx={{px:{ xs: 2, lg: 5 }}}>
           <Toolbar
             disableGutters
             sx={{ justifyContent: "space-between", minHeight: { xs: 60, lg: 68 } }}
