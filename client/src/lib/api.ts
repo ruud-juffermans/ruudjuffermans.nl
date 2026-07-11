@@ -2,7 +2,7 @@
 // backend moved there as the "website" module. Production bakes the absolute
 // origin in at build time; in dev this stays "" and the Next rewrite proxies
 // /api/* to the local platform server (see next.config.ts).
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 async function request<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_URL}${endpoint}`, {

@@ -18,6 +18,7 @@ import { useState } from "react";
 import { Link, usePathname } from "@/i18n/navigation";
 import type { AppPathname } from "@/i18n/routing";
 import { palette } from "@/theme/theme";
+import { useSession, logoutSession } from "@/lib/session";
 import LanguageSwitcher from "./LanguageSwitcher";
 import ThemeSwitcher from "./ThemeSwitcher";
 
@@ -31,6 +32,29 @@ export default function Header() {
   const tc = useTranslations("common");
   const pathname = usePathname();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const { user, loading } = useSession();
+
+  // Log in (link to the account app) or Log out (ends the platform session),
+  // in the primary color. Nothing while the session check runs, to avoid a
+  // Log in → Log out flash for signed-in visitors.
+  const authButton = loading ? null : (
+    <Button
+      {...(user ? { onClick: () => void logoutSession() } : { href: accountLoginUrl })}
+      sx={{
+        px: 2,
+        minHeight: 38,
+        color: palette.red,
+        fontWeight: 600,
+        fontSize: "0.92rem",
+        "&:hover": {
+          color: palette.redHover,
+          backgroundColor: "transparent",
+        },
+      }}
+    >
+      {user ? tc("logout") : tc("login")}
+    </Button>
+  );
 
   const navItems: { label: string; href: StaticPathname }[] = [
     { label: t("services"), href: "/services" },
@@ -126,23 +150,7 @@ export default function Header() {
                 <ThemeSwitcher />
                 <LanguageSwitcher />
               </Box>
-              <Button
-                href={accountLoginUrl}
-                sx={{
-                  ml: 1.5,
-                  px: 2,
-                  minHeight: 38,
-                  color: palette.red,
-                  fontWeight: 600,
-                  fontSize: "0.92rem",
-                  "&:hover": {
-                    color: palette.redHover,
-                    backgroundColor: "transparent",
-                  },
-                }}
-              >
-                {tc("login")}
-              </Button>
+              <Box sx={{ ml: 1.5 }}>{authButton}</Box>
               <Button
                 variant="contained"
                 component={Link}
@@ -269,16 +277,7 @@ export default function Header() {
             <LanguageSwitcher variant="compact" />
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Button
-              href={accountLoginUrl}
-              sx={{
-                color: palette.red,
-                fontWeight: 600,
-                "&:hover": { color: palette.redHover, backgroundColor: "transparent" },
-              }}
-            >
-              {tc("login")}
-            </Button>
+            {authButton}
             <Button
               variant="contained"
               component={Link}
