@@ -126,7 +126,7 @@ export default function Footer() {
             <Box sx={{ display: "flex", gap: 1 }}>
               <IconButton
                 component="a"
-                href="https://linkedin.com/in/ruudjuf"
+                href="https://www.linkedin.com/in/r-j3"
                 target="_blank"
                 rel="noopener"
                 sx={{ color: FC.icon, "&:hover": { color: FC.iconHover } }}
@@ -135,7 +135,7 @@ export default function Footer() {
               </IconButton>
               <IconButton
                 component="a"
-                href="https://github.com/ruudjuf"
+                href="https://github.com/ruud-juffermans"
                 target="_blank"
                 rel="noopener"
                 sx={{ color: FC.icon, "&:hover": { color: FC.iconHover } }}
@@ -144,7 +144,7 @@ export default function Footer() {
               </IconButton>
               <IconButton
                 component="a"
-                href="mailto:ruudjuffermans@pm.me"
+                href="mailto:me@ruudjuffermans.nl"
                 sx={{ color: FC.icon, "&:hover": { color: FC.iconHover } }}
               >
                 <EmailIcon />

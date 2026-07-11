@@ -95,11 +95,10 @@ export default function Header() {
 
   return (
     <>
-      <AppBar position="sticky">
-        <Container>
+      <AppBar position="sticky" sx={{px:5}}>
           <Toolbar
             disableGutters
-            sx={{ justifyContent: "space-between", minHeight: { xs: 60, md: 68 } }}
+            sx={{ justifyContent: "space-between", minHeight: { xs: 60, lg: 68 } }}
           >
             <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
               <IconButton
@@ -108,7 +107,7 @@ export default function Header() {
                 sx={{
                   color: palette.gray900,
                   ml: -1,
-                  display: { xs: "inline-flex", md: "none" },
+                  display: { xs: "inline-flex", lg: "none" },
                 }}
               >
                 <MenuIcon />
@@ -120,7 +119,7 @@ export default function Header() {
                   textDecoration: "none",
                   fontFamily: "var(--font-heading)",
                   fontWeight: 700,
-                  fontSize: { xs: "1.15rem", md: "1.3rem" },
+                  fontSize: { xs: "1.15rem", lg: "1.3rem" },
                   color: palette.gray900,
                   letterSpacing: "-0.02em",
                   whiteSpace: "nowrap",
@@ -133,9 +132,10 @@ export default function Header() {
             </Box>
 
             {/* Desktop nav */}
+            <Box>
             <Box
               sx={{
-                display: { xs: "none", md: "flex" },
+                display: { xs: "none", lg: "flex" },
                 alignItems: "center",
                 gap: 0.5,
               }}
@@ -181,12 +181,12 @@ export default function Header() {
                   {item.label}
                 </Button>
               ))}
-              <NavDropdown label={t("apps")} items={appItems} tagline={tm("apps.tagline")} />
-              <Box sx={{ ml: 1.5, display: "flex", alignItems: "center", gap: 0.5 }}>
+              <NavDropdown label={t("apps")} items={appItems} />
+              <Box sx={{ ml: 1.5, display: "flex", alignItems: "center", gap: 0.5, mr:4 }}>
                 <ThemeSwitcher />
                 <LanguageSwitcher />
               </Box>
-              <Box sx={{ ml: 1.5 }}>{authButton}</Box>
+              
               <Button
                 variant="contained"
                 component={Link}
@@ -196,6 +196,7 @@ export default function Header() {
               >
                 {tc("cta")}
               </Button>
+              <Box sx={{ ml: 1.5 }}>{authButton}</Box>
             </Box>
 
             {/* Mobile CTA */}
@@ -204,12 +205,14 @@ export default function Header() {
               component={Link}
               href="/contact"
               size="small"
-              sx={{ display: { xs: "inline-flex", md: "none" }, px: 3 }}
+              sx={{ display: { xs: "inline-flex", lg: "none" }, px: 3 }}
             >
               {tc("contact")}
             </Button>
+            <Box sx={{ ml: 0, display: { xs: "inline-flex", lg: "none" }}}>{authButton}</Box>
+            </Box>
           </Toolbar>
-        </Container>
+   
       </AppBar>
 
       {/* Mobile navigation drawer — large editorial links, controls at the bottom */}

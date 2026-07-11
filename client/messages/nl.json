@@ -244,13 +244,6 @@
         "forWhom": "Teams die dagelijks uren kwijt zijn aan kopiëren, plakken, en handmatig verwerken.",
         "deliverables": ["Geautomatiseerde workflows", "Integraties tussen systemen", "Monitoring en alerting"],
         "duration": "2-8 weken"
-      },
-      "training": {
-        "title": "Training & Workshops",
-        "description": "Teams leren werken met AI-tools, dataplatforms en analytics. De investering laten renderen nadat ik vertrek.",
-        "forWhom": "Bedrijven die een oplossing laten bouwen maar het daarna zelf willen draaien.",
-        "deliverables": ["Hands-on workshops", "Coaching trajecten", "Op maat trainingen"],
-        "duration": "Halve dag tot 8 weken"
       }
     },
     "cta": {

@@ -61,9 +61,9 @@ export default function ContactPage() {
     };
 
   const directItems = [
-    { icon: <EmailIcon />, label: t("direct.email"), href: "mailto:ruudjuffermans@pm.me" },
-    { icon: <LinkedInIcon />, label: t("direct.linkedin"), href: "https://linkedin.com/in/ruudjuf" },
-    { icon: <GitHubIcon />, label: t("direct.github"), href: "https://github.com/ruudjuf" },
+    { icon: <EmailIcon />, label: t("direct.email"), href: "mailto:me@ruudjuffermans.nl" },
+    { icon: <LinkedInIcon />, label: t("direct.linkedin"), href: "https://www.linkedin.com/in/r-j3" },
+    { icon: <GitHubIcon />, label: t("direct.github"), href: "https://github.com/ruud-juffermans" },
     { icon: <LocationOnIcon />, label: t("direct.location"), href: null as string | null },
   ];
 

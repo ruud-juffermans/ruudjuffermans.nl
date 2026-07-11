@@ -35,7 +35,7 @@ export default async function BlogPage({
     <>
       <Box sx={{ pt: { xs: 10, md: 15 }, pb: { xs: 6, md: 9 } }}>
         <Container>
-          <Box sx={{ maxWidth: 700 }}>
+          <Box sx={{ maxWidth: 800 }}>
             <Reveal variant="rise" delay={0}>
               <Typography variant="overline" sx={{ mb: 2, display: "block" }}>
                 {t("eyebrow")}

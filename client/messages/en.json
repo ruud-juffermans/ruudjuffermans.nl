@@ -244,13 +244,6 @@
         "forWhom": "Teams that spend hours daily copying, pasting, and processing by hand.",
         "deliverables": ["Automated workflows", "System integrations", "Monitoring and alerting"],
         "duration": "2-8 weeks"
-      },
-      "training": {
-        "title": "Training & Workshops",
-        "description": "Teaching teams to work with AI tools, data platforms and analytics. Making the investment pay off after I'm gone.",
-        "forWhom": "Companies that have a solution built but want to run it themselves afterwards.",
-        "deliverables": ["Hands-on workshops", "Coaching tracks", "Tailored training"],
-        "duration": "Half a day to 8 weeks"
       }
     },
     "cta": {
@@ -312,7 +305,7 @@
     },
     "direct": {
       "title": "Direct contact",
-      "email": "ruudjuffermans@pm.me",
+      "email": "me@ruudjuffermans.nl",
       "linkedin": "LinkedIn",
       "github": "GitHub",
       "location": "Amsterdam, Netherlands",

@@ -29,8 +29,7 @@ type ServiceKey =
   | "genai"
   | "aiStrategy"
   | "modelDevelopment"
-  | "automation"
-  | "training";
+  | "automation";
 
 // One section per service detail page; accents match /services/[slug].
 const structure: {
