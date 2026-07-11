@@ -23,6 +23,9 @@ import ThemeSwitcher from "./ThemeSwitcher";
 
 type StaticPathname = Exclude<AppPathname, `${string}[${string}]${string}`>;
 
+// The central account app (login lives there, not on this site).
+const accountLoginUrl = `${process.env.NEXT_PUBLIC_ACCOUNT_URL ?? "https://account.ruudjuffermans.nl"}/login`;
+
 export default function Header() {
   const t = useTranslations("nav");
   const tc = useTranslations("common");
@@ -124,11 +127,28 @@ export default function Header() {
                 <LanguageSwitcher />
               </Box>
               <Button
+                href={accountLoginUrl}
+                sx={{
+                  ml: 1.5,
+                  px: 2,
+                  minHeight: 38,
+                  color: palette.red,
+                  fontWeight: 600,
+                  fontSize: "0.92rem",
+                  "&:hover": {
+                    color: palette.redHover,
+                    backgroundColor: "transparent",
+                  },
+                }}
+              >
+                {tc("login")}
+              </Button>
+              <Button
                 variant="contained"
                 component={Link}
                 href="/contact"
                 size="small"
-                sx={{ ml: 1.5, px: 3.5 }}
+                sx={{ ml: 0.5, px: 3.5 }}
               >
                 {tc("cta")}
               </Button>
@@ -248,16 +268,28 @@ export default function Header() {
             <ThemeSwitcher />
             <LanguageSwitcher variant="compact" />
           </Box>
-          <Button
-            variant="contained"
-            component={Link}
-            href="/contact"
-            size="small"
-            onClick={() => setDrawerOpen(false)}
-            sx={{ px: 3 }}
-          >
-            {tc("cta")}
-          </Button>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Button
+              href={accountLoginUrl}
+              sx={{
+                color: palette.red,
+                fontWeight: 600,
+                "&:hover": { color: palette.redHover, backgroundColor: "transparent" },
+              }}
+            >
+              {tc("login")}
+            </Button>
+            <Button
+              variant="contained"
+              component={Link}
+              href="/contact"
+              size="small"
+              onClick={() => setDrawerOpen(false)}
+              sx={{ px: 3 }}
+            >
+              {tc("cta")}
+            </Button>
+          </Box>
         </Box>
       </Drawer>
     </>
