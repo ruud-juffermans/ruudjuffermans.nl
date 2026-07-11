@@ -180,12 +180,13 @@
     "labels": {
       "forWhom": "Voor wie",
       "deliverables": "Deliverables",
-      "duration": "Typische duur: {value}"
+      "duration": "Typische duur: {value}",
+      "viewService": "Bekijk deze dienst"
     },
     "categories": {
-      "data": "Data Analytics",
-      "ai": "AI & GenAI",
-      "knowledge": "Kennisoverdracht"
+      "data-engineering": "Data Engineering",
+      "data-analytics": "Data Analytics",
+      "ai-genai": "AI & GenAI"
     },
     "items": {
       "dataTransformation": {

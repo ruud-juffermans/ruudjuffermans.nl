@@ -32,16 +32,20 @@ type ServiceKey =
   | "automation"
   | "training";
 
-const structure: { categoryKey: "data" | "ai" | "knowledge"; items: ServiceKey[] }[] = [
-  { categoryKey: "data", items: ["dataTransformation", "dashboards", "analysis", "engineering"] },
-  { categoryKey: "ai", items: ["genai", "aiStrategy", "modelDevelopment", "automation"] },
+// One section per service detail page; accents match /services/[slug].
+const structure: {
+  slug: "data-engineering" | "data-analytics" | "ai-genai";
+  accent: string;
+  items: ServiceKey[];
+}[] = [
+  { slug: "data-engineering", accent: "#3B82F6", items: ["engineering", "dataTransformation"] },
+  { slug: "data-analytics", accent: palette.red, items: ["dashboards", "analysis"] },
+  {
+    slug: "ai-genai",
+    accent: "#8B5CF6",
+    items: ["genai", "aiStrategy", "modelDevelopment", "automation"],
+  },
 ];
-
-const categoryColors: Record<string, string> = {
-  data: palette.red,
-  ai: "#8B5CF6",
-  knowledge: "#10B981",
-};
 
 export default async function ServicesPage({
   params,
@@ -76,28 +80,55 @@ export default async function ServicesPage({
       </Box>
 
       {/* Services */}
-      {structure.map(({ categoryKey, items }) => (
+      {structure.map(({ slug, accent, items }, sectionIndex) => (
         <Box
-          key={categoryKey}
+          key={slug}
           sx={{
             py: { xs: 8, md: 11 },
-            backgroundColor: categoryKey === "data" ? palette.offWhite : "transparent",
-            borderTop: categoryKey === "data" ? `1px solid var(--app-border-soft)` : "none",
-            borderBottom: categoryKey === "data" ? `1px solid var(--app-border-soft)` : "none",
+            backgroundColor: sectionIndex % 2 === 0 ? palette.offWhite : "transparent",
+            borderTop: sectionIndex % 2 === 0 ? `1px solid var(--app-border-soft)` : "none",
+            borderBottom: sectionIndex % 2 === 0 ? `1px solid var(--app-border-soft)` : "none",
           }}
         >
           <Container>
             <Reveal variant="rise">
-              <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 5 }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  flexWrap: "wrap",
+                  gap: 2,
+                  mb: 5,
+                }}
+              >
+                <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                  <Box
+                    sx={{
+                      width: 4,
+                      height: 32,
+                      borderRadius: 2,
+                      backgroundColor: accent,
+                    }}
+                  />
+                  <Typography variant="h2">{t(`categories.${slug}`)}</Typography>
+                </Box>
                 <Box
+                  component={Link}
+                  href={{ pathname: "/services/[slug]", params: { slug } }}
                   sx={{
-                    width: 4,
-                    height: 32,
-                    borderRadius: 2,
-                    backgroundColor: categoryColors[categoryKey],
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 1,
+                    textDecoration: "none",
+                    fontWeight: 600,
+                    color: accent,
+                    "&:hover": { textDecoration: "underline" },
                   }}
-                />
-                <Typography variant="h2">{t(`categories.${categoryKey}`)}</Typography>
+                >
+                  {t("labels.viewService")}
+                  <ArrowForwardIcon sx={{ fontSize: 18 }} />
+                </Box>
               </Box>
             </Reveal>
             <Grid container spacing={3}>

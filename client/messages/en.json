@@ -180,12 +180,13 @@
     "labels": {
       "forWhom": "For whom",
       "deliverables": "Deliverables",
-      "duration": "Typical duration: {value}"
+      "duration": "Typical duration: {value}",
+      "viewService": "View this service"
     },
     "categories": {
-      "data": "Data Analytics",
-      "ai": "AI & GenAI",
-      "knowledge": "Knowledge transfer"
+      "data-engineering": "Data Engineering",
+      "data-analytics": "Data Analytics",
+      "ai-genai": "AI & GenAI"
     },
     "items": {
       "dataTransformation": {
