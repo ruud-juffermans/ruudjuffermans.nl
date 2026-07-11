@@ -36,10 +36,15 @@ export default function Header() {
 
   // Log in (link to the account app) or Log out (ends the platform session),
   // in the primary color. Nothing while the session check runs, to avoid a
-  // Log in → Log out flash for signed-in visitors.
+  // Log in → Log out flash for signed-in visitors. return_url brings the user
+  // back to the page they were on (computed on click — no URL at SSR time).
+  const toLogin = () =>
+    window.location.assign(
+      `${accountLoginUrl}?return_url=${encodeURIComponent(window.location.href)}`,
+    );
   const authButton = loading ? null : (
     <Button
-      {...(user ? { onClick: () => void logoutSession() } : { href: accountLoginUrl })}
+      onClick={user ? () => void logoutSession() : toLogin}
       sx={{
         px: 2,
         minHeight: 38,
