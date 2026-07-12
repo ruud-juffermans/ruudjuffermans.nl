@@ -20,6 +20,8 @@ import type { AppPathname } from "@/i18n/routing";
 import { palette } from "@/theme/theme";
 import { useSession, logoutSession } from "@/lib/session";
 import LanguageSwitcher from "./LanguageSwitcher";
+import Logo from "./Logo";
+import AppTile from "./AppTile";
 import ThemeSwitcher from "./ThemeSwitcher";
 import NavDropdown, { type NavDropdownItem } from "./NavDropdown";
 
@@ -36,6 +38,7 @@ const APP_URLS = {
 } as const;
 
 const SERVICE_SLUGS = ["data-engineering", "data-analytics", "ai-genai"] as const;
+const APP_KEYS = ["fitness", "habit", "journal"] as const;
 
 export default function Header() {
   const t = useTranslations("nav");
@@ -86,11 +89,11 @@ export default function Header() {
     href: { pathname: "/services/[slug]", params: { slug: SERVICE_SLUGS[i] } },
   }));
 
-  const appItems: NavDropdownItem[] = (["fitness", "habit", "journal"] as const).map((app) => ({
+  const appItems: NavDropdownItem[] = APP_KEYS.map((app) => ({
     title: tm(`apps.${app}.title`),
     desc: tm(`apps.${app}.desc`),
     external: APP_URLS[app],
-    icon: tm(`apps.${app}.title`).charAt(0),
+    icon: <AppTile app={app} />,
   }));
 
   return (
@@ -116,6 +119,9 @@ export default function Header() {
                 component={Link}
                 href="/"
                 sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1.25,
                   textDecoration: "none",
                   fontFamily: "var(--font-heading)",
                   fontWeight: 700,
@@ -127,6 +133,7 @@ export default function Header() {
                   transition: "color 0.2s",
                 }}
               >
+                <Logo size={28} />
                 Ruud Juffermans
               </Box>
             </Box>
@@ -247,6 +254,9 @@ export default function Header() {
         >
           <Box
             sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
               fontFamily: "var(--font-heading)",
               fontWeight: 700,
               fontSize: "1.05rem",
@@ -254,6 +264,7 @@ export default function Header() {
               letterSpacing: "-0.02em",
             }}
           >
+            <Logo size={24} />
             Ruud Juffermans
           </Box>
           <IconButton onClick={() => setDrawerOpen(false)} aria-label="Close menu" sx={{ mr: -1 }}>
@@ -392,25 +403,7 @@ export default function Header() {
                 "&:active": { backgroundColor: palette.redMuted },
               }}
             >
-              <Box
-                aria-hidden
-                sx={{
-                  width: 30,
-                  height: 30,
-                  flexShrink: 0,
-                  borderRadius: "9px",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  backgroundColor: palette.redMuted,
-                  color: palette.red,
-                  fontFamily: "var(--font-heading)",
-                  fontWeight: 800,
-                  fontSize: "0.85rem",
-                }}
-              >
-                {item.icon}
-              </Box>
+              <AppTile app={APP_KEYS[i]} size={30} />
               <Box sx={{ fontWeight: 500, fontSize: "1.02rem", color: "var(--app-text-secondary)" }}>
                 {item.title}
               </Box>

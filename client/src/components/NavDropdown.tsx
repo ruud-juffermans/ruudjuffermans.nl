@@ -86,15 +86,19 @@ export default function NavDropdown({ label, active, items, tagline, footer }: P
             height: 34,
             flexShrink: 0,
             mt: 0.25,
-            borderRadius: "10px",
             display: "inline-flex",
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: palette.redMuted,
-            color: palette.red,
-            fontFamily: "var(--font-heading)",
-            fontWeight: 800,
-            fontSize: "0.95rem",
+            // Letter-box chrome only for plain string icons; app tiles bring
+            // their own background.
+            ...(typeof item.icon === "string" && {
+              borderRadius: "10px",
+              backgroundColor: palette.redMuted,
+              color: palette.red,
+              fontFamily: "var(--font-heading)",
+              fontWeight: 800,
+              fontSize: "0.95rem",
+            }),
           }}
         >
           {item.icon}
