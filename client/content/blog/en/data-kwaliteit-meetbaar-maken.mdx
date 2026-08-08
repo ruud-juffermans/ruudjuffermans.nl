@@ -1,0 +1,47 @@
+---
+title: "Making data quality measurable instead of arguing about it"
+date: "2026-03-12"
+excerpt: "\"The data is unreliable\" is an opinion until you attach a number to it. Six checks that turn the discussion into a dashboard."
+tags: ["Data Engineering", "Data Quality", "Technical"]
+---
+
+## The unwinnable argument
+
+Sales says the pipeline numbers are wrong. Finance says sales is reading them wrong. Both are partly right, neither can prove it, and the meeting ends with someone exporting to Excel to "check it properly".
+
+You cannot fix trust with a conversation. You fix it by making quality a measured property of the data, visible to everyone, before anyone opens a report.
+
+## Six dimensions worth measuring
+
+**Completeness** — how many required fields are actually populated? Track it per column, per day, and alert on the delta rather than the absolute value. A field that has been 12% empty for two years is a known limitation; the same field jumping to 40% overnight is an incident.
+
+**Timeliness** — how old is the newest record? This is the single most valuable check to add first. Most "wrong number" reports are really "stale number" reports.
+
+**Uniqueness** — duplicates on the business key. Cheap to check, and the failure mode is silent double-counting.
+
+**Validity** — does the value fit the domain? Negative quantities, dates in 1900, country codes that are not ISO.
+
+**Consistency** — do two sources that should agree, agree? Order count in the warehouse versus order count in the source system, per day.
+
+**Accuracy** — does it match reality? The expensive one, because it needs an external reference. Reserve it for the handful of metrics where being wrong actually costs money.
+
+## Make it a build step, not a report
+
+```sql
+-- freshness check that fails the pipeline
+select count(*) as failures
+from analytics.fct_orders
+having max(ordered_at) < current_timestamp - interval '6 hours'
+```
+
+The point is where this runs. A quality report that someone reads after the fact is a post-mortem tool. The same check in the pipeline stops bad data from reaching the dashboard at all.
+
+## Publish the score
+
+One number per dataset, visible next to the dataset itself. Not because the number is precise — it is not — but because it converts "I do not trust this" into "this dropped from 98 to 71 on Tuesday, what happened?"
+
+That is a question you can actually answer.
+
+## Start with two checks
+
+Freshness and row count, on your three most-used tables. It takes an afternoon and it catches the majority of real incidents. Everything else in this article is refinement on top of that.

@@ -1,0 +1,126 @@
+/* Registered so --amplitude/--scale interpolate inside the keyframes. */
+@property --amplitude {
+  syntax: "<length>";
+  initial-value: 0px;
+  inherits: false;
+}
+
+@property --scale {
+  syntax: "<number>";
+  initial-value: 1;
+  inherits: false;
+}
+
+/* Mobile default: centered behind the hero text, deliberately oversized so
+   the expanded circles overflow the screen edges (the hero clips them), and
+   toned down with opacity + blur so the copy stays readable. */
+.pattern {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 640px;
+  height: 640px;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+/* Desktop: full-strength pattern parked on the right, as before. */
+@media (min-width: 900px) {
+  .pattern {
+    left: auto;
+    right: -120px;
+    transform: translateY(-50%);
+    opacity: 1;
+  }
+}
+
+/* Past 1300px, track the centered content instead of the viewport edge so
+   the pattern stops drifting right. 50% + 130px equals the position that
+   right: -120px yields at exactly 1300px wide, so there is no jump. */
+@media (min-width: 1300px) {
+  .pattern {
+    right: auto;
+    left: calc(50% + 130px);
+  }
+}
+
+.circle {
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  /* Light scheme: near-white -> brand red (#dd2e5a), darken blend so the
+     white end melts into the page background. */
+  background: radial-gradient(
+    circle at 50% 0%,
+    oklch(0.99 0.003 13),
+    oklch(0.8 0.1 12),
+    oklch(0.592 0.2086 12.77)
+  );
+  mix-blend-mode: darken;
+  --angle: 90deg;
+  --amplitude: 175px;
+  --scale: 1.5;
+  --offset: 30deg;
+  transform: translate(
+      calc(cos(var(--angle)) * var(--amplitude)),
+      calc(sin(var(--angle)) * var(--amplitude) * -1)
+    )
+    scale(var(--scale)) rotate(calc(-1 * var(--angle) + 17deg));
+  animation: expand 4.01s cubic-bezier(0.8, 0, 0.2, 1) infinite alternate;
+}
+
+/* Dark scheme: page-bg navy -> brand red (#ef4d76), lighten blend. */
+:global([data-mui-color-scheme="dark"]) .circle {
+  background: radial-gradient(
+    circle at 50% 0%,
+    oklch(0.1706 0.0284 267.36),
+    oklch(0.4 0.14 10),
+    oklch(0.6551 0.1986 9.43)
+  );
+  mix-blend-mode: lighten;
+}
+
+.circle:nth-child(1) {
+  --angle: calc(0deg + var(--offset));
+}
+.circle:nth-child(2) {
+  --angle: calc(60deg + var(--offset));
+}
+.circle:nth-child(3) {
+  --angle: calc(120deg + var(--offset));
+}
+.circle:nth-child(4) {
+  --angle: calc(180deg + var(--offset));
+}
+.circle:nth-child(5) {
+  --angle: calc(240deg + var(--offset));
+}
+.circle:nth-child(6) {
+  --angle: calc(300deg + var(--offset));
+}
+
+@keyframes expand {
+  0% {
+    --amplitude: 150px;
+    --scale: 1;
+  }
+  50% {
+    --amplitude: 100px;
+    --scale: 3;
+  }
+  100% {
+    --amplitude: 150px;
+    --scale: 3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .circle {
+    animation: none;
+  }
+}

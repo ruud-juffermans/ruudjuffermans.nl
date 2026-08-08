@@ -1,5 +1,4 @@
-import { Box, Container, Typography, Chip, Button, Divider, Alert } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Box, Container, Typography, Button, Divider, Alert } from "@mui/material";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypePrettyCode from "rehype-pretty-code";
 import { notFound } from "next/navigation";
@@ -44,17 +43,26 @@ export default async function BlogPostPage({
   const tc = await getTranslations("common");
 
   return (
-    <Box sx={{ py: { xs: 4, md: 8 } }}>
+    <Box sx={{ pt: { xs: 6, md: 10 }, pb: { xs: 8, md: 11 } }}>
       <PageViewTracker path={`/blog/${slug}`} locale={locale} />
-      <Container maxWidth="lg">
-        <Button
+      <Container maxWidth="md">
+        <Typography
           component={Link}
           href="/blog"
-          startIcon={<ArrowBackIcon />}
-          sx={{ mb: 3, color: palette.gray500 }}
+          sx={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 1,
+            fontSize: "0.8rem",
+            color: palette.gray500,
+            textDecoration: "none",
+            mb: 4.5,
+            transition: "color 0.2s ease",
+            "&:hover": { color: palette.red },
+          }}
         >
-          {tc("backToBlog")}
-        </Button>
+          <span aria-hidden="true">←</span> {tc("backToBlog")}
+        </Typography>
 
         {post.usedFallback && (
           <Alert severity="info" sx={{ mb: 3 }}>
@@ -62,58 +70,69 @@ export default async function BlogPostPage({
           </Alert>
         )}
 
-        <Box sx={{ display: "flex", gap: 1, mb: 2, flexWrap: "wrap" }}>
-          {post.meta.tags.map((tag) => (
-            <Chip key={tag} label={tag} size="small" variant="outlined" />
-          ))}
+        <Box sx={{ mb: 5 }}>
+          <Typography
+            variant="overline"
+            sx={{ color: palette.red, display: "block", letterSpacing: "0.12em" }}
+          >
+            {post.meta.tags.join(" · ")}
+          </Typography>
+          <Typography
+            variant="h1"
+            sx={{ mt: 1.75, mb: 2, fontSize: "clamp(30px, 4.4vw, 44px)" }}
+          >
+            {post.meta.title}
+          </Typography>
+          <Typography sx={{ fontSize: 14, color: palette.gray500 }}>
+            {post.meta.date} &middot; {post.meta.readingTime} {tc("readingTimeSuffix")}
+          </Typography>
         </Box>
-
-        <Typography variant="h1" sx={{ mb: 1.5, fontSize: { xs: "2rem", md: "2.75rem" } }}>
-          {post.meta.title}
-        </Typography>
-
-        <Typography variant="body2" sx={{ color: palette.gray400, mb: 4 }}>
-          {post.meta.date} &middot; {post.meta.readingTime} {tc("readingTimeSuffix")}
-        </Typography>
 
         <Box
           sx={{
+            fontSize: 17,
+            lineHeight: 1.7,
             "& h2": {
               fontFamily: "var(--font-heading)",
-              fontSize: "1.5rem",
+              fontSize: "26px",
               fontWeight: 600,
-              mt: 4,
-              mb: 1,
+              mt: 5.5,
+              mb: 2,
               color: palette.gray900,
             },
             "& h3": {
               fontFamily: "var(--font-heading)",
-              fontSize: "1.2rem",
+              fontSize: "20px",
               fontWeight: 600,
-              mt: 3,
-              mb: 0.75,
+              mt: 4,
+              mb: 1.5,
               color: palette.gray900,
             },
             "& p": {
               color: palette.gray600,
+              fontSize: "inherit",
+              lineHeight: "inherit",
+              mb: 2.5,
             },
             "& ul, & ol": {
-              pl: 4,
-              mb: 1.5,
+              pl: 3,
+              mb: 2.5,
               "& li": {
-                lineHeight: 1.6,
+                lineHeight: "inherit",
                 color: palette.gray600,
-                mb: 0.25,
+                mb: 1.5,
               },
             },
             "& blockquote": {
               borderLeft: `3px solid ${palette.red}`,
+              py: 0.5,
               pl: 2.5,
               ml: 0,
-              my: 2,
+              my: 3.5,
               "& p": {
-                color: palette.gray700,
-                fontStyle: "italic",
+                fontFamily: "var(--font-heading)",
+                fontSize: "20px",
+                color: palette.gray800,
                 mb: 0,
               },
             },
@@ -204,6 +223,7 @@ export default async function BlogPostPage({
             "& a": {
               color: palette.red,
               textDecoration: "underline",
+              textUnderlineOffset: "3px",
               textDecorationColor: palette.redMuted,
               "&:hover": {
                 textDecorationColor: palette.red,

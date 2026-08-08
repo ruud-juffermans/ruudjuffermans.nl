@@ -7,6 +7,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import EmailIcon from "@mui/icons-material/EmailOutlined";
 import { useTranslations } from "next-intl";
+import Availability from "./Availability";
 import { Link } from "@/i18n/navigation";
 import type { AppPathname } from "@/i18n/routing";
 import { palette } from "@/theme/theme";
@@ -27,7 +28,6 @@ const FC = {
   link: "rgba(255, 255, 255, 0.65)",
   linkHover: "#FFFFFF",
   copyright: "rgba(255, 255, 255, 0.40)",
-  contactInfo: "rgba(255, 255, 255, 0.30)",
   icon: "rgba(255, 255, 255, 0.55)",
   iconHover: "#FFFFFF",
   hairline: "rgba(255, 255, 255, 0.30)",
@@ -86,7 +86,9 @@ export default function Footer() {
     <Box
       component="footer"
       sx={{
-        backgroundColor: palette.navy,
+        // Navy blended with the bottom bar's former 35% black overlay, so the
+        // whole footer sits at the darkness the bottom strip used to have.
+        backgroundColor: "#070B15",
         color: FC.body,
         pt: { xs: 9, md: 12 },
         pb: 0,
@@ -268,7 +270,6 @@ export default function Footer() {
           mt: { xs: 7, md: 9 },
           py: 2.5,
           pb: "calc(15px + env(safe-area-inset-bottom))",
-          backgroundColor: "rgba(0, 0, 0, 0.35)",
           borderTop: "1px solid rgba(255, 255, 255, 0.05)",
         }}
       >
@@ -286,9 +287,7 @@ export default function Footer() {
             <Typography variant="body2" sx={{ color: FC.copyright, fontSize: "0.85rem" }}>
               {t("copyright", { year: new Date().getFullYear() })}
             </Typography>
-            <Typography variant="body2" sx={{ color: FC.contactInfo, fontSize: "0.85rem" }}>
-              {t("contactInfo")}
-            </Typography>
+            <Availability variant="footer" />
           </Box>
         </Container>
       </Box>

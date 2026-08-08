@@ -1,0 +1,63 @@
+---
+title: "dbt in de praktijk: wat er verandert als je transformaties code worden"
+date: "2026-04-02"
+excerpt: "Versiebeheer, tests en documentatie voor je SQL. Wat dbt echt oplost — en waar het ophoudt het antwoord te zijn."
+tags: ["Data Engineering", "dbt", "SQL", "Technisch"]
+---
+
+## De situatie ervoor
+
+Transformatielogica stond op drie plekken: een handvol stored procedures, een scheduler met handgeschreven SQL-stappen, en een map met scripts die iemand bij de maandafsluiting handmatig draaide. Niemand kon met zekerheid zeggen welke query het omzetcijfer in de boardrapportage produceerde.
+
+Dat is het probleem dat dbt oplost. Niet "SQL, maar beter" — **SQL, maar als softwareproject**.
+
+## Wat er echt verandert
+
+### 1. Elk model is een bestand in git
+
+```sql
+-- models/marts/fct_orders.sql
+select
+    o.order_id,
+    o.customer_id,
+    o.ordered_at,
+    sum(i.amount) as order_amount
+from {{ ref('stg_orders') }} o
+join {{ ref('stg_order_items') }} i using (order_id)
+group by 1, 2, 3
+```
+
+Die `ref()` is de hele truc. dbt leest hem, bouwt een afhankelijkheidsgraaf en bepaalt zelf in welke volgorde alles moet draaien. Geen handmatig onderhouden joblijsten meer.
+
+### 2. Tests draaien vóór de cijfers bij iemand landen
+
+```yaml
+models:
+  - name: fct_orders
+    columns:
+      - name: order_id
+        tests: [unique, not_null]
+      - name: customer_id
+        tests:
+          - relationships:
+              to: ref('dim_customers')
+              field: customer_id
+```
+
+Een kapotte join laat de build nu falen, in plaats van stilletjes een dashboard te produceren dat 4% afwijkt.
+
+## Waar teams de mist in gaan
+
+**Alles opnieuw opbouwen, elke run.** Full refreshes zijn prima tot je feitentabel een paar honderd miljoen rijen telt. Stap over op incrementele modellen vóórdat de warehouse-rekening je die les leert.
+
+**Eén gigantische staging-laag.** Staging hoort dun te zijn: hernoemen, casten, opschonen. Businesslogica die daar belandt, wordt gedupliceerd in elke mart stroomafwaarts.
+
+**Alleen tests op sleutels.** Uniciteit vangt structurele breuk. Het vangt niet dat een valutaconversie stilletjes twee keer is toegepast. Voeg een paar assertions toe over de cijfers zelf.
+
+## Waar dbt niet het antwoord is
+
+dbt transformeert data die al in je warehouse staat. Het haalt niets op, het streamt niet, en het past slecht bij operationele logica per rij. Als jouw probleem is "de data komt nooit aan", helpt dbt je niet.
+
+## De eerlijke samenvatting
+
+dbt is geen spannende technologie. Het is versiebeheer, testen en documentatie toegepast op werk dat geen van drieën had. Precies daarom verandert het zoveel.

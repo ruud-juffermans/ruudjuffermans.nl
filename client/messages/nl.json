@@ -20,7 +20,9 @@
     "themeLabel": "Thema",
     "themeLight": "Licht thema",
     "themeDark": "Donker thema",
-    "themeSystem": "Systeemvoorkeur"
+    "themeSystem": "Systeemvoorkeur",
+    "availableHero": "Beschikbaar voor nieuwe opdrachten vanaf {month}",
+    "availableFrom": "Beschikbaar vanaf {month}"
   },
   "nav": {
     "services": "Diensten",
@@ -121,7 +123,8 @@
       "title": "Ik help bedrijven data-gedreven en AI-enabled te worden",
       "subtitle": "Van data-architectuur tot dashboards, van AI-strategie tot werkende oplossingen. Met training zodat je team het zelf kan.",
       "ctaPrimary": "Plan een gesprek",
-      "ctaSecondary": "Bekijk mijn werk"
+      "ctaSecondary": "Bekijk mijn werk",
+      "toolsLabel": "Dagelijks aan het werk met technologie zoals"
     },
     "problem": {
       "eyebrow": "Herkenbaar?",
@@ -134,16 +137,48 @@
       "card3Body": "Iedereen heeft het over AI. Concurrenten bewegen. Maar intern weet niemand wat realistisch is, wat hype is, en waar de echte ROI zit.",
       "closer": "Als dit klinkt als jouw bedrijf — ik kan helpen."
     },
+    "projects": {
+      "eyebrow": "Projecten",
+      "title": "Van ruwe data naar werkende oplossing",
+      "subtitle": "Showcase-projecten over de hele keten: data-architectuur, pipelines en AI-toepassingen. Bij elk project hoort een volledige case-beschrijving.",
+      "viewCase": "Bekijk case",
+      "all": "Alle projecten"
+    },
     "services": {
       "eyebrow": "Wat ik doe",
       "title": "Van strategie tot implementatie",
+      "subtitle": "Van datafundament tot AI-assistent in productie — twee specialisaties, één pragmatische aanpak.",
       "service1Title": "Data Analytics",
       "service1Body": "Van losse spreadsheets naar een betrouwbaar datafundament met dashboards die antwoorden geven.",
       "service2Title": "AI & GenAI",
       "service2Body": "Praktische AI-oplossingen: documentverwerking, RAG-systemen, automatiseringen, en AI-strategie die werkt.",
       "service3Title": "Training & Workshops",
       "service3Body": "Ik bouw het, train je team om het te draaien, en vertrek. Elke opdracht bevat kennisoverdracht.",
-      "learnMore": "Meer over {topic}"
+      "learnMore": "Meer over {topic}",
+      "flow": {
+        "analytics": {
+          "src1": "CSV & Excel",
+          "src2": "CRM & ERP",
+          "src3": "API's & logs",
+          "hubLabel": "pipelines · kwaliteit",
+          "hubTitle": "Data warehouse",
+          "out1Label": "Power BI",
+          "out1Title": "Dashboard",
+          "out2Label": "geautomatiseerd",
+          "out2Title": "Rapportage"
+        },
+        "ai": {
+          "src1": "Documenten",
+          "src2": "Databases",
+          "src3": "FAQ & beleid",
+          "hubLabel": "retrieval · guardrails",
+          "hubTitle": "AI-assistent",
+          "out1Label": "met bronnen",
+          "out1Title": "Antwoord",
+          "out2Label": "automatisering",
+          "out2Title": "Actie in systeem"
+        }
+      }
     },
     "process": {
       "eyebrow": "Hoe ik werk",
@@ -156,6 +191,54 @@
       "step3Body": "Ik bouw de oplossing: data-pipelines, dashboards, AI-tools, automatiseringen.",
       "step4Title": "Draag over",
       "step4Body": "Ik train je team, documenteer alles, en zorg dat jullie het zelf kunnen draaien."
+    },
+    "whyFreelance": {
+      "eyebrow": "Waarom een zzp’er",
+      "title": "Senior slagkracht, zonder overhead",
+      "subtitle": "De kennis van een consultancybureau, de snelheid en betrokkenheid van één toegewijde professional.",
+      "card1Title": "Eén aanspreekpunt",
+      "card1Body": "Direct contact met degene die het werk doet. Geen accountmanagers, geen ruis, korte lijnen.",
+      "card2Title": "Flexibel inzetbaar",
+      "card2Body": "Van een paar dagen per week naast je team tot een volledig traject op interim-basis — op locatie of remote.",
+      "card3Title": "Kennisoverdracht standaard",
+      "card3Body": "Documentatie, tests en inwerksessies horen bij elke opdracht. Je team kan zelfstandig verder.",
+      "card4Title": "Transparante tarieven",
+      "card4Body": "Helder uurtarief of vaste projectprijs, vooraf afgesproken. Geen verrassingen achteraf op de factuur.",
+      "card5Title": "AVG & security bewust",
+      "card5Body": "Privacy by design en AVG-proof, met datatoegang netjes geregeld — en gewend te werken binnen (rijks)kaders voor informatiebeveiliging.",
+      "card6Title": "Gecertificeerd",
+      "card6Body": "Cloud- en AI-certificeringen voor onder meer Azure en Databricks, en elk jaar bijgeschoold."
+    },
+    "underhood": {
+      "eyebrow": "Projecten",
+      "toggleAi": "AI & GenAI",
+      "toggleAnalytics": "Data Analytics",
+      "ai": {
+        "title": "GenAI gebouwd als serieuze software",
+        "sub": "Geen black box die na de pilot in een la verdwijnt. Ik behandel AI-oplossingen als serieuze software: geëvalueerd, gedocumenteerd en in versiebeheer — zodat je team het na mijn vertrek moeiteloos overneemt.",
+        "codeNote": "geëvalueerd & herleidbaar",
+        "f1Title": "Evaluatie ingebouwd",
+        "f1Body": "Testsets en LangFuse-tracing vanaf dag één: kwaliteit meten in plaats van hopen dat het goed gaat.",
+        "f2Title": "Alles als code",
+        "f2Body": "Prompts, pipelines en infrastructuur in versiebeheer — reviewbaar, reproduceerbaar en overdraagbaar.",
+        "f3Title": "Elk antwoord herleidbaar",
+        "f3Body": "Bronvermelding standaard: van antwoord terug naar het onderliggende document. Geen black box.",
+        "f4Title": "Jouw data blijft van jou",
+        "f4Body": "Alles draait in jouw eigen cloud-tenant. Privacy by design, AVG- en AI Act-proof."
+      },
+      "analytics": {
+        "title": "Data-analyse gebouwd als serieuze software",
+        "sub": "Geen wildgroei aan losse scripts en handmatige exports. Ik behandel datapipelines als serieuze software: getest, gedocumenteerd en in versiebeheer — zodat je team er zelf mee verder kan.",
+        "codeNote": "getest & herleidbaar",
+        "f1Title": "Datakwaliteit bewaakt",
+        "f1Body": "Validaties en kwaliteitschecks in elke pipeline-stap: fouten vallen op vóórdat ze in je dashboard belanden.",
+        "f2Title": "Alles als code",
+        "f2Body": "Transformaties, datamodellen en infrastructuur in versiebeheer — reviewbaar, reproduceerbaar en overdraagbaar.",
+        "f3Title": "Elk cijfer herleidbaar",
+        "f3Body": "Eén definitie per KPI, van dashboard terug naar de bron — geen discussie meer over wiens cijfer klopt.",
+        "f4Title": "Jouw data blijft van jou",
+        "f4Body": "Alles draait in jouw eigen omgeving. Privacy by design en AVG-proof."
+      }
     },
     "blog": {
       "eyebrow": "Blog",
@@ -405,7 +488,6 @@
       "about": "Over mij",
       "privacy": "Privacy"
     },
-    "copyright": "© {year} Ruud Juffermans",
-    "contactInfo": "ruudjuffermans@pm.me · Amsterdam, Nederland"
+    "copyright": "© {year} Ruud Juffermans"
   }
 }

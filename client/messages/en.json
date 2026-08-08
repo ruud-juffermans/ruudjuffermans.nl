@@ -20,7 +20,9 @@
     "themeLabel": "Theme",
     "themeLight": "Light theme",
     "themeDark": "Dark theme",
-    "themeSystem": "System preference"
+    "themeSystem": "System preference",
+    "availableHero": "Available for new projects from {month}",
+    "availableFrom": "Available from {month}"
   },
   "nav": {
     "services": "Services",
@@ -121,7 +123,8 @@
       "title": "I help companies become data-driven and AI-enabled",
       "subtitle": "From data architecture to dashboards, from AI strategy to working solutions. With training so your team can run it themselves.",
       "ctaPrimary": "Book a call",
-      "ctaSecondary": "See my work"
+      "ctaSecondary": "See my work",
+      "toolsLabel": "Working daily with technologies like"
     },
     "problem": {
       "eyebrow": "Sound familiar?",
@@ -134,16 +137,48 @@
       "card3Body": "Everyone's talking about AI. Competitors are moving. But internally nobody knows what's realistic, what's hype, and where the real ROI is.",
       "closer": "If this sounds like your company — I can help."
     },
+    "projects": {
+      "eyebrow": "Projects",
+      "title": "From raw data to working solution",
+      "subtitle": "Showcase projects covering the full chain: data architecture, pipelines and AI applications. Each one comes with a full case write-up.",
+      "viewCase": "View case",
+      "all": "All projects"
+    },
     "services": {
       "eyebrow": "What I do",
       "title": "From strategy to implementation",
+      "subtitle": "From data foundation to AI assistant in production — two specialties, one pragmatic approach.",
       "service1Title": "Data Analytics",
       "service1Body": "From scattered spreadsheets to a reliable data foundation with dashboards that actually answer questions.",
       "service2Title": "AI & GenAI",
       "service2Body": "Practical AI solutions: document processing, RAG systems, automations, and AI strategy that works.",
       "service3Title": "Training & Workshops",
       "service3Body": "I build it, train your team to run it, then leave. Every engagement includes knowledge transfer.",
-      "learnMore": "More on {topic}"
+      "learnMore": "More on {topic}",
+      "flow": {
+        "analytics": {
+          "src1": "CSV & Excel",
+          "src2": "CRM & ERP",
+          "src3": "APIs & logs",
+          "hubLabel": "pipelines · quality",
+          "hubTitle": "Data warehouse",
+          "out1Label": "Power BI",
+          "out1Title": "Dashboard",
+          "out2Label": "automated",
+          "out2Title": "Reporting"
+        },
+        "ai": {
+          "src1": "Documents",
+          "src2": "Databases",
+          "src3": "FAQ & policy",
+          "hubLabel": "retrieval · guardrails",
+          "hubTitle": "AI assistant",
+          "out1Label": "with sources",
+          "out1Title": "Answer",
+          "out2Label": "automation",
+          "out2Title": "System action"
+        }
+      }
     },
     "process": {
       "eyebrow": "How I work",
@@ -156,6 +191,54 @@
       "step3Body": "I build the solution: data pipelines, dashboards, AI tools, automations.",
       "step4Title": "Hand over",
       "step4Body": "I train your team, document everything, and make sure you can run it yourselves."
+    },
+    "whyFreelance": {
+      "eyebrow": "Why a freelancer",
+      "title": "Senior firepower, without the overhead",
+      "subtitle": "The knowledge of a consultancy, with the speed and commitment of one dedicated professional.",
+      "card1Title": "One point of contact",
+      "card1Body": "Direct contact with the person doing the work. No account managers, no noise, short lines.",
+      "card2Title": "Flexible engagement",
+      "card2Body": "From a couple of days a week alongside your team to a full interim assignment — on site or remote.",
+      "card3Title": "Knowledge transfer as standard",
+      "card3Body": "Documentation, tests and hand-over sessions are part of every assignment. Your team can carry on without me.",
+      "card4Title": "Transparent rates",
+      "card4Body": "A clear hourly rate or a fixed project price, agreed up front. No surprises on the invoice afterwards.",
+      "card5Title": "GDPR & security aware",
+      "card5Body": "Privacy by design and GDPR-proof, with data access properly arranged — and used to working within government information-security frameworks.",
+      "card6Title": "Certified",
+      "card6Body": "Cloud and AI certifications for Azure and Databricks among others, refreshed every year."
+    },
+    "underhood": {
+      "eyebrow": "Projects",
+      "toggleAi": "AI & GenAI",
+      "toggleAnalytics": "Data Analytics",
+      "ai": {
+        "title": "GenAI built like serious software",
+        "sub": "No black box that disappears into a drawer after the pilot. I treat AI solutions as serious software: evaluated, documented and under version control — so your team takes over effortlessly after I leave.",
+        "codeNote": "evaluated & traceable",
+        "f1Title": "Evaluation built in",
+        "f1Body": "Test sets and LangFuse tracing from day one: measuring quality instead of hoping for the best.",
+        "f2Title": "Everything as code",
+        "f2Body": "Prompts, pipelines and infrastructure in version control — reviewable, reproducible and transferable.",
+        "f3Title": "Every answer traceable",
+        "f3Body": "Source references by default: from answer back to the underlying document. No black box.",
+        "f4Title": "Your data stays yours",
+        "f4Body": "Everything runs in your own cloud tenant. Privacy by design, GDPR and AI Act proof."
+      },
+      "analytics": {
+        "title": "Analytics built like serious software",
+        "sub": "No sprawl of loose scripts and manual exports. I treat data pipelines as serious software: tested, documented and under version control — so your team can carry on without me.",
+        "codeNote": "tested & traceable",
+        "f1Title": "Data quality guarded",
+        "f1Body": "Validation and quality checks at every pipeline step: errors surface before they reach your dashboard.",
+        "f2Title": "Everything as code",
+        "f2Body": "Transformations, data models and infrastructure in version control — reviewable, reproducible and transferable.",
+        "f3Title": "Every number traceable",
+        "f3Body": "One definition per KPI, from dashboard back to the source — no more arguing over whose number is right.",
+        "f4Title": "Your data stays yours",
+        "f4Body": "Everything runs in your own environment. Privacy by design and GDPR-proof."
+      }
     },
     "blog": {
       "eyebrow": "Blog",
@@ -405,7 +488,6 @@
       "about": "About",
       "privacy": "Privacy"
     },
-    "copyright": "© {year} Ruud Juffermans",
-    "contactInfo": "ruudjuffermans@pm.me · Amsterdam, Netherlands"
+    "copyright": "© {year} Ruud Juffermans"
   }
 }

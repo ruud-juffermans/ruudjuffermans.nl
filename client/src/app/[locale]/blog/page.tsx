@@ -1,7 +1,8 @@
-import { Box, Container, Typography, Card, CardContent, Chip } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
 import Reveal from "@/components/Reveal";
+import BlogCard from "@/components/BlogCard";
 import { getBlogPosts } from "@/lib/content";
 import type { Locale } from "@/i18n/routing";
 import { palette } from "@/theme/theme";
@@ -75,37 +76,18 @@ export default async function BlogPage({
               </Box>
             </Reveal>
           ) : (
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-              {posts.map((post) => (
-                <Reveal variant="rise" key={post.slug}>
-                <Card
-                  component={Link}
-                  href={{ pathname: "/blog/[slug]", params: { slug: post.slug } }}
-                  sx={{ cursor: "pointer" }}
-                >
-                  <CardContent sx={{ p: { xs: 4, md: 6 }, "&:last-child": { pb: { xs: 4, md: 6 } } }}>
-                    <Box sx={{ display: "flex", gap: 1, mb: 2.5, flexWrap: "wrap" }}>
-                      {post.tags.map((tag) => (
-                        <Chip key={tag} label={tag} size="small" variant="outlined" />
-                      ))}
-                    </Box>
-                    <Typography variant="h3" sx={{ mb: 1 }}>
-                      {post.title}
-                    </Typography>
-                    <Typography variant="body1" sx={{ mb: 2 }}>
-                      {post.excerpt}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{ color: palette.gray400, fontSize: "0.85rem" }}
-                    >
-                      {post.date} &middot; {post.readingTime} {tc("readingTimeSuffix")}
-                    </Typography>
-                  </CardContent>
-                </Card>
-                </Reveal>
+            <Grid container spacing={2.5}>
+              {posts.map((post, i) => (
+                <Grid size={{ xs: 12, sm: 6, md: 4 }} key={post.slug}>
+                  <Reveal variant="rise" delay={i * 100} sx={{ height: "100%" }}>
+                    <BlogCard
+                      post={post}
+                      meta={`${post.date} · ${post.readingTime} ${tc("readingTimeSuffix")}`}
+                    />
+                  </Reveal>
+                </Grid>
               ))}
-            </Box>
+            </Grid>
           )}
         </Container>
       </Box>

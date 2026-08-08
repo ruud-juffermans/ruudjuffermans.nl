@@ -1,0 +1,67 @@
+---
+title: "dbt in practice: what changes when your transformations become code"
+date: "2026-04-02"
+excerpt: "Version control, tests and documentation for your SQL. What dbt actually solves — and where it stops being the answer."
+tags: ["Data Engineering", "dbt", "SQL", "Technical"]
+---
+
+## The situation before
+
+Transformation logic lived in three places: a handful of stored procedures, a scheduler with hand-written SQL steps, and a folder of scripts someone ran manually at month close. Nobody could say with confidence which query produced the revenue number in the board deck.
+
+That is the problem dbt solves. Not "SQL, but better" — **SQL, but as a software project**.
+
+## What actually changes
+
+### 1. Every model is a file in git
+
+```sql
+-- models/marts/fct_orders.sql
+select
+    o.order_id,
+    o.customer_id,
+    o.ordered_at,
+    sum(i.amount) as order_amount
+from {{ ref('stg_orders') }} o
+join {{ ref('stg_order_items') }} i using (order_id)
+group by 1, 2, 3
+```
+
+The `ref()` is the whole trick. dbt reads it, builds a dependency graph, and works out the order in which everything must run. No more hand-maintained job sequences.
+
+### 2. Tests run before the numbers reach anyone
+
+```yaml
+models:
+  - name: fct_orders
+    columns:
+      - name: order_id
+        tests: [unique, not_null]
+      - name: customer_id
+        tests:
+          - relationships:
+              to: ref('dim_customers')
+              field: customer_id
+```
+
+A broken join now fails the build instead of quietly producing a dashboard that is 4% wrong.
+
+### 3. Documentation stops rotting
+
+Descriptions live next to the model they describe. When the model changes in a pull request, the description is right there in the diff — reviewers notice when it no longer matches.
+
+## Where teams go wrong
+
+**Rebuilding everything, every run.** Full refreshes are fine until your fact table hits a few hundred million rows. Move to incremental models before the warehouse bill teaches you the lesson.
+
+**One giant staging layer.** Staging should be thin: rename, cast, clean. Business logic that lands there gets duplicated across every mart downstream.
+
+**Tests only on primary keys.** Uniqueness catches structural breakage. It does not catch a currency conversion silently applied twice. Add a handful of assertions about the numbers themselves.
+
+## Where dbt is not the answer
+
+dbt transforms data that is already in your warehouse. It does not ingest, it does not stream, and it is a poor fit for row-by-row operational logic. If your problem is "the data never arrives", dbt will not help you.
+
+## The honest summary
+
+dbt is not exciting technology. It is version control, testing and documentation applied to work that had none of the three. That is exactly why it changes so much.

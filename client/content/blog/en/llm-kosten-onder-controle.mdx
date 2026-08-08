@@ -1,0 +1,49 @@
+---
+title: "Keeping LLM costs under control without crippling the product"
+date: "2026-02-27"
+excerpt: "The bill for a GenAI feature is a design decision, not a fact of nature. Where the money actually goes, and the four levers that move it."
+tags: ["GenAI", "Architecture", "Cost", "Technical"]
+---
+
+## Where the money actually goes
+
+The first invoice for a working GenAI feature is usually a surprise, and almost never for the reason people expect. It is rarely the number of users. It is the size of the context sent on every single call.
+
+A support assistant that retrieves twelve document chunks per question, at roughly 800 tokens each, spends about 10,000 input tokens before the user's actual question is even considered. Multiply by every message in the conversation history and the input side dwarfs everything the model writes back.
+
+**Input volume is the cost driver. Output is usually a rounding error.**
+
+## Four levers, in order of payoff
+
+### 1. Retrieve less, better
+
+Twelve chunks is a hedge against poor retrieval. Fix the retrieval and four chunks answer the same question. Add a reranking step, measure answer quality at k=4 against k=12, and you will often find the difference is inside the noise — at a third of the cost.
+
+### 2. Cache the stable prefix
+
+Every request carries the same system prompt, the same tool definitions, the same formatting rules. That block is identical across calls and can be cached, so repeated requests are billed at a fraction of the normal input rate. Structure the prompt so everything stable comes first and everything variable comes last — caching only works on an unchanged prefix.
+
+### 3. Route by difficulty
+
+Most production traffic is not hard. Classification, extraction, short summaries and routing decisions run well on a small fast model; only genuinely hard reasoning needs the large one. Send everything to the large model and you pay top rate for work a cheaper model handles identically.
+
+The routing decision itself should be cheap — a heuristic or a small classifier, not another large-model call.
+
+### 4. Trim conversation history
+
+Sending the full transcript on every turn means cost grows quadratically with conversation length. Summarise older turns, or keep a sliding window plus a running summary. Users rarely notice; the bill does.
+
+## Measure before you optimise
+
+```
+cost per request = (input tokens × input rate)
+                 + (output tokens × output rate)
+```
+
+Log both counts per request, tagged by feature. Without that, optimisation is guesswork — and the feature you assume is expensive is frequently not the one burning the budget.
+
+## The trap to avoid
+
+Every lever here trades quality for cost somewhere. Cut retrieval too far and answers get thin. Route too aggressively and the small model fails on cases it should have escalated. So build the quality evaluation first — a fixed set of questions with expected answers — and treat every cost change as a change that must hold quality flat.
+
+Cheap and wrong is not a saving.

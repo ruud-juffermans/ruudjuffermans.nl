@@ -18,27 +18,14 @@ import { useState } from "react";
 import { Link, usePathname } from "@/i18n/navigation";
 import type { AppPathname } from "@/i18n/routing";
 import { palette } from "@/theme/theme";
-import { useSession, logoutSession } from "@/lib/session";
 import LanguageSwitcher from "./LanguageSwitcher";
 import Logo from "./Logo";
-import AppTile from "./AppTile";
 import ThemeSwitcher from "./ThemeSwitcher";
 import NavDropdown, { type NavDropdownItem } from "./NavDropdown";
 
 type StaticPathname = Exclude<AppPathname, `${string}[${string}]${string}`>;
 
-// The central account app (login lives there, not on this site).
-const accountLoginUrl = `${process.env.NEXT_PUBLIC_ACCOUNT_URL ?? "https://account.ruudjuffermans.nl"}/login`;
-
-// The platform's apps, shown in the header's Apps dropdown.
-const APP_URLS = {
-  fitness: "https://fitness.ruudjuffermans.nl",
-  habit: "https://habit.ruudjuffermans.nl",
-  journal: "https://journal.ruudjuffermans.nl",
-} as const;
-
 const SERVICE_SLUGS = ["data-engineering", "data-analytics", "ai-genai"] as const;
-const APP_KEYS = ["fitness", "habit", "journal"] as const;
 
 export default function Header() {
   const t = useTranslations("nav");
@@ -46,34 +33,6 @@ export default function Header() {
   const tm = useTranslations("menus");
   const pathname = usePathname();
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const { user, loading } = useSession();
-
-  // Log in (link to the account app) or Log out (ends the platform session),
-  // in the primary color. Nothing while the session check runs, to avoid a
-  // Log in → Log out flash for signed-in visitors. return_url brings the user
-  // back to the page they were on (computed on click — no URL at SSR time).
-  const toLogin = () =>
-    window.location.assign(
-      `${accountLoginUrl}?return_url=${encodeURIComponent(window.location.href)}`,
-    );
-  const authButton = loading ? null : (
-    <Button
-      onClick={user ? () => void logoutSession() : toLogin}
-      sx={{
-        px: 2,
-        minHeight: 38,
-        color: palette.red,
-        fontWeight: 600,
-        fontSize: "0.92rem",
-        "&:hover": {
-          color: palette.redHover,
-          backgroundColor: "transparent",
-        },
-      }}
-    >
-      {user ? tc("logout") : tc("login")}
-    </Button>
-  );
 
   const navItems: { label: string; href: StaticPathname }[] = [
     { label: t("portfolio"), href: "/portfolio" },
@@ -87,13 +46,6 @@ export default function Header() {
     title: tm(`services.${key}.title`),
     desc: tm(`services.${key}.desc`),
     href: { pathname: "/services/[slug]", params: { slug: SERVICE_SLUGS[i] } },
-  }));
-
-  const appItems: NavDropdownItem[] = APP_KEYS.map((app) => ({
-    title: tm(`apps.${app}.title`),
-    desc: tm(`apps.${app}.desc`),
-    external: APP_URLS[app],
-    icon: <AppTile app={app} />,
   }));
 
   return (
@@ -188,7 +140,6 @@ export default function Header() {
                   {item.label}
                 </Button>
               ))}
-              <NavDropdown label={t("apps")} items={appItems} />
               <Box sx={{ ml: 1.5, display: "flex", alignItems: "center", gap: 0.5, mr:4 }}>
                 <ThemeSwitcher />
                 <LanguageSwitcher />
@@ -203,7 +154,6 @@ export default function Header() {
               >
                 {tc("cta")}
               </Button>
-              <Box sx={{ ml: 1.5 }}>{authButton}</Box>
             </Box>
 
             {/* Mobile CTA */}
@@ -216,7 +166,6 @@ export default function Header() {
             >
               {tc("contact")}
             </Button>
-            <Box sx={{ ml: 0, display: { xs: "inline-flex", lg: "none" }}}>{authButton}</Box>
             </Box>
           </Toolbar>
    
@@ -367,48 +316,6 @@ export default function Header() {
             );
           })}
 
-          {/* Apps: the platform's tools, external links. */}
-          <Box
-            sx={{
-              px: 2,
-              pt: 2.5,
-              pb: 0.75,
-              fontSize: "0.72rem",
-              fontWeight: 600,
-              letterSpacing: "0.06em",
-              textTransform: "uppercase",
-              color: "var(--app-text-secondary)",
-              animation: drawerOpen ? `navItemIn 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) both` : "none",
-              animationDelay: "480ms",
-            }}
-          >
-            {t("apps")}
-          </Box>
-          {appItems.map((item, i) => (
-            <Box
-              key={item.title}
-              component="a"
-              href={item.external}
-              onClick={() => setDrawerOpen(false)}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 1.5,
-                textDecoration: "none",
-                px: 2,
-                py: 0.9,
-                borderRadius: 2,
-                animation: drawerOpen ? `navItemIn 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) both` : "none",
-                animationDelay: `${515 + i * 40}ms`,
-                "&:active": { backgroundColor: palette.redMuted },
-              }}
-            >
-              <AppTile app={APP_KEYS[i]} size={30} />
-              <Box sx={{ fontWeight: 500, fontSize: "1.02rem", color: "var(--app-text-secondary)" }}>
-                {item.title}
-              </Box>
-            </Box>
-          ))}
         </Box>
 
         <Divider sx={{ mx: 3.5 }} />
@@ -428,7 +335,6 @@ export default function Header() {
             <LanguageSwitcher variant="compact" />
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            {authButton}
             <Button
               variant="contained"
               component={Link}

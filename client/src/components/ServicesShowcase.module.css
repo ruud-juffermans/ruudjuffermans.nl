@@ -1,0 +1,282 @@
+.layout {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.eyebrow {
+  display: block;
+  font-family: var(--font-body), "Segoe UI", sans-serif;
+  font-weight: 600;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #f7a6bc;
+}
+
+.title {
+  font-family: var(--font-heading), Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(1.9rem, 2.6vw + 1rem, 2.75rem);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+  margin: 14px 0 0;
+}
+
+.sub {
+  margin: 18px 0 0;
+  font-size: 17px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.65);
+  max-width: 520px;
+}
+
+/* Service toggle pills */
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.pill {
+  appearance: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: transparent;
+  font-family: var(--font-body), "Segoe UI", sans-serif;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.pill:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+}
+
+.pillActive {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #420d22;
+}
+
+.pillActive:hover {
+  color: #420d22;
+}
+
+.pillIcon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 26px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #f7a6bc;
+  text-decoration: none;
+  animation: svcFadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.cta:hover {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.flowCol {
+  animation: svcFadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes svcFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.flowVisual {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.flowVisual svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+/* one 5s cycle: sources fire (0%), pulses reach the hub (24%),
+   the split pulses reach both outputs (72%) */
+.flowNode rect {
+  fill: rgba(255, 255, 255, 0.06);
+  stroke: rgba(255, 255, 255, 0.22);
+  stroke-width: 1;
+  animation: flowNodeFlash 5s ease-out infinite;
+}
+
+.flowNode .flowPort {
+  fill: #420d22;
+  stroke: rgba(255, 255, 255, 0.4);
+  stroke-width: 1;
+  animation: flowPortFlash 5s ease-out infinite;
+}
+
+.flowNodeMid rect,
+.flowNodeMid .flowPort {
+  animation-delay: 1.2s;
+}
+
+.flowNodeOut rect,
+.flowNodeOut .flowPort {
+  animation-delay: 3.6s;
+}
+
+@keyframes flowNodeFlash {
+  0% {
+    stroke: #fde0e8;
+    filter: drop-shadow(0 0 10px rgba(247, 166, 188, 0.55));
+  }
+  22%,
+  100% {
+    stroke: rgba(255, 255, 255, 0.22);
+    filter: drop-shadow(0 0 0 rgba(247, 166, 188, 0));
+  }
+}
+
+@keyframes flowPortFlash {
+  0% {
+    fill: #fde0e8;
+    stroke: #fde0e8;
+  }
+  18%,
+  100% {
+    fill: #420d22;
+    stroke: rgba(255, 255, 255, 0.4);
+  }
+}
+
+.flowNode .flowLabel {
+  font-family: var(--font-body), "Segoe UI", sans-serif;
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
+  fill: rgba(255, 255, 255, 0.6);
+}
+
+.flowNode .flowTitle {
+  font-family: var(--font-heading), "Segoe UI", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  fill: #ffffff;
+}
+
+.flowNode .flowTitleLg {
+  font-size: 16px;
+}
+
+.flowWire {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.18);
+  stroke-width: 1.5;
+}
+
+/* lit overlay draws itself along the wire just behind the travelling pulse */
+.flowWireLit {
+  fill: none;
+  stroke: #f7a6bc;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+  filter: drop-shadow(0 0 4px rgba(247, 166, 188, 0.6));
+}
+
+.flowIn {
+  animation: flowWireIn 5s linear infinite;
+}
+
+.flowOut {
+  animation: flowWireOut 5s linear infinite;
+}
+
+@keyframes flowWireIn {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 1;
+  }
+  24% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  38%,
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes flowWireOut {
+  0%,
+  48% {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+  49% {
+    stroke-dashoffset: 1;
+    opacity: 1;
+  }
+  72% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  86%,
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+.flowPulse {
+  fill: #ffffff;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.9));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flowNode rect,
+  .flowNode .flowPort,
+  .flowWireLit {
+    animation: none;
+  }
+  .flowPulse {
+    display: none;
+  }
+  .flowCol,
+  .cta {
+    animation: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
