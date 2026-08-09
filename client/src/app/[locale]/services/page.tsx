@@ -76,8 +76,6 @@ export default async function ServicesPage({
           you're meant to see a path and find yourself on it. */}
       {PHASES.map((phase, phaseIndex) => {
         const items = packagesInPhase(phase);
-        // 2 packages → half width, 3 → thirds. Either fills one desktop row.
-        const mdSpan = Math.floor(12 / items.length);
         const shaded = phaseIndex % 2 === 0;
         return (
           <Box
@@ -101,15 +99,15 @@ export default async function ServicesPage({
                   {t(`phases.${phase}.sub`)}
                 </Typography>
               </Reveal>
-              <Grid container spacing={{ xs: 2.5, md: 3 }}>
+              {/* Every package gets the wide two-column treatment, stacked —
+                  the same card the Datascan carries on the homepage. */}
+              <Box sx={{ display: "grid", gap: { xs: 2.5, md: 3 } }}>
                 {items.map((pkg, i) => (
-                  <Grid size={{ xs: 12, md: mdSpan }} key={pkg.slug}>
-                    <Reveal variant="rise" delay={i * 110} sx={{ height: "100%" }}>
-                      <PackageCard {...card(pkg)} highlight={pkg.featured} />
-                    </Reveal>
-                  </Grid>
+                  <Reveal variant="rise" delay={i * 110} key={pkg.slug}>
+                    <PackageCard {...card(pkg)} featured highlight={pkg.featured} />
+                  </Reveal>
                 ))}
-              </Grid>
+              </Box>
             </Container>
           </Box>
         );

@@ -3,6 +3,7 @@ import Grid from "@mui/material/Grid2";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CheckIcon from "@mui/icons-material/CheckRounded";
+import CloseIcon from "@mui/icons-material/CloseRounded";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
@@ -10,7 +11,7 @@ import Reveal from "@/components/Reveal";
 import LinkButton from "@/components/LinkButton";
 import PageViewTracker from "@/components/PageViewTracker";
 import { PACKAGE_SLUGS, getPackage } from "@/lib/packages";
-import { formatPackagePrice, packageSteps } from "@/lib/packageContent";
+import { formatOriginalPrice, formatPackagePrice, packageSteps } from "@/lib/packageContent";
 import { routing, type Locale } from "@/i18n/routing";
 import { palette } from "@/theme/theme";
 import type { Metadata } from "next";
@@ -48,9 +49,27 @@ export default async function PackageDetailPage({
   const ts = await getTranslations("services");
   const { accent } = pkg;
 
-  const deliverables = tp.raw(`${pkg.slug}.deliverables`) as string[];
+  // Detail pages render the grouped deliverables (docs/packages/ structure:
+  // the core artifact leads); the flat `deliverables` list stays for cards.
+  const deliverableGroups = tp.raw(`${pkg.slug}.deliverableGroups`) as {
+    title: string;
+    items: string[];
+  }[];
+  const notIncluded = tp.raw(`${pkg.slug}.notIncluded`) as string[];
+  const modes = pkg.hasModes
+    ? (tp.raw(`${pkg.slug}.modes`) as {
+        title: string;
+        intro: string;
+        options: { title: string; duration: string; body: string }[];
+      })
+    : null;
+  const related = [
+    { label: tp("labels.fitConsumes"), slugs: pkg.consumes ?? [] },
+    { label: tp("labels.fitFeeds"), slugs: pkg.feeds ?? [] },
+  ].filter((group) => group.slugs.length > 0);
   const steps = packageSteps(pkg, tp);
   const price = formatPackagePrice(pkg, tp, locale);
+  const originalPrice = formatOriginalPrice(pkg, locale);
 
   return (
     <>
@@ -118,6 +137,68 @@ export default async function PackageDetailPage({
         </Container>
       </Box>
 
+      {/* Two entry modes — only Sharpen the question defines this: on top of
+          the scans (shorter, cheaper) versus standalone (includes the focused
+          discovery). The first option is visually led: it's the recommended
+          path. */}
+      {modes && (
+        <Box sx={{ pb: { xs: 8, md: 11 } }}>
+          <Container>
+            <Reveal variant="rise">
+              <Typography variant="h3" sx={{ mb: 1.5 }}>
+                {modes.title}
+              </Typography>
+              <Typography variant="body1" sx={{ mb: 4, maxWidth: 720 }}>
+                {modes.intro}
+              </Typography>
+            </Reveal>
+            <Grid container spacing={{ xs: 2.5, md: 3 }}>
+              {modes.options.map((option, i) => (
+                <Grid size={{ xs: 12, md: 6 }} key={option.title}>
+                  <Reveal variant="rise" delay={i * 110} sx={{ height: "100%" }}>
+                    <Box
+                      sx={{
+                        height: "100%",
+                        p: { xs: 3, md: 4 },
+                        borderRadius: "16px",
+                        border: `1px solid var(--app-border-soft)`,
+                        backgroundColor: "var(--app-surface-elevated)",
+                        ...(i === 0 && {
+                          borderColor: `color-mix(in srgb, ${accent} 40%, var(--app-border-soft))`,
+                          backgroundColor: `color-mix(in srgb, ${accent} 5%, var(--app-surface-elevated))`,
+                        }),
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          flexWrap: "wrap",
+                          gap: 1.5,
+                          mb: 1.5,
+                        }}
+                      >
+                        <Typography variant="h4">{option.title}</Typography>
+                        <Chip
+                          label={option.duration}
+                          size="small"
+                          sx={{
+                            fontWeight: 600,
+                            backgroundColor: `color-mix(in srgb, ${accent} 12%, transparent)`,
+                            color: accent,
+                          }}
+                        />
+                      </Box>
+                      <Typography variant="body1">{option.body}</Typography>
+                    </Box>
+                  </Reveal>
+                </Grid>
+              ))}
+            </Grid>
+          </Container>
+        </Box>
+      )}
+
       {/* What you get + the fixed terms */}
       <Box
         sx={{
@@ -134,15 +215,43 @@ export default async function PackageDetailPage({
                 <Typography variant="h3" sx={{ mb: 3 }}>
                   {tp("labels.deliverables")}
                 </Typography>
-                <Box component="ul" sx={{ listStyle: "none", m: 0, p: 0, display: "grid", gap: 2 }}>
-                  {deliverables.map((item) => (
+                {/* Grouped like the definition docs: the first group is the
+                    core artifact and gets the accent-led treatment. */}
+                <Box sx={{ display: "grid", gap: 3 }}>
+                  {deliverableGroups.map((group, gi) => (
                     <Box
-                      component="li"
-                      key={item}
-                      sx={{ display: "flex", gap: 1.5, alignItems: "flex-start" }}
+                      key={group.title}
+                      sx={
+                        gi === 0
+                          ? {
+                              p: { xs: 2.5, md: 3 },
+                              borderRadius: "14px",
+                              borderLeft: `3px solid ${accent}`,
+                              backgroundColor: `color-mix(in srgb, ${accent} 6%, transparent)`,
+                            }
+                          : undefined
+                      }
                     >
-                      <CheckIcon sx={{ fontSize: 20, color: accent, mt: "3px", flexShrink: 0 }} />
-                      <Typography variant="body1">{item}</Typography>
+                      <Typography variant="h5" sx={{ mb: 1.5 }}>
+                        {group.title}
+                      </Typography>
+                      <Box
+                        component="ul"
+                        sx={{ listStyle: "none", m: 0, p: 0, display: "grid", gap: 1.5 }}
+                      >
+                        {group.items.map((item) => (
+                          <Box
+                            component="li"
+                            key={item}
+                            sx={{ display: "flex", gap: 1.5, alignItems: "flex-start" }}
+                          >
+                            <CheckIcon
+                              sx={{ fontSize: 20, color: accent, mt: "3px", flexShrink: 0 }}
+                            />
+                            <Typography variant="body1">{item}</Typography>
+                          </Box>
+                        ))}
+                      </Box>
                     </Box>
                   ))}
                 </Box>
@@ -158,6 +267,35 @@ export default async function PackageDetailPage({
                     {tp(`${pkg.slug}.bridge`)}
                   </Typography>
                 )}
+                {/* Scope honesty: what this package deliberately doesn't do,
+                    with a pointer to the package that does. */}
+                <Typography
+                  variant="overline"
+                  sx={{ display: "block", color: "var(--app-text-muted)", mt: 4.5, mb: 1.5 }}
+                >
+                  {tp("labels.notIncluded")}
+                </Typography>
+                <Box component="ul" sx={{ listStyle: "none", m: 0, p: 0, display: "grid", gap: 1.5 }}>
+                  {notIncluded.map((item) => (
+                    <Box
+                      component="li"
+                      key={item}
+                      sx={{ display: "flex", gap: 1.5, alignItems: "flex-start" }}
+                    >
+                      <CloseIcon
+                        sx={{
+                          fontSize: 20,
+                          color: "var(--app-text-muted)",
+                          mt: "3px",
+                          flexShrink: 0,
+                        }}
+                      />
+                      <Typography variant="body1" sx={{ color: "var(--app-text-secondary)" }}>
+                        {item}
+                      </Typography>
+                    </Box>
+                  ))}
+                </Box>
               </Reveal>
             </Grid>
 
@@ -204,6 +342,19 @@ export default async function PackageDetailPage({
                         color: accent,
                       }}
                     >
+                      {originalPrice && (
+                        <Box
+                          component="s"
+                          sx={{
+                            color: "var(--app-text-muted)",
+                            fontWeight: 500,
+                            fontSize: "1.15rem",
+                            mr: 1,
+                          }}
+                        >
+                          {originalPrice}
+                        </Box>
+                      )}
                       {price}
                     </Typography>
                   </Box>
@@ -288,6 +439,84 @@ export default async function PackageDetailPage({
           })()}
         </Container>
       </Box>
+
+      {/* Where this fits — the path relations from packages.ts, so eight
+          packages read as one route instead of a menu: what this build starts
+          from, and what its deliverables flow into. */}
+      {related.length > 0 && (
+        <Box
+          sx={{
+            py: { xs: 8, md: 11 },
+            backgroundColor: palette.offWhite,
+            borderTop: `1px solid var(--app-border-soft)`,
+            borderBottom: `1px solid var(--app-border-soft)`,
+          }}
+        >
+          <Container>
+            <Reveal variant="rise">
+              <Typography variant="h3" sx={{ mb: { xs: 4, md: 5 } }}>
+                {tp("labels.fitTitle")}
+              </Typography>
+            </Reveal>
+            <Grid container spacing={{ xs: 4, md: 6 }}>
+              {related.map((group) => (
+                <Grid size={{ xs: 12, md: 6 }} key={group.label}>
+                  <Reveal variant="rise">
+                    <Typography
+                      variant="overline"
+                      sx={{ display: "block", color: "var(--app-text-muted)", mb: 1.5 }}
+                    >
+                      {group.label}
+                    </Typography>
+                    <Box sx={{ display: "grid", gap: 1.5 }}>
+                      {group.slugs.map((relSlug) => {
+                        const rel = getPackage(relSlug)!;
+                        return (
+                          <Box
+                            key={relSlug}
+                            component={Link}
+                            href={{ pathname: "/services/[slug]", params: { slug: relSlug } }}
+                            sx={{
+                              display: "block",
+                              p: 2.5,
+                              borderRadius: "14px",
+                              border: `1px solid var(--app-border-soft)`,
+                              borderLeft: `3px solid ${rel.accent}`,
+                              backgroundColor: "var(--app-surface-elevated)",
+                              textDecoration: "none",
+                              "@media (hover: hover)": {
+                                "&:hover": {
+                                  borderColor: `color-mix(in srgb, ${rel.accent} 45%, var(--app-border-soft))`,
+                                },
+                              },
+                            }}
+                          >
+                            <Typography
+                              sx={{
+                                fontFamily: "var(--font-heading)",
+                                fontWeight: 700,
+                                color: palette.gray900,
+                              }}
+                            >
+                              {tp(`${relSlug}.name`)}
+                            </Typography>
+                            <Typography
+                              variant="body2"
+                              sx={{ color: "var(--app-text-secondary)", mt: 0.5 }}
+                            >
+                              {tp(`${relSlug}.navDesc`)}
+                            </Typography>
+                          </Box>
+                        );
+                      })}
+                    </Box>
+                  </Reveal>
+                </Grid>
+              ))}
+            </Grid>
+          </Container>
+        </Box>
+      )}
 
       {/* CTA — full-bleed dark section that blends into the footer (same
           #070B15); the radial glow rises from the bottom edge in the

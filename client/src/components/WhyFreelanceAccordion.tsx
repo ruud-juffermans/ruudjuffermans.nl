@@ -73,8 +73,8 @@ export default function WhyFreelanceAccordion({
             expandIcon={<ExpandMoreIcon sx={{ color: "var(--app-text-muted)" }} />}
             sx={{ px: 2.5, py: 0.75, "& .MuiAccordionSummary-content": { alignItems: "center", gap: 2 } }}
           >
-            {/* Same navy tile with brand-pink glyph as the desktop cards:
-                absolute colors, so it reads the same in both schemes. */}
+            {/* Same tile as the desktop cards: light red-tinted with the
+                brand-red glyph in light mode, navy with pink in dark. */}
             <Box
               aria-hidden
               sx={{
@@ -83,17 +83,27 @@ export default function WhyFreelanceAccordion({
                 borderRadius: 2.5,
                 display: "grid",
                 placeItems: "center",
-                backgroundColor: palette.navy,
-                color: "#f7a6bc",
+                backgroundColor: "color-mix(in srgb, var(--app-red) 10%, transparent)",
+                color: "var(--app-red)",
                 flexShrink: 0,
+                "[data-mui-color-scheme='dark'] &": {
+                  backgroundColor: palette.navy,
+                  color: "#f7a6bc",
+                },
               }}
             >
               {item.icon}
             </Box>
-            <Typography variant="h4">{item.title}</Typography>
+            {/* Quieter than the desktop cards' h4 — in a compact accordion
+                row the big serif heading shouted. */}
+            <Typography variant="h5" sx={{ fontSize: "1.05rem" }}>
+              {item.title}
+            </Typography>
           </AccordionSummary>
           <AccordionDetails sx={{ px: 2.5, pt: 0, pb: 2.5 }}>
-            <Typography variant="body1">{item.description}</Typography>
+            <Typography variant="body2" sx={{ color: "var(--app-text-secondary)" }}>
+              {item.description}
+            </Typography>
           </AccordionDetails>
         </Accordion>
       ))}

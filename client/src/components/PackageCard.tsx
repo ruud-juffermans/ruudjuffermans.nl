@@ -29,14 +29,17 @@ export interface PackageCardProps {
   duration: string;
   /** Already formatted for display — "€1.500", "vanaf €X" or "prijs op aanvraag". */
   price: string;
+  /** Pre-discount price; renders struck through in grey before `price`. */
+  originalPrice?: string;
   bridge?: string;
   proofSlug?: string;
   labels: PackageCardLabels;
-  /** Wide two-column treatment — used on the homepage for the Datascan. */
+  /** Wide two-column treatment — the Datascan on the homepage, and every
+   *  package on /diensten. */
   featured?: boolean;
   /**
-   * Compact card, but visually led: accent border and the "Begin hier" chip.
-   * Marks the entry package inside a phase grid without breaking the row.
+   * Visually led: the "Begin hier" chip (and, on the compact card, an accent
+   * border). Marks the entry package without breaking the surrounding layout.
    */
   highlight?: boolean;
 }
@@ -51,7 +54,18 @@ export default function PackageCard(props: PackageCardProps) {
   return props.featured ? <FeaturedCard {...props} /> : <CompactCard {...props} />;
 }
 
-function MetaPair({ label, value, accent }: { label: string; value: string; accent?: string }) {
+function MetaPair({
+  label,
+  value,
+  strike,
+  accent,
+}: {
+  label: string;
+  value: string;
+  /** Pre-discount value, struck through in grey before the real one. */
+  strike?: string;
+  accent?: string;
+}) {
   return (
     <Box>
       <Typography
@@ -68,6 +82,14 @@ function MetaPair({ label, value, accent }: { label: string; value: string; acce
           color: accent ?? palette.gray900,
         }}
       >
+        {strike && (
+          <Box
+            component="s"
+            sx={{ color: "var(--app-text-muted)", fontWeight: 500, mr: 0.75 }}
+          >
+            {strike}
+          </Box>
+        )}
         {value}
       </Typography>
     </Box>
@@ -122,7 +144,10 @@ function FeaturedCard({
   deliverables,
   duration,
   price,
+  originalPrice,
+  bridge,
   labels,
+  highlight,
 }: PackageCardProps) {
   return (
     <Card
@@ -141,20 +166,22 @@ function FeaturedCard({
         },
       }}
     >
-      <CardContent sx={{ p: { xs: 4, md: 6 }, "&:last-child": { pb: { xs: 4, md: 6 } } }}>
+      <CardContent sx={{ p: { xs: 3.5, md: 5 }, "&:last-child": { pb: { xs: 3.5, md: 5 } } }}>
         <Grid container spacing={{ xs: 4, md: 7 }}>
           <Grid size={{ xs: 12, md: 7 }}>
-            <Chip
-              label={labels.featuredTag}
-              size="small"
-              sx={{
-                mb: 2.5,
-                fontWeight: 600,
-                backgroundColor: `color-mix(in srgb, ${accent} 12%, transparent)`,
-                color: accent,
-              }}
-            />
-            <Typography variant="h2" sx={{ mb: 2.5 }}>
+            {highlight && (
+              <Chip
+                label={labels.featuredTag}
+                size="small"
+                sx={{
+                  mb: 2,
+                  fontWeight: 600,
+                  backgroundColor: `color-mix(in srgb, ${accent} 12%, transparent)`,
+                  color: accent,
+                }}
+              />
+            )}
+            <Typography variant="h2" sx={{ mb: 2 }}>
               {name}
             </Typography>
 
@@ -164,7 +191,7 @@ function FeaturedCard({
             >
               {labels.recognise}
             </Typography>
-            <Typography variant="body1" sx={{ mb: 3 }}>
+            <Typography variant="body1" sx={{ mb: 2.5 }}>
               {recognise}
             </Typography>
 
@@ -185,6 +212,8 @@ function FeaturedCard({
             >
               {promise}
             </Typography>
+
+            {bridge && <Bridge text={bridge} label={labels.bridgeLabel} accent={accent} />}
           </Grid>
 
           <Grid size={{ xs: 12, md: 5 }}>
@@ -200,20 +229,20 @@ function FeaturedCard({
               sx={{
                 display: "flex",
                 gap: 4,
-                mt: 4,
-                pt: 3,
+                mt: 3,
+                pt: 2.5,
                 borderTop: "1px solid var(--app-border-soft)",
               }}
             >
               <MetaPair label={labels.duration} value={duration} />
-              <MetaPair label={labels.price} value={price} accent={accent} />
+              <MetaPair label={labels.price} value={price} strike={originalPrice} accent={accent} />
             </Box>
 
             <LinkButton
               variant="contained"
               href={{ pathname: "/services/[slug]", params: { slug } }}
               endIcon={<ArrowForwardIcon />}
-              sx={{ mt: 3.5, width: { xs: "100%", sm: "auto" } }}
+              sx={{ mt: 3, width: { xs: "100%", sm: "auto" } }}
             >
               {labels.view}
             </LinkButton>
@@ -233,6 +262,7 @@ function CompactCard({
   deliverables,
   duration,
   price,
+  originalPrice,
   bridge,
   labels,
   highlight,
@@ -335,7 +365,7 @@ function CompactCard({
           }}
         >
           <MetaPair label={labels.duration} value={duration} />
-          <MetaPair label={labels.price} value={price} accent={accent} />
+          <MetaPair label={labels.price} value={price} strike={originalPrice} accent={accent} />
         </Box>
 
         <Box

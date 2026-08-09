@@ -30,14 +30,23 @@ export function packageCardLabels(tp: Translator): PackageCardLabels {
 }
 
 /**
- * Renders the price slot. While `price` is null — the real figures aren't in
- * yet — this falls back to "prijs op aanvraag" rather than a placeholder, so
- * the page is never wrong, only less specific.
+ * Renders the price slot: the discounted price when a launch discount is on,
+ * the regular price otherwise. A null price falls back to "prijs op
+ * aanvraag" rather than a placeholder, so the page is never wrong, only less
+ * specific.
  */
 export function formatPackagePrice(pkg: PackageDef, tp: Translator, locale: Locale): string {
-  if (pkg.price === null) return tp("labels.priceOnRequest");
-  const amount = formatAmount(pkg.price, locale);
+  const charged = pkg.discountPrice ?? pkg.price;
+  if (charged === null) return tp("labels.priceOnRequest");
+  const amount = formatAmount(charged, locale);
   return pkg.priceKind === "from" ? tp("labels.priceFrom", { amount }) : amount;
+}
+
+/** The pre-discount price, formatted — rendered struck through in grey next
+ *  to the discounted one. Undefined when no discount is running. */
+export function formatOriginalPrice(pkg: PackageDef, locale: Locale): string | undefined {
+  if (pkg.discountPrice == null || pkg.price === null) return undefined;
+  return formatAmount(pkg.price, locale);
 }
 
 export function buildPackageCardProps(
@@ -55,6 +64,7 @@ export function buildPackageCardProps(
     deliverables: tp.raw(`${pkg.slug}.deliverables`) as string[],
     duration: tp(`${pkg.slug}.duration`),
     price: formatPackagePrice(pkg, tp, locale),
+    originalPrice: formatOriginalPrice(pkg, locale),
     bridge: pkg.hasBridge ? tp(`${pkg.slug}.bridge`) : undefined,
     proofSlug: pkg.proofSlug,
     labels,

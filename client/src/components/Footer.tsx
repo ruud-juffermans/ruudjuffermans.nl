@@ -72,9 +72,9 @@ export default function Footer() {
 
   // Straight into the packages rather than three links to the same overview.
   const servicesLinks: { label: string; slug: PackageSlug }[] = [
-    { label: t("servicesLinks.scan"), slug: "data-scan" },
+    { label: t("servicesLinks.sharpen"), slug: "requirements-and-kpis" },
+    { label: t("servicesLinks.dashboards"), slug: "dashboards" },
     { label: t("servicesLinks.truth"), slug: "single-source-of-truth" },
-    { label: t("servicesLinks.reporting"), slug: "reporting-automation" },
     { label: t("servicesLinks.ai"), slug: "ai-prototype" },
   ];
 

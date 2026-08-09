@@ -20,9 +20,10 @@ import Availability from "@/components/Availability";
 import ProofStrip from "@/components/ProofStrip";
 import PackageCard from "@/components/PackageCard";
 import WhyFreelanceAccordion from "@/components/WhyFreelanceAccordion";
-import { FEATURED_PACKAGE, PACKAGES } from "@/lib/packages";
+import { FEATURED_PACKAGE, PACKAGES, packagesInPhase } from "@/lib/packages";
 import {
   buildPackageCardProps,
+  formatOriginalPrice,
   formatPackagePrice,
   packageCardLabels,
 } from "@/lib/packageContent";
@@ -121,18 +122,46 @@ export default async function Home({
     },
   ];
 
-  const hoodVariants = ["ai", "analytics"].map((key) => ({
+  // The three portfolio projects, toggled in the dark "Under the hood"
+  // section. Each variant links to its write-up on this site and to the repo.
+  // Icons follow the features: grid/check/swap for the modelling project,
+  // stream/window/live for the streaming one, section-sign/refusal/search
+  // for the case-law RAG.
+  const hoodIcons: Record<string, [string, string, string]> = {
+    "open-data-warehouse": ["▦", "✓", "⇄"],
+    "ov-streaming-pipeline": ["≋", "⧖", "◉"],
+    "uitspraak-rag": ["§", "⊘", "⌕"],
+  };
+  const hoodVariants = [
+    { key: "open-data-warehouse", github: "https://github.com/datavakwerk/open-data-warehouse" },
+    { key: "ov-streaming-pipeline", github: "https://github.com/datavakwerk/ov-streaming-pipeline" },
+    { key: "uitspraak-rag", github: "https://github.com/datavakwerk/uitspraak-rag" },
+  ].map(({ key, github }) => ({
     key,
-    toggleLabel: t(key === "ai" ? "underhood.toggleAi" : "underhood.toggleAnalytics"),
+    github,
+    toggleLabel: t(`underhood.projects.${key}.toggle`),
     eyebrow: t("underhood.eyebrow"),
-    title: t(`underhood.${key}.title`),
-    sub: t(`underhood.${key}.sub`),
-    codeNote: t(`underhood.${key}.codeNote`),
+    title: t(`underhood.projects.${key}.title`),
+    sub: t(`underhood.projects.${key}.sub`),
+    codeNote: t(`underhood.projects.${key}.codeNote`),
+    githubLabel: t("underhood.github"),
+    projectLabel: t("underhood.viewProject"),
     features: [
-      { icon: "✓", title: t(`underhood.${key}.f1Title`), desc: t(`underhood.${key}.f1Body`) },
-      { icon: "⎇", title: t(`underhood.${key}.f2Title`), desc: t(`underhood.${key}.f2Body`) },
-      { icon: "⌕", title: t(`underhood.${key}.f3Title`), desc: t(`underhood.${key}.f3Body`) },
-      { icon: "🔒", title: t(`underhood.${key}.f4Title`), desc: t(`underhood.${key}.f4Body`) },
+      {
+        icon: hoodIcons[key][0],
+        title: t(`underhood.projects.${key}.f1Title`),
+        desc: t(`underhood.projects.${key}.f1Body`),
+      },
+      {
+        icon: hoodIcons[key][1],
+        title: t(`underhood.projects.${key}.f2Title`),
+        desc: t(`underhood.projects.${key}.f2Body`),
+      },
+      {
+        icon: hoodIcons[key][2],
+        title: t(`underhood.projects.${key}.f3Title`),
+        desc: t(`underhood.projects.${key}.f3Body`),
+      },
     ],
   }));
 
@@ -162,14 +191,31 @@ export default async function Home({
   // the detailed seven-slot treatment belongs on /diensten, not here.
   const packageLabels = packageCardLabels(tp);
   const featuredCard = buildPackageCardProps(FEATURED_PACKAGE, tp, locale, packageLabels);
+  // On mobile the wide featured card is swapped for a swipe carousel through
+  // the three phase-1 packages, so the entry point stays browsable without
+  // the two-column card's height.
+  const knowCards = packagesInPhase("know").map((pkg) =>
+    buildPackageCardProps(pkg, tp, locale, packageLabels),
+  );
   const packageTeasers = PACKAGES.filter((pkg) => !pkg.featured).map((pkg) => ({
     slug: pkg.slug,
+    phase: pkg.phase,
     accent: pkg.accent,
     name: tp(`${pkg.slug}.name`),
     promise: tp(`${pkg.slug}.promise`),
     duration: tp(`${pkg.slug}.duration`),
     price: formatPackagePrice(pkg, tp, locale),
+    originalPrice: formatOriginalPrice(pkg, locale),
   }));
+  // The teasers tile in rows of three on desktop, with the remainder absorbed
+  // so no row is left ragged: one leftover → the last four cards share a row;
+  // two → the last two widen to half each.
+  const teaserMdSpan = (i: number) => {
+    const n = packageTeasers.length;
+    if (n % 3 === 1 && i >= n - 4) return 3;
+    if (n % 3 === 2 && i >= n - 2) return 6;
+    return 4;
+  };
 
   const steps = [
     { step: "01", title: t("process.step1Title"), description: t("process.step1Body") },
@@ -506,15 +552,65 @@ export default async function Home({
             </Typography>
           </Reveal>
 
-          <Reveal variant="rise" delay={80}>
-            <PackageCard {...featuredCard} featured />
+          {/* md+: the wide two-column Datascan card */}
+          <Reveal variant="rise" delay={80} sx={{ display: { xs: "none", md: "block" } }}>
+            <PackageCard {...featuredCard} featured highlight />
           </Reveal>
 
-          {/* Six teasers in two rows of three. The Datascan isn't among them —
-              it's the wide card above. */}
-          <Grid container spacing={{ xs: 2.5, md: 3 }} sx={{ mt: { xs: 2.5, md: 3 } }}>
+          {/* Below md: a swipe carousel through the three phase-1 packages,
+              as compact cards (no "Begin hier" chip). Same scroll-snap recipe
+              as the blog carousel: negative margins cancel the Container
+              gutters so slides can run to the screen edge, with the next card
+              peeking in as the swipe affordance. */}
+          <Reveal variant="fade" delay={80} sx={{ display: { xs: "block", md: "none" } }}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "stretch",
+                gap: 2,
+                mx: { xs: "-20px", sm: "-32px" },
+                px: { xs: "20px", sm: "32px" },
+                overflowX: "auto",
+                scrollSnapType: "x mandatory",
+                scrollPaddingInline: { xs: "20px", sm: "32px" },
+                pb: 1,
+                scrollbarWidth: "none",
+                "&::-webkit-scrollbar": { display: "none" },
+              }}
+            >
+              {knowCards.map((card) => (
+                <Box
+                  key={card.slug}
+                  sx={{
+                    flex: { xs: "0 0 88%", sm: "0 0 55%" },
+                    minWidth: 0,
+                    scrollSnapAlign: "start",
+                  }}
+                >
+                  <PackageCard {...card} />
+                </Box>
+              ))}
+            </Box>
+          </Reveal>
+
+          {/* The Datascan isn't among the teasers — it's the wide card above.
+              Desktop spans come from teaserMdSpan so every row fills. Below
+              md the whole grid is hidden: mobile shows only the phase-1
+              carousel, the rest lives on /diensten. */}
+          <Grid
+            container
+            spacing={{ xs: 2.5, md: 3 }}
+            sx={{ mt: { xs: 2.5, md: 3 }, display: { xs: "none", md: "flex" } }}
+          >
             {packageTeasers.map((pkg, i) => (
-              <Grid size={{ xs: 12, sm: 6, md: 4 }} key={pkg.slug}>
+              <Grid
+                size={{
+                  xs: 12,
+                  sm: i === packageTeasers.length - 1 && packageTeasers.length % 2 === 1 ? 12 : 6,
+                  md: teaserMdSpan(i),
+                }}
+                key={pkg.slug}
+              >
                 <Reveal variant="rise" delay={i * 90} sx={{ height: "100%" }}>
                   <Card
                     component={Link}
@@ -580,6 +676,14 @@ export default async function Home({
                             textAlign: "right",
                           }}
                         >
+                          {pkg.originalPrice && (
+                            <Box
+                              component="s"
+                              sx={{ color: "var(--app-text-muted)", fontWeight: 500, mr: 0.75 }}
+                            >
+                              {pkg.originalPrice}
+                            </Box>
+                          )}
                           {pkg.price}
                         </Typography>
                       </Box>
@@ -742,8 +846,9 @@ export default async function Home({
                         "&:last-child": { pb: { xs: 3.5, md: 4 } },
                       }}
                     >
-                      {/* Navy tile with a brand-pink glyph: absolute colors, so
-                          it reads the same in both schemes. */}
+                      {/* Icon tile follows the scheme: a light red-tinted
+                          tile with the brand-red glyph in light mode, the
+                          navy tile with the pink glyph in dark. */}
                       <Box
                         aria-hidden
                         sx={{
@@ -752,9 +857,14 @@ export default async function Home({
                           borderRadius: 2.5,
                           display: "grid",
                           placeItems: "center",
-                          backgroundColor: palette.navy,
-                          color: "#f7a6bc",
+                          backgroundColor:
+                            "color-mix(in srgb, var(--app-red) 10%, transparent)",
+                          color: "var(--app-red)",
                           mb: 2,
+                          "[data-mui-color-scheme='dark'] &": {
+                            backgroundColor: palette.navy,
+                            color: "#f7a6bc",
+                          },
                         }}
                       >
                         {card.icon}

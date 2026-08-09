@@ -71,37 +71,138 @@
       "featuredTag": "Begin hier",
       "back": "Alle diensten",
       "timeline": "Zo verloopt het",
-      "bridgeLabel": "Klaar voor later"
+      "bridgeLabel": "Klaar voor later",
+      "notIncluded": "Niet inbegrepen",
+      "fitTitle": "Waar dit past in het pad",
+      "fitConsumes": "Bouwt voort op",
+      "fitFeeds": "Leidt tot"
     },
     "data-scan": {
       "name": "Datascan",
-      "navDesc": "Eén week, en je weet waar je staat",
+      "navDesc": "Twee weken, en je weet waar je staat",
       "recognise": "Je weet dat er meer uit je data te halen valt, maar niet waar je moet beginnen — en elk voorstel dat je krijgt begint met een traject van drie maanden.",
-      "promise": "In één week weet je precies waar je staat en wat je als eerste moet doen.",
+      "promise": "Binnen twee weken weet je precies waar je staat en wat je als eerste moet doen.",
       "deliverables": [
         "Inventarisatie van al je databronnen en wat erin zit",
         "Een volwassenheidsscore, zodat je weet waar je staat",
+        "Een eerlijke inschatting waar AI realistisch toepasbaar is — en wat daarvoor eerst op orde moet zijn",
         "Een geprioriteerde roadmap voor de komende twaalf maanden",
         "2–3 quick wins die je zelf kunt doorvoeren"
       ],
-      "duration": "1 week",
-      "intro": "De Datascan is de snelste manier om te weten wat je eerst moet doen — en meteen de goedkoopste manier om erachter te komen of we bij elkaar passen. Eén week, een vaste prijs, en aan het eind ligt er een document waar je ook zonder mij mee verder kunt.",
+      "deliverableGroups": [
+        {
+          "title": "Het datamodel van je huidige landschap (as-is)",
+          "items": [
+            "Inventarisatie van elke databron: eigenaar, toegang, verversfrequentie, volume",
+            "De kernentiteiten per bron, en een systeemoverstijgende kaart van hoe ze (niet) koppelen",
+            "Datastromen tussen systemen — geautomatiseerd, half handmatig, of overgetypt",
+            "Kwaliteitsbevindingen per bron: volledigheid, dubbelingen, en de velden die betrouwbaar lijken maar het niet zijn"
+          ]
+        },
+        {
+          "title": "Het doelmodel en het plan (to-be)",
+          "items": [
+            "Een doeldatamodel: één gezaghebbende plek per entiteit, één gedeelde rapportagelaag",
+            "Een gap-analyse: de concrete afstand tussen as-is en to-be, uitgesplitst",
+            "De stappen op volgorde in een roadmap voor twaalf maanden, met inspanning en opbrengst per stap"
+          ]
+        },
+        {
+          "title": "Beoordeling en prioriteiten",
+          "items": [
+            "Een volwassenheidsscore die je later opnieuw kunt meten om voortgang te laten zien",
+            "Een eerlijke AI-gereedheidscheck — wat nu realistisch is, en waar eerst gaten gedicht moeten worden",
+            "2–3 quick wins die je deze maand nog zelf doorvoert"
+          ]
+        }
+      ],
+      "notIncluded": [
+        "Bouwen — pipelines, dashboards en integraties zijn fase 2",
+        "Procesanalyse: hoe wérk stroomt is de Processcan; dit modelleert hoe data stroomt",
+        "Requirements en KPI-definities — dat is Scherpe vraag"
+      ],
+      "duration": "1–2 weken",
+      "intro": "De Datascan is de snelste manier om te weten wat je eerst moet doen — en meteen de goedkoopste manier om erachter te komen of we bij elkaar passen. Eén à twee weken, een vaste prijs, en aan het eind ligt er een document waar je ook zonder mij mee verder kunt.",
       "steps": [
         {
-          "label": "Dag 1 — Gesprekken",
+          "label": "Week 1 — Gesprekken",
           "body": "Ik spreek de mensen die met de data werken én de mensen die erop sturen. Wat wordt er gevraagd, wat kan er niet, waar gaat de tijd heen."
         },
         {
-          "label": "Dag 2–3 — In de systemen",
+          "label": "Week 1 — In de systemen",
           "body": "Ik kijk zelf in je bronnen: wat zit erin, hoe schoon is het, hoe hangt het samen. Geen aannames op basis van wat er zou moeten staan."
         },
         {
-          "label": "Dag 4 — Doorrekenen",
-          "body": "De volwassenheidsscore, de knelpunten op volgorde van impact, en per stap een inschatting van wat het kost en wat het oplevert."
+          "label": "Week 2 — Doorrekenen",
+          "body": "De volwassenheidsscore, de knelpunten op volgorde van impact, en per stap een inschatting van wat het kost en wat het oplevert — inclusief waar AI daar realistisch in past, en wat daarvoor eerst op orde moet zijn."
         },
         {
-          "label": "Dag 5 — Oplevering",
+          "label": "Week 2 — Oplevering",
           "body": "Presentatie aan je team, roadmap op tafel, en de quick wins die je deze maand nog zelf kunt doorvoeren."
+        }
+      ]
+    },
+    "process-scan": {
+      "name": "Processcan",
+      "navDesc": "Twee weken, en je weet wat je kunt automatiseren",
+      "recognise": "Werk dat met de hand wordt overgetypt, gecontroleerd en doorgestuurd — en iedereen voelt dat AI daar iets van kan overnemen, maar niemand weet welk deel echt realistisch is.",
+      "promise": "Binnen twee weken weet je welke processen klaar zijn voor automatisering of AI — en welke nog niet.",
+      "deliverables": [
+        "Een overzicht van je belangrijkste processen en waar het handwerk zit",
+        "Per proces: automatiseren met standaardtooling, écht geschikt voor AI, of juist mensenwerk laten",
+        "Een eerlijke AI-gereedheidscheck: wat kan nu al, en wat moet er eerst op orde zijn",
+        "Een shortlist op volgorde van moeite tegenover bespaarde uren",
+        "2–3 quick wins die je zelf kunt doorvoeren"
+      ],
+      "deliverableGroups": [
+        {
+          "title": "Het procesmodel van hoe het werk nu loopt (as-is)",
+          "items": [
+            "Je 3–5 belangrijkste processen stap voor stap in kaart: elke overdracht, beslissing en systeemstap",
+            "Waar informatie met de hand tussen systemen beweegt: overtypen, exports, kopiëren en plakken",
+            "Een inspanningsprofiel per proces: frequentie, tijd per run, en wie het draagt",
+            "De faalpunten: waar werk vastloopt, fouten insluipen of dingen overgedaan worden"
+          ]
+        },
+        {
+          "title": "De automatiserings- en AI-kansenkaart (to-be)",
+          "items": [
+            "Per processtap een oordeel met onderbouwing: standaardtooling, écht geschikt voor AI, of mensenwerk laten",
+            "De randvoorwaarden voordat de AI-stappen te bouwen zijn: datakwaliteit, toegang, volume",
+            "Doelschetsen voor de topkandidaten: het proces opnieuw getekend mét de geautomatiseerde stappen"
+          ]
+        },
+        {
+          "title": "Prioriteiten",
+          "items": [
+            "Een shortlist op volgorde van moeite tegenover bespaarde uren",
+            "2–3 quick wins die je deze maand nog zelf doorvoert"
+          ]
+        }
+      ],
+      "notIncluded": [
+        "Het bouwen van de automatiseringen of AI-oplossingen — dat is fase 2",
+        "Het datalandschap modelleren — dat is de Datascan",
+        "Volledige procesherinrichting of verandermanagement"
+      ],
+      "duration": "1–2 weken",
+      "intro": "Iedereen zegt dat je iets met AI moet; de Processcan vertelt je waar dat écht zo is. Eén à twee weken, een vaste prijs, en aan het eind weet je welke processen het waard zijn om te automatiseren, waar AI werkelijk past, en wat je beter laat zoals het is.",
+      "steps": [
+        {
+          "label": "Week 1 — Gesprekken",
+          "body": "Ik zit naast de mensen die het werk doen. Waar gaan de uren heen, wat wordt overgetypt, tegen welke stap ziet iedereen op."
+        },
+        {
+          "label": "Week 1 — Het werk volgen",
+          "body": "Ik loop de processen zelf na, van systeem naar systeem: elke overdracht, export en handmatige controle. Geen aannames over hoe het proces hoort te lopen."
+        },
+        {
+          "label": "Week 2 — Afwegen",
+          "body": "Per proces: is het te automatiseren met standaardtooling, is het écht geschikt voor AI, of is het goedkoper om het te laten zoals het is. Op volgorde van moeite tegenover wat het bespaart."
+        },
+        {
+          "label": "Week 2 — Oplevering",
+          "body": "Presentatie aan je team, de shortlist op tafel, en de quick wins die je deze maand nog zelf kunt doorvoeren."
         }
       ]
     },
@@ -117,23 +218,75 @@
         "Een expliciete lijst van wat er níét in zit",
         "Een bouwschatting, bruikbaar door mij of door een ander"
       ],
-      "duration": "1–2 weken",
-      "intro": "De goedkoopste manier om te voorkomen dat je het verkeerde bouwt. Aan het eind heb je een specificatie waar direct op gebouwd kan worden, definities waar iedereen achter staat, en de zekerheid dat je data ze kan vullen. Ook als je het vervolgens door iemand anders laat bouwen — de opdracht is van jou, niet van mij.",
+      "deliverableGroups": [
+        {
+          "title": "De requirementsdefinitie",
+          "items": [
+            "Een beslissingsinventaris: welke beslissingen de oplossing moet ondersteunen, en wie ze neemt",
+            "Functionele requirements per gebruikersrol — bouwbaar door mij of door een ander",
+            "Acceptatiecriteria: wanneer is het af en goed, toetsbaar per requirement",
+            "Een expliciete lijst van wat er níét in zit, op papier"
+          ]
+        },
+        {
+          "title": "De KPI-definities",
+          "items": [
+            "Eén definitie per KPI, met een eigenaar en de exacte formule",
+            "Bronkoppeling: uit welke velden en systemen elke KPI berekend wordt",
+            "Een meetbaarheidstoets, geverifieerd in de bronnen — een KPI die niemand kan vullen is geen KPI"
+          ]
+        },
+        {
+          "title": "De modellen, toegespitst op deze oplossing",
+          "items": [
+            "Een datamodel voor deze oplossing: entiteiten, sleutels, en de transformaties van bron naar KPI",
+            "Een procesmodel van waar de oplossing landt: wie handelt op welk cijfer, en wanneer"
+          ]
+        },
+        {
+          "title": "De bouwschatting",
+          "items": [
+            "Inspanning en kosten, zo opgezet dat je ermee kunt aanbesteden — de opdracht is van jou, niet van mij"
+          ]
+        }
+      ],
+      "notIncluded": [
+        "Het bouwen van de oplossing — daar is fase 2 voor, en de opdracht werkt ook zonder mij",
+        "Landschapsbrede modellering — voor het volledige beeld zijn de twee scans er"
+      ],
+      "duration": "3–4 weken",
+      "intro": "De goedkoopste manier om te voorkomen dat je het verkeerde bouwt. Aan het eind heb je een specificatie waar direct op gebouwd kan worden, definities waar iedereen achter staat, en de zekerheid dat je data ze kan vullen. Ook als je het vervolgens door iemand anders laat bouwen — de opdracht is van jou, niet van mij. Al een scan gedaan? Dan is de verkenning al klaar en duurt het traject nog zo'n twee weken.",
+      "modes": {
+        "title": "Twee manieren om in te stappen",
+        "intro": "Requirements en KPI's kun je alleen definiëren met kennis van je data en je processen. Die kennis is er al — omdat er een scan ligt — of dit pakket bouwt haar eerst op, gericht op de ene oplossing die gespecificeerd wordt.",
+        "options": [
+          {
+            "title": "Bovenop de scans",
+            "duration": "± 2 weken · € 3.750 (was € 7.500)",
+            "body": "De scandocumenten liggen op tafel, dus de verkenning wordt gelezen, niet overgedaan. Korter, en lager geprijsd — je betaalt niet twee keer voor dezelfde verkenning."
+          },
+          {
+            "title": "Zelfstandig",
+            "duration": "3–4 weken · € 6.250 (was € 12.500)",
+            "body": "Nog geen scan gedaan? Dan is week 2 een gerichte verkenning: alleen de bronnen en processen die deze oplossing raakt. Ook dan staat je specificatie op geverifieerde grond."
+          }
+        ]
+      },
       "steps": [
         {
-          "label": "Dag 1–2 — De vraag ophalen",
+          "label": "Week 1 — De vraag ophalen",
           "body": "Ik spreek de mensen die het straks gebruiken én degene die het betaalt. Welke beslissing moet je kunnen nemen, en wat gebeurt er nu als je het niet weet."
         },
         {
-          "label": "Dag 3–4 — Definities vastleggen",
-          "body": "Per cijfer één definitie, met een eigenaar. Wat telt mee, wat niet, en wie beslist als het schuurt."
+          "label": "Week 2 — Gerichte verkenning",
+          "body": "Ik kijk in de bronnen en loop mee met het proces dat deze oplossing raakt. Vervalt als er al een Datascan of Processcan ligt — die kennis staat dan al op papier."
         },
         {
-          "label": "Week 2 — Meetbaarheidstoets",
-          "body": "Ik kijk zelf in je bronnen of het gevraagde eruit te halen is. Een KPI die niemand kan vullen is geen KPI, en dat hoor je liever nu dan na de bouw."
+          "label": "Week 3 — Definities vastleggen",
+          "body": "Per cijfer één definitie, met een eigenaar, getoetst aan de bronnen. Een KPI die niemand kan vullen is geen KPI, en dat hoor je liever nu dan na de bouw."
         },
         {
-          "label": "Oplevering — De opdracht",
+          "label": "Week 4 — De opdracht",
           "body": "Acceptatiecriteria, de scope met een expliciete lijst van wat er buiten valt, en een bouwschatting. Klaar om aan te besteden of zelf op te pakken."
         }
       ]
@@ -149,6 +302,38 @@
         "1–3 dashboards met drill-down naar het detail",
         "Een definitielijst, zodat elk cijfer herleidbaar is",
         "Een adoptiesessie met de gebruikers — geen handleiding per mail"
+      ],
+      "deliverableGroups": [
+        {
+          "title": "De beslissingsinventaris",
+          "items": [
+            "De beslissingen die elke maand terugkomen — elk dashboardbeeld herleidt naar één ervan"
+          ]
+        },
+        {
+          "title": "Een schoon model op je bestaande bron",
+          "items": [
+            "Een gedocumenteerd datamodel op de bron die je al hebt — geen warehouseproject nodig",
+            "Een definitielijst: één definitie per cijfer, zodat elk getal herleidbaar is"
+          ]
+        },
+        {
+          "title": "De dashboards",
+          "items": [
+            "1–3 dashboards met drill-down naar het detail waar de vragen over gaan",
+            "Iteratief gebouwd — je kijkt mee tijdens de bouw, geen grote onthulling aan het eind"
+          ]
+        },
+        {
+          "title": "Adoptie",
+          "items": [
+            "Een sessie met de gebruikers, in hun eigen agenda — een handleiding per mail werkt niet"
+          ]
+        }
+      ],
+      "notIncluded": [
+        "Een datawarehouse of bronintegratie — als de bronnen zelf het probleem zijn, zeg ik dat in week 1 en wijs ik naar Jouw datawarehouse in plaats van op drijfzand te bouwen",
+        "Doorlopende rapportagedistributie en monitoring — dat is Rapportage op de automatische piloot"
       ],
       "duration": "2–3 weken",
       "intro": "Voor als je data al ergens bruikbaar in staat en je vooral wilt dat er eindelijk iets uitkomt waar mensen naar kijken. Geen warehouse-traject nodig: ik bouw op de bron die je hebt. De meeste dashboards sneuvelen niet op techniek maar op gebruik, dus de adoptiesessie zit standaard in de scope.",
@@ -172,8 +357,8 @@
       ]
     },
     "single-source-of-truth": {
-      "name": "Één versie van de waarheid",
-      "navDesc": "Eén datawarehouse, één definitie per cijfer",
+      "name": "Jouw datawarehouse",
+      "navDesc": "Eén versie van de waarheid, één definitie per cijfer",
       "recognise": "Drie afdelingen, drie omzetcijfers, en elke maandvergadering begint met de vraag wiens getal nou klopt.",
       "promise": "Eén datawarehouse waar al je rapportage op draait — en waar niemand meer discussieert over wiens cijfer klopt.",
       "deliverables": [
@@ -182,6 +367,34 @@
         "Een Power BI-dashboard met jullie KPI's",
         "Documentatie waarin elke definitie vastligt",
         "Een overdrachtssessie met je team"
+      ],
+      "deliverableGroups": [
+        {
+          "title": "Het gemodelleerde datawarehouse",
+          "items": [
+            "Pipelines op je eigen bronnen en een gelaagd model, elke ochtend klaar",
+            "Implementeert het doelmodel van de Datascan als dat er ligt — een blauwdruk, geen nieuwe ontwerpfase",
+            "Geteste transformaties met dagelijkse datakwaliteitschecks, alles in versiebeheer"
+          ]
+        },
+        {
+          "title": "Definities en rapportage",
+          "items": [
+            "Eén definitie per cijfer, vastgelegd in documentatie — er is nog maar één getal",
+            "Een Power BI-dashboard op je KPI's, met drill-down naar het detail"
+          ]
+        },
+        {
+          "title": "Overdracht",
+          "items": [
+            "Documentatie over het model, de definities, en hoe je het uitbreidt",
+            "Een sessie met je team, en de sleutels — vanaf hier ga je zelf verder"
+          ]
+        }
+      ],
+      "notIncluded": [
+        "De rapportages draaiend en bewaakt houden — dat is Rapportage op de automatische piloot, bovenop dit warehouse",
+        "De AI-toepassingen zelf — het warehouse maakt ze mogelijk; het AI-prototype bouwt ze"
       ],
       "duration": "3–4 weken",
       "bridge": "Gebouwd zodat je er later AI op kunt zetten — geen herbouw nodig.",
@@ -205,35 +418,6 @@
         }
       ]
     },
-    "reporting-automation": {
-      "name": "Rapportage op de automatische piloot",
-      "navDesc": "Je maandrapportage draait vanzelf",
-      "recognise": "Elke maand dezelfde twee dagen: exports trekken, plakken in Excel, cijfers narekenen, en hopen dat er niets is misgegaan.",
-      "promise": "Die maandrapportage die twee dagen handwerk kost? Die draait vanaf nu vanzelf.",
-      "deliverables": [
-        "Een geautomatiseerde pipeline op je bestaande bronnen",
-        "Het rapport in je inbox of dashboard, op schema",
-        "Een alert zodra er iets misgaat — vóór je stakeholders het zien",
-        "Overdracht, zodat je het zelf kunt aanpassen"
-      ],
-      "duration": "1–2 weken",
-      "bridge": "Gebouwd zodat je er later AI op kunt zetten — geen herbouw nodig.",
-      "intro": "Het kleinste pakket, en vaak het pakket met het snelste rendement. Eén rapportage die nu handwerk is, wordt een pipeline die vanzelf draait — inclusief een alert wanneer er iets misgaat.",
-      "steps": [
-        {
-          "label": "Dag 1–2 — Uitpluizen",
-          "body": "We lopen de rapportage stap voor stap door zoals je 'm nu maakt. Elke handeling, ook de kleine correcties die niemand opschrijft."
-        },
-        {
-          "label": "Week 1 — Bouw",
-          "body": "De stappen worden code: ophalen, controleren, berekenen, publiceren. Met tests op de plekken waar het nu misgaat."
-        },
-        {
-          "label": "Week 2 — Live en overdracht",
-          "body": "De pipeline draait op schema, het rapport komt binnen, en je weet hoe je 'm aanpast als er een kolom bijkomt."
-        }
-      ]
-    },
     "ai-prototype": {
       "name": "AI-prototype in 3 weken",
       "navDesc": "Werkend prototype én een eerlijk oordeel",
@@ -244,6 +428,35 @@
         "Gemeten kwaliteit op een echte testset — geen onderbuikgevoel",
         "De kosten per gebruiker per maand, doorgerekend",
         "Een go/no-go-advies — ook als dat 'niet doen' is"
+      ],
+      "deliverableGroups": [
+        {
+          "title": "De meetlat — afgesproken vóór de bouw begint",
+          "items": [
+            "Eén use case, strak afgebakend — rechtstreeks van de shortlist van de Processcan als die er ligt",
+            "Een echte testset die 'goed genoeg' definieert, gebouwd met de mensen die het werk nu doen"
+          ]
+        },
+        {
+          "title": "Werkende software",
+          "items": [
+            "Het prototype op jouw data, in je eigen omgeving — er gaat niets de deur uit",
+            "Met bronvermelding, zodat elk antwoord herleidbaar is"
+          ]
+        },
+        {
+          "title": "Het oordeel",
+          "items": [
+            "Gemeten kwaliteit tegen de testset — een getal, geen onderbuikgevoel",
+            "Kosten per gebruiker per maand, doorgerekend voor het echte werk",
+            "Een go/no-go met de onderbouwing erbij — en bij een 'niet doen': wat er nodig is om er een 'go' van te maken"
+          ]
+        }
+      ],
+      "notIncluded": [
+        "Productiehardening, SSO, opschalen — het prototype bewijst de casus; de productiebouw is een eigen traject",
+        "Het datafundament repareren dat het prototype blootlegt — dat is Jouw datawarehouse",
+        "Het bredere team leren werken met AI — dat is een eigen traject"
       ],
       "duration": "3 weken",
       "intro": "Drie weken, één use case, en aan het eind een eerlijk antwoord. Ik bouw het prototype echt — werkende software, geen klikbare mockup — en meet of het goed genoeg is. Blijkt het dat niet, dan zeg ik dat. Dan heb je voor een vaste prijs voorkomen dat je er een jaar in stopt.",
@@ -262,38 +475,65 @@
         }
       ]
     },
-    "ai-workshop": {
-      "name": "AI-geletterdheid voor je team",
-      "navDesc": "Eén dag, je hele team op niveau",
-      "recognise": "Je team gebruikt AI allang, alleen weet niemand precies wat het kan, wat het niet kan, en wat er met bedrijfsdata mag.",
-      "promise": "Na één dag weet je team wat AI wél en niet kan — en waar het in jullie werk daadwerkelijk iets oplevert.",
+    "reporting-automation": {
+      "name": "Rapportage op de automatische piloot",
+      "navDesc": "Je maandrapportage draait vanzelf",
+      "recognise": "Elke maand dezelfde twee dagen: exports trekken, plakken in Excel, cijfers narekenen, en hopen dat er niets is misgegaan.",
+      "promise": "Die maandrapportage die twee dagen handwerk kost? Die draait vanaf nu vanzelf.",
       "deliverables": [
-        "Een dag op locatie, toegesneden op jullie werk",
-        "Praktische oefeningen met jullie eigen documenten en processen",
-        "Heldere afspraken over wat wel en niet mag (AVG en AI Act)",
-        "Een geprioriteerde lijst met use cases die je team zelf heeft bedacht"
+        "Een geautomatiseerde pipeline op je bestaande bronnen",
+        "Het rapport in je inbox of dashboard, op schema",
+        "Een alert zodra er iets misgaat — vóór je stakeholders het zien",
+        "Overdracht, zodat je het zelf kunt aanpassen"
       ],
-      "duration": "1 dag",
-      "intro": "Een dag met je team, op locatie. Geen slides over hoe AI de wereld verandert, maar oefenen met jullie eigen documenten en processen — en aan het eind heldere afspraken over wat er wel en niet mag.",
+      "deliverableGroups": [
+        {
+          "title": "De geautomatiseerde pipeline",
+          "items": [
+            "De handmatige stappen van je rapport omgezet in code: ophalen, valideren, berekenen, publiceren",
+            "Tests precies waar het nu misgaat — betrouwbaarder dan de handmatige versie, niet alleen sneller"
+          ]
+        },
+        {
+          "title": "Bezorging en bewaking",
+          "items": [
+            "Het rapport in je inbox of dashboard, op schema",
+            "Een alert zodra er iets breekt — vóór je stakeholders het merken"
+          ]
+        },
+        {
+          "title": "Overdracht",
+          "items": [
+            "Een sessie en documentatie, zodat een nieuwe kolom niet betekent dat je mij moet bellen"
+          ]
+        }
+      ],
+      "notIncluded": [
+        "De inhoud van het rapport herontwerpen — nieuwe KPI's of een nieuw ontwerp zijn Scherpe vraag plus dashboardwerk",
+        "De bronnen samenvoegen waar het rapport uit put — dat is Jouw datawarehouse"
+      ],
+      "duration": "1–2 weken",
+      "bridge": "Gebouwd zodat je er later AI op kunt zetten — geen herbouw nodig.",
+      "intro": "Het kleinste pakket, en vaak het pakket met het snelste rendement. Eén rapportage die nu handwerk is, wordt een pipeline die vanzelf draait — inclusief een alert wanneer er iets misgaat.",
       "steps": [
         {
-          "label": "Ochtend — Wat het is",
-          "body": "Hoe een taalmodel werkt, waarom het soms overtuigend onzin vertelt, en hoe je dat herkent. In gewone taal."
+          "label": "Dag 1–2 — Uitpluizen",
+          "body": "We lopen de rapportage stap voor stap door zoals je 'm nu maakt. Elke handeling, ook de kleine correcties die niemand opschrijft."
         },
         {
-          "label": "Middag — Zelf doen",
-          "body": "Aan de slag met jullie eigen documenten en processen. Iedereen bouwt iets dat werkt."
+          "label": "Week 1 — Bouw",
+          "body": "De stappen worden code: ophalen, controleren, berekenen, publiceren. Met tests op de plekken waar het nu misgaat."
         },
         {
-          "label": "Afsluiting — Afspraken en vervolg",
-          "body": "Wat mag er wel en niet met bedrijfsdata, en een geprioriteerde lijst met use cases die je team zelf heeft bedacht."
+          "label": "Week 2 — Live en overdracht",
+          "body": "De pipeline draait op schema, het rapport komt binnen, en je weet hoe je 'm aanpast als er een kolom bijkomt."
         }
       ]
     }
   },
   "home": {
     "metaTitle": "Ruud Juffermans — Data en AI",
-    "metaDescription": "Ik bouw datafundamenten waar je rapportage én je AI op draaien. Vijf pakketten met vaste scope, vaste prijs en een doorlooptijd in weken.",
+    "metaDescription": "Ik bouw datafundamenten waar je rapportage én je AI op draaien. Zeven pakketten met vaste scope, vaste prijs en een doorlooptijd in weken.",
     "hero": {
       "eyebrow": "Datafundamenten & AI",
       "title": "Je hebt data en AI-plannen. Wat ertussen mist is het fundament.",
@@ -383,33 +623,45 @@
     },
     "underhood": {
       "eyebrow": "Projecten",
-      "toggleAi": "AI & GenAI",
-      "toggleAnalytics": "Data Analytics",
-      "ai": {
-        "title": "GenAI gebouwd als serieuze software",
-        "sub": "Geen black box die na de pilot in een la verdwijnt. Ik behandel AI-oplossingen als serieuze software: geëvalueerd, gedocumenteerd en in versiebeheer — zodat je team het na mijn vertrek moeiteloos overneemt.",
-        "codeNote": "geëvalueerd & herleidbaar",
-        "f1Title": "Evaluatie ingebouwd",
-        "f1Body": "Testsets en LangFuse-tracing vanaf dag één: kwaliteit meten in plaats van hopen dat het goed gaat.",
-        "f2Title": "Alles als code",
-        "f2Body": "Prompts, pipelines en infrastructuur in versiebeheer — reviewbaar, reproduceerbaar en overdraagbaar.",
-        "f3Title": "Elk antwoord herleidbaar",
-        "f3Body": "Bronvermelding standaard: van antwoord terug naar het onderliggende document. Geen black box.",
-        "f4Title": "Jouw data blijft van jou",
-        "f4Body": "Alles draait in jouw eigen cloud-tenant. Privacy by design, AVG- en AI Act-proof."
-      },
-      "analytics": {
-        "title": "Data-analyse gebouwd als serieuze software",
-        "sub": "Geen wildgroei aan losse scripts en handmatige exports. Ik behandel datapipelines als serieuze software: getest, gedocumenteerd en in versiebeheer — zodat je team er zelf mee verder kan.",
-        "codeNote": "getest & herleidbaar",
-        "f1Title": "Datakwaliteit bewaakt",
-        "f1Body": "Validaties en kwaliteitschecks in elke pipeline-stap: fouten vallen op vóórdat ze in je dashboard belanden.",
-        "f2Title": "Alles als code",
-        "f2Body": "Transformaties, datamodellen en infrastructuur in versiebeheer — reviewbaar, reproduceerbaar en overdraagbaar.",
-        "f3Title": "Elk cijfer herleidbaar",
-        "f3Body": "Eén definitie per KPI, van dashboard terug naar de bron — geen discussie meer over wiens cijfer klopt.",
-        "f4Title": "Jouw data blijft van jou",
-        "f4Body": "Alles draait in jouw eigen omgeving. Privacy by design en AVG-proof."
+      "viewProject": "Bekijk het project",
+      "github": "Bekijk op GitHub",
+      "projects": {
+        "open-data-warehouse": {
+          "toggle": "Open data warehouse",
+          "title": "Een sterschema in de openbaarheid, op data die iedereen kan controleren",
+          "sub": "End-to-end ELT-platform op Nederlandse open data: Python-ingestie, dbt-transformaties en een gedocumenteerd Kimball-sterschema — met tests en CI op elke pull request, gebouwd zoals een platformteam het oplevert.",
+          "codeNote": "getest op elke PR",
+          "f1Title": "Expliciete grain",
+          "f1Body": "Twee feitentabellen met verschillende grains in één schema, elk vastgelegd in één zin — want precies daar gaat modelleren mis.",
+          "f2Title": "Tests en CI",
+          "f2Body": "dbt-tests en -docs draaien op elke pull request; een kapot model haalt main nooit.",
+          "f3Title": "Warehouse-onafhankelijk",
+          "f3Body": "DuckDB in CI, Snowflake of Databricks met een profielwissel — het modelleren is het punt, niet de engine."
+        },
+        "ov-streaming-pipeline": {
+          "toggle": "OV streaming pipeline",
+          "title": "Realtime vertragingen in het Nederlandse OV",
+          "sub": "Streamingpipeline op de landelijke OV-feed: voertuigposities stromen door Kafka, vertragingen worden berekend in vensters van vijf minuten, en een live kaart laat zien waar het netwerk nú uitloopt.",
+          "codeNote": "streams, geen batches",
+          "f1Title": "Kafka van begin tot eind",
+          "f1Body": "GTFS-realtime posities via Redpanda, met een dead-letter queue voor events die niet parsen.",
+          "f2Title": "Aggregaties per venster",
+          "f2Body": "Vertraging per lijn en station in vensters van vijf minuten — ook correct bij late en dubbele events.",
+          "f3Title": "Live dashboard",
+          "f3Body": "Een Streamlit-kaart met actuele vertragingen, rechtstreeks uit de stream."
+        },
+        "uitspraak-rag": {
+          "toggle": "Strafrecht AI RAG",
+          "title": "Vragen stellen aan rechtspraak — mét bronnen",
+          "sub": "RAG-systeem over rechterlijke uitspraken: semantisch zoeken door uitspraken, antwoorden geformuleerd door een LLM, en elke bewering herleidbaar naar de ECLI waar ze vandaan komt.",
+          "codeNote": "geen bron, geen antwoord",
+          "f1Title": "Bronvermelding standaard",
+          "f1Body": "Elk antwoord draagt zijn ECLI-verwijzingen — van bewering terug naar de onderliggende passage.",
+          "f2Title": "Eerlijk weigeren",
+          "f2Body": "Geen relevante passage gevonden betekent geen antwoord. Het systeem verzint geen jurisprudentie.",
+          "f3Title": "Geëvalueerde retrieval",
+          "f3Body": "Retrievalkwaliteit gemeten tegen een testset met LangFuse-tracing — geen demo die één keer goed ging."
+        }
       }
     },
     "blog": {
@@ -426,7 +678,7 @@
   },
   "services": {
     "metaTitle": "Diensten — vaste scope, vaste prijs",
-    "metaDescription": "Vijf pakketten met een vaste doorlooptijd en een vaste prijs: van een datascan van één week tot een werkend AI-prototype in drie weken.",
+    "metaDescription": "Zeven pakketten met een vaste doorlooptijd en een vaste prijs: van een datascan van twee weken tot een werkend AI-prototype in drie weken.",
     "hero": {
       "eyebrow": "Diensten",
       "title": "Vaste scope, vaste prijs, in weken",
@@ -436,7 +688,7 @@
       "know": {
         "eyebrow": "Fase 1",
         "title": "Weten waar je staat",
-        "sub": "Twee korte trajecten met een vaste prijs. Na afloop weet je wat er ligt en wat je precies wilt — en zit je nergens aan vast."
+        "sub": "Drie korte trajecten met een vaste prijs. Na afloop weet je wat er ligt, wat je kunt automatiseren en wat je precies wilt — en zit je nergens aan vast."
       },
       "build": {
         "eyebrow": "Fase 2",
@@ -445,7 +697,7 @@
       },
       "run": {
         "eyebrow": "Fase 3",
-        "title": "Draaiend houden en meenemen",
+        "title": "Draaiend houden",
         "sub": "Wat er staat moet blijven werken zonder jou, en je team moet zelf verder kunnen."
       }
     },
@@ -650,9 +902,9 @@
     "newsletterSuccess": "Ingeschreven!",
     "newsletterError": "Er ging iets mis. Probeer het opnieuw.",
     "servicesLinks": {
-      "scan": "Datascan",
-      "truth": "Één versie van de waarheid",
-      "reporting": "Rapportage-automatisering",
+      "sharpen": "Scherpe vraag",
+      "dashboards": "Dashboards",
+      "truth": "Jouw datawarehouse",
       "ai": "AI-prototype"
     },
     "moreLinks": {

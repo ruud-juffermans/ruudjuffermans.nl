@@ -71,37 +71,138 @@
       "featuredTag": "Start here",
       "back": "All services",
       "timeline": "How it runs",
-      "bridgeLabel": "Ready for later"
+      "bridgeLabel": "Ready for later",
+      "notIncluded": "Not included",
+      "fitTitle": "Where this fits in the path",
+      "fitConsumes": "Builds on",
+      "fitFeeds": "Leads to"
     },
     "data-scan": {
       "name": "Data scan",
-      "navDesc": "One week, and you know where you stand",
+      "navDesc": "Two weeks, and you know where you stand",
       "recognise": "You know there's more in your data than you're getting out of it, but not where to start — and every proposal you get opens with a three-month engagement.",
-      "promise": "In one week you know exactly where you stand and what to do first.",
+      "promise": "Within two weeks you know exactly where you stand and what to do first.",
       "deliverables": [
         "An inventory of every data source and what's actually in it",
         "A maturity score, so you know where you stand",
+        "An honest assessment of where AI is realistically applicable — and what has to be in place first",
         "A prioritised roadmap for the next twelve months",
         "2–3 quick wins you can implement yourself"
       ],
-      "duration": "1 week",
-      "intro": "The data scan is the fastest way to learn what to do first — and the cheapest way to find out whether we're a fit. One week, a fixed price, and at the end a document you can act on with or without me.",
+      "deliverableGroups": [
+        {
+          "title": "The data model of your current landscape (as-is)",
+          "items": [
+            "An inventory of every data source: owner, access, refresh cadence, volume",
+            "The core entities per source, and a cross-system map of how they (fail to) link",
+            "Data flows between systems — automated, semi-manual, or retyped by hand",
+            "Quality findings per source: completeness, duplicates, and the fields that look reliable but aren't"
+          ]
+        },
+        {
+          "title": "The target model and the plan (to-be)",
+          "items": [
+            "A target data model: one authoritative home per entity, one shared reporting layer",
+            "A gap analysis: the concrete distance between as-is and to-be, itemised",
+            "The gaps sequenced into a twelve-month roadmap, with effort and returns per step"
+          ]
+        },
+        {
+          "title": "Assessment and priorities",
+          "items": [
+            "A maturity score you can re-score later to show progress",
+            "An honest AI-readiness assessment — what's realistic now, and what needs gaps closed first",
+            "2–3 quick wins you can implement yourself this month"
+          ]
+        }
+      ],
+      "notIncluded": [
+        "Building anything — pipelines, dashboards and integrations are phase 2",
+        "Process analysis: how work flows is the Process scan; this models how data flows",
+        "Requirement and KPI definitions — that's Sharpen the question"
+      ],
+      "duration": "1–2 weeks",
+      "intro": "The data scan is the fastest way to learn what to do first — and the cheapest way to find out whether we're a fit. One to two weeks, a fixed price, and at the end a document you can act on with or without me.",
       "steps": [
         {
-          "label": "Day 1 — Conversations",
+          "label": "Week 1 — Conversations",
           "body": "I talk to the people who work with the data and the people who steer on it. What gets asked for, what can't be answered, where the time goes."
         },
         {
-          "label": "Day 2–3 — Into the systems",
+          "label": "Week 1 — Into the systems",
           "body": "I look inside your sources myself: what's in there, how clean it is, how it fits together. No assumptions based on what should be there."
         },
         {
-          "label": "Day 4 — Working it out",
-          "body": "The maturity score, the bottlenecks ranked by impact, and per step an estimate of what it costs and what it returns."
+          "label": "Week 2 — Working it out",
+          "body": "The maturity score, the bottlenecks ranked by impact, and per step an estimate of what it costs and what it returns — including where AI realistically fits into that picture, and what has to be in place before it can."
         },
         {
-          "label": "Day 5 — Delivery",
+          "label": "Week 2 — Delivery",
           "body": "A presentation to your team, the roadmap on the table, and the quick wins you can still implement yourself this month."
+        }
+      ]
+    },
+    "process-scan": {
+      "name": "Process scan",
+      "navDesc": "Two weeks, and you know what can be automated",
+      "recognise": "Work that gets retyped, checked, and forwarded by hand — and everyone senses AI could take some of it over, but nobody knows which part is actually realistic.",
+      "promise": "Within two weeks you know which processes are ready for automation or AI — and which aren't yet.",
+      "deliverables": [
+        "A map of your key processes and where the manual work sits",
+        "Per process: automate with standard tooling, a genuine fit for AI, or better left to people",
+        "An honest AI-readiness check: what's possible now, and what has to be in place first",
+        "A shortlist ranked by effort against hours saved",
+        "2–3 quick wins you can implement yourself"
+      ],
+      "deliverableGroups": [
+        {
+          "title": "The process model of how work runs today (as-is)",
+          "items": [
+            "Your 3–5 key processes mapped step by step: every hand-off, decision point and system touch",
+            "Where information moves between systems by hand: retyping, exports, copy-paste",
+            "An effort profile per process: frequency, time per run, and who carries it",
+            "The failure points: where work stalls, errors creep in, or gets redone"
+          ]
+        },
+        {
+          "title": "The automation & AI opportunity map (to-be)",
+          "items": [
+            "Per process step a verdict with reasoning: standard tooling, a genuine fit for AI, or leave to people",
+            "The prerequisites before the AI-fit steps are buildable: data quality, access, volume",
+            "Target sketches for the top candidates: the process redrawn with the automated steps in place"
+          ]
+        },
+        {
+          "title": "Priorities",
+          "items": [
+            "A shortlist ranked by effort against hours saved",
+            "2–3 quick wins you can implement yourself this month"
+          ]
+        }
+      ],
+      "notIncluded": [
+        "Building the automations or AI solutions — that's phase 2",
+        "Modelling the data landscape — that's the Data scan",
+        "Full process re-engineering or change management"
+      ],
+      "duration": "1–2 weeks",
+      "intro": "Everyone says you should be doing something with AI; the process scan tells you where that's actually true. One to two weeks, a fixed price, and at the end you know which processes are worth automating, where AI genuinely fits, and what's better left as it is.",
+      "steps": [
+        {
+          "label": "Week 1 — Conversations",
+          "body": "I sit with the people doing the work. Where do the hours go, what gets retyped, which step does everyone dread."
+        },
+        {
+          "label": "Week 1 — Following the work",
+          "body": "I trace the processes myself, system to system: every hand-off, export, and manual check. No assumptions based on how the process is supposed to run."
+        },
+        {
+          "label": "Week 2 — Weighing up",
+          "body": "Per process: can it be automated with standard tooling, is it a genuine fit for AI, or is it cheaper to leave alone. Ranked by effort against what it saves."
+        },
+        {
+          "label": "Week 2 — Delivery",
+          "body": "A presentation to your team, the shortlist on the table, and the quick wins you can still implement yourself this month."
         }
       ]
     },
@@ -117,23 +218,75 @@
         "An explicit list of what is not included",
         "A build estimate, usable by me or by someone else"
       ],
-      "duration": "1–2 weeks",
-      "intro": "The cheapest way to avoid building the wrong thing. At the end you have a specification that can be built from directly, definitions everyone stands behind, and the certainty that your data can actually fill them. Including if you then have someone else build it — the brief is yours, not mine.",
+      "deliverableGroups": [
+        {
+          "title": "The requirements definition",
+          "items": [
+            "A decision inventory: which decisions the solution must support, and who makes them",
+            "Functional requirements per user role — buildable by me or by anyone else",
+            "Acceptance criteria: when is it done and right, verifiable per requirement",
+            "An explicit list of what is not included, on paper"
+          ]
+        },
+        {
+          "title": "The KPI definitions",
+          "items": [
+            "One definition per KPI, with an owner and the exact formula",
+            "Source mapping: the fields and systems each KPI is computed from",
+            "A measurability check, verified inside the sources — a KPI nobody can populate isn't a KPI"
+          ]
+        },
+        {
+          "title": "The models, scoped to this solution",
+          "items": [
+            "A data model for this solution: entities, keys, and the transformations from source to KPI",
+            "A process model of where the solution lands: who acts on which number, and when"
+          ]
+        },
+        {
+          "title": "The build estimate",
+          "items": [
+            "Effort and cost, structured so it can go out to tender — the brief is yours, not mine"
+          ]
+        }
+      ],
+      "notIncluded": [
+        "Building the solution — phase 2 exists for that, and the brief works without me",
+        "Landscape-wide modelling — the full picture is what the two scans are for"
+      ],
+      "duration": "3–4 weeks",
+      "intro": "The cheapest way to avoid building the wrong thing. At the end you have a specification that can be built from directly, definitions everyone stands behind, and the certainty that your data can actually fill them. Including if you then have someone else build it — the brief is yours, not mine. Already ran a scan? Then the discovery is done and the engagement shrinks to about two weeks.",
+      "modes": {
+        "title": "Two ways in",
+        "intro": "Requirements and KPIs can only be defined against knowledge of your data and your processes. That knowledge either already exists — because a scan has run — or this package builds it first, focused on the one solution being specified.",
+        "options": [
+          {
+            "title": "On top of the scans",
+            "duration": "± 2 weeks · €3,750 (was €7,500)",
+            "body": "The scan documents are on the table, so discovery is read, not redone. Shorter, and priced lower — you don't pay twice for the same discovery."
+          },
+          {
+            "title": "Standalone",
+            "duration": "3–4 weeks · €6,250 (was €12,500)",
+            "body": "No scan yet? Then week 2 is a focused discovery: only the sources and processes this solution touches. Your specification still stands on verified ground."
+          }
+        ]
+      },
       "steps": [
         {
-          "label": "Day 1–2 — Collecting the question",
+          "label": "Week 1 — Collecting the question",
           "body": "I talk to the people who'll use it and the person paying for it. Which decision do you need to be able to make, and what happens today when you can't."
         },
         {
-          "label": "Day 3–4 — Pinning down definitions",
-          "body": "One definition per figure, with an owner. What counts, what doesn't, and who decides when it's contested."
+          "label": "Week 2 — Focused discovery",
+          "body": "I look inside the sources and alongside the process this solution touches. Skipped when a data scan or process scan has already run — that knowledge is on the table."
         },
         {
-          "label": "Week 2 — Measurability check",
-          "body": "I look inside your sources myself to see whether what's being asked for can be produced. A KPI nobody can populate isn't a KPI, and you'd rather hear that now than after the build."
+          "label": "Week 3 — Pinning down definitions",
+          "body": "One definition per figure, with an owner, verified against the sources. A KPI nobody can populate isn't a KPI, and you'd rather hear that now than after the build."
         },
         {
-          "label": "Delivery — The brief",
+          "label": "Week 4 — The brief",
           "body": "Acceptance criteria, the scope with an explicit list of what falls outside it, and a build estimate. Ready to put out to tender or pick up yourself."
         }
       ]
@@ -149,6 +302,38 @@
         "1–3 dashboards with drill-down into the detail",
         "A definition list, so every figure traces back",
         "An adoption session with the users — not a manual by email"
+      ],
+      "deliverableGroups": [
+        {
+          "title": "The decision inventory",
+          "items": [
+            "The decisions that come back every month — every dashboard view traces to one of them"
+          ]
+        },
+        {
+          "title": "A clean model on your existing source",
+          "items": [
+            "A documented data model on the source you already have — no warehouse project required",
+            "A definition list: one definition per figure, so every number traces back"
+          ]
+        },
+        {
+          "title": "The dashboards",
+          "items": [
+            "1–3 dashboards with drill-down into the detail the questions are about",
+            "Built iteratively — you look along during the build, no single big reveal"
+          ]
+        },
+        {
+          "title": "Adoption",
+          "items": [
+            "A session with the users, in their own calendar — a manual by email doesn't work"
+          ]
+        }
+      ],
+      "notIncluded": [
+        "A data warehouse or source integration — if the sources themselves are the problem, I'll say so in week 1 and point to Your data warehouse instead of building on sand",
+        "Ongoing report distribution and monitoring — that's Reporting on autopilot"
       ],
       "duration": "2–3 weeks",
       "intro": "For when your data already sits somewhere usable and you mostly want something to finally come out of it that people look at. No warehouse project needed: I build on the source you have. Most dashboards don't die on technology, they die on use — so the adoption session is in scope by default.",
@@ -172,8 +357,8 @@
       ]
     },
     "single-source-of-truth": {
-      "name": "One version of the truth",
-      "navDesc": "One data warehouse, one definition per figure",
+      "name": "Your data warehouse",
+      "navDesc": "One version of the truth, one definition per figure",
       "recognise": "Three departments, three revenue figures, and every monthly meeting opens with an argument about whose number is right.",
       "promise": "One data warehouse that all your reporting runs on — and no more arguments about whose figure is right.",
       "deliverables": [
@@ -182,6 +367,34 @@
         "A Power BI dashboard on your KPIs",
         "Documentation that pins down every definition",
         "A handover session with your team"
+      ],
+      "deliverableGroups": [
+        {
+          "title": "The modelled data warehouse",
+          "items": [
+            "Pipelines on your own sources and a layered model, ready every morning",
+            "Implements the Data scan's target model when it exists — a blueprint, not a new design phase",
+            "Tested transformations with daily data-quality checks, everything in version control"
+          ]
+        },
+        {
+          "title": "Definitions and reporting",
+          "items": [
+            "One definition per figure, pinned down in documentation — there is only one number",
+            "A Power BI dashboard on your KPIs, with drill-down into the detail"
+          ]
+        },
+        {
+          "title": "Handover",
+          "items": [
+            "Documentation covering the model, the definitions, and how to extend it",
+            "A session with your team, and the keys — from here you carry on yourselves"
+          ]
+        }
+      ],
+      "notIncluded": [
+        "Keeping the reports running and monitored over time — that's Reporting on autopilot, on top of this warehouse",
+        "The AI applications themselves — the warehouse makes them possible; the AI prototype builds them"
       ],
       "duration": "3–4 weeks",
       "bridge": "Built so you can put AI on top of it later — no rebuild needed.",
@@ -205,35 +418,6 @@
         }
       ]
     },
-    "reporting-automation": {
-      "name": "Reporting on autopilot",
-      "navDesc": "Your monthly report runs itself",
-      "recognise": "The same two days every month: pull the exports, paste into Excel, re-check the figures, and hope nothing slipped.",
-      "promise": "That monthly report costing two days of manual work? From now on it runs itself.",
-      "deliverables": [
-        "An automated pipeline on your existing sources",
-        "The report in your inbox or dashboard, on schedule",
-        "An alert the moment something breaks — before your stakeholders notice",
-        "Handover, so you can change it yourself"
-      ],
-      "duration": "1–2 weeks",
-      "bridge": "Built so you can put AI on top of it later — no rebuild needed.",
-      "intro": "The smallest package, and often the one that pays back fastest. One report that's manual today becomes a pipeline that runs itself — including an alert when something goes wrong.",
-      "steps": [
-        {
-          "label": "Day 1–2 — Unpicking it",
-          "body": "We walk through the report step by step the way you make it now. Every action, including the small corrections nobody writes down."
-        },
-        {
-          "label": "Week 1 — Build",
-          "body": "The steps become code: fetch, validate, calculate, publish. With tests exactly where it goes wrong today."
-        },
-        {
-          "label": "Week 2 — Live and handover",
-          "body": "The pipeline runs on schedule, the report arrives, and you know how to adjust it when a column is added."
-        }
-      ]
-    },
     "ai-prototype": {
       "name": "AI prototype in 3 weeks",
       "navDesc": "A working prototype and an honest verdict",
@@ -244,6 +428,35 @@
         "Measured quality against a real test set — not a gut feeling",
         "Cost per user per month, worked out",
         "A go/no-go recommendation — including when that's 'don't'"
+      ],
+      "deliverableGroups": [
+        {
+          "title": "The yardstick — agreed before building starts",
+          "items": [
+            "One use case, tightly scoped — straight from the Process scan's shortlist when it exists",
+            "A real test set that defines 'good enough', built with the people who do the work today"
+          ]
+        },
+        {
+          "title": "Working software",
+          "items": [
+            "The prototype on your data, in your own environment — nothing leaves the house",
+            "With citations, so every answer traces back to its source"
+          ]
+        },
+        {
+          "title": "The verdict",
+          "items": [
+            "Measured quality against the test set — a number, not a gut feeling",
+            "Cost per user per month, worked out for the real thing",
+            "A go/no-go with the reasoning attached — and when it's 'don't', what would turn it into a 'go'"
+          ]
+        }
+      ],
+      "notIncluded": [
+        "Production hardening, SSO, scaling — the prototype proves the case; the production build is its own engagement",
+        "Fixing the data foundation the prototype reveals to be missing — that's Your data warehouse",
+        "Teaching the wider team to work with AI — that's its own engagement"
       ],
       "duration": "3 weeks",
       "intro": "Three weeks, one use case, and an honest answer at the end. I build the prototype for real — working software, not a clickable mockup — and measure whether it's good enough. If it isn't, I'll say so. For a fixed price you'll have avoided sinking a year into it.",
@@ -262,38 +475,65 @@
         }
       ]
     },
-    "ai-workshop": {
-      "name": "AI literacy for your team",
-      "navDesc": "One day, your whole team up to speed",
-      "recognise": "Your team is already using AI, except nobody is quite sure what it can do, what it can't, and what's allowed with company data.",
-      "promise": "After one day your team knows what AI can and can't do — and where it actually pays off in your work.",
+    "reporting-automation": {
+      "name": "Reporting on autopilot",
+      "navDesc": "Your monthly report runs itself",
+      "recognise": "The same two days every month: pull the exports, paste into Excel, re-check the figures, and hope nothing slipped.",
+      "promise": "That monthly report costing two days of manual work? From now on it runs itself.",
       "deliverables": [
-        "A day on site, tailored to the work you actually do",
-        "Hands-on exercises with your own documents and processes",
-        "Clear ground rules on what is and isn't allowed (GDPR and the AI Act)",
-        "A prioritised list of use cases your team came up with themselves"
+        "An automated pipeline on your existing sources",
+        "The report in your inbox or dashboard, on schedule",
+        "An alert the moment something breaks — before your stakeholders notice",
+        "Handover, so you can change it yourself"
       ],
-      "duration": "1 day",
-      "intro": "A day with your team, on site. No slides about how AI is changing the world — hands-on work with your own documents and processes, and clear ground rules by the end.",
+      "deliverableGroups": [
+        {
+          "title": "The automated pipeline",
+          "items": [
+            "Your report's manual steps turned into code: fetch, validate, calculate, publish",
+            "Tests exactly where it goes wrong today — more reliable than the manual version, not just faster"
+          ]
+        },
+        {
+          "title": "Delivery and monitoring",
+          "items": [
+            "The report in your inbox or dashboard, on schedule",
+            "An alert the moment something breaks — before your stakeholders notice"
+          ]
+        },
+        {
+          "title": "Handover",
+          "items": [
+            "A session and documentation, so a new column doesn't mean calling me"
+          ]
+        }
+      ],
+      "notIncluded": [
+        "Redesigning the report's content — new KPIs or a new design are Sharpen the question plus dashboard work",
+        "Consolidating the sources the report draws from — that's Your data warehouse"
+      ],
+      "duration": "1–2 weeks",
+      "bridge": "Built so you can put AI on top of it later — no rebuild needed.",
+      "intro": "The smallest package, and often the one that pays back fastest. One report that's manual today becomes a pipeline that runs itself — including an alert when something goes wrong.",
       "steps": [
         {
-          "label": "Morning — What it is",
-          "body": "How a language model works, why it sometimes produces confident nonsense, and how to spot it. In plain language."
+          "label": "Day 1–2 — Unpicking it",
+          "body": "We walk through the report step by step the way you make it now. Every action, including the small corrections nobody writes down."
         },
         {
-          "label": "Afternoon — Hands on",
-          "body": "Working with your own documents and processes. Everyone builds something that works."
+          "label": "Week 1 — Build",
+          "body": "The steps become code: fetch, validate, calculate, publish. With tests exactly where it goes wrong today."
         },
         {
-          "label": "Closing — Ground rules and next steps",
-          "body": "What is and isn't allowed with company data, and a prioritised list of use cases your team came up with themselves."
+          "label": "Week 2 — Live and handover",
+          "body": "The pipeline runs on schedule, the report arrives, and you know how to adjust it when a column is added."
         }
       ]
     }
   },
   "home": {
     "metaTitle": "Ruud Juffermans — Data and AI",
-    "metaDescription": "I build data foundations that carry both your reporting and your AI. Five packages with fixed scope, fixed price and a timeline in weeks.",
+    "metaDescription": "I build data foundations that carry both your reporting and your AI. Seven packages with fixed scope, fixed price and a timeline in weeks.",
     "hero": {
       "eyebrow": "Data foundations & AI",
       "title": "You have data and AI plans. What's missing in between is the foundation.",
@@ -383,33 +623,45 @@
     },
     "underhood": {
       "eyebrow": "Projects",
-      "toggleAi": "AI & GenAI",
-      "toggleAnalytics": "Data Analytics",
-      "ai": {
-        "title": "GenAI built like serious software",
-        "sub": "No black box that disappears into a drawer after the pilot. I treat AI solutions as serious software: evaluated, documented and under version control — so your team takes over effortlessly after I leave.",
-        "codeNote": "evaluated & traceable",
-        "f1Title": "Evaluation built in",
-        "f1Body": "Test sets and LangFuse tracing from day one: measuring quality instead of hoping for the best.",
-        "f2Title": "Everything as code",
-        "f2Body": "Prompts, pipelines and infrastructure in version control — reviewable, reproducible and transferable.",
-        "f3Title": "Every answer traceable",
-        "f3Body": "Source references by default: from answer back to the underlying document. No black box.",
-        "f4Title": "Your data stays yours",
-        "f4Body": "Everything runs in your own cloud tenant. Privacy by design, GDPR and AI Act proof."
-      },
-      "analytics": {
-        "title": "Analytics built like serious software",
-        "sub": "No sprawl of loose scripts and manual exports. I treat data pipelines as serious software: tested, documented and under version control — so your team can carry on without me.",
-        "codeNote": "tested & traceable",
-        "f1Title": "Data quality guarded",
-        "f1Body": "Validation and quality checks at every pipeline step: errors surface before they reach your dashboard.",
-        "f2Title": "Everything as code",
-        "f2Body": "Transformations, data models and infrastructure in version control — reviewable, reproducible and transferable.",
-        "f3Title": "Every number traceable",
-        "f3Body": "One definition per KPI, from dashboard back to the source — no more arguing over whose number is right.",
-        "f4Title": "Your data stays yours",
-        "f4Body": "Everything runs in your own environment. Privacy by design and GDPR-proof."
+      "viewProject": "View the project",
+      "github": "View on GitHub",
+      "projects": {
+        "open-data-warehouse": {
+          "toggle": "Open data warehouse",
+          "title": "A star schema in the open, on data anyone can check",
+          "sub": "End-to-end ELT platform on Dutch open data: Python ingestion, dbt transformations and a documented Kimball star schema — with tests and CI on every pull request, built the way a platform team delivers it.",
+          "codeNote": "tested on every PR",
+          "f1Title": "Explicit grain",
+          "f1Body": "Two fact tables with different grains in one schema, each pinned down in a single sentence — because that's exactly where modelling goes wrong.",
+          "f2Title": "Tests and CI",
+          "f2Body": "dbt tests and docs run on every pull request; a broken model never reaches main.",
+          "f3Title": "Warehouse-agnostic",
+          "f3Body": "DuckDB in CI, Snowflake or Databricks with a profile switch — the modelling is the point, not the engine."
+        },
+        "ov-streaming-pipeline": {
+          "toggle": "OV streaming pipeline",
+          "title": "Real-time delays across Dutch public transport",
+          "sub": "Streaming pipeline on the national OV feed: vehicle positions flow through Kafka, delay aggregates are computed in five-minute windows, and a live map shows where the network runs late — right now.",
+          "codeNote": "streams, not batches",
+          "f1Title": "Kafka end to end",
+          "f1Body": "GTFS-realtime vehicle positions consumed through Redpanda, with a dead-letter queue for events that don't parse.",
+          "f2Title": "Windowed aggregates",
+          "f2Body": "Delay per line and station in five-minute tumbling windows — correct under late and duplicate events.",
+          "f3Title": "Live dashboard",
+          "f3Body": "A Streamlit map of current delays, fed straight from the stream."
+        },
+        "uitspraak-rag": {
+          "toggle": "Strafrecht AI RAG",
+          "title": "Ask questions of Dutch case law — with sources",
+          "sub": "RAG system over court rulings: semantic search across judgments, answers formulated by an LLM, and every claim traced back to the ECLI it came from.",
+          "codeNote": "no source, no answer",
+          "f1Title": "Citations by default",
+          "f1Body": "Every answer carries its ECLI references — from claim back to the underlying passage.",
+          "f2Title": "Honest refusal",
+          "f2Body": "No relevant passage retrieved means no answer. The system doesn't improvise case law.",
+          "f3Title": "Evaluated retrieval",
+          "f3Body": "Retrieval quality is measured against a test set with LangFuse tracing — not a demo that went well once."
+        }
       }
     },
     "blog": {
@@ -426,7 +678,7 @@
   },
   "services": {
     "metaTitle": "Services — fixed scope, fixed price",
-    "metaDescription": "Five packages with a fixed timeline and a fixed price: from a one-week data scan to a working AI prototype in three weeks.",
+    "metaDescription": "Seven packages with a fixed timeline and a fixed price: from a two-week data scan to a working AI prototype in three weeks.",
     "hero": {
       "eyebrow": "Services",
       "title": "Fixed scope, fixed price, in weeks",
@@ -436,7 +688,7 @@
       "know": {
         "eyebrow": "Phase 1",
         "title": "Know where you stand",
-        "sub": "Two short engagements at a fixed price. Afterwards you know what you have and what you actually want — and you're committed to nothing."
+        "sub": "Three short engagements at a fixed price. Afterwards you know what you have, what can be automated, and what you actually want — and you're committed to nothing."
       },
       "build": {
         "eyebrow": "Phase 2",
@@ -445,7 +697,7 @@
       },
       "run": {
         "eyebrow": "Phase 3",
-        "title": "Keep it running, bring the team",
+        "title": "Keep it running",
         "sub": "What's been built has to keep working without me, and your team has to be able to carry on."
       }
     },
@@ -650,9 +902,9 @@
     "newsletterSuccess": "Subscribed!",
     "newsletterError": "Something went wrong. Please try again.",
     "servicesLinks": {
-      "scan": "Data scan",
-      "truth": "One version of the truth",
-      "reporting": "Reporting automation",
+      "sharpen": "Sharpen the question",
+      "dashboards": "Dashboards",
+      "truth": "Your data warehouse",
       "ai": "AI prototype"
     },
     "moreLinks": {

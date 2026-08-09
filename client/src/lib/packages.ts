@@ -11,12 +11,12 @@ import type { Locale } from "@/i18n/routing";
 
 export type PackageSlug =
   | "data-scan"
+  | "process-scan"
   | "requirements-and-kpis"
   | "dashboards"
   | "single-source-of-truth"
-  | "reporting-automation"
   | "ai-prototype"
-  | "ai-workshop";
+  | "reporting-automation";
 
 /**
  * Packages are grouped by the stage a buyer is in, not by discipline. The
@@ -36,16 +36,16 @@ export interface PackageDef {
   accent: string;
   /** Highlighted entry package — rendered wide, above the delivery grid. */
   featured?: boolean;
-  /** Sits apart from the three delivery packages, in its own band. */
-  workshop?: boolean;
   /**
-   * Price in whole euros.
-   *
-   * TODO — awaiting the real figures. While these are null the UI falls back
-   * to "prijs op aanvraag" instead of rendering a placeholder, so an early
-   * deploy never shows a prospect a number that isn't real.
+   * Price in whole euros, ex VAT. Rationale and market research live in
+   * docs/pricing.md. A null falls back to "prijs op aanvraag".
    */
   price: number | null;
+  /**
+   * Launch discount: the price actually charged. When set, `price` renders
+   * struck through in grey next to this one.
+   */
+  discountPrice?: number;
   /** `fixed` renders the amount bare, `from` renders it as "vanaf €X". */
   priceKind: "fixed" | "from";
   /** Slug under /projects that demonstrates this package, when one exists. */
@@ -56,6 +56,19 @@ export interface PackageDef {
    * as a consequence of the data work rather than a separate offering.
    */
   hasBridge?: boolean;
+  /**
+   * Has a "two entry modes" block on its detail page (on top of scans vs
+   * standalone). Only Sharpen the question defines the `modes` copy.
+   */
+  hasModes?: boolean;
+  /**
+   * Path relations, rendered as the "Where this fits" section on the detail
+   * page. `consumes` = packages whose documents this build starts from;
+   * `feeds` = packages this one's deliverables flow into. Mirrors the
+   * Bridges sections in docs/packages/.
+   */
+  consumes?: PackageSlug[];
+  feeds?: PackageSlug[];
 }
 
 export const PACKAGES: PackageDef[] = [
@@ -65,59 +78,73 @@ export const PACKAGES: PackageDef[] = [
     phase: "know",
     accent: palette.red,
     featured: true,
-    price: null,
+    price: 4950,
+    discountPrice: 2475,
     priceKind: "fixed",
+    feeds: ["requirements-and-kpis", "single-source-of-truth", "ai-prototype"],
+  },
+  {
+    slug: "process-scan",
+    phase: "know",
+    accent: "#F97316",
+    price: 4950,
+    discountPrice: 2475,
+    priceKind: "fixed",
+    feeds: ["requirements-and-kpis", "ai-prototype", "reporting-automation"],
   },
   {
     slug: "requirements-and-kpis",
     phase: "know",
     accent: "#14B8A6",
-    price: null,
-    priceKind: "fixed",
+    // The floor is the on-top-of-scans mode; standalone (€12.500) lives in
+    // the modes block on the detail page.
+    price: 7500,
+    discountPrice: 3750,
+    priceKind: "from",
+    hasModes: true,
+    consumes: ["data-scan", "process-scan"],
+    feeds: ["dashboards", "single-source-of-truth", "ai-prototype"],
   },
   // ── Bouwen ────────────────────────────────────────────────────────────────
   {
     slug: "dashboards",
     phase: "build",
     accent: "#0EA5E9",
-    price: null,
+    price: 7500,
     priceKind: "from",
     proofSlug: "open-data-warehouse",
+    consumes: ["data-scan", "requirements-and-kpis"],
   },
   {
     slug: "single-source-of-truth",
     phase: "build",
     accent: "#3B82F6",
-    price: null,
+    price: 15000,
     priceKind: "from",
     proofSlug: "open-data-warehouse",
     hasBridge: true,
+    consumes: ["data-scan", "requirements-and-kpis"],
+    feeds: ["reporting-automation", "ai-prototype"],
   },
   {
     slug: "ai-prototype",
     phase: "build",
     accent: "#8B5CF6",
-    price: null,
+    price: 12500,
     priceKind: "fixed",
     proofSlug: "uitspraak-rag",
+    consumes: ["data-scan", "process-scan", "requirements-and-kpis"],
   },
   // ── Draaiend houden ───────────────────────────────────────────────────────
   {
     slug: "reporting-automation",
     phase: "run",
     accent: "#10B981",
-    price: null,
+    price: 3950,
     priceKind: "fixed",
     proofSlug: "open-data-warehouse",
     hasBridge: true,
-  },
-  {
-    slug: "ai-workshop",
-    phase: "run",
-    accent: "#F59E0B",
-    workshop: true,
-    price: null,
-    priceKind: "fixed",
+    consumes: ["process-scan", "single-source-of-truth"],
   },
 ];
 

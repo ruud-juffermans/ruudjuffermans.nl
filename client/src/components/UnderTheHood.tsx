@@ -16,6 +16,7 @@ const TOK_CLASS = {
 } as const;
 
 export interface HoodVariant {
+  /** Project slug — also selects the code panel and the project-page link. */
   key: string;
   toggleLabel: string;
   eyebrow: string;
@@ -23,37 +24,56 @@ export interface HoodVariant {
   sub: string;
   features: { icon: string; title: string; desc: string }[];
   codeNote: string;
+  /** External repository URL. */
+  github: string;
+  githubLabel: string;
+  projectLabel: string;
 }
 
-// Code panels stay untranslated — code is code in either locale.
+// Code panels stay untranslated — code is code in either locale. Keyed by
+// project slug; each panel echoes the real repo, not a generic snippet.
 const CODE: Record<string, { file: string; lines: CodeLine[]; tools: string[] }> = {
-  analytics: {
-    file: "verkoop_pipeline.py",
+  "open-data-warehouse": {
+    file: "fct_gebreken.sql",
     lines: [
-      { t: [["cmt", "# verkoop_pipeline.py"]] },
-      { t: [["key", "def"], ["punc", " verwerk(bron: Path) -> Laadrapport:"]] },
-      { t: [["punc", "    df = extract(bron)"]] },
-      { t: [["punc", "    df = valideer(df, schema=VerkoopSchema)"]], added: true },
-      { t: [["punc", "    df = transformeer(df, model="], ["str", '"ster_schema"'], ["punc", ")"]] },
-      { t: [["punc", "    kwaliteit.rapporteer(df, bron)"]], added: true },
-      { t: [["key", "    return"], ["punc", " laad(df, tabel="], ["str", '"feit_verkoop"'], ["punc", ","]] },
-      { t: [["punc", "        strategie="], ["str", '"upsert"'], ["punc", ")"]], added: true },
+      { t: [["cmt", "-- grain: één rij per geconstateerd gebrek"]] },
+      { t: [["key", "select"], ["punc", " k.voertuig_sk, d.datum_sk, g.gebrek_sk,"]] },
+      { t: [["punc", "    count(*) "], ["key", "as"], ["punc", " aantal_gebreken"]] },
+      { t: [["key", "from"], ["punc", " "], ["str", "{{ ref('stg_rdw__gebreken') }}"], ["punc", " g"]], added: true },
+      { t: [["key", "join"], ["punc", " dim_voertuig k "], ["key", "using"], ["punc", " (kenteken)"]] },
+      { t: [["key", "join"], ["punc", " dim_datum d "], ["key", "using"], ["punc", " (meld_datum)"]] },
+      { t: [["key", "group by"], ["punc", " "], ["str", "1, 2, 3"]], added: true },
+      { t: [["cmt", "-- dbt test: not_null + relationships op elke sk"]], added: true },
     ],
-    tools: ["Python", "SQL", "pandas", "PostgreSQL", "Power BI", "Docker"],
+    tools: ["Python", "dbt", "DuckDB", "SQL", "GitHub Actions"],
   },
-  ai: {
-    file: "kennisbot_retrieval.py",
+  "ov-streaming-pipeline": {
+    file: "delay_aggregator.py",
     lines: [
-      { t: [["cmt", "# kennisbot_retrieval.py"]] },
-      { t: [["key", "def"], ["punc", " beantwoord(vraag: "], ["str", "str"], ["punc", ") -> Antwoord:"]] },
-      { t: [["punc", "    docs = vectorindex.search(vraag, k="], ["str", "8"], ["punc", ")"]] },
-      { t: [["punc", "    docs = reranker.rerank(vraag, docs)"]], added: true },
-      { t: [["punc", "    resultaat = keten.invoke({"], ["str", '"vraag"'], ["punc", ": vraag, "], ["str", '"context"'], ["punc", ": docs})"]] },
-      { t: [["punc", "    langfuse.trace(vraag, resultaat, docs)"]], added: true },
-      { t: [["key", "    return"], ["punc", " Antwoord(tekst=resultaat,"]] },
-      { t: [["punc", "        bronnen=[d.bron "], ["key", "for"], ["punc", " d "], ["key", "in"], ["punc", " docs])"]], added: true },
+      { t: [["cmt", "# delay_aggregator.py"]] },
+      { t: [["key", "async def"], ["punc", " verwerk(stream: KafkaStream) -> "], ["str", "None"], ["punc", ":"]] },
+      { t: [["key", "    async for"], ["punc", " positie "], ["key", "in"], ["punc", " stream.topic("], ["str", '"gtfs-rt"'], ["punc", "):"]] },
+      { t: [["punc", "        venster = tumbling(positie, minuten="], ["str", "5"], ["punc", ")"]], added: true },
+      { t: [["punc", "        vertraging = venster.mean(positie.delay)"]] },
+      { t: [["punc", "        dode_brief.vang(positie, on_error=parse_fout)"]], added: true },
+      { t: [["key", "        await"], ["punc", " publiceer(lijn=positie.lijn,"]] },
+      { t: [["punc", "            station=positie.halte, p95=venster.p95)"]], added: true },
     ],
-    tools: ["Python", "LangChain", "LangGraph", "LangFuse", "Azure", "Databricks"],
+    tools: ["Python", "Kafka", "Redpanda", "Streamlit", "Docker"],
+  },
+  "uitspraak-rag": {
+    file: "uitspraak_retrieval.py",
+    lines: [
+      { t: [["cmt", "# uitspraak_retrieval.py"]] },
+      { t: [["key", "def"], ["punc", " beantwoord(vraag: "], ["str", "str"], ["punc", ") -> Antwoord:"]] },
+      { t: [["punc", "    passages = vectorindex.search(vraag, k="], ["str", "8"], ["punc", ")"]] },
+      { t: [["key", "    if not"], ["punc", " passages: "], ["key", "return"], ["punc", " GeenAntwoord()"]], added: true },
+      { t: [["punc", "    resultaat = keten.invoke({"], ["str", '"vraag"'], ["punc", ": vraag, "], ["str", '"context"'], ["punc", ": passages})"]] },
+      { t: [["punc", "    langfuse.trace(vraag, resultaat, passages)"]], added: true },
+      { t: [["key", "    return"], ["punc", " Antwoord(tekst=resultaat,"]] },
+      { t: [["punc", "        ecli=[p.ecli "], ["key", "for"], ["punc", " p "], ["key", "in"], ["punc", " passages])"]], added: true },
+    ],
+    tools: ["Python", "LangChain", "LangFuse", "pgvector", "Rechtspraak.nl"],
   },
 };
 
@@ -67,7 +87,7 @@ export default function UnderTheHood({
   const [active, setActive] = useState(0);
   const v = variants[active];
   if (!v) return null;
-  const code = CODE[v.key] ?? CODE.ai;
+  const code = CODE[v.key] ?? CODE["uitspraak-rag"];
 
   return (
     <section className={styles.section}>
@@ -76,18 +96,24 @@ export default function UnderTheHood({
             same for every variant, so it stays put while the columns swap. */}
         <div className={styles.topRow}>
           <span className={styles.eyebrow}>{v.eyebrow}</span>
-          <div className={styles.toggle} role="group">
-            {variants.map((variant, i) => (
-              <button
-                key={variant.key}
-                type="button"
-                className={`${styles.toggleBtn} ${i === active ? styles.toggleBtnActive : ""}`}
-                aria-pressed={i === active}
-                onClick={() => setActive(i)}
-              >
-                {variant.toggleLabel}
-              </button>
-            ))}
+          {/* Toggle with the all-projects link tucked under it, right-aligned. */}
+          <div className={styles.topRight}>
+            <div className={styles.toggle} role="group">
+              {variants.map((variant, i) => (
+                <button
+                  key={variant.key}
+                  type="button"
+                  className={`${styles.toggleBtn} ${i === active ? styles.toggleBtnActive : ""}`}
+                  aria-pressed={i === active}
+                  onClick={() => setActive(i)}
+                >
+                  {variant.toggleLabel}
+                </button>
+              ))}
+            </div>
+            <Link className={`${styles.allLink} ${styles.allLinkQuiet}`} href="/projects">
+              {allProjectsLabel} <span aria-hidden="true">→</span>
+            </Link>
           </div>
         </div>
 
@@ -106,12 +132,24 @@ export default function UnderTheHood({
                 </div>
               ))}
             </div>
-            <Link className={styles.allLink} href="/projects">
-              {allProjectsLabel} <span aria-hidden="true">→</span>
-            </Link>
+            {/* Per-project links: the write-up on this site, and the repo
+                itself — the code is the proof. */}
+            <div className={styles.linkRow}>
+              <Link
+                className={styles.allLink}
+                href={{ pathname: "/projects/[slug]", params: { slug: v.key } }}
+              >
+                {v.projectLabel} <span aria-hidden="true">→</span>
+              </Link>
+              <a className={styles.allLink} href={v.github} target="_blank" rel="noreferrer">
+                {v.githubLabel} <span aria-hidden="true">→</span>
+              </a>
+            </div>
           </div>
 
-          <div className={styles.colFade}>
+          {/* Code panel — desktop only; on mobile the section is the text
+              column and the links. */}
+          <div className={`${styles.colFade} ${styles.codeCol}`}>
             <div className={styles.panelWrap}>
               <div className={styles.panel}>
                 <div className={styles.head}>
