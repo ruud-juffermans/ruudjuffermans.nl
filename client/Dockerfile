@@ -1,4 +1,8 @@
-FROM node:20-alpine AS base
+# Node 24 (LTS). Keep this on a major whose bundled npm matches the one that
+# writes package-lock.json: npm 10 and 11 disagree on whether @swc/core's
+# optional peer (@swc/helpers) belongs in the tree, and npm ci fails on the
+# mismatch.
+FROM node:24-alpine AS base
 
 FROM base AS dev
 WORKDIR /app
