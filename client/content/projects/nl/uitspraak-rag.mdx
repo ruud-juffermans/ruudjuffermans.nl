@@ -1,0 +1,49 @@
+---
+title: "Uitspraak-RAG: semantisch zoeken in rechterlijke uitspraken"
+industry: "Eigen project"
+summary: "Een RAG-systeem over uitspraken van Rechtspraak.nl: vragen in gewone taal, antwoorden uitsluitend op basis van gevonden passages, altijd met ECLI-bronverwijzing."
+tags: ["GenAI", "RAG", "Python", "LLM"]
+duration: "Net gestart"
+---
+
+*Eigen project, net gestart. Deze pagina beschrijft het ontwerp en de routekaart — de code volgt commit voor commit. Ik zet dit hier zo vroeg neer omdat de ontwerpkeuzes het eigenlijke verhaal zijn: die bepalen of een RAG-systeem betrouwbaar wordt of een black box.*
+
+## Wat het wordt
+
+Een RAG-systeem (Retrieval-Augmented Generation) over rechterlijke uitspraken: doorzoek uitspraken van Rechtspraak.nl semantisch en laat een taalmodel antwoorden formuleren — uitsluitend op basis van de gevonden passages, en altijd met verwijzing naar de bron.
+
+De twee regels waar het hele ontwerp om draait:
+
+1. **Elke bewering krijgt een ECLI-verwijzing.** Van antwoord terug naar de exacte passage in de exacte uitspraak. Geen black box.
+2. **Zonder relevante bron geen antwoord.** Het model mag niets verzinnen; "geen bron gevonden" is een volwaardige uitkomst, geen foutmelding.
+
+Dat zijn dezelfde eisen die ik aan elk AI-systeem voor een klant stel. Juridische teksten zijn er alleen genadelozer in: een verzonnen verwijzing valt direct door de mand.
+
+## De opzet
+
+Drie lagen, elk apart testbaar:
+
+- **Ingest** — uitspraken ophalen via de Open Data-interface van Rechtspraak.nl, met rate limiting en retries, en de ruwe XML parsen naar één genormaliseerd model: ECLI, instantie, datum, rechtsgebied en de tekstsecties.
+- **Index** — tekst opdelen in overlappende chunks mét behoud van sectie- en paragraafnummers, zodat elke chunk exact terug te voeren is op zijn plek in de bron. Chunks worden batchgewijs geëmbed en opgeslagen in een vector store, inclusief metadata om op instantie, datum en rechtsgebied te filteren.
+- **Query** — de vraag embedden, de best passende passages ophalen, en een prompt die het model dwingt uitsluitend op basis van die passages te antwoorden — met een expliciet "geen bron gevonden"-pad.
+
+## Kwaliteit wordt gemeten, niet gehoopt
+
+Onderdeel van de routekaart is een evaluatieset: een vaste verzameling vragen met de ECLI's die het systeem hoort te vinden. Een script meet daarop recall en bronjuistheid, en CI draait de tests bij elke wijziging. Zo wordt "werkt het beter?" een meting in plaats van een gevoel — dezelfde aanpak als in mijn AI-prototypetraject, waar de meetlat er ligt vóór de eerste regel code.
+
+## Aandachtspunten
+
+- Uitspraken zijn openbaar, maar bevatten geanonimiseerde persoonsgegevens — de omgang daarmee is onderdeel van het ontwerp, niet een bijlage achteraf.
+- Antwoorden zijn geen juridisch advies; bronvermelding is verplicht in elke output.
+
+## Status
+
+- [x] Ontwerp en routekaart: tien kleine commits, elk zelfstandig draaiend
+- [ ] Ingest: ophalen en parsen van uitspraken
+- [ ] Index: chunking, embeddings en vector store
+- [ ] Query: retrieval en antwoordgeneratie met bronvermelding
+- [ ] Evaluatieset met recall- en bronjuistheidsmeting in CI
+
+## Technologie
+
+Python, embeddings en vector store (keuze volgt in de eerste commits), Rechtspraak.nl Open Data

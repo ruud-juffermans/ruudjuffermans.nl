@@ -16,8 +16,41 @@
   pointer-events: none;
 }
 
+/* Animated brand gradient (from gradient.css), dimmed to a faint slow-moving
+   wash over the dark background. */
+.section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(334deg, #6b97f7, #7525e2, #f7137e);
+  background-size: 180% 180%;
+  animation: gradient-animation 6s ease infinite;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section::after {
+    animation: none;
+  }
+}
+
 .inner {
   position: relative;
+  /* Above both overlay layers — ::after otherwise paints over the content. */
+  z-index: 1;
 }
 
 /* Eyebrow left, toggle right, centred against each other. */

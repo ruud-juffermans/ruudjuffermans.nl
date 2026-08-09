@@ -82,7 +82,7 @@ export const PACKAGES: PackageDef[] = [
     accent: "#0EA5E9",
     price: null,
     priceKind: "from",
-    proofSlug: "analytics-pipeline",
+    proofSlug: "open-data-warehouse",
   },
   {
     slug: "single-source-of-truth",
@@ -90,7 +90,7 @@ export const PACKAGES: PackageDef[] = [
     accent: "#3B82F6",
     price: null,
     priceKind: "from",
-    proofSlug: "analytics-pipeline",
+    proofSlug: "open-data-warehouse",
     hasBridge: true,
   },
   {
@@ -99,7 +99,7 @@ export const PACKAGES: PackageDef[] = [
     accent: "#8B5CF6",
     price: null,
     priceKind: "fixed",
-    proofSlug: "rag-implementation",
+    proofSlug: "uitspraak-rag",
   },
   // ── Draaiend houden ───────────────────────────────────────────────────────
   {
@@ -108,7 +108,7 @@ export const PACKAGES: PackageDef[] = [
     accent: "#10B981",
     price: null,
     priceKind: "fixed",
-    proofSlug: "analytics-pipeline",
+    proofSlug: "open-data-warehouse",
     hasBridge: true,
   },
   {

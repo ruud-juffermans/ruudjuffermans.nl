@@ -1,0 +1,49 @@
+---
+title: "Uitspraak-RAG: semantic search over Dutch court rulings"
+industry: "Own project"
+summary: "A RAG system over rulings from Rechtspraak.nl: questions in plain language, answers based solely on retrieved passages, always with an ECLI source reference."
+tags: ["GenAI", "RAG", "Python", "LLM"]
+duration: "Just started"
+---
+
+*Own project, just started. This page describes the design and the roadmap — the code follows commit by commit. I'm putting it up this early because the design choices are the actual story: they decide whether a RAG system becomes trustworthy or a black box.*
+
+## What it will be
+
+A RAG (Retrieval-Augmented Generation) system over Dutch court rulings: search rulings from Rechtspraak.nl semantically and have a language model formulate answers — based solely on the retrieved passages, and always with a reference to the source.
+
+The two rules the whole design revolves around:
+
+1. **Every claim gets an ECLI reference.** From answer back to the exact passage in the exact ruling. No black box.
+2. **No relevant source, no answer.** The model isn't allowed to make anything up; "no source found" is a first-class outcome, not an error.
+
+These are the same requirements I put on any AI system I build for a client. Legal text is just more unforgiving about them: a fabricated reference is caught immediately.
+
+## The design
+
+Three layers, each testable on its own:
+
+- **Ingest** — fetch rulings through the Rechtspraak.nl Open Data interface, with rate limiting and retries, and parse the raw XML into one normalised model: ECLI, court, date, area of law and the text sections.
+- **Index** — split text into overlapping chunks while preserving section and paragraph numbers, so every chunk traces back to its exact place in the source. Chunks are embedded in batches and stored in a vector store, with metadata for filtering on court, date and area of law.
+- **Query** — embed the question, retrieve the best-matching passages, and a prompt that forces the model to answer solely from those passages — with an explicit "no source found" path.
+
+## Quality is measured, not hoped for
+
+Part of the roadmap is an evaluation set: a fixed collection of questions with the ECLIs the system should find. A script measures recall and citation correctness against it, and CI runs the tests on every change. That turns "is it better now?" into a measurement instead of a feeling — the same approach as in my AI prototype engagement, where the yardstick exists before the first line of code.
+
+## Points of attention
+
+- Rulings are public, but contain pseudonymised personal data — handling that is part of the design, not an appendix afterwards.
+- Answers are not legal advice; source citation is mandatory in every output.
+
+## Status
+
+- [x] Design and roadmap: ten small commits, each leaving the project in a working state
+- [ ] Ingest: fetching and parsing rulings
+- [ ] Index: chunking, embeddings and vector store
+- [ ] Query: retrieval and answer generation with citations
+- [ ] Evaluation set with recall and citation-correctness measurement in CI
+
+## Technology
+
+Python, embeddings and vector store (choice follows in the first commits), Rechtspraak.nl Open Data

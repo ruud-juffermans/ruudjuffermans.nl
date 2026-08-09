@@ -1,0 +1,62 @@
+---
+title: "Real-time public transport streaming pipeline on Kafka"
+industry: "Own project"
+summary: "Streaming pipeline on the real-time positions of Dutch public transport: Kafka, 5-minute windows, a dead-letter queue and a live delay map — fully observed with Prometheus and Grafana."
+tags: ["Kafka", "Streaming", "Python", "Postgres", "Docker"]
+duration: "3 weeks (planned)"
+---
+
+*Own project, in the planning stage: the design below is worked out into a full PRD, the build is scheduled. I'm publishing the design already because the trade-offs — windowing, idempotency, failure handling — are the part you judge a data engineer on.*
+
+## What it will be
+
+A streaming pipeline that consumes the real-time vehicle positions and arrival predictions of Dutch public transport (NDOV/OVapi) through Kafka, computes rolling delay statistics per line and per station in 5-minute windows, and shows them live on a map: where is everything right now, and how bad is the delay.
+
+The bar: the repo must read as production work, not a tutorial. So tests, CI, a dead-letter queue, observability — and a README that answers the questions that actually matter in streaming: throughput, lag behaviour and schema evolution.
+
+## The architecture
+
+```
+NDOV / OVapi feed
+      │  producer (Python)
+      ▼
+ Kafka topics (Redpanda)
+      ├──► raw archive (MinIO) — every raw message, replayable
+      ▼
+ stream processor — 5-min windows per line / station
+      ├──► DLQ topic (unprocessable messages)
+      ▼
+ Postgres (aggregates) ──► live dashboard with delay map
+      ·
+ Prometheus + Grafana: lag, throughput, DLQ depth
+```
+
+Everything runs locally with one command (`make up`), at zero cloud cost. Redpanda as the Kafka-compatible broker, because it's light and behaves exactly like Kafka.
+
+## The design choices that make the difference
+
+- **Idempotent processing.** The consumer commits its offset only after the upsert into Postgres, and the upsert key is (window, dimension). Redelivery can therefore never double-count a finalized window — the standard question about at-least-once processing, answered in code and in a test.
+- **Dead-letter queue.** With public feeds, unprocessable messages are a certainty, not an exception. They land in a dedicated topic with error metadata, are visible in Grafana, and after a parser fix they're reprocessed with a single command.
+- **Raw archive before processing.** Every message is archived unmodified before anything touches it. If processing goes wrong, there's always a replay path from the source.
+- **Schema evolution.** Events carry a schema version; the parser supports the current and the previous one. How a next version rolls out without breaking the pipeline is documented.
+- **Late events.** A fixed tolerance before a window closes; whatever arrives later is counted as a metric and deliberately dropped. A trade-off you document, not one you hide.
+
+## The yardstick
+
+The project is done when a clean clone starts the full stack with `make up`, the pipeline runs for **24 hours straight** at nationwide feed volume without intervention, the measured throughput is in the README, and a test proves that duplicate delivery cannot pollute the numbers.
+
+## Why this sits alongside the rest
+
+My client work is rarely streaming — dashboards, warehouses and reporting seldom need it. But the discipline is the same: handle failures explicitly, make processing idempotent, measure everything. This project shows that approach holds up when the data doesn't arrive once a night, but thousands of times a minute.
+
+## Status
+
+- [x] Full PRD: architecture, requirements, risks and milestones
+- [ ] Producer, archive and Kafka backbone
+- [ ] Windowed processor with DLQ and idempotent sink
+- [ ] Live dashboard with delay map
+- [ ] Observability, 24-hour run and measured throughput in the README
+
+## Technology
+
+Kafka (Redpanda), Python, Postgres, MinIO, Streamlit, Prometheus, Grafana, Docker Compose
