@@ -4,6 +4,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Reveal from "@/components/Reveal";
+import ProofStrip from "@/components/ProofStrip";
 import type { Locale } from "@/i18n/routing";
 import { palette } from "@/theme/theme";
 import type { Metadata } from "next";
@@ -48,9 +49,16 @@ export default async function AboutPage({
                 <Typography variant="overline" sx={{ mb: 2, display: "block" }}>
                   {t("eyebrow")}
                 </Typography>
-                <Typography variant="h1" sx={{ mb: 4 }}>
+                <Typography variant="h1" sx={{ mb: 3 }}>
                   {t("name")}
                 </Typography>
+              </Reveal>
+              {/* Same three credentials as the homepage hero — they lead here
+                  too, rather than waiting until the timeline further down. */}
+              <Reveal variant="fade" delay={90}>
+                <Box sx={{ mb: 4 }}>
+                  <ProofStrip />
+                </Box>
               </Reveal>
               <Reveal variant="rise" delay={140}>
                 <Typography variant="body1" sx={{ mb: 3 }}>
@@ -183,14 +191,41 @@ export default async function AboutPage({
         </Container>
       </Box>
 
-      {/* CTA */}
-      <Box sx={{ py: { xs: 10, md: 14 }, textAlign: "center" }}>
-        <Container maxWidth="md">
-          <Reveal variant="zoom">
-            <Typography variant="h2" sx={{ mb: 2.5 }}>
+      {/* CTA — full-bleed dark section that blends into the footer (same
+          #070B15); the radial glow rises from the bottom edge */}
+      <Box
+        sx={{
+          position: "relative",
+          overflow: "hidden",
+          backgroundColor: "#070B15",
+          py: { xs: 12, md: 15 },
+          textAlign: "center",
+          "&::before": {
+            content: '""',
+            position: "absolute",
+            inset: 0,
+            background:
+              "radial-gradient(640px 340px at 50% 115%, rgba(221, 46, 90, 0.35), transparent 70%)",
+            pointerEvents: "none",
+          },
+        }}
+      >
+        <Container sx={{ position: "relative" }}>
+          <Reveal variant="rise">
+            <Typography
+              variant="h2"
+              sx={{
+                color: palette.white,
+                fontSize: "clamp(32px, 5vw, 56px)",
+                maxWidth: 720,
+                mx: "auto",
+              }}
+            >
               {t("cta.title")}
             </Typography>
-            <Typography variant="subtitle1" sx={{ mb: 6, maxWidth: 560, mx: "auto" }}>
+            <Typography
+              sx={{ mt: 2.25, mb: 6, color: "#a3a3a3", fontSize: 17, maxWidth: 560, mx: "auto" }}
+            >
               {t("cta.subtitle")}
             </Typography>
             <Box
@@ -217,7 +252,19 @@ export default async function AboutPage({
                 component={Link}
                 href="/services"
                 endIcon={<ArrowForwardIcon />}
-                sx={{ px: 7, width: { xs: "100%", sm: "auto" }, maxWidth: 360 }}
+                sx={{
+                  px: 7,
+                  width: { xs: "100%", sm: "auto" },
+                  maxWidth: 360,
+                  color: palette.white,
+                  borderColor: "rgba(255,255,255,0.28)",
+                  "@media (hover: hover)": {
+                    "&:hover": {
+                      borderColor: palette.white,
+                      backgroundColor: "rgba(255,255,255,0.08)",
+                    },
+                  },
+                }}
               >
                 {t("cta.secondary")}
               </Button>

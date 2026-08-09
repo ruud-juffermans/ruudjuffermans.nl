@@ -2,7 +2,7 @@
   "site": {
     "title": "Ruud Juffermans — Data Analytics & AI",
     "titleTemplate": "%s | Ruud Juffermans",
-    "description": "I help mid-market companies become data-driven and AI-enabled. From strategy to implementation, from dashboards to AI solutions.",
+    "description": "I build data foundations that carry both your reporting and your AI. Fixed scope, fixed price, in weeks — not quarters.",
     "siteName": "Ruud Juffermans — Data Analytics & AI"
   },
   "common": {
@@ -12,7 +12,7 @@
     "logout": "Log out",
     "readMore": "Read more",
     "backToBlog": "Back to blog",
-    "backToPortfolio": "Back to portfolio",
+    "backToProjects": "Back to projects",
     "readingTimeSuffix": "read",
     "languageLabel": "Language",
     "switchToEnglish": "English",
@@ -21,12 +21,17 @@
     "themeLight": "Light theme",
     "themeDark": "Dark theme",
     "themeSystem": "System preference",
-    "availableHero": "Available for new projects from {month}",
-    "availableFrom": "Available from {month}"
+    "availableHero": "Available now for new projects",
+    "availableFrom": "Available for new projects",
+    "proof": {
+      "nlr": "Data engineer at NLR",
+      "police": "Data & AI at the Dutch police",
+      "udemy": "Thousands of students on Udemy"
+    }
   },
   "nav": {
     "services": "Services",
-    "portfolio": "Portfolio",
+    "projects": "Projects",
     "blog": "Blog",
     "apps": "Apps",
     "about": "About",
@@ -34,18 +39,6 @@
   },
   "menus": {
     "services": {
-      "dataEngineering": {
-        "title": "Data Engineering",
-        "desc": "Pipelines, warehousing and a solid data foundation"
-      },
-      "dataAnalytics": {
-        "title": "Data Analytics",
-        "desc": "Dashboards and KPIs that answer real questions"
-      },
-      "aiGenai": {
-        "title": "AI & GenAI",
-        "desc": "Practical AI, from strategy to working software"
-      },
       "all": "View all services"
     },
     "apps": {
@@ -64,96 +57,273 @@
       }
     }
   },
-  "serviceDetail": {
-    "whatTitle": "What I do",
-    "backToServices": "All services",
-    "ctaTitle": "Curious what this could look like for your company?",
-    "ctaBody": "Let's have a short call to explore where the opportunities are — no strings attached.",
-    "ctaButton": "Book a call",
-    "data-engineering": {
-      "metaTitle": "Data Engineering",
-      "metaDescription": "Data pipelines, warehousing and cloud platforms: a reliable foundation your analytics and AI can build on.",
-      "eyebrow": "Service",
-      "title": "Data Engineering",
-      "intro": "Analytics and AI are only as good as the foundation underneath. I design and build data platforms that are reliable, testable and explainable — so every report and every model works from the same truth.",
-      "item1Title": "Data platform architecture",
-      "item1Body": "A pragmatic architecture that fits your size and your stack — warehouse, lakehouse or something simpler. No overengineering.",
-      "item2Title": "Pipelines & integration",
-      "item2Body": "Automated ETL/ELT pipelines that bring your sources together — reliable, monitored and documented.",
-      "item3Title": "Modelling & warehousing",
-      "item3Body": "Clean, tested data models that turn raw data into definitions the whole company agrees on.",
-      "item4Title": "Quality & operations",
-      "item4Body": "Testing, orchestration, monitoring and alerting — so problems surface before your stakeholders see them."
+  "packages": {
+    "labels": {
+      "recognise": "Sound familiar?",
+      "promise": "What you end up with",
+      "deliverables": "What you get",
+      "duration": "Timeline",
+      "price": "Investment",
+      "priceFrom": "from {amount}",
+      "priceOnRequest": "Price on request",
+      "proof": "See what that looks like",
+      "view": "View this package",
+      "featuredTag": "Start here",
+      "back": "All services",
+      "timeline": "How it runs",
+      "bridgeLabel": "Ready for later"
     },
-    "data-analytics": {
-      "metaTitle": "Data Analytics",
-      "metaDescription": "Dashboards, KPI frameworks and analyses that answer real business questions — built so your own team can run them.",
-      "eyebrow": "Service",
-      "title": "Data Analytics",
-      "intro": "Data only becomes valuable when someone acts on it. I build dashboards and KPI frameworks that answer the questions your team actually asks — and make sure they can run it themselves.",
-      "item1Title": "Dashboards & reporting",
-      "item1Body": "Dashboards designed for decisions, not decoration — from management overview down to operational detail.",
-      "item2Title": "KPI frameworks",
-      "item2Body": "Together we define the metrics that matter, with clear definitions and one source of truth.",
-      "item3Title": "Ad-hoc analysis",
-      "item3Body": "Deep-dives into specific questions — pricing, churn, funnel — with clear, actionable conclusions.",
-      "item4Title": "Self-service & adoption",
-      "item4Body": "Documentation, training and governance, so insights don't stay locked up with a single analyst."
+    "data-scan": {
+      "name": "Data scan",
+      "navDesc": "One week, and you know where you stand",
+      "recognise": "You know there's more in your data than you're getting out of it, but not where to start — and every proposal you get opens with a three-month engagement.",
+      "promise": "In one week you know exactly where you stand and what to do first.",
+      "deliverables": [
+        "An inventory of every data source and what's actually in it",
+        "A maturity score, so you know where you stand",
+        "A prioritised roadmap for the next twelve months",
+        "2–3 quick wins you can implement yourself"
+      ],
+      "duration": "1 week",
+      "intro": "The data scan is the fastest way to learn what to do first — and the cheapest way to find out whether we're a fit. One week, a fixed price, and at the end a document you can act on with or without me.",
+      "steps": [
+        {
+          "label": "Day 1 — Conversations",
+          "body": "I talk to the people who work with the data and the people who steer on it. What gets asked for, what can't be answered, where the time goes."
+        },
+        {
+          "label": "Day 2–3 — Into the systems",
+          "body": "I look inside your sources myself: what's in there, how clean it is, how it fits together. No assumptions based on what should be there."
+        },
+        {
+          "label": "Day 4 — Working it out",
+          "body": "The maturity score, the bottlenecks ranked by impact, and per step an estimate of what it costs and what it returns."
+        },
+        {
+          "label": "Day 5 — Delivery",
+          "body": "A presentation to your team, the roadmap on the table, and the quick wins you can still implement yourself this month."
+        }
+      ]
     },
-    "ai-genai": {
-      "metaTitle": "AI & GenAI",
-      "metaDescription": "AI strategy and working GenAI solutions: document processing, RAG and automation — practical, safe and measurable.",
-      "eyebrow": "Service",
-      "title": "AI & GenAI",
-      "intro": "AI isn't a strategy slide — it's working software. I help you find the use cases with real ROI and then build them: from document processing and RAG to automations that save hours every week.",
-      "item1Title": "Use-case discovery & AI strategy",
-      "item1Body": "We map your processes and find where AI genuinely pays off — realistic, measurable, no hype.",
-      "item2Title": "GenAI applications",
-      "item2Body": "Document processing, chat over your own knowledge base (RAG), content generation — built safely on your data.",
-      "item3Title": "Automation",
-      "item3Body": "AI-powered automations inside your existing tools and workflows, from intake to reporting.",
-      "item4Title": "Responsible & maintainable",
-      "item4Body": "Evaluation, guardrails and monitoring, so results stay reliable after go-live and your team stays in control."
+    "requirements-and-kpis": {
+      "name": "Sharpen the question",
+      "navDesc": "Know what you're building, before you build",
+      "recognise": "There's budget for a dashboard or a system, but the question behind it isn't written down anywhere — and everyone means something different by 'active customer'.",
+      "promise": "A specification that can be built from directly, and one definition per figure that everyone stands behind.",
+      "deliverables": [
+        "One definition per KPI, with an owner attached",
+        "A measurability check: is what you're asking for even in your data?",
+        "Acceptance criteria — when is it done and right",
+        "An explicit list of what is not included",
+        "A build estimate, usable by me or by someone else"
+      ],
+      "duration": "1–2 weeks",
+      "intro": "The cheapest way to avoid building the wrong thing. At the end you have a specification that can be built from directly, definitions everyone stands behind, and the certainty that your data can actually fill them. Including if you then have someone else build it — the brief is yours, not mine.",
+      "steps": [
+        {
+          "label": "Day 1–2 — Collecting the question",
+          "body": "I talk to the people who'll use it and the person paying for it. Which decision do you need to be able to make, and what happens today when you can't."
+        },
+        {
+          "label": "Day 3–4 — Pinning down definitions",
+          "body": "One definition per figure, with an owner. What counts, what doesn't, and who decides when it's contested."
+        },
+        {
+          "label": "Week 2 — Measurability check",
+          "body": "I look inside your sources myself to see whether what's being asked for can be produced. A KPI nobody can populate isn't a KPI, and you'd rather hear that now than after the build."
+        },
+        {
+          "label": "Delivery — The brief",
+          "body": "Acceptance criteria, the scope with an explicit list of what falls outside it, and a build estimate. Ready to put out to tender or pick up yourself."
+        }
+      ]
+    },
+    "dashboards": {
+      "name": "A dashboard people actually open",
+      "navDesc": "Reporting on the source you already have",
+      "recognise": "There's a dashboard. Nobody opens it. Or: the data sits in your system, but 'how are we doing' still means calling Finance.",
+      "promise": "Dashboards built around the decisions your team actually makes — on the source you already have.",
+      "deliverables": [
+        "An inventory of the decisions that come back every month",
+        "A clean data model on your existing source",
+        "1–3 dashboards with drill-down into the detail",
+        "A definition list, so every figure traces back",
+        "An adoption session with the users — not a manual by email"
+      ],
+      "duration": "2–3 weeks",
+      "intro": "For when your data already sits somewhere usable and you mostly want something to finally come out of it that people look at. No warehouse project needed: I build on the source you have. Most dashboards don't die on technology, they die on use — so the adoption session is in scope by default.",
+      "steps": [
+        {
+          "label": "Week 1 — Mapping the decisions",
+          "body": "Not 'which chart do you want' but 'which decision do you make again every month'. The dashboard gets built around that."
+        },
+        {
+          "label": "Week 1–2 — Model on your source",
+          "body": "A clean data model on what you already have, with one definition per figure. No warehouse project required."
+        },
+        {
+          "label": "Week 2–3 — Build and sharpen",
+          "body": "The dashboards, with drill-down into the detail the questions are about. You look along as it goes — no single big reveal at the end."
+        },
+        {
+          "label": "Closing — Adoption",
+          "body": "A session with the people who'll use it, in their own calendar. A manual by email doesn't work."
+        }
+      ]
+    },
+    "single-source-of-truth": {
+      "name": "One version of the truth",
+      "navDesc": "One data warehouse, one definition per figure",
+      "recognise": "Three departments, three revenue figures, and every monthly meeting opens with an argument about whose number is right.",
+      "promise": "One data warehouse that all your reporting runs on — and no more arguments about whose figure is right.",
+      "deliverables": [
+        "A modelled data warehouse on your own sources",
+        "Tested transformations with daily data-quality checks",
+        "A Power BI dashboard on your KPIs",
+        "Documentation that pins down every definition",
+        "A handover session with your team"
+      ],
+      "duration": "3–4 weeks",
+      "bridge": "Built so you can put AI on top of it later — no rebuild needed.",
+      "intro": "This is the work I'm most at home in: from scattered sources to one modelled data warehouse, with reporting on top that people actually trust. Everything in version control, everything tested, everything documented — so your team takes it over instead of depending on me.",
+      "steps": [
+        {
+          "label": "Week 1 — Model",
+          "body": "We pin down the definitions: what counts as a customer, when an order counts, which KPIs you actually steer on. That becomes the data model."
+        },
+        {
+          "label": "Week 2 — Build",
+          "body": "Pipelines on your sources, transformations with a test at every step, and a warehouse that's ready every morning."
+        },
+        {
+          "label": "Week 3 — Dashboard",
+          "body": "The dashboard on your KPIs, with drill-down into the detail the questions are really about."
+        },
+        {
+          "label": "Week 4 — Handover",
+          "body": "Documentation, a session with your team, and the keys. From here you carry on yourselves."
+        }
+      ]
+    },
+    "reporting-automation": {
+      "name": "Reporting on autopilot",
+      "navDesc": "Your monthly report runs itself",
+      "recognise": "The same two days every month: pull the exports, paste into Excel, re-check the figures, and hope nothing slipped.",
+      "promise": "That monthly report costing two days of manual work? From now on it runs itself.",
+      "deliverables": [
+        "An automated pipeline on your existing sources",
+        "The report in your inbox or dashboard, on schedule",
+        "An alert the moment something breaks — before your stakeholders notice",
+        "Handover, so you can change it yourself"
+      ],
+      "duration": "1–2 weeks",
+      "bridge": "Built so you can put AI on top of it later — no rebuild needed.",
+      "intro": "The smallest package, and often the one that pays back fastest. One report that's manual today becomes a pipeline that runs itself — including an alert when something goes wrong.",
+      "steps": [
+        {
+          "label": "Day 1–2 — Unpicking it",
+          "body": "We walk through the report step by step the way you make it now. Every action, including the small corrections nobody writes down."
+        },
+        {
+          "label": "Week 1 — Build",
+          "body": "The steps become code: fetch, validate, calculate, publish. With tests exactly where it goes wrong today."
+        },
+        {
+          "label": "Week 2 — Live and handover",
+          "body": "The pipeline runs on schedule, the report arrives, and you know how to adjust it when a column is added."
+        }
+      ]
+    },
+    "ai-prototype": {
+      "name": "AI prototype in 3 weeks",
+      "navDesc": "A working prototype and an honest verdict",
+      "recognise": "There's an AI idea on the table. Nobody can say whether it works, what it costs, or whether it's worth doing.",
+      "promise": "From AI idea to working prototype — including an honest verdict on whether it should go ahead.",
+      "deliverables": [
+        "One use case built out into working software",
+        "Measured quality against a real test set — not a gut feeling",
+        "Cost per user per month, worked out",
+        "A go/no-go recommendation — including when that's 'don't'"
+      ],
+      "duration": "3 weeks",
+      "intro": "Three weeks, one use case, and an honest answer at the end. I build the prototype for real — working software, not a clickable mockup — and measure whether it's good enough. If it isn't, I'll say so. For a fixed price you'll have avoided sinking a year into it.",
+      "steps": [
+        {
+          "label": "Week 1 — Scope and yardstick",
+          "body": "One use case, tightly scoped. And up front: when is it good enough? We build that test set before the first line of code."
+        },
+        {
+          "label": "Week 2 — Building",
+          "body": "Working software on your data, in your own environment. With citations, so every answer traces back to its source."
+        },
+        {
+          "label": "Week 3 — Measure and judge",
+          "body": "Quality against the test set, cost per user per month worked out, and a go/no-go with the reasoning attached."
+        }
+      ]
+    },
+    "ai-workshop": {
+      "name": "AI literacy for your team",
+      "navDesc": "One day, your whole team up to speed",
+      "recognise": "Your team is already using AI, except nobody is quite sure what it can do, what it can't, and what's allowed with company data.",
+      "promise": "After one day your team knows what AI can and can't do — and where it actually pays off in your work.",
+      "deliverables": [
+        "A day on site, tailored to the work you actually do",
+        "Hands-on exercises with your own documents and processes",
+        "Clear ground rules on what is and isn't allowed (GDPR and the AI Act)",
+        "A prioritised list of use cases your team came up with themselves"
+      ],
+      "duration": "1 day",
+      "intro": "A day with your team, on site. No slides about how AI is changing the world — hands-on work with your own documents and processes, and clear ground rules by the end.",
+      "steps": [
+        {
+          "label": "Morning — What it is",
+          "body": "How a language model works, why it sometimes produces confident nonsense, and how to spot it. In plain language."
+        },
+        {
+          "label": "Afternoon — Hands on",
+          "body": "Working with your own documents and processes. Everyone builds something that works."
+        },
+        {
+          "label": "Closing — Ground rules and next steps",
+          "body": "What is and isn't allowed with company data, and a prioritised list of use cases your team came up with themselves."
+        }
+      ]
     }
   },
   "home": {
-    "metaTitle": "Ruud Juffermans — Data Analytics & AI",
+    "metaTitle": "Ruud Juffermans — Data and AI",
+    "metaDescription": "I build data foundations that carry both your reporting and your AI. Five packages with fixed scope, fixed price and a timeline in weeks.",
     "hero": {
-      "eyebrow": "Data Analytics & AI Consultant",
-      "title": "I help companies become data-driven and AI-enabled",
-      "subtitle": "From data architecture to dashboards, from AI strategy to working solutions. With training so your team can run it themselves.",
+      "eyebrow": "Data foundations & AI",
+      "title": "You have data and AI plans. What's missing in between is the foundation.",
+      "subtitle": "I build data foundations that carry both your reporting and your AI. Fixed scope, fixed price, in weeks — not quarters.",
       "ctaPrimary": "Book a call",
-      "ctaSecondary": "See my work",
-      "toolsLabel": "Working daily with technologies like"
+      "ctaSecondary": "See the packages",
+      "toolsLabel": "Working daily with technology like"
     },
     "problem": {
       "eyebrow": "Sound familiar?",
-      "title": "The challenges I see every day",
-      "card1Title": "Data you do nothing with",
-      "card1Body": "You collect data in dozens of systems, but nobody turns it into insights. Reporting is manual, inconsistent or non-existent.",
-      "card2Title": "No foundation",
-      "card2Body": "No warehouse, no pipelines, no single source of truth. Even if you hired an analyst, there would be nothing solid to work with.",
-      "card3Title": "AI uncertainty",
-      "card3Body": "Everyone's talking about AI. Competitors are moving. But internally nobody knows what's realistic, what's hype, and where the real ROI is.",
-      "closer": "If this sounds like your company — I can help."
+      "title": "Where it actually breaks down",
+      "card1Title": "Every department has a different number",
+      "card1Body": "Revenue from the CRM doesn't match revenue from the books, and nobody knows which of the two you show the bank.",
+      "card2Title": "The monthly report is manual",
+      "card2Body": "Two days of exporting, pasting and re-checking. Every month again — and one formula dragged one row too far goes unnoticed for months.",
+      "card3Title": "The AI plan is hanging in mid-air",
+      "card3Body": "There's an idea and there's budget, but nobody can say whether the data it needs is usable in the first place.",
+      "closer": "All three have the same cause: there's no foundation underneath. That's what I build."
     },
     "projects": {
-      "eyebrow": "Projects",
-      "title": "From raw data to working solution",
-      "subtitle": "Showcase projects covering the full chain: data architecture, pipelines and AI applications. Each one comes with a full case write-up.",
-      "viewCase": "View case",
       "all": "All projects"
     },
     "services": {
       "eyebrow": "What I do",
-      "title": "From strategy to implementation",
-      "subtitle": "From data foundation to AI assistant in production — two specialties, one pragmatic approach.",
+      "title": "The foundation first. Then the AI on top actually works.",
+      "subtitle": "Most AI projects fail on the data, not the model. I build the layer underneath — and it's exactly the same layer your reporting runs on.",
       "service1Title": "Data Analytics",
       "service1Body": "From scattered spreadsheets to a reliable data foundation with dashboards that actually answer questions.",
       "service2Title": "AI & GenAI",
       "service2Body": "Practical AI solutions: document processing, RAG systems, automations, and AI strategy that works.",
-      "service3Title": "Training & Workshops",
-      "service3Body": "I build it, train your team to run it, then leave. Every engagement includes knowledge transfer.",
       "learnMore": "More on {topic}",
       "flow": {
         "analytics": {
@@ -180,6 +350,12 @@
         }
       }
     },
+    "packages": {
+      "eyebrow": "Packages",
+      "title": "Fixed scope, fixed price",
+      "subtitle": "No billing by the hour but defined packages, each with a fixed timeline and a concrete result. Not sure which one fits? Start with the data scan.",
+      "all": "See all packages"
+    },
     "process": {
       "eyebrow": "How I work",
       "title": "From first conversation to working solution",
@@ -194,20 +370,16 @@
     },
     "whyFreelance": {
       "eyebrow": "Why a freelancer",
-      "title": "Senior firepower, without the overhead",
-      "subtitle": "The knowledge of a consultancy, with the speed and commitment of one dedicated professional.",
-      "card1Title": "One point of contact",
-      "card1Body": "Direct contact with the person doing the work. No account managers, no noise, short lines.",
-      "card2Title": "Flexible engagement",
-      "card2Body": "From a couple of days a week alongside your team to a full interim assignment — on site or remote.",
-      "card3Title": "Knowledge transfer as standard",
-      "card3Body": "Documentation, tests and hand-over sessions are part of every assignment. Your team can carry on without me.",
-      "card4Title": "Transparent rates",
-      "card4Body": "A clear hourly rate or a fixed project price, agreed up front. No surprises on the invoice afterwards.",
-      "card5Title": "GDPR & security aware",
-      "card5Body": "Privacy by design and GDPR-proof, with data access properly arranged — and used to working within government information-security frameworks.",
-      "card6Title": "Certified",
-      "card6Body": "Cloud and AI certifications for Azure and Databricks among others, refreshed every year."
+      "title": "Senior capability, no overhead",
+      "subtitle": "One person doing the work himself, with a background you don't buy off a staffing shelf.",
+      "card1Title": "Fixed price, no timesheet",
+      "card1Body": "You buy a result with an agreed scope and a fixed price. If it runs over, that's my risk — which is how an engagement should work.",
+      "card2Title": "Used to strict frameworks",
+      "card2Body": "At the police and in aerospace you work under hard privacy and information-security requirements. Privacy by design isn't an appendix to my proposal.",
+      "card3Title": "Explaining is the job",
+      "card3Body": "Since 2020 I've explained complex technology on Udemy to thousands of people without a technical background. I do the same at handover to your team.",
+      "card4Title": "I build myself out of the picture",
+      "card4Body": "Documentation, tests and a handover session are part of every engagement. The goal is that you don't need me afterwards."
     },
     "underhood": {
       "eyebrow": "Projects",
@@ -246,103 +418,91 @@
       "all": "All articles"
     },
     "cta": {
-      "title": "Curious what data and AI could mean for your business?",
-      "subtitle": "Book a no-obligation intro call.",
+      "title": "Wondering what's missing underneath your data?",
+      "subtitle": "Book a free half-hour call. Then you'll know — and you're committed to nothing.",
       "primary": "Book a call",
-      "secondary": "See my services"
+      "secondary": "See the packages"
     }
   },
   "services": {
-    "metaTitle": "Services — Data, AI & Analytics Consulting",
-    "metaDescription": "Data architecture, Power BI dashboards, AI strategy, GenAI solutions and training. From scan to full transformation.",
+    "metaTitle": "Services — fixed scope, fixed price",
+    "metaDescription": "Five packages with a fixed timeline and a fixed price: from a one-week data scan to a working AI prototype in three weeks.",
     "hero": {
       "eyebrow": "Services",
-      "title": "From strategy to implementation",
-      "subtitle": "Everything you need to make data and AI work for you. One point of contact, no hand-offs."
+      "title": "Fixed scope, fixed price, in weeks",
+      "subtitle": "Most AI projects fail on the data, not the model. I build the layer underneath — and then the AI on top of it actually works. No billing by the hour: every package below has a fixed price and a result that's finished."
     },
-    "labels": {
-      "forWhom": "For whom",
-      "deliverables": "Deliverables",
-      "duration": "Typical duration: {value}",
-      "viewService": "View this service"
-    },
-    "categories": {
-      "data-engineering": "Data Engineering",
-      "data-analytics": "Data Analytics",
-      "ai-genai": "AI & GenAI"
-    },
-    "items": {
-      "dataTransformation": {
-        "title": "Data-driven transformation",
-        "description": "Assessment of your data maturity, roadmap, and delivery. From spreadsheets everywhere to structured, reliable, usable data.",
-        "forWhom": "Companies who know they should do more with their data but don't know where to start.",
-        "deliverables": ["Maturity assessment", "Data strategy document", "Implementation roadmap", "Quick-win identification"],
-        "duration": "2-8 weeks (assessment), 3-6 months (implementation)"
+    "phases": {
+      "know": {
+        "eyebrow": "Phase 1",
+        "title": "Know where you stand",
+        "sub": "Two short engagements at a fixed price. Afterwards you know what you have and what you actually want — and you're committed to nothing."
       },
-      "dashboards": {
-        "title": "Dashboards & Reporting",
-        "description": "Power BI dashboards that give stakeholders the answers they need — without having to ask an analyst every time.",
-        "forWhom": "Management making decisions on gut feel instead of data.",
-        "deliverables": ["Interactive Power BI dashboards", "Automated reporting", "KPI frameworks"],
-        "duration": "2-6 weeks"
+      "build": {
+        "eyebrow": "Phase 2",
+        "title": "Build what needs to exist",
+        "sub": "Every package delivers working software, plus the documentation and the session to run it yourselves."
       },
-      "analysis": {
-        "title": "Data analysis & Insights",
-        "description": "In-depth analyses that turn raw data into concrete recommendations. Not just what's happening, but what to do about it.",
-        "forWhom": "Companies that have data but no insights.",
-        "deliverables": ["Analysis report", "Recommendations", "Management presentation"],
-        "duration": "1-4 weeks"
-      },
-      "engineering": {
-        "title": "Data Engineering",
-        "description": "Building the foundation: pipelines, data warehouses, integrations and ETL processes that make everything else possible.",
-        "forWhom": "Companies without a single source of truth. Data sits in silos.",
-        "deliverables": ["Data warehouse design", "ETL/ELT pipelines", "Data integrations", "Documentation"],
-        "duration": "4-12 weeks"
-      },
-      "genai": {
-        "title": "LLM/GenAI Solutions",
-        "description": "Document processing, RAG systems, AI agents, and conversational AI — custom-built for your data and workflows.",
-        "forWhom": "Companies that want to apply AI but don't know how.",
-        "deliverables": ["Working prototype or production system", "Technical documentation", "User training"],
-        "duration": "4-8 weeks"
-      },
-      "aiStrategy": {
-        "title": "AI strategy",
-        "description": "Helping you understand where AI fits and where it doesn't, what's realistic, and what deserves priority. No hype — honest advice.",
-        "forWhom": "Management that knows they should do something with AI but not what.",
-        "deliverables": ["AI readiness assessment", "Prioritized use-case list", "Business case per use case"],
-        "duration": "2-4 weeks"
-      },
-      "modelDevelopment": {
-        "title": "AI Model Development",
-        "description": "Custom models for specific business problems: classification, prediction, extraction, and more.",
-        "forWhom": "Companies with a specific problem that off-the-shelf tools don't solve.",
-        "deliverables": ["Trained model", "Evaluation report", "Integration into existing systems"],
-        "duration": "4-12 weeks"
-      },
-      "automation": {
-        "title": "Automations",
-        "description": "Connecting systems, eliminating manual work, and applying AI to repetitive processes. Redesigning workflows, not stacking tools.",
-        "forWhom": "Teams that spend hours daily copying, pasting, and processing by hand.",
-        "deliverables": ["Automated workflows", "System integrations", "Monitoring and alerting"],
-        "duration": "2-8 weeks"
+      "run": {
+        "eyebrow": "Phase 3",
+        "title": "Keep it running, bring the team",
+        "sub": "What's been built has to keep working without me, and your team has to be able to carry on."
       }
     },
+    "custom": {
+      "eyebrow": "Outside the packages",
+      "title": "Also possible",
+      "subtitle": "Doesn't your question fit a package? Then we do it bespoke. This is what comes up most:",
+      "items": [
+        "Bespoke data engineering — pipelines, warehousing and integrations outside a package",
+        "Ad-hoc analysis — one sharp question about pricing, churn or funnel, investigated and evidenced",
+        "Custom models — classification, prediction or extraction where off-the-shelf tools fall short",
+        "Interim work — a day or two a week alongside your team, for longer-running work"
+      ],
+      "cta": "Put your question to me"
+    },
+    "proof": {
+      "eyebrow": "Proof",
+      "title": "Why you'd take this from me",
+      "subtitle": "I've done data work in aerospace and at the police, where a wrong figure has real consequences. And since 2020 I've been explaining complex technology on Udemy to thousands of people without a technical background — which is most of what this job is.",
+      "cta": "View the projects"
+    },
+    "faq": {
+      "eyebrow": "Practical",
+      "title": "What people usually ask",
+      "items": [
+        {
+          "q": "Why a fixed price instead of an hourly rate?",
+          "a": "Because you're buying a result, not hours. Scope and price are on paper up front; if it runs over, that's my problem and not yours. Work outside the packages runs on a day rate — I'll name it in the first conversation."
+        },
+        {
+          "q": "How does an engagement run?",
+          "a": "A short introductory call first. Then a proposal with scope, schedule and price on a single page. During the work you get a short weekly update and working software to look at — no status report at the end. We close with documentation and a handover session."
+        },
+        {
+          "q": "Do you work on site or remotely?",
+          "a": "Both. I work out of Noord-Holland and am happy to come in for the kick-off, the interim sessions and the handover. The building itself I do remotely — it's faster that way."
+        },
+        {
+          "q": "What kind of contract do we sign?",
+          "a": "A contract for services with an obligation of result: defined scope, fixed price, clear delivery. I'm used to working for clients with their own procurement terms and information-security requirements."
+        }
+      ]
+    },
     "cta": {
-      "title": "Want to know what this could mean for your business?",
-      "subtitle": "Book a no-obligation intro call and we'll look at where the opportunities are together.",
+      "title": "Not sure which package fits?",
+      "subtitle": "Book a free half-hour call. Then you'll know — and you're committed to nothing.",
       "button": "Book a call"
     }
   },
   "about": {
-    "metaTitle": "About Ruud Juffermans — Data Analytics & AI Consultant",
-    "metaDescription": "Data Analytics & AI consultant with experience in data engineering, Power BI, GenAI and training teams.",
+    "metaTitle": "About me — data engineer at NLR and the Dutch police",
+    "metaDescription": "Data and AI consultant with a background at NLR and the Dutch police, and thousands of students on Udemy. I build data foundations for reporting and AI.",
     "eyebrow": "About",
     "name": "Ruud Juffermans",
-    "intro1": "I'm a Data Analytics & AI consultant with a background in computer science, data engineering and AI applications. I've worked in aerospace, with the police, and reached thousands of students through online courses.",
-    "intro2": "At the Netherlands Aerospace Centre (NLR) I built data platforms for EU research projects. At Noord-Holland Police I applied AI and data analysis to real investigations — turning unstructured data into actionable insights.",
-    "intro3": "Everywhere I saw the same pattern: companies sitting on valuable data without a way to unlock it, and AI hype without practical implementation. I started this practice to close that gap — for companies that don't have a 20-person data team.",
+    "intro1": "At Politie Noord-Holland I applied data analysis, automation and AI within criminal law — an environment where a wrong figure has real consequences, and where privacy and information security are not an afterthought. Before that I built a wide range of data projects as a data engineer at the Netherlands Aerospace Centre (NLR).",
+    "intro2": "Since 2020 I've published courses on Udemy, by now with thousands of students. Explaining complex technology to people without a technical background is the entire job there — and it's also most of what a client is actually buying from me. A dashboard nobody understands isn't a dashboard.",
+    "intro3": "The same thing came back in both worlds: organisations sitting on valuable data without getting information out of it, making AI plans with no foundation underneath. I started this practice to close that gap — for companies that don't have a twenty-person data team.",
     "pullQuote": "I've seen what happens when data and AI work — and what happens when they don't.",
     "expertiseTitle": "Expertise",
     "skills": {
@@ -354,10 +514,22 @@
     "timelineEyebrow": "My path",
     "timelineTitle": "From student to consultant",
     "timeline": [
-      { "year": "2019", "label": "Started Computer Science — Business Data Management" },
-      { "year": "2020", "label": "Published first Udemy courses" },
-      { "year": "2023", "label": "Data Engineer at Netherlands Aerospace Centre" },
-      { "year": "2024", "label": "Data Analyst at Noord-Holland Police" }
+      {
+        "year": "2019",
+        "label": "Started Computer Science — Business Data Management"
+      },
+      {
+        "year": "2020",
+        "label": "Published first Udemy courses"
+      },
+      {
+        "year": "2023",
+        "label": "Data Engineer at Netherlands Aerospace Centre"
+      },
+      {
+        "year": "2024",
+        "label": "Data Analyst at Noord-Holland Police"
+      }
     ],
     "cta": {
       "title": "Want to work together?",
@@ -412,16 +584,16 @@
       "fallbackNotice": "This article hasn't been translated to English yet. You're reading the Dutch version."
     }
   },
-  "portfolio": {
-    "metaTitle": "Portfolio — Data & AI Projects",
-    "metaDescription": "Projects and case studies: dashboards, data pipelines, RAG systems and AI automations.",
-    "eyebrow": "Portfolio",
-    "title": "Projects and case studies",
-    "subtitle": "From data architecture to AI solutions. Every project covers the problem, the approach, and the result.",
+  "projects": {
+    "metaTitle": "Projects — Data & AI in practice",
+    "metaDescription": "Own projects that build the full chain: from raw source to a dashboard and a working AI application.",
+    "eyebrow": "Projects",
+    "title": "What I build, and how",
+    "subtitle": "Own projects where I build the whole chain — from raw source to a working dashboard or AI application. Not paid client work and no client names: the full approach instead, so you can see how I work.",
     "view": "View project",
     "empty": {
-      "title": "Portfolio in progress",
-      "body": "I'm working on case studies and showcase projects. Check back soon, or reach out for a conversation in the meantime."
+      "title": "Projects in progress",
+      "body": "I'm working on write-ups. Check back soon, or reach out for a conversation in the meantime."
     },
     "detail": {
       "fallbackNotice": "This project hasn't been translated to English yet. You're reading the Dutch version."
@@ -468,7 +640,7 @@
     ]
   },
   "footer": {
-    "tagline": "Data Analytics & AI Consultant. I help companies become data-driven and AI-enabled.",
+    "tagline": "I build data foundations that carry both your reporting and your AI. Fixed scope, fixed price, in weeks.",
     "servicesHeading": "Services",
     "moreHeading": "More",
     "newsletterHeading": "Newsletter",
@@ -478,12 +650,13 @@
     "newsletterSuccess": "Subscribed!",
     "newsletterError": "Something went wrong. Please try again.",
     "servicesLinks": {
-      "data": "Data Analytics",
-      "ai": "AI & GenAI",
-      "training": "Training"
+      "scan": "Data scan",
+      "truth": "One version of the truth",
+      "reporting": "Reporting automation",
+      "ai": "AI prototype"
     },
     "moreLinks": {
-      "portfolio": "Portfolio",
+      "projects": "Projects",
       "blog": "Blog",
       "about": "About",
       "privacy": "Privacy"

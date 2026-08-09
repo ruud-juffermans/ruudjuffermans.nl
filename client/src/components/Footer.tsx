@@ -10,6 +10,7 @@ import { useTranslations } from "next-intl";
 import Availability from "./Availability";
 import { Link } from "@/i18n/navigation";
 import type { AppPathname } from "@/i18n/routing";
+import type { PackageSlug } from "@/lib/packages";
 import { palette } from "@/theme/theme";
 import { useEffect, useState } from "react";
 import { subscribeNewsletter } from "@/lib/api";
@@ -69,14 +70,16 @@ export default function Footer() {
   const [taglineLead, ...taglineRest] = tagline.split(". ");
   const taglineTail = taglineRest.join(". ");
 
-  const servicesLinks: { label: string; href: StaticPathname }[] = [
-    { label: t("servicesLinks.data"), href: "/services" },
-    { label: t("servicesLinks.ai"), href: "/services" },
-    { label: t("servicesLinks.training"), href: "/services" },
+  // Straight into the packages rather than three links to the same overview.
+  const servicesLinks: { label: string; slug: PackageSlug }[] = [
+    { label: t("servicesLinks.scan"), slug: "data-scan" },
+    { label: t("servicesLinks.truth"), slug: "single-source-of-truth" },
+    { label: t("servicesLinks.reporting"), slug: "reporting-automation" },
+    { label: t("servicesLinks.ai"), slug: "ai-prototype" },
   ];
 
   const moreLinks: { label: string; href: StaticPathname }[] = [
-    { label: t("moreLinks.portfolio"), href: "/portfolio" },
+    { label: t("moreLinks.projects"), href: "/projects" },
     { label: t("moreLinks.blog"), href: "/blog" },
     { label: t("moreLinks.about"), href: "/about" },
     { label: t("moreLinks.privacy"), href: "/privacy" },
@@ -158,11 +161,11 @@ export default function Footer() {
             <Typography variant="overline" sx={{ color: FC.heading, mb: 2, display: "block" }}>
               {t("servicesHeading")}
             </Typography>
-            {servicesLinks.map((item, i) => (
+            {servicesLinks.map((item) => (
               <Box
-                key={`${item.label}-${i}`}
+                key={item.slug}
                 component={Link}
-                href={item.href}
+                href={{ pathname: "/services/[slug]", params: { slug: item.slug } }}
                 sx={{
                   display: "block",
                   color: FC.link,

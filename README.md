@@ -1,7 +1,7 @@
 # ruudjuffermans.nl
 
 Personal / freelance (ZZP) website: a bilingual (Dutch / English) Next.js site
-with blog and portfolio sections backed by MDX content, plus contact and
+with blog and project sections backed by MDX content, plus contact and
 newsletter forms. Runs at `ruudjuffermans.nl`.
 
 **Client-only since the platform consolidation.** The site's backend (contact
@@ -26,7 +26,7 @@ rate-limited server-side.
 ```
 .
 ├── client/          # Next.js frontend (the deployed artifact)
-│   ├── content/     # MDX blog & portfolio content (nl / en)
+│   ├── content/     # MDX blog & project content (nl / en)
 │   ├── messages/    # i18n translation files
 │   └── src/
 ├── server/          # LEGACY pre-consolidation Express API — not deployed

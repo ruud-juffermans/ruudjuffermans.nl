@@ -22,30 +22,31 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import Logo from "./Logo";
 import ThemeSwitcher from "./ThemeSwitcher";
 import NavDropdown, { type NavDropdownItem } from "./NavDropdown";
+import { PACKAGE_SLUGS } from "@/lib/packages";
 
 type StaticPathname = Exclude<AppPathname, `${string}[${string}]${string}`>;
-
-const SERVICE_SLUGS = ["data-engineering", "data-analytics", "ai-genai"] as const;
 
 export default function Header() {
   const t = useTranslations("nav");
   const tc = useTranslations("common");
   const tm = useTranslations("menus");
+  const tp = useTranslations("packages");
   const pathname = usePathname();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const navItems: { label: string; href: StaticPathname }[] = [
-    { label: t("portfolio"), href: "/portfolio" },
+    { label: t("projects"), href: "/projects" },
     { label: t("blog"), href: "/blog" },
     { label: t("about"), href: "/about" },
     { label: t("contact"), href: "/contact" },
   ];
 
-  const serviceMenuKeys = ["dataEngineering", "dataAnalytics", "aiGenai"] as const;
-  const serviceItems: NavDropdownItem[] = serviceMenuKeys.map((key, i) => ({
-    title: tm(`services.${key}.title`),
-    desc: tm(`services.${key}.desc`),
-    href: { pathname: "/services/[slug]", params: { slug: SERVICE_SLUGS[i] } },
+  // The dropdown lists the five packages; the Datascan leads because it is
+  // the entry point everything else funnels into.
+  const serviceItems: NavDropdownItem[] = PACKAGE_SLUGS.map((slug) => ({
+    title: tp(`${slug}.name`),
+    desc: tp(`${slug}.navDesc`),
+    href: { pathname: "/services/[slug]", params: { slug } },
   }));
 
   return (
@@ -251,7 +252,7 @@ export default function Header() {
           </Box>
           <Box sx={{ pl: 2, mb: 1 }}>
             {serviceItems.map((item, i) => {
-              const slug = SERVICE_SLUGS[i];
+              const slug = PACKAGE_SLUGS[i];
               const active = pathname === `/services/${slug}`;
               return (
                 <Box

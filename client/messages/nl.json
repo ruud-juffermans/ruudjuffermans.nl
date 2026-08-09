@@ -2,7 +2,7 @@
   "site": {
     "title": "Ruud Juffermans — Data Analytics & AI",
     "titleTemplate": "%s | Ruud Juffermans",
-    "description": "Ik help bedrijven data-gedreven en AI-enabled te worden. Van strategie tot implementatie, van dashboards tot AI-oplossingen.",
+    "description": "Ik bouw datafundamenten waar je rapportage én je AI op draaien. Vaste scope, vaste prijs, in weken — niet in kwartalen.",
     "siteName": "Ruud Juffermans — Data Analytics & AI"
   },
   "common": {
@@ -12,7 +12,7 @@
     "logout": "Uitloggen",
     "readMore": "Lees meer",
     "backToBlog": "Terug naar blog",
-    "backToPortfolio": "Terug naar portfolio",
+    "backToProjects": "Terug naar projecten",
     "readingTimeSuffix": "leestijd",
     "languageLabel": "Taal",
     "switchToEnglish": "Engels",
@@ -21,12 +21,17 @@
     "themeLight": "Licht thema",
     "themeDark": "Donker thema",
     "themeSystem": "Systeemvoorkeur",
-    "availableHero": "Beschikbaar voor nieuwe opdrachten vanaf {month}",
-    "availableFrom": "Beschikbaar vanaf {month}"
+    "availableHero": "Nu beschikbaar voor nieuwe opdrachten",
+    "availableFrom": "Beschikbaar voor nieuwe opdrachten",
+    "proof": {
+      "nlr": "Data engineer bij NLR",
+      "police": "Data & AI bij de Politie",
+      "udemy": "Duizenden cursisten op Udemy"
+    }
   },
   "nav": {
     "services": "Diensten",
-    "portfolio": "Portfolio",
+    "projects": "Projecten",
     "blog": "Blog",
     "apps": "Apps",
     "about": "Over mij",
@@ -34,18 +39,6 @@
   },
   "menus": {
     "services": {
-      "dataEngineering": {
-        "title": "Data Engineering",
-        "desc": "Pipelines, warehousing en een solide datafundament"
-      },
-      "dataAnalytics": {
-        "title": "Data Analytics",
-        "desc": "Dashboards en KPI's die echte vragen beantwoorden"
-      },
-      "aiGenai": {
-        "title": "AI & GenAI",
-        "desc": "Praktische AI, van strategie tot werkende software"
-      },
       "all": "Bekijk alle diensten"
     },
     "apps": {
@@ -64,96 +57,273 @@
       }
     }
   },
-  "serviceDetail": {
-    "whatTitle": "Wat ik doe",
-    "backToServices": "Alle diensten",
-    "ctaTitle": "Benieuwd hoe dit er voor jouw bedrijf uitziet?",
-    "ctaBody": "Laten we kort bellen om te verkennen waar de kansen liggen — geheel vrijblijvend.",
-    "ctaButton": "Plan een gesprek",
-    "data-engineering": {
-      "metaTitle": "Data Engineering",
-      "metaDescription": "Datapipelines, warehousing en cloudplatformen: een betrouwbaar fundament waar je analytics en AI op kunnen bouwen.",
-      "eyebrow": "Dienst",
-      "title": "Data Engineering",
-      "intro": "Analytics en AI zijn zo goed als het fundament eronder. Ik ontwerp en bouw dataplatformen die betrouwbaar, testbaar en uitlegbaar zijn — zodat elk rapport en elk model met dezelfde waarheid werkt.",
-      "item1Title": "Dataplatform-architectuur",
-      "item1Body": "Een pragmatische architectuur die past bij jouw omvang en jouw stack — warehouse, lakehouse of iets eenvoudigers. Geen overengineering.",
-      "item2Title": "Pipelines & integratie",
-      "item2Body": "Geautomatiseerde ETL/ELT-pipelines die je bronnen samenbrengen — betrouwbaar, gemonitord en gedocumenteerd.",
-      "item3Title": "Modellering & warehousing",
-      "item3Body": "Schone, geteste datamodellen die ruwe data omzetten in definities waar het hele bedrijf het over eens is.",
-      "item4Title": "Kwaliteit & beheer",
-      "item4Body": "Testen, orkestratie, monitoring en alerting — zodat problemen zichtbaar worden vóórdat je stakeholders ze zien."
+  "packages": {
+    "labels": {
+      "recognise": "Herken je dit?",
+      "promise": "Wat je overhoudt",
+      "deliverables": "Wat je krijgt",
+      "duration": "Doorlooptijd",
+      "price": "Investering",
+      "priceFrom": "vanaf {amount}",
+      "priceOnRequest": "Prijs op aanvraag",
+      "proof": "Zo ziet dat eruit",
+      "view": "Bekijk dit pakket",
+      "featuredTag": "Begin hier",
+      "back": "Alle diensten",
+      "timeline": "Zo verloopt het",
+      "bridgeLabel": "Klaar voor later"
     },
-    "data-analytics": {
-      "metaTitle": "Data Analytics",
-      "metaDescription": "Dashboards, KPI-frameworks en analyses die echte bedrijfsvragen beantwoorden — zo gebouwd dat je eigen team ermee verder kan.",
-      "eyebrow": "Dienst",
-      "title": "Data Analytics",
-      "intro": "Data wordt pas waardevol als iemand ernaar handelt. Ik bouw dashboards en KPI-frameworks die de vragen beantwoorden die je team écht stelt — en zorg dat ze er zelf mee verder kunnen.",
-      "item1Title": "Dashboards & rapportage",
-      "item1Body": "Dashboards gemaakt om beslissingen te nemen, niet ter decoratie — van managementoverzicht tot operationeel detail.",
-      "item2Title": "KPI-frameworks",
-      "item2Body": "Samen bepalen we de metrics die ertoe doen, met heldere definities en één bron van waarheid.",
-      "item3Title": "Ad-hoc analyses",
-      "item3Body": "Deep-dives in specifieke vragen — pricing, churn, funnel — met heldere, bruikbare conclusies.",
-      "item4Title": "Self-service & adoptie",
-      "item4Body": "Documentatie, training en governance, zodat inzichten niet bij één analist blijven hangen."
+    "data-scan": {
+      "name": "Datascan",
+      "navDesc": "Eén week, en je weet waar je staat",
+      "recognise": "Je weet dat er meer uit je data te halen valt, maar niet waar je moet beginnen — en elk voorstel dat je krijgt begint met een traject van drie maanden.",
+      "promise": "In één week weet je precies waar je staat en wat je als eerste moet doen.",
+      "deliverables": [
+        "Inventarisatie van al je databronnen en wat erin zit",
+        "Een volwassenheidsscore, zodat je weet waar je staat",
+        "Een geprioriteerde roadmap voor de komende twaalf maanden",
+        "2–3 quick wins die je zelf kunt doorvoeren"
+      ],
+      "duration": "1 week",
+      "intro": "De Datascan is de snelste manier om te weten wat je eerst moet doen — en meteen de goedkoopste manier om erachter te komen of we bij elkaar passen. Eén week, een vaste prijs, en aan het eind ligt er een document waar je ook zonder mij mee verder kunt.",
+      "steps": [
+        {
+          "label": "Dag 1 — Gesprekken",
+          "body": "Ik spreek de mensen die met de data werken én de mensen die erop sturen. Wat wordt er gevraagd, wat kan er niet, waar gaat de tijd heen."
+        },
+        {
+          "label": "Dag 2–3 — In de systemen",
+          "body": "Ik kijk zelf in je bronnen: wat zit erin, hoe schoon is het, hoe hangt het samen. Geen aannames op basis van wat er zou moeten staan."
+        },
+        {
+          "label": "Dag 4 — Doorrekenen",
+          "body": "De volwassenheidsscore, de knelpunten op volgorde van impact, en per stap een inschatting van wat het kost en wat het oplevert."
+        },
+        {
+          "label": "Dag 5 — Oplevering",
+          "body": "Presentatie aan je team, roadmap op tafel, en de quick wins die je deze maand nog zelf kunt doorvoeren."
+        }
+      ]
     },
-    "ai-genai": {
-      "metaTitle": "AI & GenAI",
-      "metaDescription": "AI-strategie en werkende GenAI-oplossingen: documentverwerking, RAG en automatisering — praktisch, veilig en meetbaar.",
-      "eyebrow": "Dienst",
-      "title": "AI & GenAI",
-      "intro": "AI is geen strategieslide — het is werkende software. Ik help je de use-cases met echte ROI te vinden en bouw ze vervolgens: van documentverwerking en RAG tot automatiseringen die wekelijks uren besparen.",
-      "item1Title": "Use-case discovery & AI-strategie",
-      "item1Body": "We brengen je processen in kaart en vinden waar AI zich écht terugbetaalt — realistisch, meetbaar, zonder hype.",
-      "item2Title": "GenAI-toepassingen",
-      "item2Body": "Documentverwerking, chatten met je eigen kennisbank (RAG), contentgeneratie — veilig gebouwd op jouw data.",
-      "item3Title": "Automatisering",
-      "item3Body": "AI-gedreven automatiseringen in je bestaande tools en workflows, van intake tot rapportage.",
-      "item4Title": "Verantwoord & beheersbaar",
-      "item4Body": "Evaluatie, guardrails en monitoring, zodat resultaten betrouwbaar blijven na livegang en je team aan het stuur blijft."
+    "requirements-and-kpis": {
+      "name": "Scherpe vraag",
+      "navDesc": "Weten wat je bouwt, vóór je bouwt",
+      "recognise": "Er is budget voor een dashboard of een systeem, maar de vraag erachter staat nergens op papier — en iedereen bedoelt iets anders met 'actieve klant'.",
+      "promise": "Een specificatie waar direct op gebouwd kan worden, en één definitie per cijfer waar iedereen achter staat.",
+      "deliverables": [
+        "Eén definitie per KPI, met een eigenaar erbij",
+        "Een meetbaarheidstoets: zit het gevraagde überhaupt in je data?",
+        "Acceptatiecriteria — wanneer is het af en goed",
+        "Een expliciete lijst van wat er níét in zit",
+        "Een bouwschatting, bruikbaar door mij of door een ander"
+      ],
+      "duration": "1–2 weken",
+      "intro": "De goedkoopste manier om te voorkomen dat je het verkeerde bouwt. Aan het eind heb je een specificatie waar direct op gebouwd kan worden, definities waar iedereen achter staat, en de zekerheid dat je data ze kan vullen. Ook als je het vervolgens door iemand anders laat bouwen — de opdracht is van jou, niet van mij.",
+      "steps": [
+        {
+          "label": "Dag 1–2 — De vraag ophalen",
+          "body": "Ik spreek de mensen die het straks gebruiken én degene die het betaalt. Welke beslissing moet je kunnen nemen, en wat gebeurt er nu als je het niet weet."
+        },
+        {
+          "label": "Dag 3–4 — Definities vastleggen",
+          "body": "Per cijfer één definitie, met een eigenaar. Wat telt mee, wat niet, en wie beslist als het schuurt."
+        },
+        {
+          "label": "Week 2 — Meetbaarheidstoets",
+          "body": "Ik kijk zelf in je bronnen of het gevraagde eruit te halen is. Een KPI die niemand kan vullen is geen KPI, en dat hoor je liever nu dan na de bouw."
+        },
+        {
+          "label": "Oplevering — De opdracht",
+          "body": "Acceptatiecriteria, de scope met een expliciete lijst van wat er buiten valt, en een bouwschatting. Klaar om aan te besteden of zelf op te pakken."
+        }
+      ]
+    },
+    "dashboards": {
+      "name": "Dashboard dat wél gebruikt wordt",
+      "navDesc": "Rapportage op de bron die je al hebt",
+      "recognise": "Er is een dashboard. Niemand opent het. Of: de data zit in je systeem, maar 'hoe staan we ervoor' kost nog steeds een belletje naar Financiën.",
+      "promise": "Dashboards die gebouwd zijn rond de beslissingen die je team echt neemt — op de bron die je al hebt.",
+      "deliverables": [
+        "Inventarisatie van de beslissingen die elke maand terugkomen",
+        "Een schoon datamodel op je bestaande bron",
+        "1–3 dashboards met drill-down naar het detail",
+        "Een definitielijst, zodat elk cijfer herleidbaar is",
+        "Een adoptiesessie met de gebruikers — geen handleiding per mail"
+      ],
+      "duration": "2–3 weken",
+      "intro": "Voor als je data al ergens bruikbaar in staat en je vooral wilt dat er eindelijk iets uitkomt waar mensen naar kijken. Geen warehouse-traject nodig: ik bouw op de bron die je hebt. De meeste dashboards sneuvelen niet op techniek maar op gebruik, dus de adoptiesessie zit standaard in de scope.",
+      "steps": [
+        {
+          "label": "Week 1 — Beslissingen in kaart",
+          "body": "Niet 'welke grafiek wil je', maar 'welke beslissing neem je elke maand opnieuw'. Daar wordt het dashboard omheen gebouwd."
+        },
+        {
+          "label": "Week 1–2 — Model op je bron",
+          "body": "Een schoon datamodel op wat je al hebt, met één definitie per cijfer. Geen warehouse-traject nodig."
+        },
+        {
+          "label": "Week 2–3 — Bouwen en aanscherpen",
+          "body": "De dashboards, met drill-down naar het detail waar de vragen over gaan. Je kijkt tussentijds mee — geen enkele grote oplevering aan het eind."
+        },
+        {
+          "label": "Afsluiting — Adoptie",
+          "body": "Een sessie met de mensen die het gaan gebruiken, in hun eigen agenda. Een handleiding per mail werkt niet."
+        }
+      ]
+    },
+    "single-source-of-truth": {
+      "name": "Één versie van de waarheid",
+      "navDesc": "Eén datawarehouse, één definitie per cijfer",
+      "recognise": "Drie afdelingen, drie omzetcijfers, en elke maandvergadering begint met de vraag wiens getal nou klopt.",
+      "promise": "Eén datawarehouse waar al je rapportage op draait — en waar niemand meer discussieert over wiens cijfer klopt.",
+      "deliverables": [
+        "Een gemodelleerd datawarehouse op jouw bronnen",
+        "Geteste transformaties met dagelijkse datakwaliteitscontroles",
+        "Een Power BI-dashboard met jullie KPI's",
+        "Documentatie waarin elke definitie vastligt",
+        "Een overdrachtssessie met je team"
+      ],
+      "duration": "3–4 weken",
+      "bridge": "Gebouwd zodat je er later AI op kunt zetten — geen herbouw nodig.",
+      "intro": "Dit is het werk waar ik het meest thuis in ben: van verspreide bronnen naar één gemodelleerd datawarehouse, met rapportage erbovenop die mensen daadwerkelijk vertrouwen. Alles in versiebeheer, alles getest, alles gedocumenteerd — zodat je team het overneemt in plaats van dat het van mij afhankelijk wordt.",
+      "steps": [
+        {
+          "label": "Week 1 — Model",
+          "body": "We leggen de definities vast: wat is een klant, wanneer telt een order mee, op welke KPI's sturen jullie echt. Dat wordt het datamodel."
+        },
+        {
+          "label": "Week 2 — Bouw",
+          "body": "Pipelines op je bronnen, transformaties met een test op elke stap, en een warehouse dat elke ochtend klaarstaat."
+        },
+        {
+          "label": "Week 3 — Dashboard",
+          "body": "Het dashboard op jullie KPI's, met drill-down naar het detail waar de vragen daadwerkelijk over gaan."
+        },
+        {
+          "label": "Week 4 — Overdracht",
+          "body": "Documentatie, een sessie met je team, en de sleutel. Vanaf hier kun je zelf verder."
+        }
+      ]
+    },
+    "reporting-automation": {
+      "name": "Rapportage op de automatische piloot",
+      "navDesc": "Je maandrapportage draait vanzelf",
+      "recognise": "Elke maand dezelfde twee dagen: exports trekken, plakken in Excel, cijfers narekenen, en hopen dat er niets is misgegaan.",
+      "promise": "Die maandrapportage die twee dagen handwerk kost? Die draait vanaf nu vanzelf.",
+      "deliverables": [
+        "Een geautomatiseerde pipeline op je bestaande bronnen",
+        "Het rapport in je inbox of dashboard, op schema",
+        "Een alert zodra er iets misgaat — vóór je stakeholders het zien",
+        "Overdracht, zodat je het zelf kunt aanpassen"
+      ],
+      "duration": "1–2 weken",
+      "bridge": "Gebouwd zodat je er later AI op kunt zetten — geen herbouw nodig.",
+      "intro": "Het kleinste pakket, en vaak het pakket met het snelste rendement. Eén rapportage die nu handwerk is, wordt een pipeline die vanzelf draait — inclusief een alert wanneer er iets misgaat.",
+      "steps": [
+        {
+          "label": "Dag 1–2 — Uitpluizen",
+          "body": "We lopen de rapportage stap voor stap door zoals je 'm nu maakt. Elke handeling, ook de kleine correcties die niemand opschrijft."
+        },
+        {
+          "label": "Week 1 — Bouw",
+          "body": "De stappen worden code: ophalen, controleren, berekenen, publiceren. Met tests op de plekken waar het nu misgaat."
+        },
+        {
+          "label": "Week 2 — Live en overdracht",
+          "body": "De pipeline draait op schema, het rapport komt binnen, en je weet hoe je 'm aanpast als er een kolom bijkomt."
+        }
+      ]
+    },
+    "ai-prototype": {
+      "name": "AI-prototype in 3 weken",
+      "navDesc": "Werkend prototype én een eerlijk oordeel",
+      "recognise": "Er ligt een AI-idee op tafel. Niemand kan zeggen of het werkt, wat het kost, of het de moeite waard is.",
+      "promise": "Van AI-idee naar werkend prototype — inclusief een eerlijk oordeel of het door moet.",
+      "deliverables": [
+        "Eén use case uitgewerkt tot werkende software",
+        "Gemeten kwaliteit op een echte testset — geen onderbuikgevoel",
+        "De kosten per gebruiker per maand, doorgerekend",
+        "Een go/no-go-advies — ook als dat 'niet doen' is"
+      ],
+      "duration": "3 weken",
+      "intro": "Drie weken, één use case, en aan het eind een eerlijk antwoord. Ik bouw het prototype echt — werkende software, geen klikbare mockup — en meet of het goed genoeg is. Blijkt het dat niet, dan zeg ik dat. Dan heb je voor een vaste prijs voorkomen dat je er een jaar in stopt.",
+      "steps": [
+        {
+          "label": "Week 1 — Afbakenen en meetlat",
+          "body": "Eén use case, scherp afgebakend. En vooraf de vraag: wanneer is het goed genoeg? Die testset maken we vóór de eerste regel code."
+        },
+        {
+          "label": "Week 2 — Bouwen",
+          "body": "Werkende software op jouw data, in jouw eigen omgeving. Met bronvermelding, zodat elk antwoord herleidbaar is."
+        },
+        {
+          "label": "Week 3 — Meten en oordelen",
+          "body": "Kwaliteit tegen de testset, kosten per gebruiker per maand doorgerekend, en een go/no-go met de argumenten erbij."
+        }
+      ]
+    },
+    "ai-workshop": {
+      "name": "AI-geletterdheid voor je team",
+      "navDesc": "Eén dag, je hele team op niveau",
+      "recognise": "Je team gebruikt AI allang, alleen weet niemand precies wat het kan, wat het niet kan, en wat er met bedrijfsdata mag.",
+      "promise": "Na één dag weet je team wat AI wél en niet kan — en waar het in jullie werk daadwerkelijk iets oplevert.",
+      "deliverables": [
+        "Een dag op locatie, toegesneden op jullie werk",
+        "Praktische oefeningen met jullie eigen documenten en processen",
+        "Heldere afspraken over wat wel en niet mag (AVG en AI Act)",
+        "Een geprioriteerde lijst met use cases die je team zelf heeft bedacht"
+      ],
+      "duration": "1 dag",
+      "intro": "Een dag met je team, op locatie. Geen slides over hoe AI de wereld verandert, maar oefenen met jullie eigen documenten en processen — en aan het eind heldere afspraken over wat er wel en niet mag.",
+      "steps": [
+        {
+          "label": "Ochtend — Wat het is",
+          "body": "Hoe een taalmodel werkt, waarom het soms overtuigend onzin vertelt, en hoe je dat herkent. In gewone taal."
+        },
+        {
+          "label": "Middag — Zelf doen",
+          "body": "Aan de slag met jullie eigen documenten en processen. Iedereen bouwt iets dat werkt."
+        },
+        {
+          "label": "Afsluiting — Afspraken en vervolg",
+          "body": "Wat mag er wel en niet met bedrijfsdata, en een geprioriteerde lijst met use cases die je team zelf heeft bedacht."
+        }
+      ]
     }
   },
   "home": {
-    "metaTitle": "Ruud Juffermans — Data Analytics & AI",
+    "metaTitle": "Ruud Juffermans — Data en AI",
+    "metaDescription": "Ik bouw datafundamenten waar je rapportage én je AI op draaien. Vijf pakketten met vaste scope, vaste prijs en een doorlooptijd in weken.",
     "hero": {
-      "eyebrow": "Data Analytics & AI Consultant",
-      "title": "Ik help bedrijven data-gedreven en AI-enabled te worden",
-      "subtitle": "Van data-architectuur tot dashboards, van AI-strategie tot werkende oplossingen. Met training zodat je team het zelf kan.",
+      "eyebrow": "Datafundamenten & AI",
+      "title": "Je hebt data en AI-plannen. Wat ertussen mist is het fundament.",
+      "subtitle": "Ik bouw datafundamenten waar je rapportage én je AI op draaien. Vaste scope, vaste prijs, in weken — niet in kwartalen.",
       "ctaPrimary": "Plan een gesprek",
-      "ctaSecondary": "Bekijk mijn werk",
+      "ctaSecondary": "Bekijk de pakketten",
       "toolsLabel": "Dagelijks aan het werk met technologie zoals"
     },
     "problem": {
       "eyebrow": "Herkenbaar?",
-      "title": "De uitdagingen die ik elke dag tegenkom",
-      "card1Title": "Data waar je niets mee doet",
-      "card1Body": "Je verzamelt data in tientallen systemen, maar niemand maakt er inzichten van. Rapportages zijn handmatig, inconsistent of bestaan niet.",
-      "card2Title": "Geen fundament",
-      "card2Body": "Geen warehouse, geen pipelines, geen single source of truth. Zelfs als je een analist zou aannemen, is er niets solides om mee te werken.",
-      "card3Title": "AI-onzekerheid",
-      "card3Body": "Iedereen heeft het over AI. Concurrenten bewegen. Maar intern weet niemand wat realistisch is, wat hype is, en waar de echte ROI zit.",
-      "closer": "Als dit klinkt als jouw bedrijf — ik kan helpen."
+      "title": "Waar het in de praktijk op vastloopt",
+      "card1Title": "Elke afdeling een ander getal",
+      "card1Body": "De omzet uit het CRM klopt niet met die uit de boekhouding, en niemand weet welke van de twee je aan de bank laat zien.",
+      "card2Title": "De maandrapportage is handwerk",
+      "card2Body": "Twee dagen exporteren, plakken en narekenen. Elke maand opnieuw — en één verkeerd doorgesleepte formule blijft maanden onopgemerkt.",
+      "card3Title": "Het AI-plan hangt in de lucht",
+      "card3Body": "Er is een idee en er is budget, maar niemand kan zeggen of de data die het nodig heeft überhaupt bruikbaar is.",
+      "closer": "Alle drie hebben dezelfde oorzaak: er ligt geen fundament onder. Dat is wat ik bouw."
     },
     "projects": {
-      "eyebrow": "Projecten",
-      "title": "Van ruwe data naar werkende oplossing",
-      "subtitle": "Showcase-projecten over de hele keten: data-architectuur, pipelines en AI-toepassingen. Bij elk project hoort een volledige case-beschrijving.",
-      "viewCase": "Bekijk case",
       "all": "Alle projecten"
     },
     "services": {
       "eyebrow": "Wat ik doe",
-      "title": "Van strategie tot implementatie",
-      "subtitle": "Van datafundament tot AI-assistent in productie — twee specialisaties, één pragmatische aanpak.",
+      "title": "Eerst het fundament. Daarna werkt de AI erop wél.",
+      "subtitle": "De meeste AI-projecten stranden op de data, niet op het model. Ik bouw de laag eronder — en dat is precies dezelfde laag waar je rapportage op draait.",
       "service1Title": "Data Analytics",
       "service1Body": "Van losse spreadsheets naar een betrouwbaar datafundament met dashboards die antwoorden geven.",
       "service2Title": "AI & GenAI",
       "service2Body": "Praktische AI-oplossingen: documentverwerking, RAG-systemen, automatiseringen, en AI-strategie die werkt.",
-      "service3Title": "Training & Workshops",
-      "service3Body": "Ik bouw het, train je team om het te draaien, en vertrek. Elke opdracht bevat kennisoverdracht.",
       "learnMore": "Meer over {topic}",
       "flow": {
         "analytics": {
@@ -180,6 +350,12 @@
         }
       }
     },
+    "packages": {
+      "eyebrow": "Pakketten",
+      "title": "Vaste scope, vaste prijs",
+      "subtitle": "Geen uurtje-factuurtje maar afgebakende pakketten, elk met een vaste doorlooptijd en een concreet resultaat. Weet je niet welke past? Begin met de Datascan.",
+      "all": "Bekijk alle pakketten"
+    },
     "process": {
       "eyebrow": "Hoe ik werk",
       "title": "Van eerste gesprek tot werkende oplossing",
@@ -195,19 +371,15 @@
     "whyFreelance": {
       "eyebrow": "Waarom een zzp’er",
       "title": "Senior slagkracht, zonder overhead",
-      "subtitle": "De kennis van een consultancybureau, de snelheid en betrokkenheid van één toegewijde professional.",
-      "card1Title": "Eén aanspreekpunt",
-      "card1Body": "Direct contact met degene die het werk doet. Geen accountmanagers, geen ruis, korte lijnen.",
-      "card2Title": "Flexibel inzetbaar",
-      "card2Body": "Van een paar dagen per week naast je team tot een volledig traject op interim-basis — op locatie of remote.",
-      "card3Title": "Kennisoverdracht standaard",
-      "card3Body": "Documentatie, tests en inwerksessies horen bij elke opdracht. Je team kan zelfstandig verder.",
-      "card4Title": "Transparante tarieven",
-      "card4Body": "Helder uurtarief of vaste projectprijs, vooraf afgesproken. Geen verrassingen achteraf op de factuur.",
-      "card5Title": "AVG & security bewust",
-      "card5Body": "Privacy by design en AVG-proof, met datatoegang netjes geregeld — en gewend te werken binnen (rijks)kaders voor informatiebeveiliging.",
-      "card6Title": "Gecertificeerd",
-      "card6Body": "Cloud- en AI-certificeringen voor onder meer Azure en Databricks, en elk jaar bijgeschoold."
+      "subtitle": "Eén persoon die het werk zelf doet, met een achtergrond die je bij een uitzendbureau niet inkoopt.",
+      "card1Title": "Vaste prijs, geen urenbriefje",
+      "card1Body": "Je koopt een resultaat met een afgesproken scope en een vaste prijs. Loopt het uit, dan is dat mijn risico — zo hoort een opdracht te lopen.",
+      "card2Title": "Gewend aan strenge kaders",
+      "card2Body": "Bij de politie en in de luchtvaart werk je binnen harde eisen aan privacy en informatiebeveiliging. Privacy by design is bij mij geen bijlage bij het voorstel.",
+      "card3Title": "Uitleggen ís het vak",
+      "card3Body": "Sinds 2020 leg ik op Udemy complexe techniek uit aan duizenden mensen zonder technische achtergrond. Datzelfde doe ik bij de overdracht aan jouw team.",
+      "card4Title": "Ik bouw mezelf eruit",
+      "card4Body": "Documentatie, tests en een overdrachtssessie horen bij elke opdracht. Het doel is dat je me daarna niet meer nodig hebt."
     },
     "underhood": {
       "eyebrow": "Projecten",
@@ -246,103 +418,91 @@
       "all": "Alle artikelen"
     },
     "cta": {
-      "title": "Benieuwd wat data en AI voor jouw bedrijf kunnen betekenen?",
-      "subtitle": "Plan een vrijblijvend kennismakingsgesprek.",
+      "title": "Benieuwd wat er onder je data mist?",
+      "subtitle": "Plan een vrijblijvend gesprek van een half uur. Daarna weet je het — en zit je nergens aan vast.",
       "primary": "Plan een gesprek",
-      "secondary": "Bekijk mijn diensten"
+      "secondary": "Bekijk de pakketten"
     }
   },
   "services": {
-    "metaTitle": "Diensten — Data, AI & Analytics Consulting",
-    "metaDescription": "Data-architectuur, Power BI dashboards, AI-strategie, GenAI-oplossingen en training. Van scan tot volledige transformatie.",
+    "metaTitle": "Diensten — vaste scope, vaste prijs",
+    "metaDescription": "Vijf pakketten met een vaste doorlooptijd en een vaste prijs: van een datascan van één week tot een werkend AI-prototype in drie weken.",
     "hero": {
       "eyebrow": "Diensten",
-      "title": "Van strategie tot implementatie",
-      "subtitle": "Alles wat je nodig hebt om data en AI voor je te laten werken. Eén aanspreekpunt, geen doorverwijzingen."
+      "title": "Vaste scope, vaste prijs, in weken",
+      "subtitle": "De meeste AI-projecten stranden op de data, niet op het model. Ik bouw de laag eronder — daarna werkt de AI erop wél. Geen uurtje-factuurtje: elk pakket hieronder heeft een vaste prijs en een resultaat dat af is."
     },
-    "labels": {
-      "forWhom": "Voor wie",
-      "deliverables": "Deliverables",
-      "duration": "Typische duur: {value}",
-      "viewService": "Bekijk deze dienst"
-    },
-    "categories": {
-      "data-engineering": "Data Engineering",
-      "data-analytics": "Data Analytics",
-      "ai-genai": "AI & GenAI"
-    },
-    "items": {
-      "dataTransformation": {
-        "title": "Data-gedreven transformatie",
-        "description": "Assessment van je data-volwassenheid, roadmap, en uitvoering. Van overal spreadsheets naar gestructureerde, betrouwbare, bruikbare data.",
-        "forWhom": "Bedrijven die weten dat ze meer met hun data moeten doen maar niet weten waar te beginnen.",
-        "deliverables": ["Maturity assessment", "Data strategie document", "Implementatie roadmap", "Quick win identificatie"],
-        "duration": "2-8 weken (assessment), 3-6 maanden (implementatie)"
+    "phases": {
+      "know": {
+        "eyebrow": "Fase 1",
+        "title": "Weten waar je staat",
+        "sub": "Twee korte trajecten met een vaste prijs. Na afloop weet je wat er ligt en wat je precies wilt — en zit je nergens aan vast."
       },
-      "dashboards": {
-        "title": "Dashboards & Rapportages",
-        "description": "Power BI dashboards die stakeholders de antwoorden geven die ze nodig hebben — zonder elke keer een analist te hoeven vragen.",
-        "forWhom": "Management dat beslissingen neemt op gevoel in plaats van data.",
-        "deliverables": ["Interactieve Power BI dashboards", "Geautomatiseerde rapportages", "KPI-frameworks"],
-        "duration": "2-6 weken"
+      "build": {
+        "eyebrow": "Fase 2",
+        "title": "Bouwen wat er moet komen",
+        "sub": "Elk pakket levert werkende software op, plus de documentatie en de sessie om het zelf te kunnen draaien."
       },
-      "analysis": {
-        "title": "Data-analyse & Inzichten",
-        "description": "Diepgaande analyses die ruwe data vertalen naar concrete aanbevelingen. Niet alleen wat er gebeurt, maar wat je moet doen.",
-        "forWhom": "Bedrijven die data hebben maar geen inzichten.",
-        "deliverables": ["Analyse rapport", "Aanbevelingen", "Presentatie voor management"],
-        "duration": "1-4 weken"
-      },
-      "engineering": {
-        "title": "Data Engineering",
-        "description": "Het fundament bouwen: pipelines, data warehouses, integraties en ETL-processen die al het andere mogelijk maken.",
-        "forWhom": "Bedrijven zonder een single source of truth. Data zit in silo's.",
-        "deliverables": ["Data warehouse ontwerp", "ETL/ELT pipelines", "Data integraties", "Documentatie"],
-        "duration": "4-12 weken"
-      },
-      "genai": {
-        "title": "LLM/GenAI Oplossingen",
-        "description": "Documentverwerking, RAG-systemen, AI-agents, en conversational AI — op maat gebouwd voor jouw data en workflows.",
-        "forWhom": "Bedrijven die AI willen inzetten maar niet weten hoe.",
-        "deliverables": ["Werkend prototype of productie-systeem", "Technische documentatie", "Training voor gebruikers"],
-        "duration": "4-8 weken"
-      },
-      "aiStrategy": {
-        "title": "AI-strategie",
-        "description": "Helpen begrijpen waar AI past en waar niet, wat realistisch is, en wat prioriteit verdient. Geen hype — eerlijk advies.",
-        "forWhom": "Management dat weet dat ze iets met AI moeten maar niet weet wat.",
-        "deliverables": ["AI readiness assessment", "Geprioriteerde use case lijst", "Business case per use case"],
-        "duration": "2-4 weken"
-      },
-      "modelDevelopment": {
-        "title": "AI Model Development",
-        "description": "Custom modellen voor specifieke bedrijfsproblemen: classificatie, voorspelling, extractie, en meer.",
-        "forWhom": "Bedrijven met een specifiek probleem dat met standaard tools niet opgelost wordt.",
-        "deliverables": ["Getraind model", "Evaluatierapport", "Integratie in bestaande systemen"],
-        "duration": "4-12 weken"
-      },
-      "automation": {
-        "title": "Automatiseringen",
-        "description": "Systemen verbinden, handmatig werk elimineren, en AI inzetten voor repetitieve processen. Workflows herontwerpen, niet tools stapelen.",
-        "forWhom": "Teams die dagelijks uren kwijt zijn aan kopiëren, plakken, en handmatig verwerken.",
-        "deliverables": ["Geautomatiseerde workflows", "Integraties tussen systemen", "Monitoring en alerting"],
-        "duration": "2-8 weken"
+      "run": {
+        "eyebrow": "Fase 3",
+        "title": "Draaiend houden en meenemen",
+        "sub": "Wat er staat moet blijven werken zonder jou, en je team moet zelf verder kunnen."
       }
     },
+    "custom": {
+      "eyebrow": "Buiten de pakketten om",
+      "title": "Ook mogelijk",
+      "subtitle": "Past je vraag niet in een pakket? Dan doen we het op maat. Dit komt het vaakst voorbij:",
+      "items": [
+        "Data engineering op maat — pipelines, warehousing en integraties buiten een pakket om",
+        "Ad-hoc analyse — één scherpe vraag over pricing, churn of funnel, uitgezocht en onderbouwd",
+        "Custom modellen — classificatie, voorspelling of extractie waar standaardtools tekortschieten",
+        "Interim-inzet — een of twee dagen per week naast je team, voor langer lopend werk"
+      ],
+      "cta": "Leg je vraag voor"
+    },
+    "proof": {
+      "eyebrow": "Bewijs",
+      "title": "Waarom je dit van mij zou aannemen",
+      "subtitle": "Ik heb datawerk gedaan in de luchtvaart en bij de politie, waar een verkeerd cijfer echte gevolgen heeft. En sinds 2020 leg ik op Udemy complexe techniek uit aan duizenden mensen zonder technische achtergrond — wat het grootste deel van dit vak is.",
+      "cta": "Bekijk de projecten"
+    },
+    "faq": {
+      "eyebrow": "Praktisch",
+      "title": "Wat je meestal wilt weten",
+      "items": [
+        {
+          "q": "Waarom een vaste prijs in plaats van een uurtarief?",
+          "a": "Omdat je een resultaat koopt, geen uren. De scope en de prijs staan vooraf op papier; loopt het uit, dan is dat mijn probleem en niet dat van jou. Werk buiten de pakketten om doe ik op basis van een dagtarief — dat noem ik in het eerste gesprek."
+        },
+        {
+          "q": "Hoe verloopt een opdracht?",
+          "a": "Eerst een kort kennismakingsgesprek. Daarna een voorstel met scope, planning en prijs op één pagina. Tijdens de opdracht krijg je wekelijks een korte update en werkende software om naar te kijken — geen statusrapport achteraf. We sluiten af met documentatie en een overdrachtssessie."
+        },
+        {
+          "q": "Werk je op locatie of remote?",
+          "a": "Allebei. Ik werk vanuit Noord-Holland en kom graag langs voor de start, de tussentijdse sessies en de overdracht. Het bouwwerk zelf doe ik remote — dat gaat sneller."
+        },
+        {
+          "q": "Wat voor contract sluiten we?",
+          "a": "Een overeenkomst van opdracht met een resultaatsverplichting: afgebakende scope, vaste prijs, duidelijke oplevering. Ik ben gewend te werken bij opdrachtgevers met eigen inkoopvoorwaarden en eisen aan informatiebeveiliging."
+        }
+      ]
+    },
     "cta": {
-      "title": "Wil je weten wat dit voor jouw bedrijf kan betekenen?",
-      "subtitle": "Plan een vrijblijvend kennismakingsgesprek en we kijken samen waar de kansen liggen.",
+      "title": "Niet zeker welk pakket past?",
+      "subtitle": "Plan een vrijblijvend gesprek van een half uur. Dan weet je het — en zit je nergens aan vast.",
       "button": "Plan een gesprek"
     }
   },
   "about": {
-    "metaTitle": "Over Ruud Juffermans — Data Analytics & AI Consultant",
-    "metaDescription": "Data Analytics & AI consultant met ervaring in data engineering, Power BI, GenAI en het trainen van teams.",
+    "metaTitle": "Over mij — data engineer bij NLR en de Politie",
+    "metaDescription": "Data- en AI-consultant met een achtergrond bij het NLR en de Politie Noord-Holland, en duizenden cursisten op Udemy. Ik bouw datafundamenten voor rapportage en AI.",
     "eyebrow": "Over mij",
     "name": "Ruud Juffermans",
-    "intro1": "Ik ben Data Analytics & AI consultant met een achtergrond in computer science, data engineering en AI-toepassingen. Ik heb gewerkt in de luchtvaartsector, bij de politie, en duizenden studenten bereikt via online cursussen.",
-    "intro2": "Bij het Nederlands Lucht- en Ruimtevaartcentrum (NLR) bouwde ik als data engineer aan een groot aantal uiteenlopende projecten. Bij de Politie Noord-Holland paste ik AI, data-analyse en automation toe binnen het domein strafrecht — van ongestructureerde data naar bruikbare inzichten.",
-    "intro3": "Dezelfde thema's kwamen terug: bedrijven die op waardevolle data zitten zonder relevante informatie hieruit te ontsluiten, en AI-hype volgen maar niet verder komen dat Copilot voor werknemers. Ik startte deze praktijk om dat gat te dichten — voor bedrijven die geen datateam van 20 man hebben.",
+    "intro1": "Bij de Politie Noord-Holland paste ik data-analyse, automatisering en AI toe binnen het strafrecht — een omgeving waar een verkeerd cijfer echte gevolgen heeft, en waar privacy en informatiebeveiliging geen bijzaak zijn. Daarvoor bouwde ik als data engineer bij het Nederlands Lucht- en Ruimtevaartcentrum aan uiteenlopende dataprojecten.",
+    "intro2": "Sinds 2020 publiceer ik cursussen op Udemy, inmiddels met duizenden cursisten. Complexe techniek uitleggen aan mensen zonder technische achtergrond is daar het hele vak — en het is ook het grootste deel van wat een opdrachtgever bij mij inkoopt. Een dashboard dat niemand begrijpt is geen dashboard.",
+    "intro3": "In beide werelden kwam hetzelfde terug: organisaties die op waardevolle data zitten zonder er informatie uit te halen, en die AI-plannen maken zonder fundament eronder. Ik startte deze praktijk om dat gat te dichten — voor bedrijven die geen datateam van twintig man hebben.",
     "pullQuote": "Ik heb gezien wat er gebeurt als data en AI wél werken.",
     "expertiseTitle": "Expertise",
     "skills": {
@@ -354,10 +514,22 @@
     "timelineEyebrow": "Mijn pad",
     "timelineTitle": "Van student tot consultant",
     "timeline": [
-      { "year": "2019", "label": "Start Computer Science — Business Data Management" },
-      { "year": "2020", "label": "Eerste Udemy-cursussen gepubliceerd" },
-      { "year": "2023", "label": "Data Engineer bij Nederlands Lucht- en Ruimtevaartcentrum" },
-      { "year": "2024", "label": "Data Analist bij Politie Noord-Holland" }
+      {
+        "year": "2019",
+        "label": "Start Computer Science — Business Data Management"
+      },
+      {
+        "year": "2020",
+        "label": "Eerste Udemy-cursussen gepubliceerd"
+      },
+      {
+        "year": "2023",
+        "label": "Data Engineer bij Nederlands Lucht- en Ruimtevaartcentrum"
+      },
+      {
+        "year": "2024",
+        "label": "Data Analist bij Politie Noord-Holland"
+      }
     ],
     "cta": {
       "title": "Wil je samenwerken?",
@@ -412,16 +584,16 @@
       "fallbackNotice": "Dit artikel is nog niet vertaald naar het Nederlands. Je leest de Engelse versie."
     }
   },
-  "portfolio": {
-    "metaTitle": "Portfolio — Data & AI Projecten",
-    "metaDescription": "Projecten en case studies: dashboards, data-pipelines, RAG-systemen en AI-automatiseringen.",
-    "eyebrow": "Portfolio",
-    "title": "Projecten en case studies",
-    "subtitle": "Van data-architectuur tot AI-oplossingen. Elk project bevat het probleem, de aanpak, en het resultaat.",
+  "projects": {
+    "metaTitle": "Projecten — Data & AI in de praktijk",
+    "metaDescription": "Eigen projecten waarin ik de complete keten bouw: van ruwe bron tot dashboard en werkende AI-toepassing.",
+    "eyebrow": "Projecten",
+    "title": "Wat ik bouw, en hoe",
+    "subtitle": "Eigen projecten waarin ik de complete keten bouw — van ruwe bron tot werkend dashboard of AI-toepassing. Geen betaald klantwerk en geen klantnamen: wel de volledige aanpak, zodat je kunt zien hoe ik werk.",
     "view": "Bekijk project",
     "empty": {
-      "title": "Portfolio in opbouw",
-      "body": "Ik werk aan case studies en showcase-projecten. Kom binnenkort terug, of neem alvast contact op voor een gesprek."
+      "title": "Projecten in opbouw",
+      "body": "Ik werk aan uitgewerkte projecten. Kom binnenkort terug, of neem alvast contact op voor een gesprek."
     },
     "detail": {
       "fallbackNotice": "Dit project is nog niet vertaald naar het Nederlands. Je leest de Engelse versie."
@@ -468,7 +640,7 @@
     ]
   },
   "footer": {
-    "tagline": "Data Analytics & AI Consultant. Ik help bedrijven data-gedreven en AI-enabled te worden.",
+    "tagline": "Ik bouw datafundamenten waar je rapportage én je AI op draaien. Vaste scope, vaste prijs, in weken.",
     "servicesHeading": "Diensten",
     "moreHeading": "Meer",
     "newsletterHeading": "Nieuwsbrief",
@@ -478,12 +650,13 @@
     "newsletterSuccess": "Ingeschreven!",
     "newsletterError": "Er ging iets mis. Probeer het opnieuw.",
     "servicesLinks": {
-      "data": "Data Analytics",
-      "ai": "AI & GenAI",
-      "training": "Training"
+      "scan": "Datascan",
+      "truth": "Één versie van de waarheid",
+      "reporting": "Rapportage-automatisering",
+      "ai": "AI-prototype"
     },
     "moreLinks": {
-      "portfolio": "Portfolio",
+      "projects": "Projecten",
       "blog": "Blog",
       "about": "Over mij",
       "privacy": "Privacy"

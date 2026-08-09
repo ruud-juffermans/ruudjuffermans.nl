@@ -1,29 +1,22 @@
-import { Box, Container, Typography, Card, CardContent, Button } from "@mui/material";
+import { Box, Container, Typography, Button, Chip } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import CheckIcon from "@mui/icons-material/CheckRounded";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Reveal from "@/components/Reveal";
+import LinkButton from "@/components/LinkButton";
 import PageViewTracker from "@/components/PageViewTracker";
+import { PACKAGE_SLUGS, getPackage } from "@/lib/packages";
+import { formatPackagePrice, packageSteps } from "@/lib/packageContent";
 import { routing, type Locale } from "@/i18n/routing";
 import { palette } from "@/theme/theme";
 import type { Metadata } from "next";
 
-// The three service detail pages; content lives in the serviceDetail
-// translation namespace under these keys.
-const SERVICES = {
-  "data-engineering": { accent: "#3B82F6" },
-  "data-analytics": { accent: palette.red },
-  "ai-genai": { accent: "#8B5CF6" },
-} as const;
-
-type ServiceSlug = keyof typeof SERVICES;
-const slugs = Object.keys(SERVICES) as ServiceSlug[];
-
 export function generateStaticParams() {
-  return routing.locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })));
+  return routing.locales.flatMap((locale) => PACKAGE_SLUGS.map((slug) => ({ locale, slug })));
 }
 
 export async function generateMetadata({
@@ -32,37 +25,39 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  if (!(slug in SERVICES)) return {};
-  const t = await getTranslations({ locale, namespace: "serviceDetail" });
+  const pkg = getPackage(slug);
+  if (!pkg) return {};
+  const tp = await getTranslations({ locale, namespace: "packages" });
   return {
-    title: t(`${slug as ServiceSlug}.metaTitle`),
-    description: t(`${slug as ServiceSlug}.metaDescription`),
+    title: tp(`${pkg.slug}.name`),
+    description: tp(`${pkg.slug}.promise`),
   };
 }
 
-export default async function ServiceDetailPage({
+export default async function PackageDetailPage({
   params,
 }: {
   params: Promise<{ locale: Locale; slug: string }>;
 }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  if (!(slug in SERVICES)) notFound();
-  const service = slug as ServiceSlug;
-  const { accent } = SERVICES[service];
+  const pkg = getPackage(slug);
+  if (!pkg) notFound();
 
-  const t = await getTranslations("serviceDetail");
-  const items = [1, 2, 3, 4].map((i) => ({
-    title: t(`${service}.item${i}Title`),
-    body: t(`${service}.item${i}Body`),
-  }));
+  const tp = await getTranslations("packages");
+  const ts = await getTranslations("services");
+  const { accent } = pkg;
+
+  const deliverables = tp.raw(`${pkg.slug}.deliverables`) as string[];
+  const steps = packageSteps(pkg, tp);
+  const price = formatPackagePrice(pkg, tp, locale);
 
   return (
     <>
-      <PageViewTracker path={`/services/${service}`} locale={locale} />
+      <PageViewTracker path={`/services/${pkg.slug}`} locale={locale} />
 
-      {/* Hero */}
-      <Box sx={{ pt: { xs: 10, md: 15 }, pb: { xs: 6, md: 9 } }}>
+      {/* Hero — name, the situation, the promise */}
+      <Box sx={{ pt: { xs: 9, md: 13 }, pb: { xs: 6, md: 9 } }}>
         <Container>
           <Button
             component={Link}
@@ -70,110 +65,277 @@ export default async function ServiceDetailPage({
             startIcon={<ArrowBackIcon />}
             sx={{ mb: 4, color: "var(--app-text-secondary)", "&:hover": { color: palette.red } }}
           >
-            {t("backToServices")}
+            {tp("labels.back")}
           </Button>
-          <Box sx={{ maxWidth: 700 }}>
-            <Typography variant="overline" sx={{ mb: 2, display: "block", color: accent }}>
-              {t(`${service}.eyebrow`)}
-            </Typography>
+          <Box sx={{ maxWidth: 760 }}>
+            <Chip
+              label={tp(`${pkg.slug}.duration`)}
+              size="small"
+              sx={{
+                mb: 2.5,
+                fontWeight: 600,
+                backgroundColor: `color-mix(in srgb, ${accent} 12%, transparent)`,
+                color: accent,
+              }}
+            />
             <Typography variant="h1" sx={{ mb: 3 }}>
-              {t(`${service}.title`)}
+              {tp(`${pkg.slug}.name`)}
             </Typography>
-            <Typography variant="subtitle1">{t(`${service}.intro`)}</Typography>
+            <Typography variant="subtitle1" sx={{ mb: 4 }}>
+              {tp(`${pkg.slug}.intro`)}
+            </Typography>
+
+            <Box
+              sx={{
+                p: { xs: 3, md: 4 },
+                borderRadius: "16px",
+                borderLeft: `3px solid ${accent}`,
+                backgroundColor: `color-mix(in srgb, ${accent} 7%, transparent)`,
+              }}
+            >
+              <Typography
+                variant="overline"
+                sx={{ display: "block", color: accent, mb: 0.75, letterSpacing: "0.14em" }}
+              >
+                {tp("labels.recognise")}
+              </Typography>
+              <Typography variant="body1" sx={{ mb: 2.5 }}>
+                {tp(`${pkg.slug}.recognise`)}
+              </Typography>
+              <Typography
+                sx={{
+                  fontFamily: "var(--font-heading)",
+                  fontWeight: 650,
+                  fontSize: "1.2rem",
+                  lineHeight: 1.35,
+                  color: palette.gray900,
+                }}
+              >
+                {tp(`${pkg.slug}.promise`)}
+              </Typography>
+            </Box>
           </Box>
         </Container>
       </Box>
 
-      {/* What I do */}
-      <Box sx={{ pb: { xs: 8, md: 12 } }}>
+      {/* What you get + the fixed terms */}
+      <Box
+        sx={{
+          py: { xs: 8, md: 11 },
+          backgroundColor: palette.offWhite,
+          borderTop: `1px solid var(--app-border-soft)`,
+          borderBottom: `1px solid var(--app-border-soft)`,
+        }}
+      >
         <Container>
-          <Typography variant="h3" sx={{ mb: 4 }}>
-            {t("whatTitle")}
-          </Typography>
-          <Grid container spacing={3}>
-            {items.map((item, i) => (
-              <Grid key={item.title} size={{ xs: 12, sm: 6 }}>
-                <Reveal delay={i * 90}>
-                  <Card
+          <Grid container spacing={{ xs: 5, md: 8 }}>
+            <Grid size={{ xs: 12, md: 7 }}>
+              <Reveal variant="rise">
+                <Typography variant="h3" sx={{ mb: 3 }}>
+                  {tp("labels.deliverables")}
+                </Typography>
+                <Box component="ul" sx={{ listStyle: "none", m: 0, p: 0, display: "grid", gap: 2 }}>
+                  {deliverables.map((item) => (
+                    <Box
+                      component="li"
+                      key={item}
+                      sx={{ display: "flex", gap: 1.5, alignItems: "flex-start" }}
+                    >
+                      <CheckIcon sx={{ fontSize: 20, color: accent, mt: "3px", flexShrink: 0 }} />
+                      <Typography variant="body1">{item}</Typography>
+                    </Box>
+                  ))}
+                </Box>
+                {pkg.hasBridge && (
+                  <Typography
                     sx={{
-                      height: "100%",
-                      borderRadius: "20px",
-                      border: "1px solid var(--app-border-soft)",
-                      boxShadow: "none",
-                      transition: "border-color 0.25s ease, transform 0.25s ease",
-                      "&:hover": {
-                        borderColor: accent,
-                        transform: "translateY(-2px)",
-                      },
+                      mt: 3.5,
+                      fontWeight: 600,
+                      color: palette.gray900,
+                      fontSize: "1.02rem",
                     }}
                   >
-                    <CardContent sx={{ p: { xs: 3, md: 4 } }}>
-                      <Box
-                        aria-hidden
-                        sx={{
-                          width: 42,
-                          height: 42,
-                          mb: 2,
-                          borderRadius: "12px",
-                          display: "inline-flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          backgroundColor: `color-mix(in srgb, ${accent} 12%, transparent)`,
-                          color: accent,
-                          fontFamily: "var(--font-heading)",
-                          fontWeight: 800,
-                        }}
-                      >
-                        {String(i + 1).padStart(2, "0")}
-                      </Box>
-                      <Typography variant="h5" sx={{ mb: 1.5 }}>
-                        {item.title}
-                      </Typography>
-                      <Typography variant="body1" sx={{ color: "var(--app-text-secondary)" }}>
-                        {item.body}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Reveal>
-              </Grid>
-            ))}
+                    {tp(`${pkg.slug}.bridge`)}
+                  </Typography>
+                )}
+              </Reveal>
+            </Grid>
+
+            <Grid size={{ xs: 12, md: 5 }}>
+              <Reveal variant="rise" delay={120}>
+                <Box
+                  sx={{
+                    p: { xs: 3.5, md: 4.5 },
+                    borderRadius: "20px",
+                    border: `1px solid var(--app-border-soft)`,
+                    backgroundColor: "var(--app-surface-elevated)",
+                  }}
+                >
+                  <Box sx={{ mb: 3 }}>
+                    <Typography
+                      variant="overline"
+                      sx={{ display: "block", color: "var(--app-text-muted)", mb: 0.5 }}
+                    >
+                      {tp("labels.duration")}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontFamily: "var(--font-heading)",
+                        fontWeight: 700,
+                        fontSize: "1.6rem",
+                        color: palette.gray900,
+                      }}
+                    >
+                      {tp(`${pkg.slug}.duration`)}
+                    </Typography>
+                  </Box>
+                  <Box sx={{ mb: 3.5 }}>
+                    <Typography
+                      variant="overline"
+                      sx={{ display: "block", color: "var(--app-text-muted)", mb: 0.5 }}
+                    >
+                      {tp("labels.price")}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontFamily: "var(--font-heading)",
+                        fontWeight: 700,
+                        fontSize: "1.6rem",
+                        color: accent,
+                      }}
+                    >
+                      {price}
+                    </Typography>
+                  </Box>
+                  <Button
+                    variant="contained"
+                    component={Link}
+                    href="/contact"
+                    endIcon={<ArrowForwardIcon />}
+                    sx={{ width: "100%" }}
+                  >
+                    {ts("cta.button")}
+                  </Button>
+                  {pkg.proofSlug && (
+                    <LinkButton
+                      href={{ pathname: "/projects/[slug]", params: { slug: pkg.proofSlug } }}
+                      endIcon={<ArrowForwardIcon />}
+                      sx={{ width: "100%", mt: 1.5, color: accent }}
+                    >
+                      {tp("labels.proof")}
+                    </LinkButton>
+                  )}
+                </Box>
+              </Reveal>
+            </Grid>
           </Grid>
         </Container>
       </Box>
 
-      {/* CTA */}
-      <Box sx={{ pb: { xs: 10, md: 14 } }}>
+      {/* How the engagement runs, week by week */}
+      <Box sx={{ py: { xs: 9, md: 13 } }}>
         <Container>
-          <Reveal>
-            <Box
+          <Reveal variant="rise">
+            <Typography variant="h2" sx={{ mb: { xs: 5, md: 7 } }}>
+              {tp("labels.timeline")}
+            </Typography>
+          </Reveal>
+          {/* Packages run 3 or 4 steps; either way they fill one desktop row. */}
+          {(() => {
+            const mdSpan = Math.floor(12 / steps.length);
+            return (
+          <Grid container spacing={{ xs: 0, sm: 4, md: 5 }}>
+            {steps.map((step, i) => (
+              <Grid size={{ xs: 12, sm: 6, md: mdSpan }} key={step.label}>
+                <Reveal variant="rise" delay={i * 100} sx={{ height: "100%" }}>
+                  <Box
+                    sx={{
+                      height: "100%",
+                      py: { xs: 3.5, sm: 0 },
+                      borderTop: {
+                        xs: i > 0 ? `1px solid var(--app-border-soft)` : "none",
+                        sm: "none",
+                      },
+                    }}
+                  >
+                    <Typography
+                      aria-hidden
+                      sx={{
+                        fontFamily: "var(--font-heading)",
+                        fontWeight: 800,
+                        fontSize: { xs: "2.4rem", md: "3rem" },
+                        lineHeight: 1,
+                        letterSpacing: "-0.04em",
+                        color: "transparent",
+                        WebkitTextStroke: `1.5px ${accent}`,
+                        opacity: 0.55,
+                        mb: 1.75,
+                        fontVariantNumeric: "tabular-nums",
+                      }}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </Typography>
+                    <Typography variant="h5" sx={{ mb: 1 }}>
+                      {step.label}
+                    </Typography>
+                    <Typography variant="body1">{step.body}</Typography>
+                  </Box>
+                </Reveal>
+              </Grid>
+            ))}
+          </Grid>
+            );
+          })()}
+        </Container>
+      </Box>
+
+      {/* CTA — full-bleed dark section that blends into the footer (same
+          #070B15); the radial glow rises from the bottom edge in the
+          package accent */}
+      <Box
+        sx={{
+          position: "relative",
+          overflow: "hidden",
+          backgroundColor: "#070B15",
+          py: { xs: 12, md: 15 },
+          textAlign: "center",
+          "&::before": {
+            content: '""',
+            position: "absolute",
+            inset: 0,
+            background: `radial-gradient(640px 340px at 50% 115%, color-mix(in srgb, ${accent} 35%, transparent), transparent 70%)`,
+            pointerEvents: "none",
+          },
+        }}
+      >
+        <Container sx={{ position: "relative" }}>
+          <Reveal variant="rise">
+            <Typography
+              variant="h2"
               sx={{
-                borderRadius: "24px",
-                border: "1px solid var(--app-border-soft)",
-                background: `linear-gradient(135deg, color-mix(in srgb, ${accent} 8%, var(--app-bg)), var(--app-bg))`,
-                p: { xs: 4, md: 7 },
-                textAlign: "center",
+                color: palette.white,
+                fontSize: "clamp(32px, 5vw, 56px)",
+                maxWidth: 720,
+                mx: "auto",
               }}
             >
-              <Typography variant="h3" sx={{ mb: 2 }}>
-                {t("ctaTitle")}
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{ mb: 4, color: "var(--app-text-secondary)", maxWidth: 480, mx: "auto" }}
-              >
-                {t("ctaBody")}
-              </Typography>
-              <Button
-                variant="contained"
-                component={Link}
-                href="/contact"
-                size="large"
-                endIcon={<ArrowForwardIcon />}
-                sx={{ px: 5 }}
-              >
-                {t("ctaButton")}
-              </Button>
-            </Box>
+              {ts("cta.title")}
+            </Typography>
+            <Typography
+              sx={{ mt: 2.25, mb: 6, color: "#a3a3a3", fontSize: 17, maxWidth: 560, mx: "auto" }}
+            >
+              {ts("cta.subtitle")}
+            </Typography>
+            <Button
+              variant="contained"
+              size="large"
+              component={Link}
+              href="/contact"
+              endIcon={<ArrowForwardIcon />}
+              sx={{ px: 7, width: { xs: "100%", sm: "auto" }, maxWidth: 360 }}
+            >
+              {ts("cta.button")}
+            </Button>
           </Reveal>
         </Container>
       </Box>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Link } from "@/i18n/navigation";
-import type { PortfolioMeta } from "@/lib/content";
+import type { ProjectMeta } from "@/lib/content";
 import styles from "./ProjectShowcase.module.css";
 
 const ROTATE_MS = 8000;
@@ -14,7 +14,7 @@ export default function ProjectShowcase({
   projects,
   viewCaseLabel,
 }: {
-  projects: PortfolioMeta[];
+  projects: ProjectMeta[];
   viewCaseLabel: string;
 }) {
   const [active, setActive] = useState(0);
@@ -69,7 +69,7 @@ export default function ProjectShowcase({
               <span className={styles.duration}>{project.duration}</span>
               <Link
                 className={styles.link}
-                href={{ pathname: "/portfolio/[slug]", params: { slug: project.slug } }}
+                href={{ pathname: "/projects/[slug]", params: { slug: project.slug } }}
               >
                 {viewCaseLabel} <span aria-hidden="true">→</span>
               </Link>

@@ -4,11 +4,9 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import StorageIcon from "@mui/icons-material/StorageOutlined";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesomeOutlined";
 import HandshakeIcon from "@mui/icons-material/HandshakeOutlined";
-import TuneIcon from "@mui/icons-material/TuneOutlined";
 import MenuBookIcon from "@mui/icons-material/MenuBookOutlined";
 import EuroIcon from "@mui/icons-material/EuroOutlined";
 import ShieldIcon from "@mui/icons-material/ShieldOutlined";
-import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremiumOutlined";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Reveal from "@/components/Reveal";
@@ -19,9 +17,34 @@ import ServicesShowcase from "@/components/ServicesShowcase";
 import FlowLines from "@/components/FlowLines";
 import UnderTheHood from "@/components/UnderTheHood";
 import Availability from "@/components/Availability";
+import ProofStrip from "@/components/ProofStrip";
+import PackageCard from "@/components/PackageCard";
+import WhyFreelanceAccordion from "@/components/WhyFreelanceAccordion";
+import { FEATURED_PACKAGE, PACKAGES } from "@/lib/packages";
+import {
+  buildPackageCardProps,
+  formatPackagePrice,
+  packageCardLabels,
+} from "@/lib/packageContent";
 import { getBlogPosts } from "@/lib/content";
 import type { Locale } from "@/i18n/routing";
 import { palette } from "@/theme/theme";
+import type { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "home" });
+  return {
+    // `absolute` bypasses the layout's "%s | Ruud Juffermans" template, which
+    // would otherwise repeat the name that's already in this title.
+    title: { absolute: t("metaTitle") },
+    description: t("metaDescription"),
+  };
+}
 
 export default async function Home({
   params,
@@ -32,6 +55,7 @@ export default async function Home({
   setRequestLocale(locale);
   const t = await getTranslations("home");
   const tc = await getTranslations("common");
+  const tp = await getTranslations("packages");
   const posts = getBlogPosts(locale).slice(0, 3);
 
   const problemCards = [
@@ -112,13 +136,13 @@ export default async function Home({
     ],
   }));
 
+  // Four reasons that are specific to Ruud; the generic consultancy-brochure
+  // lines ("one point of contact", "flexible") were cut deliberately.
   const whyFreelanceCards = [
-    { icon: <HandshakeIcon sx={{ fontSize: 21 }} />, key: "card1" },
-    { icon: <TuneIcon sx={{ fontSize: 21 }} />, key: "card2" },
+    { icon: <EuroIcon sx={{ fontSize: 21 }} />, key: "card1" },
+    { icon: <ShieldIcon sx={{ fontSize: 21 }} />, key: "card2" },
     { icon: <MenuBookIcon sx={{ fontSize: 21 }} />, key: "card3" },
-    { icon: <EuroIcon sx={{ fontSize: 21 }} />, key: "card4" },
-    { icon: <ShieldIcon sx={{ fontSize: 21 }} />, key: "card5" },
-    { icon: <WorkspacePremiumIcon sx={{ fontSize: 21 }} />, key: "card6" },
+    { icon: <HandshakeIcon sx={{ fontSize: 21 }} />, key: "card4" },
   ].map(({ icon, key }) => ({
     icon,
     title: t(`whyFreelance.${key}Title`),
@@ -126,13 +150,26 @@ export default async function Home({
   }));
 
   // ── Flow backdrop ─────────────────────────────────────────────────────────
-  // The scrolling line animation lives inside the "How I Work" section only —
-  // <FlowLines /> sizes itself to whichever wrapper holds it, so its span is
-  // set by placement, not by hiding it elsewhere. Layering inside that section:
-  // its own background, then the lines, then the same background again at
-  // 100 - FLOW_SHOW percent, then the content.
+  // The scrolling line animation lives inside the "How I Work" and Problem
+  // Statement sections — <FlowLines /> sizes itself to whichever wrapper holds
+  // it, so its span is set by placement, not by hiding it elsewhere. Layering
+  // inside each section: its own background, then the lines, then the same
+  // background again at 100 - FLOW_SHOW percent, then the content.
   const FLOW_SHOW = 55;
   const FLOW_BG = "var(--app-bg)";
+
+  // The homepage shows the Datascan in full and the other four as teasers —
+  // the detailed seven-slot treatment belongs on /diensten, not here.
+  const packageLabels = packageCardLabels(tp);
+  const featuredCard = buildPackageCardProps(FEATURED_PACKAGE, tp, locale, packageLabels);
+  const packageTeasers = PACKAGES.filter((pkg) => !pkg.featured).map((pkg) => ({
+    slug: pkg.slug,
+    accent: pkg.accent,
+    name: tp(`${pkg.slug}.name`),
+    promise: tp(`${pkg.slug}.promise`),
+    duration: tp(`${pkg.slug}.duration`),
+    price: formatPackagePrice(pkg, tp, locale),
+  }));
 
   const steps = [
     { step: "01", title: t("process.step1Title"), description: t("process.step1Body") },
@@ -196,9 +233,17 @@ export default async function Home({
               </Typography>
             </Reveal>
             <Reveal variant="rise" delay={240}>
-              <Typography variant="subtitle1" sx={{ mb: 6, maxWidth: 620 }}>
+              <Typography variant="subtitle1" sx={{ mb: 4, maxWidth: 620 }}>
                 {t("hero.subtitle")}
               </Typography>
+            </Reveal>
+            {/* Proof before tools: the police work and the courses are the
+                reason to believe the claim above, so they sit directly under
+                it rather than buried in the About timeline. */}
+            <Reveal variant="fade" delay={300}>
+              <Box sx={{ mb: 6 }}>
+                <ProofStrip />
+              </Box>
             </Reveal>
             <Reveal variant="rise" delay={360}>
               <Box
@@ -221,7 +266,7 @@ export default async function Home({
                   variant="outlined"
                   size="large"
                   component={Link}
-                  href="/portfolio"
+                  href="/services"
                   endIcon={<ArrowForwardIcon />}
                   sx={{
                     px: 6,
@@ -287,9 +332,280 @@ export default async function Home({
         </Container>
       </Box>
 
+            {/* Problem Statement — carries the same flowing-line backdrop as
+          "How I Work", dimmed by a second pass of its own background */}
+      <Box
+        sx={{
+          py: { xs: 10, md: 14 },
+          position: "relative",
+          overflow: "hidden",
+          backgroundColor: palette.offWhite,
+          borderTop: `1px solid var(--app-border-soft)`,
+          borderBottom: `1px solid var(--app-border-soft)`,
+          "&::after": {
+            content: '""',
+            position: "absolute",
+            inset: 0,
+            background: palette.offWhite,
+            opacity: (100 - FLOW_SHOW) / 100,
+            pointerEvents: "none",
+          },
+          "& > .MuiContainer-root": { position: "relative", zIndex: 1 },
+        }}
+      >
+        <FlowLines />
+        <Container>
+          <Reveal variant="rise">
+            <Typography variant="overline" sx={{ mb: 1.5, display: "block" }}>
+              {t("problem.eyebrow")}
+            </Typography>
+            <Typography variant="h2" sx={{ mb: { xs: 5, md: 8 }, maxWidth: 600 }}>
+              {t("problem.title")}
+            </Typography>
+          </Reveal>
+          {/* One connected card: the three problems sit in a single panel
+              divided by hairlines (stacked on mobile, side by side on md+),
+              under one shared accent line with the sweeping glow. */}
+          <Reveal variant="rise" delay={120}>
+            <Card
+              sx={{
+                position: "relative",
+                overflow: "hidden",
+                display: "flex",
+                flexDirection: { xs: "column", md: "row" },
+                // On md+ the accent gradient restarts at each of the three
+                // sections; on mobile it runs once across the full width.
+                "&::before": {
+                  content: '""',
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: 2,
+                  backgroundImage: `linear-gradient(to right, ${palette.red}, transparent 70%)`,
+                  backgroundSize: { xs: "100% 100%", md: "33.334% 100%" },
+                  backgroundRepeat: "repeat-x",
+                  opacity: 0.6,
+                  transition: "opacity 0.3s",
+                },
+                // A bright glow sweeping the full width of the accent line.
+                "&::after": {
+                  content: '""',
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: 2,
+                  background:
+                    "linear-gradient(90deg, transparent, var(--app-red-light) 50%, transparent)",
+                  backgroundSize: "25% 100%",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "-35% 0",
+                  animation: "problemAccentSweep 4s ease-in-out infinite",
+                  "@media (prefers-reduced-motion: reduce)": {
+                    animation: "none",
+                  },
+                },
+                "@keyframes problemAccentSweep": {
+                  "0%": { backgroundPosition: "-35% 0" },
+                  "65%": { backgroundPosition: "135% 0" },
+                  "100%": { backgroundPosition: "135% 0" },
+                },
+                "@media (hover: hover)": {
+                  "&:hover::before": { opacity: 1 },
+                },
+              }}
+            >
+              {problemCards.map((card, i) => (
+                <Box
+                  key={card.title}
+                  sx={{
+                    flex: 1,
+                    p: { xs: 4, md: 5 },
+                    position: "relative",
+                    // Dividers: on md+ a plain static hairline between the
+                    // columns; on mobile they mirror the top accent — same
+                    // red-to-transparent base (::before) and sweeping glow
+                    // (::after), staggered down the stack.
+                    ...(i > 0 && {
+                      "&::before": {
+                        content: '""',
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        right: { xs: 0, md: "auto" },
+                        bottom: { xs: "auto", md: 0 },
+                        height: { xs: "2px", md: "auto" },
+                        width: { xs: "auto", md: "1px" },
+                        background: {
+                          xs: `linear-gradient(to right, ${palette.red}, transparent 70%)`,
+                          md: "var(--app-border-soft)",
+                        },
+                        opacity: { xs: 0.6, md: 1 },
+                      },
+                      "&::after": {
+                        content: '""',
+                        display: { xs: "block", md: "none" },
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: "2px",
+                        background:
+                          "linear-gradient(90deg, transparent, var(--app-red-light) 50%, transparent)",
+                        backgroundSize: "25% 100%",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "-35% 0",
+                        animation: "problemAccentSweep 4s ease-in-out infinite",
+                        animationDelay: i === 1 ? "0.85s" : "1.7s",
+                        "@media (prefers-reduced-motion: reduce)": {
+                          animation: "none",
+                        },
+                      },
+                      "@keyframes problemAccentSweep": {
+                        "0%": { backgroundPosition: "-35% 0" },
+                        "65%": { backgroundPosition: "135% 0" },
+                        "100%": { backgroundPosition: "135% 0" },
+                      },
+                    }),
+                  }}
+                >
+                  <Typography variant="h4" sx={{ mb: 1.5 }}>
+                    {card.title}
+                  </Typography>
+                  <Typography variant="body1">{card.description}</Typography>
+                </Box>
+              ))}
+            </Card>
+          </Reveal>
+          <Reveal variant="fade" delay={400}>
+            <Typography
+              variant="body1"
+              sx={{ mt: 5, fontWeight: 500, color: palette.gray900, maxWidth: 700 }}
+            >
+              {t("problem.closer")}
+            </Typography>
+          </Reveal>
+        </Container>
+      </Box>
+
+      {/* Packages — the Datascan as the entry point, the rest as teasers.
+          This is what the three discipline blocks used to be: the homepage now
+          points at things a buyer can actually purchase. */}
+      <Box sx={{ py: { xs: 10, md: 14 } }}>
+        <Container>
+          <Reveal variant="rise">
+            <Typography variant="overline" sx={{ mb: 1.5, display: "block" }}>
+              {t("packages.eyebrow")}
+            </Typography>
+            <Typography variant="h2" sx={{ mb: 2, maxWidth: 600 }}>
+              {t("packages.title")}
+            </Typography>
+            <Typography variant="subtitle1" sx={{ mb: { xs: 5, md: 7 }, maxWidth: 640 }}>
+              {t("packages.subtitle")}
+            </Typography>
+          </Reveal>
+
+          <Reveal variant="rise" delay={80}>
+            <PackageCard {...featuredCard} featured />
+          </Reveal>
+
+          {/* Six teasers in two rows of three. The Datascan isn't among them —
+              it's the wide card above. */}
+          <Grid container spacing={{ xs: 2.5, md: 3 }} sx={{ mt: { xs: 2.5, md: 3 } }}>
+            {packageTeasers.map((pkg, i) => (
+              <Grid size={{ xs: 12, sm: 6, md: 4 }} key={pkg.slug}>
+                <Reveal variant="rise" delay={i * 90} sx={{ height: "100%" }}>
+                  <Card
+                    component={Link}
+                    href={{ pathname: "/services/[slug]", params: { slug: pkg.slug } }}
+                    sx={{
+                      height: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                      position: "relative",
+                      overflow: "hidden",
+                      "&::before": {
+                        content: '""',
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: 3,
+                        background: `linear-gradient(to right, ${pkg.accent}, transparent 80%)`,
+                      },
+                      "@media (hover: hover)": {
+                        "&:hover": {
+                          borderColor: `color-mix(in srgb, ${pkg.accent} 45%, transparent)`,
+                        },
+                      },
+                    }}
+                  >
+                    <CardContent
+                      sx={{
+                        p: { xs: 3.5, md: 4 },
+                        "&:last-child": { pb: { xs: 3.5, md: 4 } },
+                        display: "flex",
+                        flexDirection: "column",
+                        flex: 1,
+                      }}
+                    >
+                      <Typography variant="h5" sx={{ mb: 1.5 }}>
+                        {pkg.name}
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: "var(--app-text-secondary)" }}>
+                        {pkg.promise}
+                      </Typography>
+                      <Box sx={{ flex: 1, minHeight: 16 }} />
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "baseline",
+                          justifyContent: "space-between",
+                          gap: 1.5,
+                          mt: 2.5,
+                          pt: 2,
+                          borderTop: "1px solid var(--app-border-soft)",
+                        }}
+                      >
+                        <Typography variant="body2" sx={{ color: "var(--app-text-muted)" }}>
+                          {pkg.duration}
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontFamily: "var(--font-heading)",
+                            fontWeight: 700,
+                            fontSize: "0.98rem",
+                            color: pkg.accent,
+                            textAlign: "right",
+                          }}
+                        >
+                          {pkg.price}
+                        </Typography>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </Reveal>
+              </Grid>
+            ))}
+          </Grid>
+
+          <Reveal variant="fade" delay={400}>
+            <Button
+              component={Link}
+              href="/services"
+              endIcon={<ArrowForwardIcon />}
+              sx={{ mt: 4, ml: -2 }}
+            >
+              {t("packages.all")}
+            </Button>
+          </Reveal>
+        </Container>
+      </Box>
+
       {/* How I Work — ghost-numbered steps, no card chrome, and the only
           section carrying the flowing-line backdrop */}
-      <Box
+      {/* <Box
         sx={{
           py: { xs: 10, md: 14 },
           position: "relative",
@@ -361,86 +677,34 @@ export default async function Home({
             ))}
           </Grid>
         </Container>
-      </Box>
+      </Box> */}
 
       {/* Projects — dark section with toggleable code panel */}
       <UnderTheHood variants={hoodVariants} allProjectsLabel={t("projects.all")} />
 
-      {/* Problem Statement */}
-      <Box
-        sx={{
-          py: { xs: 10, md: 14 },
-          backgroundColor: palette.offWhite,
-          borderTop: `1px solid var(--app-border-soft)`,
-          borderBottom: `1px solid var(--app-border-soft)`,
-        }}
-      >
-        <Container>
-          <Reveal variant="rise">
-            <Typography variant="overline" sx={{ mb: 1.5, display: "block" }}>
-              {t("problem.eyebrow")}
-            </Typography>
-            <Typography variant="h2" sx={{ mb: { xs: 5, md: 8 }, maxWidth: 600 }}>
-              {t("problem.title")}
-            </Typography>
-          </Reveal>
-          <Grid container spacing={{ xs: 2.5, md: 3 }}>
-            {problemCards.map((card, i) => (
-              <Grid size={{ xs: 12, md: 4 }} key={card.title}>
-                <Reveal variant="rise" delay={i * 120} sx={{ height: "100%" }}>
-                  <Card
-                    sx={{
-                      height: "100%",
-                      position: "relative",
-                      overflow: "hidden",
-                      "&::before": {
-                        content: '""',
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        height: 2,
-                        background: `linear-gradient(to right, ${palette.red}, transparent 70%)`,
-                        opacity: 0.6,
-                        transition: "opacity 0.3s",
-                      },
-                      "@media (hover: hover)": {
-                        "&:hover::before": { opacity: 1 },
-                      },
-                    }}
-                  >
-                    <CardContent sx={{ p: { xs: 4, md: 5 }, "&:last-child": { pb: { xs: 4, md: 5 } } }}>
-                      <Typography variant="h4" sx={{ mb: 1.5 }}>
-                        {card.title}
-                      </Typography>
-                      <Typography variant="body1">{card.description}</Typography>
-                    </CardContent>
-                  </Card>
-                </Reveal>
-              </Grid>
-            ))}
-          </Grid>
-          <Reveal variant="fade" delay={400}>
-            <Typography
-              variant="body1"
-              sx={{ mt: 5, fontWeight: 500, color: palette.gray900, maxWidth: 700 }}
-            >
-              {t("problem.closer")}
-            </Typography>
-          </Reveal>
-        </Container>
-      </Box>
-
       {/* Why a freelancer — six-card band, ported from datavakwerk.nl's
-          "Waarom een zzp'er" section */}
+          "Waarom een zzp'er" section. Carries the circuit-trace variant of the
+          flow backdrop, dimmed the same way as the Problem section. */}
       <Box
         sx={{
           py: { xs: 10, md: 14 },
+          position: "relative",
+          overflow: "hidden",
           backgroundColor: palette.offWhite,
           borderTop: `1px solid var(--app-border-soft)`,
           borderBottom: `1px solid var(--app-border-soft)`,
+          "&::after": {
+            content: '""',
+            position: "absolute",
+            inset: 0,
+            background: palette.offWhite,
+            opacity: (100 - FLOW_SHOW) / 100,
+            pointerEvents: "none",
+          },
+          "& > .MuiContainer-root": { position: "relative", zIndex: 1 },
         }}
       >
+        <FlowLines variant="circuit" />
         <Container>
           <Reveal variant="rise">
             <Typography variant="overline" sx={{ mb: 1.5, display: "block" }}>
@@ -456,7 +720,17 @@ export default async function Home({
               {t("whyFreelance.subtitle")}
             </Typography>
           </Reveal>
-          <Grid container spacing={{ xs: 2.5, md: 3 }}>
+          {/* Mobile: collapsed accordion, one reason open at a time — the top
+              one unfolds on its own as the section scrolls into view. */}
+          <Reveal variant="rise" sx={{ display: { xs: "block", sm: "none" } }}>
+            <WhyFreelanceAccordion items={whyFreelanceCards} />
+          </Reveal>
+
+          <Grid
+            container
+            spacing={{ xs: 2.5, md: 3 }}
+            sx={{ display: { xs: "none", sm: "flex" } }}
+          >
             {whyFreelanceCards.map((card, i) => (
               <Grid size={{ xs: 12, sm: 6, md: 4 }} key={card.title}>
                 {/* stagger per row, like the source section */}
@@ -534,7 +808,45 @@ export default async function Home({
                 </Button>
               </Box>
             </Reveal>
-            <Grid container spacing={2.5}>
+            {/* Below md: swipe carousel — one post per view on phones, two
+                side by side from 600px, with a sliver of the next card peeking
+                in from the right as the swipe affordance. The negative margins
+                cancel the Container's gutters (20px on xs, 32px from sm) so
+                cards can slide to the screen edge. */}
+            <Reveal variant="fade" sx={{ display: { xs: "block", md: "none" } }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: 2,
+                  mx: { xs: "-20px", sm: "-32px" },
+                  px: { xs: "20px", sm: "32px" },
+                  overflowX: "auto",
+                  scrollSnapType: "x mandatory",
+                  scrollPaddingInline: { xs: "20px", sm: "32px" },
+                  pb: 1,
+                  scrollbarWidth: "none",
+                  "&::-webkit-scrollbar": { display: "none" },
+                }}
+              >
+                {posts.map((post) => (
+                  <Box
+                    key={post.slug}
+                    sx={{
+                      flex: { xs: "0 0 88%", sm: "0 0 45%" },
+                      minWidth: 0,
+                      scrollSnapAlign: "start",
+                    }}
+                  >
+                    <BlogCard
+                      post={post}
+                      meta={`${post.date} · ${post.readingTime} ${tc("readingTimeSuffix")}`}
+                    />
+                  </Box>
+                ))}
+              </Box>
+            </Reveal>
+
+            <Grid container spacing={2.5} sx={{ display: { xs: "none", md: "flex" } }}>
               {posts.map((post, i) => (
                 <Grid size={{ xs: 12, sm: 6, md: 4 }} key={post.slug}>
                   <Reveal variant="rise" delay={i * 120} sx={{ height: "100%" }}>

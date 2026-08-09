@@ -15,7 +15,7 @@ export interface PostMeta {
   readingTime: string;
 }
 
-export interface PortfolioMeta {
+export interface ProjectMeta {
   slug: string;
   title: string;
   industry: string;
@@ -31,7 +31,7 @@ function estimateReadingTime(content: string): string {
   return `${minutes} min`;
 }
 
-function listSlugs(kind: "blog" | "portfolio", locale: Locale): string[] {
+function listSlugs(kind: "blog" | "projects", locale: Locale): string[] {
   const dir = path.join(contentDir, kind, locale);
   if (!fs.existsSync(dir)) return [];
   return fs
@@ -40,7 +40,7 @@ function listSlugs(kind: "blog" | "portfolio", locale: Locale): string[] {
     .map((f) => f.replace(/\.mdx$/, ""));
 }
 
-function resolveFile(kind: "blog" | "portfolio", locale: Locale, slug: string) {
+function resolveFile(kind: "blog" | "projects", locale: Locale, slug: string) {
   const primary = path.join(contentDir, kind, locale, `${slug}.mdx`);
   if (fs.existsSync(primary)) return { filePath: primary, usedFallback: false };
   if (locale !== DEFAULT_LOCALE) {
@@ -94,14 +94,14 @@ export function getBlogPost(locale: Locale, slug: string) {
   };
 }
 
-export function getPortfolioItems(locale: Locale = DEFAULT_LOCALE): PortfolioMeta[] {
-  const localeSlugs = new Set(listSlugs("portfolio", locale));
-  const fallbackSlugs = listSlugs("portfolio", DEFAULT_LOCALE);
+export function getProjectItems(locale: Locale = DEFAULT_LOCALE): ProjectMeta[] {
+  const localeSlugs = new Set(listSlugs("projects", locale));
+  const fallbackSlugs = listSlugs("projects", DEFAULT_LOCALE);
   const slugs = Array.from(new Set([...localeSlugs, ...fallbackSlugs]));
 
   return slugs
     .map((slug) => {
-      const resolved = resolveFile("portfolio", locale, slug);
+      const resolved = resolveFile("projects", locale, slug);
       if (!resolved) return null;
       const raw = fs.readFileSync(resolved.filePath, "utf-8");
       const { data } = matter(raw);
@@ -113,13 +113,13 @@ export function getPortfolioItems(locale: Locale = DEFAULT_LOCALE): PortfolioMet
         tags: data.tags || [],
         duration: data.duration || "",
         thumbnail: data.thumbnail,
-      } as PortfolioMeta;
+      } as ProjectMeta;
     })
-    .filter((p): p is PortfolioMeta => p !== null);
+    .filter((p): p is ProjectMeta => p !== null);
 }
 
-export function getPortfolioItem(locale: Locale, slug: string) {
-  const resolved = resolveFile("portfolio", locale, slug);
+export function getProjectItem(locale: Locale, slug: string) {
+  const resolved = resolveFile("projects", locale, slug);
   if (!resolved) return null;
 
   const raw = fs.readFileSync(resolved.filePath, "utf-8");
@@ -133,7 +133,7 @@ export function getPortfolioItem(locale: Locale, slug: string) {
       tags: data.tags || [],
       duration: data.duration || "",
       thumbnail: data.thumbnail,
-    } as PortfolioMeta,
+    } as ProjectMeta,
     content,
     usedFallback: resolved.usedFallback,
   };

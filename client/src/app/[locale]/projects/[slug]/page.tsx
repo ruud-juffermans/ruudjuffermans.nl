@@ -5,14 +5,14 @@ import rehypePrettyCode from "rehype-pretty-code";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { getPortfolioItem, getPortfolioItems } from "@/lib/content";
+import { getProjectItem, getProjectItems } from "@/lib/content";
 import { routing, type Locale } from "@/i18n/routing";
 import { palette } from "@/theme/theme";
 import PageViewTracker from "@/components/PageViewTracker";
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) =>
-    getPortfolioItems(locale).map((item) => ({ locale, slug: item.slug })),
+    getProjectItems(locale).map((item) => ({ locale, slug: item.slug })),
   );
 }
 
@@ -22,7 +22,7 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale; slug: string }>;
 }) {
   const { locale, slug } = await params;
-  const item = getPortfolioItem(locale, slug);
+  const item = getProjectItem(locale, slug);
   if (!item) return {};
   return {
     title: item.meta.title,
@@ -30,30 +30,30 @@ export async function generateMetadata({
   };
 }
 
-export default async function PortfolioDetailPage({
+export default async function ProjectDetailPage({
   params,
 }: {
   params: Promise<{ locale: Locale; slug: string }>;
 }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const item = getPortfolioItem(locale, slug);
+  const item = getProjectItem(locale, slug);
   if (!item) notFound();
 
-  const t = await getTranslations("portfolio");
+  const t = await getTranslations("projects");
   const tc = await getTranslations("common");
 
   return (
     <Box sx={{ py: { xs: 4, md: 8 } }}>
-      <PageViewTracker path={`/portfolio/${slug}`} locale={locale} />
+      <PageViewTracker path={`/projects/${slug}`} locale={locale} />
       <Container maxWidth="md">
         <Button
           component={Link}
-          href="/portfolio"
+          href="/projects"
           startIcon={<ArrowBackIcon />}
           sx={{ mb: 3, color: palette.gray500 }}
         >
-          {tc("backToPortfolio")}
+          {tc("backToProjects")}
         </Button>
 
         {item.usedFallback && (

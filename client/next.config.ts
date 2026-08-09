@@ -28,6 +28,33 @@ const nextConfig: NextConfig = {
         destination: "https://ruudjuffermans.nl/:path*",
         permanent: true,
       },
+      // /portfolio became /projecten (nl) and /projects (en). Config redirects
+      // run before the next-intl middleware, so the old paths never reach it.
+      { source: "/portfolio", destination: "/projecten", permanent: true },
+      { source: "/portfolio/:slug", destination: "/projecten/:slug", permanent: true },
+      { source: "/en/portfolio", destination: "/en/projects", permanent: true },
+      { source: "/en/portfolio/:slug", destination: "/en/projects/:slug", permanent: true },
+      // The three discipline pages were replaced by packaged outcomes. Each
+      // old URL points at the package that now covers that work; data
+      // engineering has no single successor, so it lands on the overview.
+      { source: "/diensten/data-engineering", destination: "/diensten", permanent: true },
+      {
+        source: "/diensten/data-analytics",
+        destination: "/diensten/single-source-of-truth",
+        permanent: true,
+      },
+      { source: "/diensten/ai-genai", destination: "/diensten/ai-prototype", permanent: true },
+      { source: "/en/services/data-engineering", destination: "/en/services", permanent: true },
+      {
+        source: "/en/services/data-analytics",
+        destination: "/en/services/single-source-of-truth",
+        permanent: true,
+      },
+      {
+        source: "/en/services/ai-genai",
+        destination: "/en/services/ai-prototype",
+        permanent: true,
+      },
     ];
   },
   async rewrites() {

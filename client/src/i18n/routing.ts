@@ -14,8 +14,14 @@ export const routing = defineRouting({
       nl: "/diensten/[slug]",
       en: "/services/[slug]",
     },
-    "/portfolio": "/portfolio",
-    "/portfolio/[slug]": "/portfolio/[slug]",
+    "/projects": {
+      nl: "/projecten",
+      en: "/projects",
+    },
+    "/projects/[slug]": {
+      nl: "/projecten/[slug]",
+      en: "/projects/[slug]",
+    },
     "/blog": "/blog",
     "/blog/[slug]": "/blog/[slug]",
     "/about": {

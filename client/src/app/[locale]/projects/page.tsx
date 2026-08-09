@@ -4,7 +4,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Reveal from "@/components/Reveal";
-import { getPortfolioItems } from "@/lib/content";
+import { getProjectItems } from "@/lib/content";
 import type { Locale } from "@/i18n/routing";
 import { palette } from "@/theme/theme";
 import type { Metadata } from "next";
@@ -15,22 +15,22 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "portfolio" });
+  const t = await getTranslations({ locale, namespace: "projects" });
   return {
     title: t("metaTitle"),
     description: t("metaDescription"),
   };
 }
 
-export default async function PortfolioPage({
+export default async function ProjectsPage({
   params,
 }: {
   params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations("portfolio");
-  const items = getPortfolioItems(locale);
+  const t = await getTranslations("projects");
+  const items = getProjectItems(locale);
 
   return (
     <>
@@ -82,7 +82,7 @@ export default async function PortfolioPage({
                   <Reveal variant="rise" delay={(i % 2) * 100} sx={{ height: "100%" }}>
                   <Card
                     component={Link}
-                    href={{ pathname: "/portfolio/[slug]", params: { slug: item.slug } }}
+                    href={{ pathname: "/projects/[slug]", params: { slug: item.slug } }}
                     sx={{ height: "100%", cursor: "pointer" }}
                   >
                     <CardContent sx={{ p: { xs: 4, md: 6 }, "&:last-child": { pb: { xs: 4, md: 6 } } }}>

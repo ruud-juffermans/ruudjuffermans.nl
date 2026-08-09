@@ -106,7 +106,7 @@ export default function UnderTheHood({
                 </div>
               ))}
             </div>
-            <Link className={styles.allLink} href="/portfolio">
+            <Link className={styles.allLink} href="/projects">
               {allProjectsLabel} <span aria-hidden="true">→</span>
             </Link>
           </div>
