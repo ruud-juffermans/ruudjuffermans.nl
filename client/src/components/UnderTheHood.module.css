@@ -11,8 +11,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(760px 400px at 85% 10%, rgba(221, 46, 90, 0.22), transparent 65%),
-    radial-gradient(560px 380px at 8% 90%, rgba(239, 77, 118, 0.1), transparent 60%);
+    radial-gradient(760px 400px at 85% 10%, rgba(37, 99, 235, 0.22), transparent 65%),
+    radial-gradient(560px 380px at 8% 90%, rgba(96, 165, 250,0.1), transparent 60%);
   pointer-events: none;
 }
 
@@ -22,7 +22,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(334deg, #6b97f7, #7525e2, #f7137e);
+  background: linear-gradient(334deg, #6b97f7, #2563eb, #13b6f7);
   background-size: 180% 180%;
   animation: gradient-animation 6s ease infinite;
   opacity: 0.08;
@@ -95,7 +95,7 @@
 }
 
 .toggleBtnActive {
-  background: #dd2e5a;
+  background: #2563eb;
   color: #ffffff;
 }
 
@@ -129,11 +129,11 @@
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  color: #f7a6bc;
+  color: #a6c8f7;
 }
 
 .title {
-  font-family: var(--font-heading), Georgia, serif;
+  font-family: var(--font-heading), "Segoe UI", sans-serif;
   font-weight: 700;
   font-size: clamp(1.9rem, 2.6vw + 1rem, 2.75rem);
   line-height: 1.12;
@@ -166,7 +166,7 @@
   font-family: var(--font-body), "Segoe UI", sans-serif;
   font-size: 15px;
   font-weight: 600;
-  color: #f7a6bc;
+  color: #a6c8f7;
   text-decoration: none;
   transition: gap 0.2s ease, color 0.2s ease;
 }
@@ -195,11 +195,11 @@
   margin-top: 0;
   font-size: 14px;
   font-weight: 500;
-  color: rgba(247, 166, 188, 0.55);
+  color: rgba(166, 200, 247, 0.55);
 }
 
 .allLinkQuiet:hover {
-  color: #f7a6bc;
+  color: #a6c8f7;
 }
 
 .feature {
@@ -223,9 +223,9 @@
   border-radius: 9px;
   display: grid;
   place-items: center;
-  background: rgba(239, 77, 118, 0.12);
-  color: #ef4d76;
-  border: 1px solid rgba(239, 77, 118, 0.25);
+  background: rgba(96, 165, 250,0.12);
+  color: #60a5fa;
+  border: 1px solid rgba(96, 165, 250,0.25);
 }
 
 .feature h4 {
@@ -259,7 +259,7 @@
   background: conic-gradient(
     from 0deg,
     transparent 0 78%,
-    rgba(239, 77, 118, 0.9) 88%,
+    rgba(96, 165, 250,0.9) 88%,
     transparent 96%
   );
   animation: hoodBeamSpin 4.5s linear infinite;
@@ -324,7 +324,7 @@
 }
 
 .tokKey {
-  color: #f7a6bc;
+  color: #a6c8f7;
 }
 .tokStr {
   color: #ffe099;
@@ -337,7 +337,7 @@
 }
 
 .added {
-  background: rgba(239, 77, 118, 0.1);
+  background: rgba(96, 165, 250,0.1);
   animation: hoodLineIn 0.4s ease-out both, hoodDiffPulse 2.4s ease-in-out infinite;
   animation-delay: calc(var(--i) * 90ms), 1s;
 }
@@ -345,10 +345,10 @@
 @keyframes hoodDiffPulse {
   0%,
   100% {
-    background: rgba(239, 77, 118, 0.08);
+    background: rgba(96, 165, 250,0.08);
   }
   50% {
-    background: rgba(239, 77, 118, 0.18);
+    background: rgba(96, 165, 250,0.18);
   }
 }
 
@@ -372,7 +372,7 @@
 }
 
 .tools span:hover {
-  border-color: #ef4d76;
+  border-color: #60a5fa;
   color: #ffffff;
   transform: translateY(-2px);
 }
@@ -425,7 +425,7 @@
     background: rgba(255, 255, 255, 0.05);
   }
   .toggleBtnActive {
-    background: #dd2e5a;
-    border-color: #dd2e5a;
+    background: #2563eb;
+    border-color: #2563eb;
   }
 }

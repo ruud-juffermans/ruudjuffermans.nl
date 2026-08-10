@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Container } from "@mui/material";
 import { Link } from "@/i18n/navigation";
+import SplitText from "./SplitText";
 import styles from "./UnderTheHood.module.css";
 
 type Tok = [cls: keyof typeof TOK_CLASS, txt: string];
@@ -119,7 +120,9 @@ export default function UnderTheHood({
 
         <div className={styles.grid} key={v.key}>
           <div className={styles.colFade}>
-            <h2 className={styles.title}>{v.title}</h2>
+            <h2 className={styles.title}>
+              <SplitText text={v.title} />
+            </h2>
             <p className={styles.sub}>{v.sub}</p>
             <div className={styles.features}>
               {v.features.map((f) => (

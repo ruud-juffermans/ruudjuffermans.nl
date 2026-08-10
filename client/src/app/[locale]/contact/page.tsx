@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { submitContact } from "@/lib/api";
 import { useSession } from "@/lib/session";
+import SplitText from "@/components/SplitText";
 import { palette } from "@/theme/theme";
 
 export default function ContactPage() {
@@ -75,7 +76,7 @@ export default function ContactPage() {
             {t("eyebrow")}
           </Typography>
           <Typography variant="h1" sx={{ mb: 3 }}>
-            {t("title")}
+            <SplitText text={t("title")} />
           </Typography>
           <Typography variant="subtitle1">{t("subtitle")}</Typography>
         </Box>

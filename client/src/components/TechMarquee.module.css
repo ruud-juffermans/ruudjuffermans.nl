@@ -24,7 +24,7 @@
   display: flex;
   gap: 56px;
   width: max-content;
-  animation: scroll 28s linear infinite;
+  animation: scroll 52s linear infinite;
 }
 
 .marquee:hover .track {
@@ -48,7 +48,8 @@
   align-items: center;
   gap: 9px;
   font-family: var(--font-heading), "Segoe UI", sans-serif;
-  font-weight: 600;
+  font-weight: 400;
+  opacity: 80%;
   font-size: 17px;
   color: var(--app-text-muted);
   white-space: nowrap;

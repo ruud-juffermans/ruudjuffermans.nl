@@ -2,6 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
+import SplitText from "./SplitText";
 import styles from "./ServicesShowcase.module.css";
 
 const CYCLE = "5s";
@@ -183,7 +184,9 @@ export default function ServicesShowcase({
     <div className={styles.layout}>
       <div>
         <span className={styles.eyebrow}>{eyebrow}</span>
-        <h2 className={styles.title}>{title}</h2>
+        <h2 className={styles.title}>
+          <SplitText text={title} />
+        </h2>
         <p className={styles.sub}>{subtitle}</p>
 
         <div className={styles.pills} role="group">

@@ -10,6 +10,7 @@ import ShieldIcon from "@mui/icons-material/ShieldOutlined";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Reveal from "@/components/Reveal";
+import SplitText from "@/components/SplitText";
 import HeroCircles from "@/components/HeroCircles";
 import TechMarquee from "@/components/TechMarquee";
 import BlogCard from "@/components/BlogCard";
@@ -273,11 +274,9 @@ export default async function Home({
                 {t("hero.eyebrow")}
               </Typography>
             </Reveal>
-            <Reveal variant="rise" delay={120}>
-              <Typography variant="h1" sx={{ mb: 3.5 }}>
-                {t("hero.title")}
-              </Typography>
-            </Reveal>
+            <Typography variant="h1" sx={{ mb: 3.5 }}>
+              <SplitText text={t("hero.title")} />
+            </Typography>
             <Reveal variant="rise" delay={240}>
               <Typography variant="subtitle1" sx={{ mb: 4, maxWidth: 620 }}>
                 {t("hero.subtitle")}
@@ -350,14 +349,14 @@ export default async function Home({
       <Box
         sx={{
           py: { xs: 10, md: 13 },
-          backgroundColor: "#420D22",
+          backgroundColor: "#0D2242",
           position: "relative",
           overflow: "hidden",
           "&::before": {
             content: '""',
             position: "absolute",
             inset: 0,
-            backgroundImage: "radial-gradient(rgba(247, 166, 188, 0.16) 1px, transparent 1px)",
+            backgroundImage: "radial-gradient(rgba(166, 200, 247, 0.16) 1px, transparent 1px)",
             backgroundSize: "26px 26px",
             maskImage: "radial-gradient(ellipse 70% 90% at 70% 50%, #000, transparent 75%)",
             WebkitMaskImage:
@@ -406,7 +405,7 @@ export default async function Home({
               {t("problem.eyebrow")}
             </Typography>
             <Typography variant="h2" sx={{ mb: { xs: 5, md: 8 }, maxWidth: 600 }}>
-              {t("problem.title")}
+              <SplitText text={t("problem.title")} />
             </Typography>
           </Reveal>
           {/* One connected card: the three problems sit in a single panel
@@ -545,7 +544,7 @@ export default async function Home({
               {t("packages.eyebrow")}
             </Typography>
             <Typography variant="h2" sx={{ mb: 2, maxWidth: 600 }}>
-              {t("packages.title")}
+              <SplitText text={t("packages.title")} />
             </Typography>
             <Typography variant="subtitle1" sx={{ mb: { xs: 5, md: 7 }, maxWidth: 640 }}>
               {t("packages.subtitle")}
@@ -735,7 +734,7 @@ export default async function Home({
               {t("process.eyebrow")}
             </Typography>
             <Typography variant="h2" sx={{ mb: { xs: 5, md: 8 }, maxWidth: 600 }}>
-              {t("process.title")}
+              <SplitText text={t("process.title")} />
             </Typography>
           </Reveal>
           <Grid container spacing={{ xs: 0, sm: 5, md: 6 }}>
@@ -815,7 +814,7 @@ export default async function Home({
               {t("whyFreelance.eyebrow")}
             </Typography>
             <Typography variant="h2" sx={{ mb: 2, maxWidth: 600 }}>
-              {t("whyFreelance.title")}
+              <SplitText text={t("whyFreelance.title")} />
             </Typography>
             <Typography
               variant="subtitle1"
@@ -863,7 +862,7 @@ export default async function Home({
                           mb: 2,
                           "[data-mui-color-scheme='dark'] &": {
                             backgroundColor: palette.navy,
-                            color: "#f7a6bc",
+                            color: "#a6c8f7",
                           },
                         }}
                       >
@@ -887,7 +886,7 @@ export default async function Home({
         <Box
           sx={{
             py: { xs: 10, md: 14 },
-            backgroundColor: palette.offWhite,
+            backgroundColor: palette.bg,
             borderTop: `1px solid var(--app-border-soft)`,
             borderBottom: `1px solid var(--app-border-soft)`,
           }}
@@ -906,7 +905,9 @@ export default async function Home({
                   <Typography variant="overline" sx={{ mb: 1.5, display: "block" }}>
                     {t("blog.eyebrow")}
                   </Typography>
-                  <Typography variant="h2">{t("blog.title")}</Typography>
+                  <Typography variant="h2">
+                    <SplitText text={t("blog.title")} />
+                  </Typography>
                 </Box>
                 <Button
                   component={Link}
@@ -994,7 +995,7 @@ export default async function Home({
             position: "absolute",
             inset: 0,
             background:
-              "radial-gradient(640px 340px at 50% 115%, rgba(221, 46, 90, 0.35), transparent 70%)",
+              "radial-gradient(640px 340px at 50% 115%, rgba(37, 99, 235, 0.35), transparent 70%)",
             pointerEvents: "none",
           },
         }}
@@ -1010,7 +1011,7 @@ export default async function Home({
                 mx: "auto",
               }}
             >
-              {t("cta.title")}
+              <SplitText text={t("cta.title")} />
             </Typography>
             <Typography
               sx={{ mt: 2.25, mb: 6, color: "#a3a3a3", fontSize: 17, maxWidth: 560, mx: "auto" }}

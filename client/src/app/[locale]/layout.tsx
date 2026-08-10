@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 // Self-hosted fonts (no CDN) — bundled from node_modules into the build.
 // The variable font families are referenced via --font-heading / --font-body,
 // which are defined in the MUI theme's CssBaseline.
-import "@fontsource-variable/bricolage-grotesque";
+import "@fontsource-variable/plus-jakarta-sans";
 import "@fontsource-variable/outfit";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";

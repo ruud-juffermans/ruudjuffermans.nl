@@ -3,12 +3,12 @@ title: "Uitspraak-RAG: semantisch zoeken in rechterlijke uitspraken"
 industry: "Eigen project"
 summary: "Een RAG-systeem over uitspraken van Rechtspraak.nl: vragen in gewone taal, antwoorden uitsluitend op basis van gevonden passages, altijd met ECLI-bronverwijzing."
 tags: ["GenAI", "RAG", "Python", "LLM"]
-duration: "Net gestart"
+duration: "Afgerond"
 ---
 
-*Eigen project, net gestart. Deze pagina beschrijft het ontwerp en de routekaart — de code volgt commit voor commit. Ik zet dit hier zo vroeg neer omdat de ontwerpkeuzes het eigenlijke verhaal zijn: die bepalen of een RAG-systeem betrouwbaar wordt of een black box.*
+*Eigen project, gebouwd om te laten zien hoe ik AI-systemen aanpak — geen betaalde klantopdracht. De ontwerpkeuzes zijn het eigenlijke verhaal: die bepalen of een RAG-systeem betrouwbaar wordt of een black box.*
 
-## Wat het wordt
+## Wat het is
 
 Een RAG-systeem (Retrieval-Augmented Generation) over rechterlijke uitspraken: doorzoek uitspraken van Rechtspraak.nl semantisch en laat een taalmodel antwoorden formuleren — uitsluitend op basis van de gevonden passages, en altijd met verwijzing naar de bron.
 
@@ -27,23 +27,29 @@ Drie lagen, elk apart testbaar:
 - **Index** — tekst opdelen in overlappende chunks mét behoud van sectie- en paragraafnummers, zodat elke chunk exact terug te voeren is op zijn plek in de bron. Chunks worden batchgewijs geëmbed en opgeslagen in een vector store, inclusief metadata om op instantie, datum en rechtsgebied te filteren.
 - **Query** — de vraag embedden, de best passende passages ophalen, en een prompt die het model dwingt uitsluitend op basis van die passages te antwoorden — met een expliciet "geen bron gevonden"-pad.
 
+De hele keten draait vanaf de commandline: `ingest`, `index` en `ask` als losse commando's, van ophalen tot antwoord.
+
 ## Kwaliteit wordt gemeten, niet gehoopt
 
-Onderdeel van de routekaart is een evaluatieset: een vaste verzameling vragen met de ECLI's die het systeem hoort te vinden. Een script meet daarop recall en bronjuistheid, en CI draait de tests bij elke wijziging. Zo wordt "werkt het beter?" een meting in plaats van een gevoel — dezelfde aanpak als in mijn AI-prototypetraject, waar de meetlat er ligt vóór de eerste regel code.
+De vraag "werkt het?" is bij RAG-systemen berucht vaag, dus die is vervangen door een meting. Een vaste evaluatieset — vragen met de ECLI's die het systeem hoort te vinden — draait in CI bij elke wijziging en meet twee dingen: vindt de retrieval de juiste uitspraken (recall), en kloppen de bronverwijzingen in het antwoord met de aangeleverde passages. Een wijziging aan chunking, embeddingmodel of prompt is daarmee geen kwestie van "het voelt beter", maar van een cijfer dat omhoog of omlaag gaat — dezelfde aanpak als in mijn AI-prototypetraject, waar de meetlat er ligt vóór de eerste regel code.
+
+## Het resultaat
+
+Elk antwoord is klikbaar herleidbaar tot de onderliggende passages, per bewering. Vragen zonder relevante bron krijgen netjes "geen bron gevonden" in plaats van een overtuigend verzinsel — en die weigering wordt in de evaluatieset net zo goed getest als de antwoorden zelf. De kwaliteit van de keten is daarmee uit te drukken in een getal, bij elke commit opnieuw.
 
 ## Aandachtspunten
 
 - Uitspraken zijn openbaar, maar bevatten geanonimiseerde persoonsgegevens — de omgang daarmee is onderdeel van het ontwerp, niet een bijlage achteraf.
 - Antwoorden zijn geen juridisch advies; bronvermelding is verplicht in elke output.
 
-## Status
+## Opgeleverd
 
-- [x] Ontwerp en routekaart: tien kleine commits, elk zelfstandig draaiend
-- [ ] Ingest: ophalen en parsen van uitspraken
-- [ ] Index: chunking, embeddings en vector store
-- [ ] Query: retrieval en antwoordgeneratie met bronvermelding
-- [ ] Evaluatieset met recall- en bronjuistheidsmeting in CI
+- [x] Ingest: ophalen en parsen van uitspraken, met rate limiting en retries
+- [x] Index: chunking met behoud van sectienummers, embeddings en vector store
+- [x] Query: retrieval en antwoordgeneratie met verplichte bronvermelding
+- [x] CLI voor de hele keten: `ingest`, `index`, `ask`
+- [x] Evaluatieset met recall- en bronjuistheidsmeting in CI
 
 ## Technologie
 
-Python, embeddings en vector store (keuze volgt in de eerste commits), Rechtspraak.nl Open Data
+Python, embeddings en vector store, Rechtspraak.nl Open Data, GitHub Actions

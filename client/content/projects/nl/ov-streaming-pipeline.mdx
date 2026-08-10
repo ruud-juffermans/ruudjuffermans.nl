@@ -3,12 +3,12 @@ title: "Realtime OV-streamingpipeline op Kafka"
 industry: "Eigen project"
 summary: "Streamingpipeline op de realtime posities van het Nederlandse openbaar vervoer: Kafka, 5-minuten-windows, een dead-letter queue en een live vertragingskaart — volledig geobserveerd met Prometheus en Grafana."
 tags: ["Kafka", "Streaming", "Python", "Postgres", "Docker"]
-duration: "3 weken (gepland)"
+duration: "3 weken"
 ---
 
-*Eigen project, in de planningsfase: het ontwerp hieronder is uitgewerkt tot een volledige PRD, de bouw staat ingepland. Ik zet het ontwerp nu al online omdat de afwegingen — windowing, idempotentie, foutafhandeling — het deel zijn waar je een data engineer op beoordeelt.*
+*Eigen project, gebouwd omdat streaming precies het terrein is waar je een data engineer op beoordeelt: windowing, idempotentie, foutafhandeling — en of het blijft draaien als niemand kijkt.*
 
-## Wat het wordt
+## Wat het is
 
 Een streamingpipeline die de realtime voertuigposities en aankomstvoorspellingen van het Nederlandse openbaar vervoer (NDOV/OVapi) verwerkt via Kafka, per lijn en per station voortschrijdende vertragingsstatistieken berekent in 5-minuten-windows, en die live toont op een kaart: waar rijdt alles nu, en hoe erg is de vertraging.
 
@@ -41,21 +41,21 @@ Alles draait lokaal met één commando (`make up`), zonder cloudkosten. Redpanda
 - **Schema-evolutie.** Events dragen een schemaversie; de parser ondersteunt de huidige en de vorige. Hoe een volgende versie uitrolt zonder de pipeline te breken staat gedocumenteerd.
 - **Late events.** Een vaste tolerantie vóór het afsluiten van een window; wat later binnenkomt wordt geteld als metriek en bewust losgelaten. Een afweging die je documenteert, niet wegmoffelt.
 
-## De meetlat
+## De meetlat — en het resultaat
 
-Het project is af als een schone clone met `make up` de volledige stack start, de pipeline **24 uur onafgebroken** draait op het landelijke feedvolume zonder ingrijpen, de gemeten doorvoer in de README staat, en een test bewijst dat dubbele levering de cijfers niet vervuilt.
+De lat lag vooraf vast en is gehaald: een schone clone start met `make up` de volledige stack, en de pipeline heeft een **aaneengesloten run van 24 uur** doorstaan op het landelijke feedvolume — zonder ingrijpen, met een consumer-lag die begrensd bleef in plaats van gestaag op te lopen. De gemeten doorvoer staat in de README, naast de Grafana-grafieken van de run en een schermopname van het live dashboard. Een test bewijst dat dubbele levering de cijfers niet vervuilt, en de DLQ-route is gedemonstreerd van fout bericht tot herverwerking.
 
 ## Waarom dit ernaast staat
 
-Mijn klantwerk is meestal geen streaming — dashboards, warehouses en rapportages zijn dat zelden nodig. Maar de discipline is dezelfde: fouten expliciet afhandelen, verwerking idempotent maken, alles meetbaar. Dit project laat zien dat die aanpak overeind blijft als de data niet één keer per nacht komt, maar duizenden keren per minuut.
+Mijn klantwerk is meestal geen streaming — dashboards, warehouses en rapportages hebben dat zelden nodig. Maar de discipline is dezelfde: fouten expliciet afhandelen, verwerking idempotent maken, alles meetbaar. Dit project laat zien dat die aanpak overeind blijft als de data niet één keer per nacht komt, maar duizenden keren per minuut.
 
-## Status
+## Opgeleverd
 
-- [x] Volledige PRD: architectuur, requirements, risico's en mijlpalen
-- [ ] Producer, archief en Kafka-backbone
-- [ ] Windowed processor met DLQ en idempotente sink
-- [ ] Live dashboard met vertragingskaart
-- [ ] Observability, 24-uursrun en gemeten doorvoer in de README
+- [x] Producer, ruw archief en Kafka-backbone
+- [x] Windowed processor met DLQ en idempotente sink
+- [x] Live dashboard met vertragingskaart
+- [x] Observability: Prometheus en Grafana met dashboards voor lag, doorvoer en DLQ-diepte
+- [x] 24-uursrun doorstaan; gemeten doorvoer en schermopname in de README
 
 ## Technologie
 

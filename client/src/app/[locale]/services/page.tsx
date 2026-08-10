@@ -11,6 +11,7 @@ import Faq, { type FaqItem } from "@/components/Faq";
 import { PHASES, packagesInPhase, type PackageDef } from "@/lib/packages";
 import { buildPackageCardProps, packageCardLabels } from "@/lib/packageContent";
 import type { Locale } from "@/i18n/routing";
+import SplitText from "@/components/SplitText";
 import { palette } from "@/theme/theme";
 import type { Metadata } from "next";
 
@@ -56,7 +57,7 @@ export default async function ServicesPage({
             </Reveal>
             <Reveal variant="rise" delay={100}>
               <Typography variant="h1" sx={{ mb: 3 }}>
-                {t("hero.title")}
+                <SplitText text={t("hero.title")} />
               </Typography>
             </Reveal>
             <Reveal variant="rise" delay={200}>
@@ -226,7 +227,7 @@ export default async function ServicesPage({
             position: "absolute",
             inset: 0,
             background:
-              "radial-gradient(640px 340px at 50% 115%, rgba(221, 46, 90, 0.35), transparent 70%)",
+              "radial-gradient(640px 340px at 50% 115%, rgba(37, 99, 235, 0.35), transparent 70%)",
             pointerEvents: "none",
           },
         }}

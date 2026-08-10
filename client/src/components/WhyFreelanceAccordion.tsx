@@ -88,7 +88,7 @@ export default function WhyFreelanceAccordion({
                 flexShrink: 0,
                 "[data-mui-color-scheme='dark'] &": {
                   backgroundColor: palette.navy,
-                  color: "#f7a6bc",
+                  color: "#a6c8f7",
                 },
               }}
             >

@@ -6,6 +6,7 @@ import { Link } from "@/i18n/navigation";
 import Reveal from "@/components/Reveal";
 import ProofStrip from "@/components/ProofStrip";
 import type { Locale } from "@/i18n/routing";
+import SplitText from "@/components/SplitText";
 import { palette } from "@/theme/theme";
 import type { Metadata } from "next";
 
@@ -50,7 +51,7 @@ export default async function AboutPage({
                   {t("eyebrow")}
                 </Typography>
                 <Typography variant="h1" sx={{ mb: 3 }}>
-                  {t("name")}
+                  <SplitText text={t("name")} />
                 </Typography>
               </Reveal>
               {/* Same three credentials as the homepage hero — they lead here
@@ -205,7 +206,7 @@ export default async function AboutPage({
             position: "absolute",
             inset: 0,
             background:
-              "radial-gradient(640px 340px at 50% 115%, rgba(221, 46, 90, 0.35), transparent 70%)",
+              "radial-gradient(640px 340px at 50% 115%, rgba(37, 99, 235, 0.35), transparent 70%)",
             pointerEvents: "none",
           },
         }}

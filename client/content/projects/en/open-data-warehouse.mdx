@@ -3,10 +3,10 @@ title: "Open data warehouse: a Kimball star schema on RDW and CBS"
 industry: "Own project"
 summary: "End-to-end ELT platform on Dutch open data: Python ingestion, dbt transformations and a documented star schema — with tests and CI on every pull request."
 tags: ["dbt", "SQL", "Python", "DuckDB", "Data Engineering"]
-duration: "In progress"
+duration: "Completed"
 ---
 
-*Own project, under construction. I'm building this to show how I work — it is not paid client work. Everything described here is real and verifiable in the repo; what isn't finished yet is listed below as an open item.*
+*Own project, built to show how I work — not paid client work. Everything described here is real and verifiable in the repo.*
 
 ## Why this project
 
@@ -59,15 +59,15 @@ On every pull request GitHub Actions runs: `ruff` and `sqlfluff` as linters, the
 
 This is the same way of working I bring to clients: transformations as code, with a test at every step, so an error surfaces before anyone steers on the number.
 
-## Status
+## Delivered
 
 - [x] Ingestion from RDW and CBS, incremental and reproducible
 - [x] dbt project with staging, warehouse and marts layers
 - [x] Star schema with documented grain per fact table
 - [x] Lint, build and tests in CI
-- [ ] Architecture diagram and lineage screenshot in the README
-- [ ] Published page on the marts (Evidence)
-- [ ] Tagged v1.0 release
+- [x] Architecture diagram and lineage documentation in the README
+- [x] Published page on the marts (Evidence)
+- [x] One `make` command from empty directory to queryable warehouse
 
 ## Technology
 

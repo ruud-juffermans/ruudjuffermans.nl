@@ -3,10 +3,10 @@ title: "Open-data-warehouse: een Kimball-sterschema op RDW en CBS"
 industry: "Eigen project"
 summary: "End-to-end ELT-platform op Nederlandse open data: Python-ingestie, dbt-transformaties en een gedocumenteerd sterschema — met tests en CI op elke pull request."
 tags: ["dbt", "SQL", "Python", "DuckDB", "Data Engineering"]
-duration: "In aanbouw"
+duration: "Afgerond"
 ---
 
-*Eigen project, in aanbouw. Ik bouw dit om mijn aanpak te laten zien — het is geen betaalde klantopdracht. Wat er staat is echt en na te lezen in de repo; wat nog niet af is, staat hieronder als openstaand punt.*
+*Eigen project, gebouwd om mijn aanpak te laten zien — geen betaalde klantopdracht. Alles wat hier staat is echt en na te lezen in de repo.*
 
 ## Waarom dit project
 
@@ -59,15 +59,15 @@ Bij elke pull request draait GitHub Actions: `ruff` en `sqlfluff` als linters, d
 
 Dit is dezelfde werkwijze die ik bij klanten hanteer: transformaties als code, met een test op elke stap, zodat een fout opvalt vóór iemand op het cijfer stuurt.
 
-## Status
+## Opgeleverd
 
 - [x] Ingestie vanuit RDW en CBS, incrementeel en reproduceerbaar
 - [x] dbt-project met staging-, warehouse- en marts-laag
 - [x] Sterschema met gedocumenteerde grain per feittabel
 - [x] Lint, build en tests in CI
-- [ ] Architectuurdiagram en lineage-screenshot in de README
-- [ ] Publicatiepagina op de marts (Evidence)
-- [ ] Getagde release v1.0
+- [x] Architectuurdiagram en lineage-documentatie in de README
+- [x] Publicatiepagina op de marts (Evidence)
+- [x] Eén `make`-commando van lege map tot bevraagbaar warehouse
 
 ## Technologie
 

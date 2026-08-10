@@ -1,7 +1,7 @@
 ---
 title: "An open-data warehouse done properly: dbt, tests and a Kimball star schema"
 date: "2026-07-26"
-excerpt: "Dashboards rarely fail on the visualisation and almost always on the foundation underneath. So I'm building a warehouse on Dutch open data in the open — with everything that belongs in one."
+excerpt: "Dashboards rarely fail on the visualisation and almost always on the foundation underneath. So I built a warehouse on Dutch open data in the open — with everything that belongs in one: a star schema, tests in CI and documentation that cannot go stale."
 tags: ["Project", "dbt", "Data Engineering"]
 ---
 Ask ten organisations about their dashboard problem and nine times it isn't a
@@ -11,8 +11,8 @@ reports. The real work sits underneath the visualisation: a data model that's
 correct, documented, and tested.
 
 That work is hard to show in a portfolio — it normally happens behind a
-client's firewall. So I'm rebuilding it in the open, on data that belongs to
-all of us: **`nl-open-data-warehouse`**, an end-to-end analytics platform on
+client's firewall. So I rebuilt it in the open, on data that belongs to all
+of us: **`nl-open-data-warehouse`**, an end-to-end analytics platform on
 Dutch open data.
 
 ## The setup
@@ -55,6 +55,18 @@ red; nothing rides along to main.
 The dbt documentation with the full lineage — from raw source to mart — is
 regenerated on every change, so the documentation can't go stale by
 definition.
+
+## The result
+
+One `make` command builds a queryable warehouse from an empty directory: a
+fresh snapshot of the source, millions of RDW rows loaded incrementally, the
+star schema built, all tests green. Three fact tables, each with an explicit
+grain — including two different grains in one schema, which is exactly what
+dimensional modelling is about — and a municipality dimension with type 2
+history, so boundary reforms don't retroactively shift historical figures.
+Every pull request proves in CI that the whole chain still holds, and ships
+the up-to-date lineage documentation as a by-product. Not a demo that worked
+once, but a platform that proves it works again on every change.
 
 ## Why this matters for your organisation
 

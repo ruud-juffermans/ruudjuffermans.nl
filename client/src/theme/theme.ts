@@ -1,7 +1,7 @@
 import { createTheme } from "@mui/material/styles";
 
 // Fonts loaded via @fontsource imports in layout.tsx
-// --font-heading: Bricolage Grotesque
+// --font-heading: Plus Jakarta Sans
 // --font-body: Outfit
 
 // ── Absolute colors (never switch with mode) ────────────────────────────────
@@ -14,18 +14,21 @@ const ABS = {
 };
 
 // ── Scheme-specific color tokens (switch via data-mui-color-scheme) ─────────
-// Light mode: clean paper background, deep red primary, cool neutrals
-// Dark mode: near-black background with a slight blue cast, softened red primary
+// Light mode: warm cream background (EXAMPLE_LANDING palette: bg #f6f3eb,
+// warm #ecead4, deep #e0ddc7), deep blue primary. The border / divider /
+// light-gray tiers are warmed to match — cool slate hairlines look dirty
+// on cream.
+// Dark mode: near-black background with a slight blue cast, softened blue primary
 const LIGHT = {
-  bg: "#FFFFFF",
-  surface: "#F7F8FA",
-  surfaceElevated: "#FFFFFF",
-  border: "#E2E8F0",
-  borderSoft: "#EDF1F6",
-  divider: "#F1F5F9",
-  gray50: "#F8FAFC",
-  gray100: "#F1F5F9",
-  gray200: "#E2E8F0",
+  bg: "#f6f3eb",
+  surface: "#ecead4",
+  surfaceElevated: "#fbf9f0",
+  border: "#e0ddc7",
+  borderSoft: "#eae7d6",
+  divider: "#eeebdd",
+  gray50: "#f3f0e3",
+  gray100: "#ecead4",
+  gray200: "#e0ddc7",
   gray300: "#CBD5E1",
   gray400: "#94A3B8",
   gray500: "#64748B",
@@ -33,11 +36,11 @@ const LIGHT = {
   gray700: "#334155",
   gray800: "#1E293B",
   gray900: "#0F172A",
-  red: "#dd2e5a",
-  redHover: "#b8244c",
-  redLight: "#f87190",
-  redMuted: "rgba(221, 46, 90, 0.10)",
-  redGlow: "rgba(221, 46, 90, 0.22)",
+  red: "#2563eb",
+  redHover: "#1d4ed8",
+  redLight: "#60a5fa",
+  redMuted: "rgba(37, 99, 235, 0.10)",
+  redGlow: "rgba(37, 99, 235, 0.22)",
   textPrimary: "#0F172A",
   textSecondary: "#5B6B81",
   textMuted: "#94A3B8",
@@ -60,11 +63,11 @@ const DARK = {
   gray700: "#DBE3EE",
   gray800: "#E8EDF5",
   gray900: "#F4F7FB",
-  red: "#ef4d76",
-  redHover: "#f87190",
-  redLight: "#fcabc0",
-  redMuted: "rgba(248, 113, 144, 0.14)",
-  redGlow: "rgba(248, 113, 144, 0.30)",
+  red: "#60a5fa",
+  redHover: "#93c5fd",
+  redLight: "#bfdbfe",
+  redMuted: "rgba(147, 197, 253, 0.14)",
+  redGlow: "rgba(147, 197, 253, 0.30)",
   textPrimary: "#F4F7FB",
   textSecondary: "#B9C4D6",
   textMuted: "#94A3B8",
@@ -203,41 +206,41 @@ const theme = createTheme({
   typography: {
     fontFamily: "var(--font-body), 'Segoe UI', sans-serif",
     h1: {
-      fontFamily: "var(--font-heading), Georgia, serif",
+      fontFamily: "var(--font-heading), 'Segoe UI', sans-serif",
       fontWeight: 800,
       fontSize: "clamp(2.5rem, 5.2vw + 1rem, 4.25rem)",
       lineHeight: 1.04,
       letterSpacing: "-0.035em",
     },
     h2: {
-      fontFamily: "var(--font-heading), Georgia, serif",
+      fontFamily: "var(--font-heading), 'Segoe UI', sans-serif",
       fontWeight: 700,
       fontSize: "clamp(1.9rem, 2.6vw + 1rem, 2.75rem)",
       lineHeight: 1.12,
       letterSpacing: "-0.025em",
     },
     h3: {
-      fontFamily: "var(--font-heading), Georgia, serif",
+      fontFamily: "var(--font-heading), 'Segoe UI', sans-serif",
       fontWeight: 650,
       fontSize: "clamp(1.4rem, 1.2vw + 1rem, 1.75rem)",
       lineHeight: 1.22,
       letterSpacing: "-0.015em",
     },
     h4: {
-      fontFamily: "var(--font-heading), Georgia, serif",
+      fontFamily: "var(--font-heading), 'Segoe UI', sans-serif",
       fontWeight: 650,
       fontSize: "1.3rem",
       lineHeight: 1.3,
       letterSpacing: "-0.01em",
     },
     h5: {
-      fontFamily: "var(--font-heading), Georgia, serif",
+      fontFamily: "var(--font-heading), 'Segoe UI', sans-serif",
       fontWeight: 600,
       fontSize: "1.15rem",
       lineHeight: 1.4,
     },
     h6: {
-      fontFamily: "var(--font-heading), Georgia, serif",
+      fontFamily: "var(--font-heading), 'Segoe UI', sans-serif",
       fontWeight: 600,
       fontSize: "1rem",
       lineHeight: 1.4,
@@ -290,7 +293,7 @@ const theme = createTheme({
           MozOsxFontSmoothing: "grayscale",
           textRendering: "optimizeLegibility",
           // Self-hosted variable-font families (see @fontsource imports in layout.tsx).
-          "--font-heading": "'Bricolage Grotesque Variable'",
+          "--font-heading": "'Plus Jakarta Sans Variable'",
           "--font-body": "'Outfit Variable'",
         },
         body: {

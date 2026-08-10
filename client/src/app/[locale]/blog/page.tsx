@@ -5,6 +5,7 @@ import Reveal from "@/components/Reveal";
 import BlogCard from "@/components/BlogCard";
 import { getBlogPosts } from "@/lib/content";
 import type { Locale } from "@/i18n/routing";
+import SplitText from "@/components/SplitText";
 import { palette } from "@/theme/theme";
 import type { Metadata } from "next";
 
@@ -44,7 +45,7 @@ export default async function BlogPage({
             </Reveal>
             <Reveal variant="rise" delay={100}>
               <Typography variant="h1" sx={{ mb: 3 }}>
-                {t("title")}
+                <SplitText text={t("title")} />
               </Typography>
             </Reveal>
             <Reveal variant="rise" delay={200}>

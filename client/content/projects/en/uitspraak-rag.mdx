@@ -3,12 +3,12 @@ title: "Uitspraak-RAG: semantic search over Dutch court rulings"
 industry: "Own project"
 summary: "A RAG system over rulings from Rechtspraak.nl: questions in plain language, answers based solely on retrieved passages, always with an ECLI source reference."
 tags: ["GenAI", "RAG", "Python", "LLM"]
-duration: "Just started"
+duration: "Completed"
 ---
 
-*Own project, just started. This page describes the design and the roadmap — the code follows commit by commit. I'm putting it up this early because the design choices are the actual story: they decide whether a RAG system becomes trustworthy or a black box.*
+*Own project, built to show how I approach AI systems — not paid client work. The design choices are the actual story: they decide whether a RAG system becomes trustworthy or a black box.*
 
-## What it will be
+## What it is
 
 A RAG (Retrieval-Augmented Generation) system over Dutch court rulings: search rulings from Rechtspraak.nl semantically and have a language model formulate answers — based solely on the retrieved passages, and always with a reference to the source.
 
@@ -27,23 +27,29 @@ Three layers, each testable on its own:
 - **Index** — split text into overlapping chunks while preserving section and paragraph numbers, so every chunk traces back to its exact place in the source. Chunks are embedded in batches and stored in a vector store, with metadata for filtering on court, date and area of law.
 - **Query** — embed the question, retrieve the best-matching passages, and a prompt that forces the model to answer solely from those passages — with an explicit "no source found" path.
 
+The whole chain runs from the command line: `ingest`, `index` and `ask` as separate commands, from fetching to answer.
+
 ## Quality is measured, not hoped for
 
-Part of the roadmap is an evaluation set: a fixed collection of questions with the ECLIs the system should find. A script measures recall and citation correctness against it, and CI runs the tests on every change. That turns "is it better now?" into a measurement instead of a feeling — the same approach as in my AI prototype engagement, where the yardstick exists before the first line of code.
+The question "does it work?" is notoriously vague for RAG systems, so it has been replaced by a measurement. A fixed evaluation set — questions paired with the ECLIs the system is supposed to find — runs in CI on every change and measures two things: does retrieval find the right rulings (recall), and do the source references in the answer match the passages that were provided. A change to chunking, the embedding model or the prompt is no longer a matter of "it feels better", but of a number going up or down — the same approach as in my AI prototype engagement, where the yardstick exists before the first line of code.
+
+## The result
+
+Every answer is clickably traceable to its underlying passages, claim by claim. Questions without a relevant source get a clean "no source found" instead of a convincing fabrication — and that refusal is tested in the evaluation set just as thoroughly as the answers themselves. The quality of the chain is expressed as a number, again on every commit.
 
 ## Points of attention
 
 - Rulings are public, but contain pseudonymised personal data — handling that is part of the design, not an appendix afterwards.
 - Answers are not legal advice; source citation is mandatory in every output.
 
-## Status
+## Delivered
 
-- [x] Design and roadmap: ten small commits, each leaving the project in a working state
-- [ ] Ingest: fetching and parsing rulings
-- [ ] Index: chunking, embeddings and vector store
-- [ ] Query: retrieval and answer generation with citations
-- [ ] Evaluation set with recall and citation-correctness measurement in CI
+- [x] Ingest: fetching and parsing rulings, with rate limiting and retries
+- [x] Index: chunking with section numbers preserved, embeddings and vector store
+- [x] Query: retrieval and answer generation with mandatory citations
+- [x] CLI for the whole chain: `ingest`, `index`, `ask`
+- [x] Evaluation set with recall and citation-correctness measurement in CI
 
 ## Technology
 
-Python, embeddings and vector store (choice follows in the first commits), Rechtspraak.nl Open Data
+Python, embeddings and vector store, Rechtspraak.nl Open Data, GitHub Actions

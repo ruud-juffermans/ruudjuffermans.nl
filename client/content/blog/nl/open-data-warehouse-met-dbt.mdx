@@ -1,7 +1,7 @@
 ---
 title: "Een open-data warehouse zoals het hoort: dbt, tests en een Kimball-sterschema"
 date: "2026-07-26"
-excerpt: "Dashboards falen zelden op de visualisatie en bijna altijd op het fundament eronder. Daarom bouw ik in de openbaarheid een warehouse op Nederlandse open data — met alles erop en eraan."
+excerpt: "Dashboards falen zelden op de visualisatie en bijna altijd op het fundament eronder. Daarom bouwde ik in de openbaarheid een warehouse op Nederlandse open data — met alles erop en eraan: sterschema, tests in CI en documentatie die niet kán verouderen."
 tags: ["Project", "dbt", "Data Engineering"]
 ---
 Vraag tien organisaties naar hun dashboardprobleem en negen keer is het geen
@@ -11,9 +11,10 @@ rapportages. Het echte werk zit onder de visualisatie: een datamodel dat klopt,
 gedocumenteerd is en getest wordt.
 
 Dat werk is lastig te laten zien in een portfolio — het speelt zich normaal
-gesproken af achter de firewall van een opdrachtgever. Daarom bouw ik het in de
-openbaarheid na, op data die van ons allemaal is: **`nl-open-data-warehouse`**,
-een end-to-end analyseplatform op Nederlandse open data.
+gesproken af achter de firewall van een opdrachtgever. Daarom heb ik het in de
+openbaarheid nagebouwd, op data die van ons allemaal is:
+**`nl-open-data-warehouse`**, een end-to-end analyseplatform op Nederlandse
+open data.
 
 ## De opzet
 
@@ -55,6 +56,19 @@ dimensies. Rood is rood; er gaat niets mee naar main.
 De dbt-documentatie met de volledige lineage — van ruwe bron tot mart — wordt
 bij elke wijziging opnieuw gegenereerd, zodat de documentatie per definitie
 niet kan verouderen.
+
+## Het resultaat
+
+Eén `make`-commando bouwt van een lege map een bevraagbaar warehouse: verse
+snapshot van de bron, miljoenen RDW-rijen incrementeel geladen, sterschema
+opgebouwd, alle tests groen. Drie feittabellen met elk een expliciete grain —
+waaronder twee verschillende grains in één schema, precies waar dimensioneel
+modelleren om draait — en een gemeentedimensie met type 2-historie, zodat
+herindelingen historische cijfers niet met terugwerkende kracht verschuiven.
+Elke pull request bewijst in CI dat de hele keten nog klopt, en levert de
+actuele lineage-documentatie als bijproduct mee. Niet een demo die één keer
+werkte, maar een platform dat bij elke wijziging opnieuw bewijst dat het
+werkt.
 
 ## Waarom dit relevant is voor jouw organisatie
 

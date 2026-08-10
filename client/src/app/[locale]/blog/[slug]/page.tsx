@@ -197,7 +197,7 @@ export default async function BlogPostPage({
               fontSize: "0.8rem",
             },
             "& [data-highlighted-line]": {
-              backgroundColor: "rgba(221, 46, 90, 0.1)",
+              backgroundColor: "rgba(37, 99, 235, 0.1)",
               borderLeft: `2px solid ${palette.red}`,
               pl: "calc(1rem - 2px)",
               mx: -2.5,
