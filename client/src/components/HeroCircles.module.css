@@ -165,20 +165,20 @@
     --spin: 40deg;
   }
   /* act 2: grand expansion — widest ring, orbs swelling, still turning slowly */
-  19% {
-    --amplitude: 350px;
-    --scale: 3.5;
+  17% {
+    --amplitude: 250px;
+    --scale: 4;
     --spin: 75deg;
   }
   /* hold the wide pose for a beat as the orbs peak */
   25% {
-    --amplitude: 350px;
-    --scale: 4;
+    --amplitude: 225px;
+    --scale: 4.1;
     --spin: 110deg;
   }
   /* draw back in and gather toward the center */
   31% {
-    --amplitude: 150px;
+    --amplitude: 120px;
     --scale: 1;
     --spin: 150deg;
   }
@@ -195,30 +195,30 @@
   }
   /* release: fling back out as the spin runs down */
   46% {
-    --amplitude: 185px;
+    --amplitude: 175px;
     --scale: 1.6;
     --spin: 690deg;
   }
   /* act 4: settle into the resting pose */
   50% {
     --amplitude: 150px;
-    --scale: 1.1;
+    --scale: 1.05;
     --spin: 700deg;
   }
   /* quiet breathing for the whole second half, with a creeping residual
      turn that completes the second revolution by the loop's end */
   62% {
-    --amplitude: 195px;
+    --amplitude: 165px;
     --scale: 0.95;
     --spin: 706deg;
   }
   75% {
     --amplitude: 145px;
-    --scale: 1.25;
+    --scale: 1.15;
     --spin: 712deg;
   }
   88% {
-    --amplitude: 195px;
+    --amplitude: 155px;
     --scale: 0.95;
     --spin: 717deg;
   }
