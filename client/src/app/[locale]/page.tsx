@@ -31,7 +31,9 @@ import {
 import { getBlogPosts } from "@/lib/content";
 import JsonLd from "@/components/JsonLd";
 import { buildAlternates, formatDate, SITE_URL } from "@/lib/seo";
-import type { Locale } from "@/i18n/routing";
+import { hasLocale } from "next-intl";
+import { notFound } from "next/navigation";
+import { routing, type Locale } from "@/i18n/routing";
 import { palette } from "@/theme/theme";
 import type { Metadata } from "next";
 
@@ -57,6 +59,13 @@ export default async function Home({
   params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
+  // The page renders in parallel with the [locale] layout, so its guard
+  // doesn't protect this component. Unknown single-segment paths with a dot
+  // (/llms.txt — dotted paths skip the middleware) land here with the path
+  // as `locale`, and Intl.NumberFormat in the price formatting throws on it.
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
   setRequestLocale(locale);
   const t = await getTranslations("home");
   const tc = await getTranslations("common");

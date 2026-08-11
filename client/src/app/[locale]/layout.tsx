@@ -23,6 +23,13 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  // Guard here, not just in the layout component: metadata resolves before
+  // render, and getTranslations throws a 500 on an invalid language tag
+  // (e.g. /llms.txt reaching [locale] because dotted paths skip the
+  // middleware). notFound() turns those into a 404 via app/not-found.tsx.
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
   const t = await getTranslations({ locale, namespace: "site" });
   return {
     title: {
