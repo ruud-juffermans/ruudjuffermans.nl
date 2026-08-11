@@ -5,6 +5,11 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  // The opengraph-image routes read these TTFs at runtime via fs; the
+  // standalone trace doesn't pick that up on its own.
+  outputFileTracingIncludes: {
+    "/**/*": ["./src/assets/og/*.ttf"],
+  },
   async headers() {
     return [
       {
