@@ -41,6 +41,9 @@ const LIGHT = {
   redLight: "#60a5fa",
   redMuted: "rgba(37, 99, 235, 0.10)",
   redGlow: "rgba(37, 99, 235, 0.22)",
+  // Text on accent-filled surfaces (contained buttons). White passes on the
+  // deep light-mode blue; the pale dark-mode blue needs dark ink (WCAG AA).
+  onRed: "#FFFFFF",
   textPrimary: "#0F172A",
   textSecondary: "#5B6B81",
   textMuted: "#94A3B8",
@@ -68,6 +71,7 @@ const DARK = {
   redLight: "#bfdbfe",
   redMuted: "rgba(147, 197, 253, 0.14)",
   redGlow: "rgba(147, 197, 253, 0.30)",
+  onRed: "#0A0F1C",
   textPrimary: "#F4F7FB",
   textSecondary: "#B9C4D6",
   textMuted: "#94A3B8",
@@ -95,6 +99,7 @@ const cssVarsFor = (tokens: typeof LIGHT) => ({
   "--app-red": tokens.red,
   "--app-red-hover": tokens.redHover,
   "--app-red-light": tokens.redLight,
+  "--app-on-red": tokens.onRed,
   "--app-red-muted": tokens.redMuted,
   "--app-red-glow": tokens.redGlow,
   "--app-text-primary": tokens.textPrimary,
@@ -182,7 +187,7 @@ const theme = createTheme({
           main: DARK.red,
           dark: DARK.redHover,
           light: DARK.redLight,
-          contrastText: "#1A0508",
+          contrastText: DARK.onRed,
         },
         secondary: {
           main: ABS.navyLight,
@@ -362,7 +367,7 @@ const theme = createTheme({
         },
         containedPrimary: {
           backgroundColor: "var(--app-red)",
-          color: ABS.white,
+          color: "var(--app-on-red)",
           boxShadow: "inset 0 1px 0 rgba(255,255,255,0.18), 0 1px 2px rgba(11,17,32,0.12)",
           "@media (hover: hover)": {
             "&:hover": {
@@ -484,6 +489,11 @@ const theme = createTheme({
       },
     },
     MuiTypography: {
+      defaultProps: {
+        // subtitle1/2 are lede paragraphs here, not section headings — MUI's
+        // default <h6> mapping breaks heading order (h1 → h6) for a11y.
+        variantMapping: { subtitle1: "p", subtitle2: "p" },
+      },
       styleOverrides: {
         overline: { color: "var(--app-red)" },
       },

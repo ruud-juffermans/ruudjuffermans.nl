@@ -228,7 +228,7 @@
   border: 1px solid rgba(96, 165, 250,0.25);
 }
 
-.feature h4 {
+.feature h3 {
   font-family: var(--font-body), "Segoe UI", sans-serif;
   font-size: 15.5px;
   font-weight: 600;

@@ -194,7 +194,7 @@ export default function BlogCard({
       </div>
       <div className={styles.body}>
         <span className={styles.tag}>{post.tags[0]}</span>
-        <h4 className={styles.title}>{post.title}</h4>
+        <h3 className={styles.title}>{post.title}</h3>
         <div className={styles.date}>{meta ?? post.date}</div>
       </div>
     </Link>

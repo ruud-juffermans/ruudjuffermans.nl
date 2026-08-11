@@ -554,7 +554,7 @@ export default async function Home({
                     }),
                   }}
                 >
-                  <Typography variant="h4" sx={{ mb: 1.5 }}>
+                  <Typography variant="h4" component="h3" sx={{ mb: 1.5 }}>
                     {card.title}
                   </Typography>
                   <Typography variant="body1">{card.description}</Typography>
@@ -684,7 +684,7 @@ export default async function Home({
                         flex: 1,
                       }}
                     >
-                      <Typography variant="h5" sx={{ mb: 1.5 }}>
+                      <Typography variant="h5" component="h3" sx={{ mb: 1.5 }}>
                         {pkg.name}
                       </Typography>
                       <Typography variant="body2" sx={{ color: "var(--app-text-secondary)" }}>
@@ -809,7 +809,7 @@ export default async function Home({
                     >
                       {item.step}
                     </Typography>
-                    <Typography variant="h4" sx={{ mb: 1.5 }}>
+                    <Typography variant="h4" component="h3" sx={{ mb: 1.5 }}>
                       {item.title}
                     </Typography>
                     <Typography variant="body1">{item.description}</Typography>
@@ -907,7 +907,7 @@ export default async function Home({
                       >
                         {card.icon}
                       </Box>
-                      <Typography variant="h4" sx={{ mb: 1 }}>
+                      <Typography variant="h4" component="h3" sx={{ mb: 1 }}>
                         {card.title}
                       </Typography>
                       <Typography variant="body1">{card.description}</Typography>

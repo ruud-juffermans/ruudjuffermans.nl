@@ -129,7 +129,7 @@ export default function UnderTheHood({
                 <div className={styles.feature} key={f.title}>
                   <div className={styles.featureIcon}>{f.icon}</div>
                   <div>
-                    <h4>{f.title}</h4>
+                    <h3>{f.title}</h3>
                     <p>{f.desc}</p>
                   </div>
                 </div>

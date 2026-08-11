@@ -28,7 +28,8 @@ const FC = {
   body: "rgba(255, 255, 255, 0.50)",
   link: "rgba(255, 255, 255, 0.65)",
   linkHover: "#FFFFFF",
-  copyright: "rgba(255, 255, 255, 0.40)",
+  // ≥ 0.55 alpha keeps the © line at WCAG AA (4.5:1) on the navy footer.
+  copyright: "rgba(255, 255, 255, 0.55)",
   icon: "rgba(255, 255, 255, 0.55)",
   iconHover: "#FFFFFF",
   hairline: "rgba(255, 255, 255, 0.30)",
@@ -134,6 +135,7 @@ export default function Footer() {
                 href="https://www.linkedin.com/in/r-j3"
                 target="_blank"
                 rel="noopener"
+                aria-label="LinkedIn"
                 sx={{ color: FC.icon, "&:hover": { color: FC.iconHover } }}
               >
                 <LinkedInIcon />
@@ -143,6 +145,7 @@ export default function Footer() {
                 href="https://github.com/ruud-juffermans"
                 target="_blank"
                 rel="noopener"
+                aria-label="GitHub"
                 sx={{ color: FC.icon, "&:hover": { color: FC.iconHover } }}
               >
                 <GitHubIcon />
@@ -150,6 +153,7 @@ export default function Footer() {
               <IconButton
                 component="a"
                 href="mailto:me@ruudjuffermans.nl"
+                aria-label="E-mail"
                 sx={{ color: FC.icon, "&:hover": { color: FC.iconHover } }}
               >
                 <EmailIcon />

@@ -96,7 +96,9 @@ export default function WhyFreelanceAccordion({
             </Box>
             {/* Quieter than the desktop cards' h4 — in a compact accordion
                 row the big serif heading shouted. */}
-            <Typography variant="h5" sx={{ fontSize: "1.05rem" }}>
+            {/* span: MUI already wraps the summary in an <h3>; a nested
+                heading element here breaks heading order. */}
+            <Typography variant="h5" component="span" sx={{ fontSize: "1.05rem" }}>
               {item.title}
             </Typography>
           </AccordionSummary>

@@ -318,7 +318,7 @@ function CompactCard({
             }}
           />
         )}
-        <Typography variant="h4" sx={{ mb: 2 }}>
+        <Typography variant="h4" component="h3" sx={{ mb: 2 }}>
           {name}
         </Typography>
 
