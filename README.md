@@ -6,19 +6,18 @@ newsletter forms. Runs at `ruudjuffermans.nl`.
 
 **Client-only since the platform consolidation.** The site's backend (contact
 form, newsletter signups, page-view analytics and their admin API) moved into
-[`../ruudjuffermans-server`](../ruudjuffermans-server) — the shared platform
-API at `api.ruudjuffermans.nl` — as its `website` module. See
-`../PLATFORM_ARCHITECTURE_PLAN.md` for the architecture. Unlike the maxxing
-apps this site has no user accounts; its API calls are anonymous and
-rate-limited server-side.
+[`ruudjuffermans-server`](https://github.com/ruud-juffermans/ruudjuffermans-server)
+— the shared platform API at `api.ruudjuffermans.nl` — as its `website` module.
+See that repo's README for the platform architecture. Unlike the maxxing apps
+this site has no user accounts; its API calls are anonymous and rate-limited
+server-side.
 
 ## Tech stack
 
 | Layer    | Technology |
 | -------- | ---------- |
 | Frontend | Next.js 15 (App Router), React 19, Material UI 6, next-intl, MDX |
-| Backend  | [`ruudjuffermans-server`](../ruudjuffermans-server) — Express + Prisma, `website` module |
-| Shared   | TypeScript types shared between client and (legacy) server |
+| Backend  | [`ruudjuffermans-server`](https://github.com/ruud-juffermans/ruudjuffermans-server) — Express + Prisma, `website` module |
 | Tooling  | TypeScript, Docker / Docker Compose |
 
 ## Project structure
@@ -29,9 +28,6 @@ rate-limited server-side.
 │   ├── content/     # MDX blog & project content (nl / en)
 │   ├── messages/    # i18n translation files
 │   └── src/
-├── server/          # LEGACY pre-consolidation Express API — not deployed
-├── shared/          # Shared TypeScript types
-├── setup-dev.sh     # LEGACY (targeted the old full-stack dev setup)
 ├── .env.example     # Client env template
 └── docker-compose.yml   # Production stack: client-only Next.js image
 ```
@@ -66,7 +62,7 @@ Configuration (see [`.env.example`](.env.example)):
 | `NEXT_PUBLIC_SITE_URL` | Public site URL (metadata, www→apex redirect)            | `http://localhost:3000` |
 
 `CONTACT_EMAIL`, `NEWSLETTER_API_KEY`, `SMTP_*` and `ADMIN_SERVICE_TOKEN` now
-live in `../ruudjuffermans-server/.env.example`.
+live in [`ruudjuffermans-server/.env.example`](https://github.com/ruud-juffermans/ruudjuffermans-server/blob/main/.env.example).
 
 ## Deployment
 

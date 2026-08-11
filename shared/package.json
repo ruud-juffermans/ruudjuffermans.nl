@@ -1,9 +1,0 @@
-{
-  "name": "shared",
-  "version": "1.0.0",
-  "private": true,
-  "main": "types/api.ts",
-  "scripts": {
-    "build": "echo 'shared types - no build step needed'"
-  }
-}
