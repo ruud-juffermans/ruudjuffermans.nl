@@ -15,12 +15,9 @@ real-user data accumulates. Lab findings below.
 
 ## Bugs — fix first
 
-- [ ] **Canonical/hreflang/sitemap URLs point at `www.`** — every page declares
-      `https://www.ruudjuffermans.nl/...` as canonical, but www 308-redirects to
-      the apex. Cause: `NEXT_PUBLIC_SITE_URL` env var in Dokploy overrides the
-      compose default. Fix there (set to `https://ruudjuffermans.nl` or unset)
-      and **rebuild** — it's baked in at build time. Clears the Lighthouse SEO
-      audit "Document does not have a valid rel=canonical".
+- [x] **Canonical/hreflang/sitemap URLs point at `www.`** — fixed:
+      `NEXT_PUBLIC_SITE_URL` corrected in Dokploy and redeployed. Verified
+      live: canonical/hreflang/sitemap all use the apex; www still 308s in.
 - [x] **Unknown paths containing a dot return 500 instead of 404** — fixed.
       The crash was `getTranslations`/`Intl.NumberFormat` receiving the path
       (e.g. `llms.txt`) as a locale before any validation ran. Guards added in
@@ -28,35 +25,34 @@ real-user data accumulates. Lab findings below.
       (pages render in parallel with the layout, so the layout guard alone
       isn't enough), plus a root `app/not-found.tsx` (+ pass-through root
       layout) to catch it. Verified: `/llms.txt`, `/foo.txt` → 404.
-- [ ] **Desktop CLS 0.928 (mobile is 0) — investigated, root cause still open.**
-      Reproduces locally (`next start` + Lighthouse desktop) with the exact
-      same 0.928, so it's deterministic, not a network race. Trace filmstrip
-      shows a **flash of completely unstyled content at hydration** (~640ms):
-      one frame renders raw HTML (unstyled links, full-size SVGs, nav dropdown
-      content in flow), the next is fully styled — the restyle is the "shift".
-      Ruled out by experiment: web-font swap (now preloaded via next/font with
-      metric-adjusted fallback — kept anyway, it's correct), HeroCircles,
-      SplitText, hydration mismatch (no React #418/#423 in console), Suspense
-      streaming (prod HTML is complete, no $RC swap), stale framework (Next
-      15.5.23 / React 19.2.7). CSS links are render-blocking in `<head>` and
-      serve 200 — yet a pre-CSS frame paints. Next step: reproduce headful
-      with DevTools Performance panel and inspect which styles detach at
-      hydration (React `data-precedence` stylesheet adoption is the suspect).
+- [x] **Desktop CLS 0.928 — root-caused and fixed.** ThemeRegistry used a bare
+      module-level Emotion cache with no `useServerInsertedHTML` flush, so the
+      SSR HTML contained only the 3 `mui-global` style tags and **none of the
+      193 component `mui-*` classes** — the page painted essentially unstyled
+      (hero at y≈11,500px, zero padding) and then reflowed wholesale when
+      Emotion inserted all component styles at hydration. Diagnosed with a
+      CDP-instrumented headless probe (PerformanceObserver layout-shift
+      attribution + 100ms state timeline) against the live site. Fix: replace
+      the bare cache with MUI's `AppRouterCacheProvider`
+      (`@mui/material-nextjs/v15-appRouter`), which flushes SSR styles into
+      the HTML. Verified on the production build: CLS 0.928 → 0, desktop
+      Lighthouse performance 68 → 90, LCP 1.0s → 0.8s, rendering
+      pixel-identical. This also fixes the real-user flash of unstyled
+      content on slow connections — it was never just a lab artifact.
 - [ ] **Console errors on page load** — locally this is the analytics beacon
       (dev rewrite target :4000 not running → 500); on production, check
       DevTools on the live site — likely the same beacon or a blocked request.
 
 ## SEO — off-repo actions
 
-- [ ] Fix the www env var (above), redeploy, spot-check
-      `curl -s https://ruudjuffermans.nl/ | grep canonical`.
-- [ ] **Google Search Console**: add a Domain property for `ruudjuffermans.nl`
-      (DNS TXT record), verify, then submit `sitemap.xml` — *after* the www
-      fix so Google's first read has correct URLs. Request indexing for the
-      homepage via URL Inspection.
+- [x] Fix the www env var (above), redeploy, spot-check — done and verified.
+- [x] **Google Search Console**: domain verified, `sitemap.xml` submitted.
+      Watch the Pages report (Indexing) over the coming days/weeks; optionally
+      request indexing for the homepage via URL Inspection to skip the queue.
 - [ ] Bing Webmaster Tools: one-click import from GSC (optional).
 - [ ] Validate a blog post in Google's Rich Results Test (JSON-LD).
 - [ ] Check OG cards: LinkedIn Post Inspector + paste a URL in Slack/Discord.
+      (og:image verified serving 200/png on the live site already.)
 - [ ] **Decide: locale-detection redirect.** `/` currently 307s
       English-header visitors (incl. Googlebot, which crawls with English
       headers from the US) to `/en` — it's also why PSI tested `/en`. For a
