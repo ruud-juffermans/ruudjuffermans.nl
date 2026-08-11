@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 
-// Fonts loaded via @fontsource imports in layout.tsx
+// Fonts loaded via next/font in layout.tsx
 // --font-heading: Plus Jakarta Sans
 // --font-body: Outfit
 
@@ -292,9 +292,7 @@ const theme = createTheme({
           WebkitFontSmoothing: "antialiased",
           MozOsxFontSmoothing: "grayscale",
           textRendering: "optimizeLegibility",
-          // Self-hosted variable-font families (see @fontsource imports in layout.tsx).
-          "--font-heading": "'Plus Jakarta Sans Variable'",
-          "--font-body": "'Outfit Variable'",
+          // --font-heading / --font-body come from next/font in layout.tsx.
         },
         body: {
           overflowX: "hidden",

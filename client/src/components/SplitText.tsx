@@ -24,8 +24,14 @@ export default function SplitText({
   const ref = React.useRef<HTMLSpanElement | null>(null);
   const [visible, setVisible] = React.useState(false);
   const [reduceMotion, setReduceMotion] = React.useState(false);
+  // Server HTML renders the words in place and they only hide once JS is
+  // ready to animate them. The heading is usually the LCP element, so
+  // shipping it hidden would stall LCP until hydration (~1.5s on slow
+  // mobile); this way it paints immediately and the reveal plays on top.
+  const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
+    setMounted(true);
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setReduceMotion(true);
       setVisible(true);
@@ -65,7 +71,7 @@ export default function SplitText({
           >
             <span
               style={
-                reduceMotion
+                reduceMotion || !mounted
                   ? undefined
                   : {
                       display: "inline-block",

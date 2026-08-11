@@ -1,9 +1,5 @@
 import type { Metadata } from "next";
-// Self-hosted fonts (no CDN) — bundled from node_modules into the build.
-// The variable font families are referenced via --font-heading / --font-body,
-// which are defined in the MUI theme's CssBaseline.
-import "@fontsource-variable/plus-jakarta-sans";
-import "@fontsource-variable/outfit";
+import localFont from "next/font/local";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -12,6 +8,24 @@ import ThemeRegistry from "@/theme/ThemeRegistry";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { routing } from "@/i18n/routing";
+
+// Self-hosted fonts (no CDN), via next/font so the woff2 files are preloaded
+// and get a size-adjusted fallback — swapping in the web font then doesn't
+// reflow the page (the desktop hero was shifting a full CLS point on it).
+// The variables feed the MUI theme and CSS modules as before; the woff2 files
+// are the latin subsets copied from @fontsource-variable.
+const headingFont = localFont({
+  src: "../../assets/fonts/plus-jakarta-sans-latin-wght-normal.woff2",
+  weight: "200 800",
+  display: "swap",
+  variable: "--font-heading",
+});
+const bodyFont = localFont({
+  src: "../../assets/fonts/outfit-latin-wght-normal.woff2",
+  weight: "100 900",
+  display: "swap",
+  variable: "--font-body",
+});
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -65,9 +79,19 @@ export default async function LocaleLayout({
   }
   setRequestLocale(locale);
 
+  const apiOrigin = process.env.NEXT_PUBLIC_API_URL;
+
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html
+      lang={locale}
+      className={`${headingFont.variable} ${bodyFont.variable}`}
+      suppressHydrationWarning
+    >
       <head>
+        {/* The analytics beacon + forms hit the platform API on first
+            interaction; warming the connection saves a TLS handshake. Unset
+            in dev, where /api/* is a same-origin rewrite. */}
+        {apiOrigin ? <link rel="preconnect" href={apiOrigin} /> : null}
         <InitColorSchemeScript
           defaultMode="system"
           attribute="data-mui-color-scheme"
