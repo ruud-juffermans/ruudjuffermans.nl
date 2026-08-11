@@ -914,5 +914,10 @@
       "privacy": "Privacy"
     },
     "copyright": "© {year} Ruud Juffermans"
+  },
+  "notFound": {
+    "title": "Pagina niet gevonden",
+    "description": "De pagina die je zoekt bestaat niet (meer). Misschien is het adres veranderd, of zit er een typefout in de link.",
+    "backHome": "Terug naar home"
   }
 }

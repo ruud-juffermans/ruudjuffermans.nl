@@ -914,5 +914,10 @@
       "privacy": "Privacy"
     },
     "copyright": "© {year} Ruud Juffermans"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you're looking for doesn't exist (anymore). The address may have changed, or there's a typo in the link.",
+    "backHome": "Back to home"
   }
 }
