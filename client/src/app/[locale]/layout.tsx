@@ -36,12 +36,12 @@ export async function generateMetadata({
       locale: locale === "nl" ? "nl_NL" : "en_US",
       siteName: t("siteName"),
     },
-    alternates: {
-      languages: {
-        nl: "/",
-        en: "/en",
-      },
+    twitter: {
+      card: "summary_large_image",
     },
+    // No `alternates` here on purpose: canonical + hreflang are per-page
+    // (see buildAlternates in lib/seo.ts) — a layout-level value would claim
+    // the homepage as every page's language alternate.
   };
 }
 

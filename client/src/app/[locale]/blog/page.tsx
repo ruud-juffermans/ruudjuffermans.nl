@@ -5,6 +5,7 @@ import Reveal from "@/components/Reveal";
 import BlogCard from "@/components/BlogCard";
 import { getBlogPosts } from "@/lib/content";
 import type { Locale } from "@/i18n/routing";
+import { buildAlternates, formatDate } from "@/lib/seo";
 import SplitText from "@/components/SplitText";
 import { palette } from "@/theme/theme";
 import type { Metadata } from "next";
@@ -19,6 +20,7 @@ export async function generateMetadata({
   return {
     title: t("metaTitle"),
     description: t("metaDescription"),
+    alternates: buildAlternates("/blog", locale),
   };
 }
 
@@ -83,7 +85,7 @@ export default async function BlogPage({
                   <Reveal variant="rise" delay={i * 100} sx={{ height: "100%" }}>
                     <BlogCard
                       post={post}
-                      meta={`${post.date} · ${post.readingTime} ${tc("readingTimeSuffix")}`}
+                      meta={`${formatDate(post.date, locale)} · ${post.readingTime} ${tc("readingTimeSuffix")}`}
                     />
                   </Reveal>
                 </Grid>

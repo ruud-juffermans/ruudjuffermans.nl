@@ -7,6 +7,8 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { getProjectItem, getProjectItems } from "@/lib/content";
+import JsonLd from "@/components/JsonLd";
+import { absoluteUrl, buildAlternates, fallbackAlternates, SITE_URL } from "@/lib/seo";
 import { routing, type Locale } from "@/i18n/routing";
 import { palette } from "@/theme/theme";
 import PageViewTracker from "@/components/PageViewTracker";
@@ -28,6 +30,15 @@ export async function generateMetadata({
   return {
     title: item.meta.title,
     description: item.meta.summary,
+    alternates: item.usedFallback
+      ? fallbackAlternates("/projects/[slug]", { slug })
+      : buildAlternates("/projects/[slug]", locale, { slug }),
+    openGraph: {
+      type: "article",
+      title: item.meta.title,
+      description: item.meta.summary,
+      tags: item.meta.tags,
+    },
   };
 }
 
@@ -47,6 +58,22 @@ export default async function ProjectDetailPage({
   return (
     <Box sx={{ py: { xs: 4, md: 8 } }}>
       <PageViewTracker path={`/projects/${slug}`} locale={locale} />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: locale === "nl" ? "Projecten" : "Projects",
+              item: absoluteUrl("/projects", locale),
+            },
+            { "@type": "ListItem", position: 3, name: item.meta.title },
+          ],
+        }}
+      />
       <Container maxWidth="md">
         <Button
           component={Link}

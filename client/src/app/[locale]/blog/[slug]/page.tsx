@@ -6,6 +6,14 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { getBlogPost, getBlogPosts } from "@/lib/content";
+import JsonLd from "@/components/JsonLd";
+import {
+  absoluteUrl,
+  buildAlternates,
+  fallbackAlternates,
+  formatDate,
+  SITE_URL,
+} from "@/lib/seo";
 import { routing, type Locale } from "@/i18n/routing";
 import { palette } from "@/theme/theme";
 import PageViewTracker from "@/components/PageViewTracker";
@@ -27,6 +35,18 @@ export async function generateMetadata({
   return {
     title: post.meta.title,
     description: post.meta.excerpt,
+    // Fallback pages serve the Dutch MDX under the /en/ URL — canonicalize
+    // those to the Dutch original instead of claiming a translation pair.
+    alternates: post.usedFallback
+      ? fallbackAlternates("/blog/[slug]", { slug })
+      : buildAlternates("/blog/[slug]", locale, { slug }),
+    openGraph: {
+      type: "article",
+      title: post.meta.title,
+      description: post.meta.excerpt,
+      publishedTime: post.meta.date,
+      tags: post.meta.tags,
+    },
   };
 }
 
@@ -46,6 +66,41 @@ export default async function BlogPostPage({
   return (
     <Box sx={{ pt: { xs: 6, md: 10 }, pb: { xs: 8, md: 11 } }}>
       <PageViewTracker path={`/blog/${slug}`} locale={locale} />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "BlogPosting",
+              headline: post.meta.title,
+              description: post.meta.excerpt,
+              datePublished: post.meta.date,
+              inLanguage: locale,
+              keywords: post.meta.tags.join(", "),
+              mainEntityOfPage: absoluteUrl("/blog/[slug]", locale, { slug }),
+              author: {
+                "@type": "Person",
+                "@id": `${SITE_URL}/#person`,
+                name: "Ruud Juffermans",
+                url: SITE_URL,
+              },
+            },
+            {
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  name: "Blog",
+                  item: absoluteUrl("/blog", locale),
+                },
+                { "@type": "ListItem", position: 3, name: post.meta.title },
+              ],
+            },
+          ],
+        }}
+      />
       <Container maxWidth="md">
         <Typography
           component={Link}
@@ -85,7 +140,8 @@ export default async function BlogPostPage({
             {post.meta.title}
           </Typography>
           <Typography sx={{ fontSize: 14, color: palette.gray500 }}>
-            {post.meta.date} &middot; {post.meta.readingTime} {tc("readingTimeSuffix")}
+            <time dateTime={post.meta.date}>{formatDate(post.meta.date, locale)}</time>{" "}
+            &middot; {post.meta.readingTime} {tc("readingTimeSuffix")}
           </Typography>
         </Box>
 

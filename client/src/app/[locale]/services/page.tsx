@@ -8,8 +8,10 @@ import Reveal from "@/components/Reveal";
 import ProofStrip from "@/components/ProofStrip";
 import PackageCard from "@/components/PackageCard";
 import Faq, { type FaqItem } from "@/components/Faq";
+import JsonLd from "@/components/JsonLd";
 import { PHASES, packagesInPhase, type PackageDef } from "@/lib/packages";
 import { buildPackageCardProps, packageCardLabels } from "@/lib/packageContent";
+import { buildAlternates } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 import SplitText from "@/components/SplitText";
 import { palette } from "@/theme/theme";
@@ -25,6 +27,7 @@ export async function generateMetadata({
   return {
     title: t("metaTitle"),
     description: t("metaDescription"),
+    alternates: buildAlternates("/services", locale),
   };
 }
 
@@ -46,6 +49,17 @@ export default async function ServicesPage({
 
   return (
     <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqItems.map((item) => ({
+            "@type": "Question",
+            name: item.q,
+            acceptedAnswer: { "@type": "Answer", text: item.a },
+          })),
+        }}
+      />
       {/* Hero — one positioning line, then the proof that backs it */}
       <Box sx={{ pt: { xs: 10, md: 15 }, pb: { xs: 7, md: 10 } }}>
         <Container>

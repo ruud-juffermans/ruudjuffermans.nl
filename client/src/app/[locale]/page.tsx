@@ -29,6 +29,8 @@ import {
   packageCardLabels,
 } from "@/lib/packageContent";
 import { getBlogPosts } from "@/lib/content";
+import JsonLd from "@/components/JsonLd";
+import { buildAlternates, formatDate, SITE_URL } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 import { palette } from "@/theme/theme";
 import type { Metadata } from "next";
@@ -45,6 +47,7 @@ export async function generateMetadata({
     // would otherwise repeat the name that's already in this title.
     title: { absolute: t("metaTitle") },
     description: t("metaDescription"),
+    alternates: buildAlternates("/", locale),
   };
 }
 
@@ -227,6 +230,33 @@ export default async function Home({
 
   return (
     <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "ProfessionalService",
+              "@id": `${SITE_URL}/#business`,
+              name: "Ruud Juffermans — Data Analytics & AI",
+              url: SITE_URL,
+              description: t("metaDescription"),
+              areaServed: "NL",
+              founder: { "@id": `${SITE_URL}/#person` },
+            },
+            {
+              "@type": "Person",
+              "@id": `${SITE_URL}/#person`,
+              name: "Ruud Juffermans",
+              url: SITE_URL,
+              jobTitle: "Data & AI consultant",
+              sameAs: [
+                "https://www.linkedin.com/in/r-j3",
+                "https://github.com/ruud-juffermans",
+              ],
+            },
+          ],
+        }}
+      />
       {/* Hero — sits above the flow backdrop, which starts below it */}
       <Box
         sx={{
@@ -398,7 +428,7 @@ export default async function Home({
           "& > .MuiContainer-root": { position: "relative", zIndex: 1 },
         }}
       >
-        <FlowLines />
+        <FlowLines rate={0.85} />
         <Container>
           <Reveal variant="rise">
             <Typography variant="overline" sx={{ mb: 1.5, display: "block" }}>
@@ -950,7 +980,7 @@ export default async function Home({
                   >
                     <BlogCard
                       post={post}
-                      meta={`${post.date} · ${post.readingTime} ${tc("readingTimeSuffix")}`}
+                      meta={`${formatDate(post.date, locale)} · ${post.readingTime} ${tc("readingTimeSuffix")}`}
                     />
                   </Box>
                 ))}
@@ -963,7 +993,7 @@ export default async function Home({
                   <Reveal variant="rise" delay={i * 120} sx={{ height: "100%" }}>
                     <BlogCard
                       post={post}
-                      meta={`${post.date} · ${post.readingTime} ${tc("readingTimeSuffix")}`}
+                      meta={`${formatDate(post.date, locale)} · ${post.readingTime} ${tc("readingTimeSuffix")}`}
                     />
                   </Reveal>
                 </Grid>

@@ -10,6 +10,8 @@ import { Link } from "@/i18n/navigation";
 import Reveal from "@/components/Reveal";
 import LinkButton from "@/components/LinkButton";
 import PageViewTracker from "@/components/PageViewTracker";
+import JsonLd from "@/components/JsonLd";
+import { absoluteUrl, buildAlternates, SITE_URL } from "@/lib/seo";
 import { PACKAGE_SLUGS, getPackage } from "@/lib/packages";
 import { formatOriginalPrice, formatPackagePrice, packageSteps } from "@/lib/packageContent";
 import { routing, type Locale } from "@/i18n/routing";
@@ -32,6 +34,7 @@ export async function generateMetadata({
   return {
     title: tp(`${pkg.slug}.name`),
     description: tp(`${pkg.slug}.promise`),
+    alternates: buildAlternates("/services/[slug]", locale, { slug }),
   };
 }
 
@@ -74,6 +77,48 @@ export default async function PackageDetailPage({
   return (
     <>
       <PageViewTracker path={`/services/${pkg.slug}`} locale={locale} />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Service",
+              name: tp(`${pkg.slug}.name`),
+              description: tp(`${pkg.slug}.promise`),
+              url: absoluteUrl("/services/[slug]", locale, { slug }),
+              areaServed: "NL",
+              provider: {
+                "@type": "Person",
+                "@id": `${SITE_URL}/#person`,
+                name: "Ruud Juffermans",
+                url: SITE_URL,
+              },
+              ...(pkg.price !== null
+                ? {
+                    offers: {
+                      "@type": "Offer",
+                      price: pkg.discountPrice ?? pkg.price,
+                      priceCurrency: "EUR",
+                    },
+                  }
+                : {}),
+            },
+            {
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  name: locale === "nl" ? "Diensten" : "Services",
+                  item: absoluteUrl("/services", locale),
+                },
+                { "@type": "ListItem", position: 3, name: tp(`${pkg.slug}.name`) },
+              ],
+            },
+          ],
+        }}
+      />
 
       {/* Hero — name, the situation, the promise */}
       <Box sx={{ pt: { xs: 9, md: 13 }, pb: { xs: 6, md: 9 } }}>

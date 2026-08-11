@@ -1,6 +1,7 @@
 import { Box, Container, Typography } from "@mui/material";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
+import { buildAlternates } from "@/lib/seo";
 import { palette } from "@/theme/theme";
 import type { Metadata } from "next";
 
@@ -14,6 +15,7 @@ export async function generateMetadata({
   return {
     title: t("metaTitle"),
     description: t("metaDescription"),
+    alternates: buildAlternates("/privacy", locale),
   };
 }
 

@@ -6,6 +6,7 @@ import { Link } from "@/i18n/navigation";
 import Reveal from "@/components/Reveal";
 import { getProjectItems } from "@/lib/content";
 import type { Locale } from "@/i18n/routing";
+import { buildAlternates } from "@/lib/seo";
 import SplitText from "@/components/SplitText";
 import { palette } from "@/theme/theme";
 import type { Metadata } from "next";
@@ -20,6 +21,7 @@ export async function generateMetadata({
   return {
     title: t("metaTitle"),
     description: t("metaDescription"),
+    alternates: buildAlternates("/projects", locale),
   };
 }
 
