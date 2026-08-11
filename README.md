@@ -2,7 +2,9 @@
 
 Personal / freelance (ZZP) website: a bilingual (Dutch / English) Next.js site
 with blog and project sections backed by MDX content, plus contact and
-newsletter forms. Runs at `ruudjuffermans.nl`.
+newsletter forms. Live at [ruudjuffermans.nl](https://ruudjuffermans.nl).
+
+[![Homepage](docs/screenshot.png)](https://ruudjuffermans.nl)
 
 **Client-only since the platform consolidation.** The site's backend (contact
 form, newsletter signups, page-view analytics and their admin API) moved into
