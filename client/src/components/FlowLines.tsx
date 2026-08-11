@@ -5,6 +5,7 @@ import styles from "./FlowLines.module.css";
 
 // How many pixels the dash pattern travels per pixel scrolled. Higher = the
 // light dots race further along the lines for the same scroll distance.
+// Instances can override this via the `rate` prop.
 const FLOW_RATE = 1.15;
 
 // Delay, in pixels of scroll. The flow would otherwise begin the moment the
@@ -68,8 +69,10 @@ export type FlowLinesVariant = keyof typeof VARIANTS;
 // here — sections dial it with their own translucent background.
 export default function FlowLines({
   variant = "loops",
+  rate = FLOW_RATE,
 }: {
   variant?: FlowLinesVariant;
+  rate?: number;
 }) {
   const { tileW, tileH, gradientId, paths } = VARIANTS[variant];
   const ref = useRef<HTMLDivElement>(null);
@@ -102,7 +105,7 @@ export default function FlowLines({
         window.innerHeight - FLOW_DELAY - el.getBoundingClientRect().top;
       el.style.setProperty(
         "--flow-offset",
-        String(-Math.max(0, travelled) * FLOW_RATE)
+        String(-Math.max(0, travelled) * rate)
       );
     };
     const onScroll = () => {
@@ -117,7 +120,7 @@ export default function FlowLines({
       window.removeEventListener("resize", onScroll);
       if (frame) cancelAnimationFrame(frame);
     };
-  }, []);
+  }, [rate]);
 
   return (
     <div
