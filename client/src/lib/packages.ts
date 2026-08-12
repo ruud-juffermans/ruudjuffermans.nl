@@ -132,7 +132,7 @@ export const PACKAGES: PackageDef[] = [
     accent: "#8B5CF6",
     price: 12500,
     priceKind: "fixed",
-    proofSlug: "uitspraak-rag",
+    proofSlug: "strafrecht-rag",
     consumes: ["data-scan", "process-scan", "requirements-and-kpis"],
   },
   // ── Draaiend houden ───────────────────────────────────────────────────────

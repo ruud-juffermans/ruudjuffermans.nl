@@ -650,7 +650,7 @@
           "f3Title": "Live dashboard",
           "f3Body": "Een Streamlit-kaart met actuele vertragingen, rechtstreeks uit de stream."
         },
-        "uitspraak-rag": {
+        "strafrecht-rag": {
           "toggle": "Strafrecht AI RAG",
           "title": "Vragen stellen aan rechtspraak — mét bronnen",
           "sub": "RAG-systeem over rechterlijke uitspraken: semantisch zoeken door uitspraken, antwoorden geformuleerd door een LLM, en elke bewering herleidbaar naar de ECLI waar ze vandaan komt.",

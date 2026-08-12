@@ -650,7 +650,7 @@
           "f3Title": "Live dashboard",
           "f3Body": "A Streamlit map of current delays, fed straight from the stream."
         },
-        "uitspraak-rag": {
+        "strafrecht-rag": {
           "toggle": "Strafrecht AI RAG",
           "title": "Ask questions of Dutch case law — with sources",
           "sub": "RAG system over court rulings: semantic search across judgments, answers formulated by an LLM, and every claim traced back to the ECLI it came from.",

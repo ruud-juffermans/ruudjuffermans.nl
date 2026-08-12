@@ -143,12 +143,12 @@ export default async function Home({
   const hoodIcons: Record<string, [string, string, string]> = {
     "open-data-warehouse": ["▦", "✓", "⇄"],
     "ov-streaming-pipeline": ["≋", "⧖", "◉"],
-    "uitspraak-rag": ["§", "⊘", "⌕"],
+    "strafrecht-rag": ["§", "⊘", "⌕"],
   };
   const hoodVariants = [
     { key: "open-data-warehouse", github: "https://github.com/datavakwerk/open-data-warehouse" },
     { key: "ov-streaming-pipeline", github: "https://github.com/datavakwerk/ov-streaming-pipeline" },
-    { key: "uitspraak-rag", github: "https://github.com/datavakwerk/uitspraak-rag" },
+    { key: "strafrecht-rag", github: "https://github.com/datavakwerk/strafrecht-rag" },
   ].map(({ key, github }) => ({
     key,
     github,

@@ -62,7 +62,7 @@ const CODE: Record<string, { file: string; lines: CodeLine[]; tools: string[] }>
     ],
     tools: ["Python", "Kafka", "Redpanda", "Streamlit", "Docker"],
   },
-  "uitspraak-rag": {
+  "strafrecht-rag": {
     file: "uitspraak_retrieval.py",
     lines: [
       { t: [["cmt", "# uitspraak_retrieval.py"]] },
@@ -88,7 +88,7 @@ export default function UnderTheHood({
   const [active, setActive] = useState(0);
   const v = variants[active];
   if (!v) return null;
-  const code = CODE[v.key] ?? CODE["uitspraak-rag"];
+  const code = CODE[v.key] ?? CODE["strafrecht-rag"];
 
   return (
     <section className={styles.section}>

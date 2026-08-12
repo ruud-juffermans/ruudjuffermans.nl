@@ -1,0 +1,121 @@
+---
+title: "Wat kost een datawarehouse voor het mkb? Eerlijke cijfers"
+date: "2026-08-11"
+excerpt: "Wie googelt wat een datawarehouse kost, vindt vooral 'dat hangt ervan af' en een knop voor een vrijblijvend gesprek. Hier is het echte antwoord, met bedragen: wat de markt rekent, waar de kosten in zitten, wanneer je géén warehouse moet kopen — en wat ik er zelf voor vraag."
+tags: ["Zakelijk", "Data Warehouse", "Kosten"]
+---
+Wie googelt wat een datawarehouse kost, vindt twee soorten antwoorden: "dat
+hangt ervan af" en een formulier voor een vrijblijvend gesprek. Allebei waar,
+allebei nutteloos als je gewoon wilt weten of dit een investering van tien-,
+twintig- of honderdduizend euro is voordat je er intern over begint.
+
+Ik werk met vaste prijzen die gewoon op mijn site staan, dus laat ik de vraag
+ook gewoon beantwoorden. Met bedragen.
+
+## Het korte antwoord
+
+Voor een mkb-organisatie met een handvol bronsystemen kost een serieus
+datawarehouse — gemodelleerd, getest, met rapportage erop en overdraagbaar
+opgeleverd — bij een freelancer grofweg **€15.000 tot €25.000**. Bij een
+bureau komt daar doorgaans 50 tot 100% bovenop. Zie je aanbiedingen ver onder
+de €10.000, dan koop je meestal geen warehouse maar een dashboard met wat
+koppelingen — dat kan prima de juiste keuze zijn, daarover verderop meer.
+
+Ter vergelijking, uit openbaar Nederlands marktonderzoek: een serieus Power
+BI-dashboard zónder warehouse eronder kost rond de €5.000, en een scenario met
+twee dashboards, drie bronnen en een datawarehouse rond de €17.500. Freelance
+data engineers rekenen in Nederland €80–130 per uur; BI-consultants zitten op
+dagtarieven van €600 tot ruim €1.000.
+
+## Waar je voor betaalt (hint: niet de techniek)
+
+De software is het probleem niet. De motoren waar ik warehouses op bouw zijn
+open source of kosten een paar tientjes per maand. Wat je koopt is werk, en
+dat werk zit op vier plekken:
+
+1. **Definities.** Wat telt als klant? Wanneer telt een order — bij bestelling,
+   levering of betaling? Elk cijfer waarover afdelingen nu van mening
+   verschillen, is een definitie die iemand moet vastleggen. Dit is het
+   moeilijkste en waardevolste deel van het traject, en het heeft niets met
+   technologie te maken.
+2. **Modelleren.** De vertaling van die definities naar een datamodel dat ook
+   volgend jaar nog klopt, als er een bron bijkomt of een gemeente herindeelt.
+3. **Testen.** Het verschil tussen "het rapport draaide vanochtend" en "het
+   rapport klópt vanochtend". Controles op elke stap, zodat een probleem in de
+   bron wordt gesignaleerd voordat de maandvergadering hem vindt.
+4. **Overdracht.** Documentatie en een overdrachtssessie, zodat je team ermee
+   verder kan zonder aan de bouwer vast te zitten.
+
+> Een warehouse koop je niet omdat je data hebt. Je koopt hem omdat je
+> discussies hebt — en die wil je niet elke maand opnieuw voeren.
+
+## Wat de prijs omhoog of omlaag duwt
+
+- **Het aantal bronnen.** Elke koppeling is werk: ontsluiten, schoonmaken,
+  testen. Drie bronnen is een ander project dan tien.
+- **De staat van je definities.** Liggen ze vast, dan begint de bouw meteen.
+  Moeten ze nog uitgevochten worden, dan gaat daar de eerste week in zitten.
+- **Historie.** "Hoe stond het er vorig kwartaal voor?" klinkt onschuldig,
+  maar historisch correct rapporteren over reorganisaties en herindelingen
+  heen is een expliciete ontwerpkeuze die tijd kost.
+- **De rapportagelaag.** Eén managementdashboard is iets anders dan vijftien
+  rapporten voor drie doelgroepen.
+- **Wie het gaat beheren.** Overdraagbaar opleveren aan je eigen team is
+  eenmalig werk; doorlopend beheer is een abonnement — bij mij heet dat
+  [Rapportage op de automatische piloot](/diensten/reporting-automation).
+
+## Wat je zelf kunt doen om het goedkoop te houden
+
+Dit deel kun je doen zonder iemand in te huren, en het scheelt echt geld:
+
+- **Leg de definities vast vóór de bouw begint.** Eén werksessie met de
+  betrokken afdelingen waarin je per kerncijfer opschrijft wat het betekent,
+  scheelt een week discussie tijdens het traject.
+- **Begin met de cijfers waar beslissingen op draaien.** Niet "alles wat we
+  hebben" ontsluiten, maar de vijf tot tien KPI's waar het maandelijks
+  echt over gaat. Uitbreiden kan altijd; te groot beginnen wreekt zich.
+- **Koop nog geen tooling.** De licentiekeuze volgt uit het model, niet
+  andersom. Organisaties die eerst een platform aanschaffen en dan bedenken
+  wat erop moet, betalen dubbel.
+
+## Wanneer je géén warehouse moet kopen
+
+Eerlijkheid verkoopt slecht maar werkt goed, dus: er zijn situaties waarin ik
+het afraad.
+
+- **Eén bron, één rapport.** Dan is een goed
+  [dashboard rechtstreeks op die bron](/diensten/dashboards) sneller en een
+  fractie van de prijs. Een warehouse wordt pas zinvol als cijfers uit
+  meerdere systemen elkaar moeten kunnen verdragen.
+- **De organisatie verandert elk kwartaal.** Een warehouse verankert
+  definities; als die definities nog wekelijks schuiven, is het te vroeg.
+- **Niemand is eigenaar van rapportage.** Zonder eigenaar veroudert elk
+  warehouse tot precies de situatie waarvoor het gebouwd werd. Regel eerst
+  het eigenaarschap, dan de techniek.
+
+## Wat ik er zelf voor vraag
+
+Mijn pakket [Jouw datawarehouse](/diensten/single-source-of-truth) kost
+**vanaf €15.000** en duurt drie tot vier weken. Voor dat bedrag krijg je de
+kleinste eerlijke versie: pipelines op een afgebakend aantal bronnen, een
+gelaagd en getest datamodel, één definitie per cijfer, een Power
+BI-dashboard op de KPI's, en documentatie plus overdracht zodat je team het
+zelf kan dragen. Meer bronnen of complexere historie duwen de prijs omhoog —
+dat hoor je vooraf, niet achteraf.
+
+Zelf rekenen: vier weken senior werk tegen de uurtarieven hierboven kost je
+op uurbasis al snel €16.000 — zonder vaste scope en zonder vaste prijs. De
+vaste prijs is geen korting; het is hetzelfde bedrag met het risico aan mijn
+kant van de tafel in plaats van de jouwe.
+
+De goedkoopste manier om te beginnen is overigens niet het warehouse zelf,
+maar de [Data scan](/diensten/data-scan): die levert het doelmodel op dat
+als blauwdruk voor de bouw dient — de eerste bouwweek wordt er korter van,
+en je weet vooraf waar je aan toe bent.
+
+*Hoe zo'n warehouse eruitziet als het af is — met sterschema, tests en
+documentatie — laat ik zien in [het open-data warehouse](/blog/open-data-warehouse-met-dbt)
+dat ik in de openbaarheid bouwde.*
+
+*Herken je de cijferdiscussies? [Plan een kennismaking](/contact) — dan
+kijk ik vrijblijvend mee waar jouw situatie op de ladder valt.*

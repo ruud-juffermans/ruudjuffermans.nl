@@ -1,0 +1,104 @@
+---
+title: "What does a dashboard cost to build — and why it's usually not the dashboard"
+date: "2026-09-01"
+excerpt: "Request quotes for a dashboard and you'll get numbers from €500 to well past €15,000. That spread isn't random: you're not paying for the charts, you're paying for what sits underneath them. An honest breakdown of the price tiers, when the cheap version is fine — and when you shouldn't buy a dashboard at all."
+tags: ["Business", "Dashboards", "Costs"]
+---
+Ask three parties to quote "a dashboard" and you'll get numbers back from
+€500 to well past €15,000. For the same word. Choosing on price then means
+comparing apples to plumbing — because the spread isn't random. With a
+dashboard, you barely pay for the charts. You pay for what sits underneath
+them.
+
+## The short answer
+
+Three price tiers, and each of them is sometimes the right one:
+
+- **€500 – €3,500: the quick dashboard.** Straight on one clean source,
+  standard visuals, you maintain it yourself. Fine for an operational
+  overview on a system that's already correct.
+- **€5,000 – €10,000: the serious dashboard.** With a data model under the
+  hood, one pinned-down definition per figure shown, and attention for the
+  people who'll use it. My own package sits in this tier:
+  [from €7,500](/en/services/dashboards).
+- **€15,000 and (well) beyond: dashboard plus foundation.** Once figures
+  from multiple systems have to agree, you're no longer really buying a
+  dashboard but a data warehouse with reporting on top. Dutch market
+  research prices that scenario around €17,500 — my honest take on it is in
+  [What does a data warehouse cost for an SME?](/en/blog/wat-kost-een-datawarehouse)
+
+The charts themselves — colours, tiles, filters — are maybe twenty percent
+of the work in all three tiers. The rest sits below the waterline.
+
+## Where the money actually goes
+
+**The data model.** Every serious builder puts a modelling layer between
+source and dashboard: cleaning, logic, one calculation per figure. Skip it,
+and every definition lives inside a chart formula — and a year later nobody
+knows why two tiles on the same dashboard give different answers. (How that
+happens, and what it costs, is worked out in
+[Every department reports a different revenue figure](/en/blog/elke-afdeling-een-ander-cijfer).)
+
+**The decisions, not the wishes.** The standard question "which charts do
+you want?" produces a wish list. The better question: which decision do you
+make again every month? A dashboard view that doesn't trace back to a
+recurring decision stops being opened after three weeks. That inventory is
+thinking work, not clicking work — and it's exactly the difference between
+the price tiers.
+
+**Adoption.** Dashboards rarely die on technology; they die on disuse. A
+manual by email doesn't work. A working session with the people who need to
+use it, in their own calendar, does. In the cheap tier this is absent by
+definition; in my package it's in scope by default, not an add-on.
+
+> A dashboard nobody opens didn't fail on visualisation.
+> It answers a question nobody asked.
+
+## "We already have a dashboard, but nobody looks at it"
+
+I hear this more often than "we have nothing yet". And the important thing
+then is *not* to buy a prettier dashboard first, because that changes
+nothing. Disuse almost always has one of three causes:
+
+1. **It doesn't answer a decision.** It shows what there was to show, not
+   what the team has to decide monthly.
+2. **The figures aren't trusted.** Users double-check the numbers against
+   the source system — that's a definition problem, not a visualisation
+   problem.
+3. **The depth is missing.** The overview exists, but "which customers,
+   exactly?" requires an export to Excel. Then Excel always wins.
+
+All three are fixable — but with modelling work and conversations, not with
+a new colour scheme.
+
+## What you can do yourself before hiring anyone
+
+- **Build the decision inventory yourself.** One list: which decisions come
+  back monthly, and which figures do they need? Everything you have built
+  afterwards must trace back to that list. This costs an afternoon and makes
+  every quote sharper — and cheaper.
+- **Test the trust.** Ask three users whether they double-check the current
+  report's figures against the source. If yes: you have a definition problem
+  first, and a dashboard wish second.
+- **Look at the usage.** Virtually every BI platform shows who opens a
+  report. Ten users created, two active? That's your real starting point,
+  not the feature list.
+
+## What I charge
+
+My package [A dashboard people actually open](/en/services/dashboards) costs
+**from €7,500** and takes two to three weeks: first the decision inventory,
+then a clean documented model on the source you already have (with a
+definition list per figure shown), then one to three dashboards with
+drill-down — built iteratively, users looking along — and finally the
+adoption session. No warehouse project: the build goes straight on your
+existing source.
+
+And the honesty that belongs with it: if week one shows your sources are too
+fragmented to build on directly, I won't build on sand — you'll hear it,
+with [the warehouse story](/en/services/single-source-of-truth) as the honest
+alternative instead of a dashboard that falls over three months later anyway.
+
+*Not sure which price tier your situation falls into?
+[Book an intro call](/en/contact) — I'll gladly walk through the decision
+inventory above with you in a first conversation.*

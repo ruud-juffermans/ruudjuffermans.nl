@@ -1,0 +1,121 @@
+---
+title: "What does a data warehouse cost for an SME? Honest numbers"
+date: "2026-08-11"
+excerpt: "Google what a data warehouse costs and you'll mostly find 'it depends' and a button for a free consultation. Here's the real answer, with figures: what the market charges, where the cost actually sits, when you should not buy a warehouse — and what I charge for one."
+tags: ["Business", "Data Warehouse", "Costs"]
+---
+Google what a data warehouse costs and you'll find two kinds of answers: "it
+depends" and a form for a free consultation. Both true, both useless when you
+simply want to know whether this is a ten-, twenty- or hundred-thousand euro
+investment before you raise it internally.
+
+I work with fixed prices that are simply published on my site, so let me
+answer the question the same way. With numbers.
+
+## The short answer
+
+For an SME with a handful of source systems, a serious data warehouse —
+modelled, tested, with reporting on top, delivered so your own team can carry
+it — costs roughly **€15,000 to €25,000** with a freelancer. An agency
+typically adds 50 to 100% on top. If you see offers well under €10,000,
+you're usually not buying a warehouse but a dashboard with some connectors —
+which can be exactly the right choice; more on that below.
+
+For comparison, from public Dutch market research: a serious Power BI
+dashboard *without* a warehouse underneath runs around €5,000, and a scenario
+with two dashboards, three sources and a data warehouse lands around €17,500.
+Freelance data engineers in the Netherlands charge €80–130 per hour; BI
+consultants sit at day rates from €600 to well over €1,000.
+
+## What you're paying for (hint: not the technology)
+
+The software is not the problem. The engines I build warehouses on are open
+source or cost tens of euros per month. What you're buying is work, and that
+work sits in four places:
+
+1. **Definitions.** What counts as a customer? When does an order count — at
+   ordering, delivery or payment? Every figure your departments currently
+   disagree about is a definition someone has to pin down. This is the
+   hardest and most valuable part of the engagement, and it has nothing to do
+   with technology.
+2. **Modelling.** Translating those definitions into a data model that still
+   holds next year, when a source gets added or the organisation changes.
+3. **Testing.** The difference between "the report ran this morning" and "the
+   report is *right* this morning". Checks at every step, so a problem in the
+   source is caught before the monthly meeting finds it.
+4. **Handover.** Documentation and a handover session, so your team can carry
+   on without being chained to the builder.
+
+> You don't buy a warehouse because you have data. You buy one because you
+> have arguments — and you don't want to have them again every month.
+
+## What pushes the price up or down
+
+- **The number of sources.** Every connection is work: extracting, cleaning,
+  testing. Three sources is a different project than ten.
+- **The state of your definitions.** If they're settled, the build starts
+  immediately. If they still have to be fought out, that's the first week.
+- **History.** "How did this look last quarter?" sounds innocent, but
+  reporting correctly across reorganisations is an explicit design choice
+  that takes time.
+- **The reporting layer.** One management dashboard is not fifteen reports
+  for three audiences.
+- **Who will maintain it.** Delivering it transferable to your own team is
+  one-off work; ongoing operation is a subscription — mine is called
+  [Reporting on autopilot](/en/services/reporting-automation).
+
+## What you can do yourself to keep it cheap
+
+You can do this part without hiring anyone, and it genuinely saves money:
+
+- **Pin down the definitions before the build starts.** One working session
+  with the departments involved, writing down what each core figure means,
+  saves a week of mid-project debate.
+- **Start with the figures decisions actually run on.** Not "everything we
+  have", but the five to ten KPIs the monthly conversation is really about.
+  You can always extend; starting too big always backfires.
+- **Don't buy tooling yet.** The licence choice follows from the model, not
+  the other way around. Organisations that buy a platform first and then
+  work out what goes on it pay twice.
+
+## When you should *not* buy a warehouse
+
+Honesty sells poorly but works well, so: there are situations where I advise
+against it.
+
+- **One source, one report.** Then a good
+  [dashboard straight on that source](/en/services/dashboards) is faster and
+  a fraction of the price. A warehouse becomes worthwhile once figures from
+  multiple systems have to agree with each other.
+- **The organisation changes every quarter.** A warehouse anchors
+  definitions; if those still shift weekly, it's too early.
+- **Nobody owns reporting.** Without an owner, every warehouse decays into
+  exactly the situation it was built to fix. Sort the ownership first, then
+  the technology.
+
+## What I charge
+
+My package [Your data warehouse](/en/services/single-source-of-truth) costs
+**from €15,000** and takes three to four weeks. For that you get the smallest
+honest version: pipelines on a bounded set of sources, a layered and tested
+data model, one definition per figure, a Power BI dashboard on the KPIs, and
+documentation plus handover so your team can carry it. More sources or more
+complex history push the price up — you hear that up front, not afterwards.
+
+Do the maths yourself: four weeks of senior work at the hourly rates above
+quickly reaches €16,000 on an hourly basis — with no fixed scope and no fixed
+price. The fixed price isn't a discount; it's the same money with the risk on
+my side of the table instead of yours.
+
+The cheapest way to start, by the way, is not the warehouse itself but the
+[Data scan](/en/services/data-scan): it delivers the target model that serves
+as the blueprint for the build — the first build week gets shorter, and you
+know where you stand before committing.
+
+*What such a warehouse looks like when it's done — star schema, tests,
+documentation — is something I show in [the open-data warehouse](/en/blog/open-data-warehouse-met-dbt)
+I built in public.*
+
+*Recognise the arguments about whose number is right?
+[Book an intro call](/en/contact) — I'll gladly help you place your situation
+on the ladder, no strings attached.*

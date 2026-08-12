@@ -70,4 +70,4 @@ whether it should go ahead.
   the acceptance criteria the test set is built from.
 - A "go" verdict feeds the production build; a "don't because of the data" verdict
   feeds [Your data warehouse](data-warehouse.md).
-- Proof: the uitspraak-rag project demonstrates this package end to end.
+- Proof: the strafrecht-rag project demonstrates this package end to end.
