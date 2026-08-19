@@ -1,8 +1,7 @@
 import { Box, Container, Typography } from "@mui/material";
-import Grid from "@mui/material/Grid2";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import Reveal from "@/components/Reveal";
-import ProjectCard from "@/components/ProjectCard";
+import ProjectSection from "@/components/ProjectSection";
 import { getProjectItems } from "@/lib/content";
 import { getPackage } from "@/lib/packages";
 import type { Locale } from "@/i18n/routing";
@@ -35,7 +34,7 @@ export default async function ProjectsPage({
   setRequestLocale(locale);
   const t = await getTranslations("projects");
   const items = getProjectItems(locale);
-  const cardLabels = {
+  const sectionLabels = {
     view: t("view"),
     repo: t("repoLabel"),
   };
@@ -62,9 +61,9 @@ export default async function ProjectsPage({
         </Container>
       </Box>
 
-      <Box sx={{ pb: { xs: 10, md: 14 } }}>
-        <Container>
-          {items.length === 0 ? (
+      {items.length === 0 ? (
+        <Box sx={{ pb: { xs: 10, md: 14 } }}>
+          <Container>
             <Reveal variant="zoom">
               <Box
                 sx={{
@@ -83,26 +82,25 @@ export default async function ProjectsPage({
                 </Typography>
               </Box>
             </Reveal>
-          ) : (
-            <Grid container spacing={3}>
-              {items.map((item, i) => {
-                const provenPackage = item.proves ? getPackage(item.proves) : undefined;
-                return (
-                  <Grid size={{ xs: 12, md: 6 }} key={item.slug}>
-                    <Reveal variant="rise" delay={(i % 2) * 100} sx={{ height: "100%" }}>
-                      <ProjectCard
-                        project={item}
-                        accent={provenPackage?.accent ?? palette.red}
-                        labels={cardLabels}
-                      />
-                    </Reveal>
-                  </Grid>
-                );
-              })}
-            </Grid>
-          )}
-        </Container>
-      </Box>
+          </Container>
+        </Box>
+      ) : (
+        <Box sx={{ pb: { xs: 4, md: 6 } }}>
+          {items.map((item, i) => {
+            const provenPackage = item.proves ? getPackage(item.proves) : undefined;
+            return (
+              <ProjectSection
+                key={item.slug}
+                project={item}
+                accent={provenPackage?.accent ?? palette.red}
+                index={i}
+                shaded={i % 2 === 0}
+                labels={sectionLabels}
+              />
+            );
+          })}
+        </Box>
+      )}
     </>
   );
 }
