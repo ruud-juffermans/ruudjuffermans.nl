@@ -230,6 +230,9 @@ export default function Footer() {
               <TextField
                 size="small"
                 placeholder={t("newsletterPlaceholder")}
+                // Placeholder is not an accessible name (and disappears on
+                // input) — screen readers need an explicit label.
+                slotProps={{ htmlInput: { "aria-label": t("newsletterLabel") } }}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"
@@ -263,11 +266,20 @@ export default function Footer() {
                 {status === "success" ? t("newsletterSuccess") : t("newsletterSubmit")}
               </Button>
             </Box>
-            {status === "error" && (
-              <Typography variant="body2" sx={{ color: "#EF4444", mt: 1, fontSize: "0.85rem" }}>
-                {t("newsletterError")}
-              </Typography>
-            )}
+            {/* Persistent live region: mounted before any status exists, so
+                screen readers announce the outcome of a submit (4.1.3). */}
+            <Box role="status" aria-live="polite">
+              {status === "error" && (
+                <Typography variant="body2" sx={{ color: "#EF4444", mt: 1, fontSize: "0.85rem" }}>
+                  {t("newsletterError")}
+                </Typography>
+              )}
+              {status === "success" && (
+                <Typography variant="body2" sx={{ color: FC.body, mt: 1, fontSize: "0.85rem" }}>
+                  {t("newsletterSuccess")}
+                </Typography>
+              )}
+            </Box>
           </Grid>
         </Grid>
       </Container>

@@ -6,7 +6,7 @@ import ProjectCard from "@/components/ProjectCard";
 import { getProjectItems } from "@/lib/content";
 import { getPackage } from "@/lib/packages";
 import type { Locale } from "@/i18n/routing";
-import { buildAlternates } from "@/lib/seo";
+import { buildAlternates, buildOpenGraph } from "@/lib/seo";
 import SplitText from "@/components/SplitText";
 import { palette } from "@/theme/theme";
 import type { Metadata } from "next";
@@ -22,6 +22,7 @@ export async function generateMetadata({
     title: t("metaTitle"),
     description: t("metaDescription"),
     alternates: buildAlternates("/projects", locale),
+    openGraph: buildOpenGraph("/projects", locale),
   };
 }
 
@@ -74,7 +75,7 @@ export default async function ProjectsPage({
                   borderRadius: 4,
                 }}
               >
-                <Typography variant="h3" sx={{ mb: 2 }}>
+                <Typography variant="h3" component="h2" sx={{ mb: 2 }}>
                   {t("empty.title")}
                 </Typography>
                 <Typography variant="body1" sx={{ maxWidth: 500, mx: "auto" }}>

@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 import ThemeRegistry from "@/theme/ThemeRegistry";
 import Header from "@/components/Header";
+import SkipLink from "@/components/SkipLink";
 import Footer from "@/components/Footer";
 import { routing } from "@/i18n/routing";
 
@@ -79,6 +80,7 @@ export default async function LocaleLayout({
   }
   setRequestLocale(locale);
 
+  const tc = await getTranslations({ locale, namespace: "common" });
   const apiOrigin = process.env.NEXT_PUBLIC_API_URL;
 
   return (
@@ -101,8 +103,9 @@ export default async function LocaleLayout({
       <body>
         <NextIntlClientProvider>
           <ThemeRegistry>
+            <SkipLink label={tc("skipToContent")} />
             <Header />
-            <main>{children}</main>
+            <main id="main">{children}</main>
             <Footer />
           </ThemeRegistry>
         </NextIntlClientProvider>

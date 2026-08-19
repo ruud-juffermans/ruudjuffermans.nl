@@ -30,7 +30,7 @@ import {
 } from "@/lib/packageContent";
 import { getBlogPosts } from "@/lib/content";
 import JsonLd from "@/components/JsonLd";
-import { buildAlternates, formatDate, SITE_URL } from "@/lib/seo";
+import { buildAlternates, buildOpenGraph, formatDate, SITE_URL } from "@/lib/seo";
 import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing, type Locale } from "@/i18n/routing";
@@ -50,6 +50,7 @@ export async function generateMetadata({
     title: { absolute: t("metaTitle") },
     description: t("metaDescription"),
     alternates: buildAlternates("/", locale),
+    openGraph: buildOpenGraph("/", locale),
   };
 }
 

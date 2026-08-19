@@ -11,7 +11,7 @@ import Faq, { type FaqItem } from "@/components/Faq";
 import JsonLd from "@/components/JsonLd";
 import { PHASES, packagesInPhase, type PackageDef } from "@/lib/packages";
 import { buildPackageCardProps, packageCardLabels } from "@/lib/packageContent";
-import { buildAlternates } from "@/lib/seo";
+import { buildAlternates, buildOpenGraph } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 import SplitText from "@/components/SplitText";
 import { palette } from "@/theme/theme";
@@ -28,6 +28,7 @@ export async function generateMetadata({
     title: t("metaTitle"),
     description: t("metaDescription"),
     alternates: buildAlternates("/services", locale),
+    openGraph: buildOpenGraph("/services", locale),
   };
 }
 

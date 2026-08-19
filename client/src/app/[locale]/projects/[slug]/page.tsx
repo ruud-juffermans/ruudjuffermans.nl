@@ -8,7 +8,13 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { getProjectItem, getProjectItems } from "@/lib/content";
 import JsonLd from "@/components/JsonLd";
-import { absoluteUrl, buildAlternates, fallbackAlternates, SITE_URL } from "@/lib/seo";
+import {
+  absoluteUrl,
+  buildAlternates,
+  buildOpenGraph,
+  fallbackAlternates,
+  SITE_URL,
+} from "@/lib/seo";
 import { routing, type Locale } from "@/i18n/routing";
 import { palette } from "@/theme/theme";
 import PageViewTracker from "@/components/PageViewTracker";
@@ -34,6 +40,8 @@ export async function generateMetadata({
       ? fallbackAlternates("/projects/[slug]", { slug })
       : buildAlternates("/projects/[slug]", locale, { slug }),
     openGraph: {
+      // og:url follows the canonical: fallback pages point at the Dutch original.
+      ...buildOpenGraph("/projects/[slug]", item.usedFallback ? "nl" : locale, { slug }),
       type: "article",
       title: item.meta.title,
       description: item.meta.summary,

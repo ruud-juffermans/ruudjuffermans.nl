@@ -1,7 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import type { Locale } from "@/i18n/routing";
-import { buildAlternates } from "@/lib/seo";
+import { buildAlternates, buildOpenGraph } from "@/lib/seo";
 import ContactClient from "./ContactClient";
 
 // The form itself is a client component; this server wrapper exists so the
@@ -17,6 +17,7 @@ export async function generateMetadata({
     title: t("metaTitle"),
     description: t("metaDescription"),
     alternates: buildAlternates("/contact", locale),
+    openGraph: buildOpenGraph("/contact", locale),
   };
 }
 

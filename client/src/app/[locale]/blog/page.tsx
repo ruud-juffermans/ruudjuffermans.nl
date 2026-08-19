@@ -5,7 +5,7 @@ import Reveal from "@/components/Reveal";
 import BlogCard from "@/components/BlogCard";
 import { getBlogPosts } from "@/lib/content";
 import type { Locale } from "@/i18n/routing";
-import { buildAlternates, formatDate } from "@/lib/seo";
+import { buildAlternates, buildOpenGraph, formatDate } from "@/lib/seo";
 import SplitText from "@/components/SplitText";
 import { palette } from "@/theme/theme";
 import type { Metadata } from "next";
@@ -21,6 +21,7 @@ export async function generateMetadata({
     title: t("metaTitle"),
     description: t("metaDescription"),
     alternates: buildAlternates("/blog", locale),
+    openGraph: buildOpenGraph("/blog", locale),
   };
 }
 

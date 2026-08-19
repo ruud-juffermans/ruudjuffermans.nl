@@ -96,7 +96,7 @@ export default function ContactClient() {
                   "& .MuiAlert-message": { fontSize: "1.05rem", color: palette.gray700 },
                 }}
               >
-                <Typography variant="h4" sx={{ mb: 1 }}>
+                <Typography variant="h4" component="h2" sx={{ mb: 1 }}>
                   {t("success.title")}
                 </Typography>
                 <Typography variant="body1">{t("success.body")}</Typography>
@@ -173,7 +173,7 @@ export default function ContactClient() {
                 border: `1px solid var(--app-border-soft)`,
               }}
             >
-              <Typography variant="h4" sx={{ mb: 3 }}>
+              <Typography variant="h4" component="h2" sx={{ mb: 3 }}>
                 {t("direct.title")}
               </Typography>
               {directItems.map((item) => (

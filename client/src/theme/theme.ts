@@ -30,8 +30,10 @@ const LIGHT = {
   gray100: "#ecead4",
   gray200: "#e0ddc7",
   gray300: "#CBD5E1",
-  gray400: "#94A3B8",
-  gray500: "#64748B",
+  // gray400/500 double as text tints on the cream surfaces, so they must
+  // clear WCAG 4.5:1 on bg #f6f3eb (gray400) and surface #ecead4 (gray500).
+  gray400: "#5d6b80",
+  gray500: "#566578",
   gray600: "#475569",
   gray700: "#334155",
   gray800: "#1E293B",
@@ -45,8 +47,10 @@ const LIGHT = {
   // deep light-mode blue; the pale dark-mode blue needs dark ink (WCAG AA).
   onRed: "#FFFFFF",
   textPrimary: "#0F172A",
-  textSecondary: "#5B6B81",
-  textMuted: "#94A3B8",
+  // Both tiers are used on the card surface (#ecead4), where 4.5:1 needs
+  // secondary ≤ #52627A and muted ≤ #566578; keep secondary the darker tier.
+  textSecondary: "#52627A",
+  textMuted: "#566578",
 };
 
 const DARK = {

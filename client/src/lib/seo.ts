@@ -58,6 +58,26 @@ export function buildAlternates(
 }
 
 /**
+ * Per-page Open Graph base: og:url (resolved against metadataBase) plus the
+ * fields the locale layout would otherwise provide. Next.js replaces a
+ * parent's `openGraph` object wholesale when a page defines one, so pages
+ * must carry the full set — spread this and override/extend as needed.
+ */
+export function buildOpenGraph(
+  href: AppPathname,
+  locale: Locale,
+  params?: PathParams,
+): NonNullable<Metadata["openGraph"]> {
+  return {
+    type: "website",
+    url: localizePathname(href, locale, params),
+    locale: locale === "nl" ? "nl_NL" : "en_US",
+    // Mirrors site.siteName in messages/{nl,en}.json (identical in both).
+    siteName: "Ruud Juffermans — Data Analytics & AI",
+  };
+}
+
+/**
  * For pages rendered from fallback content (Dutch MDX served under /en/…):
  * canonicalize to the Dutch original and skip hreflang, so the two URLs
  * aren't presented to crawlers as distinct translations of each other.

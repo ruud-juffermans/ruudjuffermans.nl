@@ -86,6 +86,9 @@ export function getBlogPosts(locale: Locale = DEFAULT_LOCALE): PostMeta[] {
       } as PostMeta;
     })
     .filter((p): p is PostMeta => p !== null)
+    // Future-dated posts stay out of listings, sitemap and feed until their
+    // date arrives (evaluated at build time — requires a rebuild to appear).
+    .filter((p) => !p.date || new Date(p.date).getTime() <= Date.now())
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 

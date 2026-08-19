@@ -1,5 +1,6 @@
 import { formatAmount, type PackageDef } from "@/lib/packages";
 import type { PackageCardLabels, PackageCardProps } from "@/components/PackageCard";
+import type { FaqItem } from "@/components/Faq";
 import type { Locale } from "@/i18n/routing";
 
 /**
@@ -69,6 +70,41 @@ export function buildPackageCardProps(
     proofSlug: pkg.proofSlug,
     labels,
   };
+}
+
+/**
+ * The four practical questions on a package detail page (price, lead time,
+ * deliverables, scope), with every answer derived from the package definition
+ * and its existing translations — so the visible FAQ and its FAQPage schema
+ * can never drift from what the rest of the page says.
+ */
+export function buildPackageFaq(pkg: PackageDef, tp: Translator, locale: Locale): FaqItem[] {
+  const name = tp(`${pkg.slug}.name`);
+  const charged = pkg.discountPrice ?? pkg.price;
+  const priceAnswer =
+    charged === null
+      ? tp("labels.faq.aPriceOnRequest")
+      : tp(pkg.priceKind === "from" ? "labels.faq.aPriceFrom" : "labels.faq.aPriceFixed", {
+          name,
+          amount: formatAmount(charged, locale),
+        });
+  const deliverables = tp.raw(`${pkg.slug}.deliverables`) as string[];
+  const notIncluded = tp.raw(`${pkg.slug}.notIncluded`) as string[];
+  return [
+    { q: tp("labels.faq.qPrice", { name }), a: priceAnswer },
+    {
+      q: tp("labels.faq.qDuration", { name }),
+      a: tp("labels.faq.aDuration", { duration: tp(`${pkg.slug}.duration`) }),
+    },
+    {
+      q: tp("labels.faq.qDeliverables"),
+      a: tp("labels.faq.aDeliverables", { items: deliverables.join("; ") }),
+    },
+    {
+      q: tp("labels.faq.qNotIncluded"),
+      a: tp("labels.faq.aNotIncluded", { items: notIncluded.join("; ") }),
+    },
+  ];
 }
 
 export interface PackageStep {

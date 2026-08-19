@@ -10,6 +10,7 @@ import JsonLd from "@/components/JsonLd";
 import {
   absoluteUrl,
   buildAlternates,
+  buildOpenGraph,
   fallbackAlternates,
   formatDate,
   SITE_URL,
@@ -32,15 +33,25 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const post = getBlogPost(locale, slug);
   if (!post) return {};
+  const alternates = post.usedFallback
+    ? fallbackAlternates("/blog/[slug]", { slug })
+    : buildAlternates("/blog/[slug]", locale, { slug });
+  // The Markdown twin served by the rewrites in next.config.ts; fallback
+  // pages carry Dutch content, so they point at the Dutch .md as well.
+  const markdownPath =
+    post.usedFallback || locale === "nl" ? `/blog/${slug}.md` : `/en/blog/${slug}.md`;
   return {
     title: post.meta.title,
     description: post.meta.excerpt,
     // Fallback pages serve the Dutch MDX under the /en/ URL — canonicalize
     // those to the Dutch original instead of claiming a translation pair.
-    alternates: post.usedFallback
-      ? fallbackAlternates("/blog/[slug]", { slug })
-      : buildAlternates("/blog/[slug]", locale, { slug }),
+    alternates: {
+      ...alternates,
+      types: { "application/rss+xml": "/feed.xml", "text/markdown": markdownPath },
+    },
     openGraph: {
+      // og:url follows the canonical: fallback pages point at the Dutch original.
+      ...buildOpenGraph("/blog/[slug]", post.usedFallback ? "nl" : locale, { slug }),
       type: "article",
       title: post.meta.title,
       description: post.meta.excerpt,
@@ -75,6 +86,12 @@ export default async function BlogPostPage({
               headline: post.meta.title,
               description: post.meta.excerpt,
               datePublished: post.meta.date,
+              // No separate modified date is tracked; publishing an edit
+              // should bump the frontmatter date.
+              dateModified: post.meta.date,
+              // The per-slug OG image route (locale-prefixed — unprefixed
+              // opengraph-image paths are excluded from the i18n middleware).
+              image: [`${SITE_URL}/${locale}/blog/${slug}/opengraph-image`],
               inLanguage: locale,
               keywords: post.meta.tags.join(", "),
               mainEntityOfPage: absoluteUrl("/blog/[slug]", locale, { slug }),
@@ -192,6 +209,26 @@ export default async function BlogPostPage({
                 color: palette.gray800,
                 mb: 0,
               },
+            },
+            "& table": {
+              display: "block",
+              overflowX: "auto",
+              borderCollapse: "collapse",
+              mb: 2.5,
+              fontSize: "0.92em",
+            },
+            "& th, & td": {
+              border: `1px solid ${palette.gray200}`,
+              px: 1.5,
+              py: 1,
+              color: palette.gray600,
+              verticalAlign: "top",
+            },
+            "& th": {
+              fontFamily: "var(--font-heading)",
+              fontWeight: 600,
+              color: palette.gray900,
+              textAlign: "left",
             },
             "& code": {
               backgroundColor: palette.offWhite,

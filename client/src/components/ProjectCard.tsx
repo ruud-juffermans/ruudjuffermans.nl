@@ -79,7 +79,7 @@ export default function ProjectCard({
           )}
         </Box>
 
-        <Typography variant="h4" component="h3" sx={{ mb: 1.5 }}>
+        <Typography variant="h4" component="h2" sx={{ mb: 1.5 }}>
           <Box
             component={Link}
             href={{ pathname: "/projects/[slug]", params: { slug: project.slug } }}

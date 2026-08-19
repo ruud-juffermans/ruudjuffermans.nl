@@ -17,6 +17,7 @@
     "languageLabel": "Language",
     "switchToEnglish": "English",
     "switchToDutch": "Dutch",
+    "skipToContent": "Skip to content",
     "themeLabel": "Theme",
     "themeLight": "Light theme",
     "themeDark": "Dark theme",
@@ -34,6 +35,7 @@
     "projects": "Projects",
     "blog": "Blog",
     "apps": "Apps",
+    "mainNavLabel": "Main navigation",
     "about": "About",
     "contact": "Contact"
   },
@@ -75,7 +77,21 @@
       "notIncluded": "Not included",
       "fitTitle": "Where this fits in the path",
       "fitConsumes": "Builds on",
-      "fitFeeds": "Leads to"
+      "fitFeeds": "Leads to",
+      "faq": {
+        "eyebrow": "Practical",
+        "title": "Frequently asked questions",
+        "qPrice": "What does {name} cost?",
+        "aPriceFixed": "{name} has a fixed scope and a fixed price: {amount} excl. VAT. You know exactly where you stand before we start.",
+        "aPriceFrom": "{name} starts from {amount} excl. VAT. The final price depends on the scope and is fixed before the work starts — no open end.",
+        "aPriceOnRequest": "The price depends on the scope. After a short call you receive a fixed price up front — no open end.",
+        "qDuration": "How long does {name} take?",
+        "aDuration": "The lead time is {duration}, with a scope that is fixed up front.",
+        "qDeliverables": "What exactly do I get?",
+        "aDeliverables": "You get: {items}.",
+        "qNotIncluded": "What is out of scope?",
+        "aNotIncluded": "Out of scope: {items}. That is what keeps the price fixed and expectations clear."
+      }
     },
     "data-scan": {
       "name": "Data scan",
@@ -470,7 +486,7 @@
     }
   },
   "home": {
-    "metaTitle": "Ruud Juffermans — Data and AI",
+    "metaTitle": "Data & AI Consultant for SMBs | Ruud Juffermans",
     "metaDescription": "I build data foundations that carry both your reporting and your AI. Six packages with fixed scope, fixed price and a timeline in weeks.",
     "hero": {
       "eyebrow": "Data foundations & AI",
@@ -836,6 +852,7 @@
     "moreHeading": "More",
     "newsletterHeading": "Newsletter",
     "newsletterBody": "A monthly article on data, AI and what it means for your business.",
+    "newsletterLabel": "Email address",
     "newsletterPlaceholder": "you@email.com",
     "newsletterSubmit": "Subscribe",
     "newsletterSuccess": "Subscribed!",

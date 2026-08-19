@@ -94,6 +94,8 @@ export default function Header() {
             {/* Desktop nav */}
             <Box>
             <Box
+              component="nav"
+              aria-label={t("mainNavLabel")}
               sx={{
                 display: { xs: "none", lg: "flex" },
                 alignItems: "center",
@@ -222,7 +224,11 @@ export default function Header() {
           </IconButton>
         </Box>
 
-        <Box component="nav" sx={{ flex: 1, px: 2, pt: 3, overflowY: "auto" }}>
+        <Box
+          component="nav"
+          aria-label={t("mainNavLabel")}
+          sx={{ flex: 1, px: 2, pt: 3, overflowY: "auto" }}
+        >
           {/* Services: big link to the overview + the three service pages. */}
           <Box
             component={Link}

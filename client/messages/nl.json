@@ -17,6 +17,7 @@
     "languageLabel": "Taal",
     "switchToEnglish": "Engels",
     "switchToDutch": "Nederlands",
+    "skipToContent": "Direct naar inhoud",
     "themeLabel": "Thema",
     "themeLight": "Licht thema",
     "themeDark": "Donker thema",
@@ -34,6 +35,7 @@
     "projects": "Projecten",
     "blog": "Blog",
     "apps": "Apps",
+    "mainNavLabel": "Hoofdnavigatie",
     "about": "Over mij",
     "contact": "Contact"
   },
@@ -75,7 +77,21 @@
       "notIncluded": "Niet inbegrepen",
       "fitTitle": "Waar dit past in het pad",
       "fitConsumes": "Bouwt voort op",
-      "fitFeeds": "Leidt tot"
+      "fitFeeds": "Leidt tot",
+      "faq": {
+        "eyebrow": "Praktisch",
+        "title": "Veelgestelde vragen",
+        "qPrice": "Wat kost {name}?",
+        "aPriceFixed": "{name} heeft een vaste scope en een vaste prijs: {amount} excl. btw. Je weet vooraf precies waar je aan toe bent.",
+        "aPriceFrom": "{name} begint vanaf {amount} excl. btw. De definitieve prijs hangt af van de scope en staat vast vóór de start — geen open einde.",
+        "aPriceOnRequest": "De prijs hangt af van de scope. Na een kort gesprek ontvang je een vaste prijs vooraf — geen open einde.",
+        "qDuration": "Hoe lang duurt {name}?",
+        "aDuration": "De doorlooptijd is {duration}, met een scope die vooraf vastligt.",
+        "qDeliverables": "Wat krijg ik concreet opgeleverd?",
+        "aDeliverables": "Je krijgt: {items}.",
+        "qNotIncluded": "Wat valt er buiten de scope?",
+        "aNotIncluded": "Buiten de scope valt: {items}. Zo blijft de prijs vast en de verwachting helder."
+      }
     },
     "data-scan": {
       "name": "Datascan",
@@ -470,7 +486,7 @@
     }
   },
   "home": {
-    "metaTitle": "Ruud Juffermans — Data en AI",
+    "metaTitle": "Data & AI-consultant voor het mkb | Ruud Juffermans",
     "metaDescription": "Ik bouw datafundamenten waar je rapportage én je AI op draaien. Zes pakketten met vaste scope, vaste prijs en een doorlooptijd in weken.",
     "hero": {
       "eyebrow": "Datafundamenten & AI",
@@ -836,6 +852,7 @@
     "moreHeading": "Meer",
     "newsletterHeading": "Nieuwsbrief",
     "newsletterBody": "Maandelijks een artikel over data, AI en hoe je er als bedrijf iets aan hebt.",
+    "newsletterLabel": "E-mailadres",
     "newsletterPlaceholder": "jouw@email.nl",
     "newsletterSubmit": "Inschrijven",
     "newsletterSuccess": "Ingeschreven!",

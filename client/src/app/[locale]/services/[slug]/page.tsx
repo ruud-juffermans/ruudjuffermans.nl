@@ -11,9 +11,15 @@ import Reveal from "@/components/Reveal";
 import LinkButton from "@/components/LinkButton";
 import PageViewTracker from "@/components/PageViewTracker";
 import JsonLd from "@/components/JsonLd";
-import { absoluteUrl, buildAlternates, SITE_URL } from "@/lib/seo";
+import Faq from "@/components/Faq";
+import { absoluteUrl, buildAlternates, buildOpenGraph, SITE_URL } from "@/lib/seo";
 import { PACKAGE_SLUGS, getPackage } from "@/lib/packages";
-import { formatOriginalPrice, formatPackagePrice, packageSteps } from "@/lib/packageContent";
+import {
+  buildPackageFaq,
+  formatOriginalPrice,
+  formatPackagePrice,
+  packageSteps,
+} from "@/lib/packageContent";
 import { routing, type Locale } from "@/i18n/routing";
 import { palette } from "@/theme/theme";
 import type { Metadata } from "next";
@@ -35,6 +41,7 @@ export async function generateMetadata({
     title: tp(`${pkg.slug}.name`),
     description: tp(`${pkg.slug}.promise`),
     alternates: buildAlternates("/services/[slug]", locale, { slug }),
+    openGraph: buildOpenGraph("/services/[slug]", locale, { slug }),
   };
 }
 
@@ -66,6 +73,7 @@ export default async function PackageDetailPage({
   const steps = packageSteps(pkg, tp);
   const price = formatPackagePrice(pkg, tp, locale);
   const originalPrice = formatOriginalPrice(pkg, locale);
+  const faqItems = buildPackageFaq(pkg, tp, locale);
 
   return (
     <>
@@ -108,6 +116,14 @@ export default async function PackageDetailPage({
                 },
                 { "@type": "ListItem", position: 3, name: tp(`${pkg.slug}.name`) },
               ],
+            },
+            {
+              "@type": "FAQPage",
+              mainEntity: faqItems.map((item) => ({
+                "@type": "Question",
+                name: item.q,
+                acceptedAnswer: { "@type": "Answer", text: item.a },
+              })),
             },
           ],
         }}
@@ -493,6 +509,27 @@ export default async function PackageDetailPage({
           </Container>
         </Box>
       )}
+
+      {/* FAQ — the four practical questions (price, lead time, deliverables,
+          scope), derived from the package definition so page and FAQPage
+          schema always agree */}
+      <Box sx={{ py: { xs: 8, md: 11 } }}>
+        <Container>
+          <Box sx={{ maxWidth: 760 }}>
+            <Reveal variant="rise">
+              <Typography variant="overline" sx={{ mb: 2, display: "block" }}>
+                {tp("labels.faq.eyebrow")}
+              </Typography>
+              <Typography variant="h2" sx={{ mb: { xs: 4, md: 6 } }}>
+                {tp("labels.faq.title")}
+              </Typography>
+            </Reveal>
+            <Reveal variant="fade" delay={120}>
+              <Faq items={faqItems} />
+            </Reveal>
+          </Box>
+        </Container>
+      </Box>
 
       {/* CTA — full-bleed dark section that blends into the footer (same
           #070B15); the radial glow rises from the bottom edge in the

@@ -86,6 +86,12 @@ const nextConfig: NextConfig = {
   },
   async rewrites() {
     return [
+      // Markdown twins of the blog posts (AEO): /blog/foo.md serves the raw
+      // post as text/markdown. Dotted paths are excluded from the i18n
+      // middleware matcher, so these reach the app router unprefixed and get
+      // mapped onto the raw/blog handler here.
+      { source: "/blog/:slug.md", destination: "/raw/blog/nl/:slug" },
+      { source: "/en/blog/:slug.md", destination: "/raw/blog/en/:slug" },
       // Dev convenience: with NEXT_PUBLIC_API_URL unset the browser calls
       // same-origin /api/*, which this rewrite proxies to the local platform
       // server (ruudjuffermans-server on :4000). Production bakes the absolute
