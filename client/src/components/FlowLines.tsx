@@ -90,34 +90,51 @@ export default function FlowLines({
     return () => observer.disconnect();
   }, [tileH]);
 
-  // Advance the dash offset with scroll position, rAF-throttled.
+  // Advance the dash offset with scroll position, rAF-throttled. The layer's
+  // document-space top is cached so the per-scroll work reads only scrollY —
+  // calling getBoundingClientRect here, after the previous frame's
+  // --flow-offset write invalidated style, would force a layout every frame
+  // (and did: ~70ms of forced reflow per PageSpeed trace).
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let frame = 0;
+    let docTop = 0;
+    const measure = () => {
+      docTop = el.getBoundingClientRect().top + window.scrollY;
+    };
     const update = () => {
       frame = 0;
       // Pixels scrolled since the layer's top entered the viewport bottom,
       // minus the delay — negative values are clamped away below.
-      const travelled =
-        window.innerHeight - FLOW_DELAY - el.getBoundingClientRect().top;
+      const travelled = window.innerHeight - FLOW_DELAY - (docTop - window.scrollY);
       el.style.setProperty(
         "--flow-offset",
         String(-Math.max(0, travelled) * rate)
       );
     };
-    const onScroll = () => {
+    const schedule = () => {
       if (!frame) frame = requestAnimationFrame(update);
     };
+    const remeasure = () => {
+      measure();
+      schedule();
+    };
 
+    measure();
     update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", remeasure);
+    // Content above the layer growing or shrinking moves its document-space
+    // top without a window resize; watching the page's height catches that.
+    const observer = new ResizeObserver(remeasure);
+    observer.observe(document.body);
     return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", remeasure);
+      observer.disconnect();
       if (frame) cancelAnimationFrame(frame);
     };
   }, [rate]);

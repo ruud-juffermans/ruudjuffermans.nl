@@ -15,6 +15,14 @@ services:
         NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://ruudjuffermans.nl}
     environment:
       - NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL:-https://ruudjuffermans.nl}
+    labels:
+      # Registers a Traefik compress middleware (gzip/brotli/zstd on Traefik
+      # v3) as `website-compress@docker`. The Next standalone server itself
+      # only gzips, so a brotli-only client currently gets ~590 KB of
+      # uncompressed homepage HTML. The router lives in Dokploy's dynamic
+      # config, not in these labels — attach `website-compress@docker` to it
+      # in Dokploy (domain → Traefik config) to activate this.
+      - traefik.http.middlewares.website-compress.compress=true
     restart: unless-stopped
     networks:
       - dokploy-network

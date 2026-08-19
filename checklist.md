@@ -39,9 +39,15 @@ real-user data accumulates. Lab findings below.
       Lighthouse performance 68 → 90, LCP 1.0s → 0.8s, rendering
       pixel-identical. This also fixes the real-user flash of unstyled
       content on slow connections — it was never just a lab artifact.
-- [ ] **Console errors on page load** — locally this is the analytics beacon
-      (dev rewrite target :4000 not running → 500); on production, check
-      DevTools on the live site — likely the same beacon or a blocked request.
+- [x] **Console errors on page load** — root-caused with a headless-Chrome
+      pass over `/`, `/en`, `/en/projects`, `/en/blog`, `/en/contact`
+      (Aug 19, 2026). The analytics beacon is clean in prod; the only console
+      error is the browser-logged 401 from the anonymous-visitor session probe
+      (`GET api.ruudjuffermans.nl/api/account/auth/me`). `session.ts` handles
+      the 401 correctly, but browsers always log 4xx responses and the
+      session cookie is cross-origin, so the client can't skip the probe.
+      Fix lives in `ruudjuffermans-server`: have `/auth/me` return 200
+      `{user: null}` for anonymous instead of 401. Nothing to change here.
 
 ## SEO — off-repo actions
 
@@ -72,14 +78,28 @@ real-user data accumulates. Lab findings below.
       hydration. (Reveal-wrapped blocks still fade in; only the LCP h1
       needed this.) Fonts also moved from @fontsource CSS imports to
       next/font/local: preloaded woff2 + size-adjusted fallback.
-- [ ] **Forced reflow (~70ms)** — scroll handler reads geometry
-      (`getBoundingClientRect` in FlowLines / homepage code) after style
-      invalidation. Batch reads before writes or cache measurements.
+- [x] **Forced reflow (~70ms)** — fixed. The FlowLines scroll handler called
+      `getBoundingClientRect` per rAF frame after the previous frame's
+      `--flow-offset` write had invalidated style, forcing a layout every
+      scroll frame. It now caches the layer's document-space top (re-measured
+      on window resize and page-height changes via a ResizeObserver on
+      `body`) and derives the offset from `scrollY` alone — no layout reads
+      on the scroll path.
 - [x] **Preconnect to `https://api.ruudjuffermans.nl`** — added in the locale
       layout head, emitted only when `NEXT_PUBLIC_API_URL` is set (i.e. prod).
-- [ ] **Render-blocking CSS** — 870ms est. savings on mobile (110ms desktop),
-      three CSS chunks. Worth a look at what's inlineable/deferrable, but
-      lower priority than the items above.
+- [x] **Render-blocking CSS** — closed, not actionable. Total CSS across the
+      three chunks is ~6 KB gzip; the 870ms "estimated savings" is an
+      artifact of PSI's simulated slow-4G throttling (each request costs a
+      synthetic round trip regardless of size), not real transfer time.
+      Inlining 6 KB would save nothing measurable for real users.
+- [ ] **Brotli** — the Next standalone server only gzips, and a brotli-only
+      request currently gets the homepage HTML uncompressed (591 KB,
+      verified live Aug 19, 2026). A Traefik compress middleware
+      (`website-compress@docker`, gzip/br/zstd on Traefik v3) is now defined
+      via labels in `docker-compose.yml`; remaining off-repo step: attach it
+      to the site's router in Dokploy (domain → Traefik config), then verify
+      with `curl -sI -H "Accept-Encoding: br" https://ruudjuffermans.nl/en`
+      → expect `content-encoding: br`. Worth ~15–25% off every cold visit.
 
 ## Performance — low priority / ignore
 
