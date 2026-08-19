@@ -21,8 +21,7 @@ whether it should go ahead.
 ### 1. The yardstick — agreed before building starts
 
 - **One use case, tightly scoped** — picked from the
-  [Process scan](process-scan.md)'s opportunity map or the
-  [Sharpen the question](requirements-and-kpis.md) brief when they exist; scoped in
+  [Process scan](process-scan.md)'s opportunity map when it exists; scoped in
   week 1 otherwise.
 - **A real test set** — what "good enough" means, in examples, built with the people
   who do the work today. The go/no-go is measured against this, not against a demo
@@ -64,10 +63,8 @@ whether it should go ahead.
 ## Bridges
 
 - Consumes phase 1 directly: the use case comes pre-scoped from the
-  [Process scan](process-scan.md)'s AI-fit shortlist or the
-  [Data scan](data-scan.md)'s AI-readiness assessment; the
-  [Sharpen the question](requirements-and-kpis.md) brief, when it exists, supplies
-  the acceptance criteria the test set is built from.
+  [Process scan](process-scan.md)'s AI-fit shortlist, whose acceptance criteria
+  supply what the test set is built from.
 - A "go" verdict feeds the production build; a "don't because of the data" verdict
   feeds [Your data warehouse](data-warehouse.md).
 - Proof: the strafrecht-rag project demonstrates this package end to end.

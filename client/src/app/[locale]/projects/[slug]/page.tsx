@@ -102,7 +102,9 @@ export default async function ProjectDetailPage({
 
         <Box sx={{ display: "flex", gap: 3, mb: 4, color: palette.gray400 }}>
           <Typography variant="body2">{item.meta.industry}</Typography>
-          <Typography variant="body2">{item.meta.duration}</Typography>
+          {item.meta.duration && (
+            <Typography variant="body2">{item.meta.duration}</Typography>
+          )}
         </Box>
 
         <Box

@@ -48,7 +48,7 @@ runs itself.
 ## Explicitly out of scope
 
 - Redesigning the report's content — the report is automated as it is; new KPIs or
-  a new design are [Sharpen the question](requirements-and-kpis.md) +
+  a new design are [Data scan](data-scan.md) +
   [Dashboards](dashboards.md) work.
 - Consolidating the sources the report draws from — that's
   [Your data warehouse](data-warehouse.md).

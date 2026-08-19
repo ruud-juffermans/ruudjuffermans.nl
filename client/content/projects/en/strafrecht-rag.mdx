@@ -3,10 +3,15 @@ title: "Strafrecht-RAG: semantic search over Dutch court rulings"
 industry: "Own project"
 summary: "A RAG system over rulings from Rechtspraak.nl: questions in plain language, answers based solely on retrieved passages, always with an ECLI source reference."
 tags: ["GenAI", "RAG", "Python", "LLM"]
-duration: "Completed"
+repo: "https://github.com/datavakwerk/strafrecht-rag"
+proves: "ai-prototype"
+stats:
+  - { label: "Traceability", value: "ECLI per claim" }
+  - { label: "Quality gate", value: "Recall in CI" }
+  - { label: "No source", value: "No answer" }
 ---
 
-*Own project, built to show how I approach AI systems — not paid client work. The design choices are the actual story: they decide whether a RAG system becomes trustworthy or a black box.*
+*Own project, built to show how I approach AI systems. The design choices are the actual story: they decide whether a RAG system becomes trustworthy or a black box.*
 
 ## What it is
 
@@ -17,7 +22,7 @@ The two rules the whole design revolves around:
 1. **Every claim gets an ECLI reference.** From answer back to the exact passage in the exact ruling. No black box.
 2. **No relevant source, no answer.** The model isn't allowed to make anything up; "no source found" is a first-class outcome, not an error.
 
-These are the same requirements I put on any AI system I build for a client. Legal text is just more unforgiving about them: a fabricated reference is caught immediately.
+These are the same requirements I put on any AI system I build. Legal text is just more unforgiving about them: a fabricated reference is caught immediately.
 
 ## The design
 
@@ -31,7 +36,7 @@ The whole chain runs from the command line: `ingest`, `index` and `ask` as separ
 
 ## Quality is measured, not hoped for
 
-The question "does it work?" is notoriously vague for RAG systems, so it has been replaced by a measurement. A fixed evaluation set — questions paired with the ECLIs the system is supposed to find — runs in CI on every change and measures two things: does retrieval find the right rulings (recall), and do the source references in the answer match the passages that were provided. A change to chunking, the embedding model or the prompt is no longer a matter of "it feels better", but of a number going up or down — the same approach as in my AI prototype engagement, where the yardstick exists before the first line of code.
+The question "does it work?" is notoriously vague for RAG systems, so it has been replaced by a measurement. A fixed evaluation set — questions paired with the ECLIs the system is supposed to find — runs in CI on every change and measures two things: does retrieval find the right rulings (recall), and do the source references in the answer match the passages that were provided. A change to chunking, the embedding model or the prompt is no longer a matter of "it feels better", but of a number going up or down — the yardstick exists before the first line of code.
 
 ## The result
 
@@ -42,13 +47,13 @@ Every answer is clickably traceable to its underlying passages, claim by claim. 
 - Rulings are public, but contain pseudonymised personal data — handling that is part of the design, not an appendix afterwards.
 - Answers are not legal advice; source citation is mandatory in every output.
 
-## Delivered
+## In the repo
 
-- [x] Ingest: fetching and parsing rulings, with rate limiting and retries
-- [x] Index: chunking with section numbers preserved, embeddings and vector store
-- [x] Query: retrieval and answer generation with mandatory citations
-- [x] CLI for the whole chain: `ingest`, `index`, `ask`
-- [x] Evaluation set with recall and citation-correctness measurement in CI
+- Ingest: fetching and parsing rulings, with rate limiting and retries
+- Index: chunking with section numbers preserved, embeddings and vector store
+- Query: retrieval and answer generation with mandatory citations
+- CLI for the whole chain: `ingest`, `index`, `ask`
+- Evaluation set with recall and citation-correctness measurement in CI
 
 ## Technology
 

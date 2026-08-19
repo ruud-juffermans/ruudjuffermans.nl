@@ -3,10 +3,15 @@ title: "Open data warehouse: a Kimball star schema on RDW and CBS"
 industry: "Own project"
 summary: "End-to-end ELT platform on Dutch open data: Python ingestion, dbt transformations and a documented star schema — with tests and CI on every pull request."
 tags: ["dbt", "SQL", "Python", "DuckDB", "Data Engineering"]
-duration: "Completed"
+repo: "https://github.com/datavakwerk/nl-vehicle-warehouse"
+proves: "single-source-of-truth"
+stats:
+  - { label: "Star schema", value: "3 documented grains" }
+  - { label: "CI on every PR", value: "Lint + build + tests" }
+  - { label: "From zero", value: "One command" }
 ---
 
-*Own project, built to show how I work — not paid client work. Everything described here is real and verifiable in the repo.*
+*Own project, built to show how I work. Everything described here is real and verifiable in the repo.*
 
 ## Why this project
 
@@ -57,17 +62,17 @@ With dimensions for date (including Dutch public holidays), municipality, vehicl
 
 On every pull request GitHub Actions runs: `ruff` and `sqlfluff` as linters, then `dbt build` — models and tests. The dbt tests cover `unique` and `not_null` on every key, `relationships` from every foreign key to its dimension, `accepted_values` on reference columns, plus custom tests on the grain: no duplicate rows per grain definition.
 
-This is the same way of working I bring to clients: transformations as code, with a test at every step, so an error surfaces before anyone steers on the number.
+This is the same way of working I bring to any team: transformations as code, with a test at every step, so an error surfaces before anyone steers on the number.
 
-## Delivered
+## In the repo
 
-- [x] Ingestion from RDW and CBS, incremental and reproducible
-- [x] dbt project with staging, warehouse and marts layers
-- [x] Star schema with documented grain per fact table
-- [x] Lint, build and tests in CI
-- [x] Architecture diagram and lineage documentation in the README
-- [x] Published page on the marts (Evidence)
-- [x] One `make` command from empty directory to queryable warehouse
+- Ingestion from RDW and CBS, incremental and reproducible
+- dbt project with staging, warehouse and marts layers
+- Star schema with documented grain per fact table
+- Lint, build and tests in CI
+- Architecture diagram and lineage documentation in the README
+- Published page on the marts (Evidence)
+- One `make` command from empty directory to queryable warehouse
 
 ## Technology
 

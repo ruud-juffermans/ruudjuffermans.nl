@@ -24,7 +24,7 @@ source you already have.
 - The recurring decisions the dashboard must serve — not "which chart do you want"
   but "which decision do you make again every month". Each dashboard view traces to
   one of these.
-- When [Sharpen the question](requirements-and-kpis.md) has run, this is its decision
+- When the [Data scan](data-scan.md) has run, this is its decision
   inventory, reused as-is.
 
 ### 2. Data model on the existing source
@@ -32,8 +32,8 @@ source you already have.
 - A clean, documented model on the source that's already there — staging, business
   logic, and presentation kept apart so a figure is defined once, not per chart.
 - **Definition list** — one definition per figure shown, so every number on screen
-  traces back to source fields. Reuses the KPI definitions from
-  [Sharpen the question](requirements-and-kpis.md) when they exist.
+  traces back to source fields. Reuses the KPI definitions from the
+  [Data scan](data-scan.md) when they exist.
 - When the [Data scan](data-scan.md) has run, the model follows its target data
   model; standalone, a scoped version is drawn first.
 
@@ -68,10 +68,9 @@ source you already have.
 
 ## Bridges
 
-- Consumes phase 1 directly: the decision inventory and KPI definitions from
-  [Sharpen the question](requirements-and-kpis.md), and the data model from the
-  [Data scan](data-scan.md), when they exist — the build starts from documents
-  instead of a new discovery.
+- Consumes phase 1 directly: the decision inventory, KPI definitions, and data
+  model from the [Data scan](data-scan.md), when it has run — the build starts
+  from documents instead of a new discovery.
 - If during week 1 the source turns out too fragmented for a direct build, the
   finding escalates honestly to [Your data warehouse](data-warehouse.md)
   instead of building on sand.

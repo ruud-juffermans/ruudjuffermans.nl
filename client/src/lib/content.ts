@@ -15,6 +15,11 @@ export interface PostMeta {
   readingTime: string;
 }
 
+export interface ProjectStat {
+  label: string;
+  value: string;
+}
+
 export interface ProjectMeta {
   slug: string;
   title: string;
@@ -23,6 +28,16 @@ export interface ProjectMeta {
   tags: string[];
   duration: string;
   thumbnail?: string;
+  /** 2–3 hard numbers from the case study, rendered as the card's stats strip. */
+  stats?: ProjectStat[];
+  /** Public repository backing the "verifiable in the repo" claim. */
+  repo?: string;
+  /**
+   * Slug of the package this project demonstrates (the inverse of
+   * `proofSlug` in lib/packages.ts). Drives the proof chip and the card's
+   * accent color.
+   */
+  proves?: string;
 }
 
 function estimateReadingTime(content: string): string {
@@ -105,17 +120,27 @@ export function getProjectItems(locale: Locale = DEFAULT_LOCALE): ProjectMeta[] 
       if (!resolved) return null;
       const raw = fs.readFileSync(resolved.filePath, "utf-8");
       const { data } = matter(raw);
-      return {
-        slug,
-        title: data.title || "Untitled",
-        industry: data.industry || "",
-        summary: data.summary || "",
-        tags: data.tags || [],
-        duration: data.duration || "",
-        thumbnail: data.thumbnail,
-      } as ProjectMeta;
+      return projectMetaFromFrontmatter(slug, data);
     })
     .filter((p): p is ProjectMeta => p !== null);
+}
+
+function projectMetaFromFrontmatter(
+  slug: string,
+  data: Record<string, unknown>
+): ProjectMeta {
+  return {
+    slug,
+    title: data.title || "Untitled",
+    industry: data.industry || "",
+    summary: data.summary || "",
+    tags: data.tags || [],
+    duration: data.duration || "",
+    thumbnail: data.thumbnail,
+    stats: data.stats,
+    repo: data.repo,
+    proves: data.proves,
+  } as ProjectMeta;
 }
 
 export function getProjectItem(locale: Locale, slug: string) {
@@ -125,15 +150,7 @@ export function getProjectItem(locale: Locale, slug: string) {
   const raw = fs.readFileSync(resolved.filePath, "utf-8");
   const { data, content } = matter(raw);
   return {
-    meta: {
-      slug,
-      title: data.title || "Untitled",
-      industry: data.industry || "",
-      summary: data.summary || "",
-      tags: data.tags || [],
-      duration: data.duration || "",
-      thumbnail: data.thumbnail,
-    } as ProjectMeta,
+    meta: projectMetaFromFrontmatter(slug, data),
     content,
     usedFallback: resolved.usedFallback,
   };

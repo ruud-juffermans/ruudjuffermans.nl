@@ -47,7 +47,6 @@ packages carrying the value).
 | **Data scan** | 1–2 wk | **€4.950 fixed** | ~€700–990/day — deliberately sharp: it's the entry product and the cheapest way for a client to start |
 | **Process scan** | 1–2 wk | **€4.950 fixed** | same logic; identical price keeps the choice about *content*, not budget |
 | *Both scans bundled* | 2–3 wk | **€8.500** | small bundle discount; sells the full picture |
-| **Sharpen the question** | 2 wk on scans / 3–4 wk standalone | **€7.500 on top of scans · €12.500 standalone** | ~€750/day; the two-mode pricing makes the scans feel like credit |
 | **Dashboards** | 2–3 wk | **from €7.500** | between the market's €5k no-warehouse dashboard and €17.5k warehouse scenario; adoption session included justifies the premium over €5k |
 | **Your data warehouse** | 3–4 wk | **from €15.000** | ~€850/day at 3.5 wks; consistent with the €17.5k market scenario that includes dashboards |
 | **AI prototype** | 3 wk | **€12.500 fixed** | ~€830/day; a fraction of agency PoC prices ($20–50k) for the same honest go/no-go |
@@ -57,7 +56,9 @@ packages carrying the value).
 
 €3.950 → €4.950 → €7.500 → €12.500 → €15.000+. Each step is roughly 1.5–1.7× the
 previous, every phase-1 price is creditable psychology toward phase 2, and no
-number collides with another package's value story.
+number collides with another package's value story. (The former "Sharpen the
+question" package was dissolved into the two scans: KPI definitions and
+requirements now ship inside them at the same scan price.)
 
 ## Design decisions behind the numbers
 
@@ -72,13 +73,9 @@ number collides with another package's value story.
 3. **"From" prices for the two build packages** (already modelled in
    `priceKind: "from"`): the floor buys the smallest honest version; source
    count and complexity move it up. State the floor's scope on the detail page.
-4. **Sharpen the question needs two numbers** — its entry modes are already on
-   the site; the €5.000 gap between modes *is* the argument for buying a scan
-   first. Site-wise: show "vanaf €7.500" on the card and both numbers in the
-   modes block.
-5. **Round Dutch-style** (€4.950, not €5.000): signals a calculated price rather
+4. **Round Dutch-style** (€4.950, not €5.000): signals a calculated price rather
    than a guess, and stays under psychological thresholds.
-6. **Review yearly.** Rates in this market moved ~5–8% year over year; the
+5. **Review yearly.** Rates in this market moved ~5–8% year over year; the
    packages should follow.
 
 ## Sources

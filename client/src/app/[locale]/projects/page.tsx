@@ -1,10 +1,10 @@
-import { Box, Container, Typography, Card, CardContent, Chip } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
 import Reveal from "@/components/Reveal";
+import ProjectCard from "@/components/ProjectCard";
 import { getProjectItems } from "@/lib/content";
+import { getPackage } from "@/lib/packages";
 import type { Locale } from "@/i18n/routing";
 import { buildAlternates } from "@/lib/seo";
 import SplitText from "@/components/SplitText";
@@ -34,6 +34,10 @@ export default async function ProjectsPage({
   setRequestLocale(locale);
   const t = await getTranslations("projects");
   const items = getProjectItems(locale);
+  const cardLabels = {
+    view: t("view"),
+    repo: t("repoLabel"),
+  };
 
   return (
     <>
@@ -80,64 +84,20 @@ export default async function ProjectsPage({
             </Reveal>
           ) : (
             <Grid container spacing={3}>
-              {items.map((item, i) => (
-                <Grid size={{ xs: 12, md: 6 }} key={item.slug}>
-                  <Reveal variant="rise" delay={(i % 2) * 100} sx={{ height: "100%" }}>
-                  <Card
-                    component={Link}
-                    href={{ pathname: "/projects/[slug]", params: { slug: item.slug } }}
-                    sx={{ height: "100%", cursor: "pointer" }}
-                  >
-                    <CardContent sx={{ p: { xs: 4, md: 6 }, "&:last-child": { pb: { xs: 4, md: 6 } } }}>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          mb: 3,
-                        }}
-                      >
-                        <Chip
-                          label={item.industry}
-                          size="small"
-                          sx={{
-                            backgroundColor: palette.redMuted,
-                            color: palette.red,
-                            fontWeight: 600,
-                          }}
-                        />
-                        <Typography variant="body2" sx={{ color: palette.gray400 }}>
-                          {item.duration}
-                        </Typography>
-                      </Box>
-                      <Typography variant="h4" sx={{ mb: 1.5 }}>
-                        {item.title}
-                      </Typography>
-                      <Typography variant="body1" sx={{ mb: 3 }}>
-                        {item.summary}
-                      </Typography>
-                      <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", mb: 2 }}>
-                        {item.tags.map((tag) => (
-                          <Chip key={tag} label={tag} size="small" variant="outlined" />
-                        ))}
-                      </Box>
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          color: palette.red,
-                          fontWeight: 600,
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 0.5,
-                        }}
-                      >
-                        {t("view")} <ArrowForwardIcon sx={{ fontSize: 16 }} />
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                  </Reveal>
-                </Grid>
-              ))}
+              {items.map((item, i) => {
+                const provenPackage = item.proves ? getPackage(item.proves) : undefined;
+                return (
+                  <Grid size={{ xs: 12, md: 6 }} key={item.slug}>
+                    <Reveal variant="rise" delay={(i % 2) * 100} sx={{ height: "100%" }}>
+                      <ProjectCard
+                        project={item}
+                        accent={provenPackage?.accent ?? palette.red}
+                        labels={cardLabels}
+                      />
+                    </Reveal>
+                  </Grid>
+                );
+              })}
             </Grid>
           )}
         </Container>

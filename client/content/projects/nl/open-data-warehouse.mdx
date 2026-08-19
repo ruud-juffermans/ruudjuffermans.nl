@@ -3,10 +3,15 @@ title: "Open-data-warehouse: een Kimball-sterschema op RDW en CBS"
 industry: "Eigen project"
 summary: "End-to-end ELT-platform op Nederlandse open data: Python-ingestie, dbt-transformaties en een gedocumenteerd sterschema — met tests en CI op elke pull request."
 tags: ["dbt", "SQL", "Python", "DuckDB", "Data Engineering"]
-duration: "Afgerond"
+repo: "https://github.com/datavakwerk/nl-vehicle-warehouse"
+proves: "single-source-of-truth"
+stats:
+  - { label: "Sterschema", value: "3 gedocumenteerde grains" }
+  - { label: "CI op elke PR", value: "Lint + build + tests" }
+  - { label: "Vanaf nul", value: "Eén commando" }
 ---
 
-*Eigen project, gebouwd om mijn aanpak te laten zien — geen betaalde klantopdracht. Alles wat hier staat is echt en na te lezen in de repo.*
+*Eigen project, gebouwd om mijn aanpak te laten zien. Alles wat hier staat is echt en na te lezen in de repo.*
 
 ## Waarom dit project
 
@@ -57,17 +62,17 @@ Met dimensies voor datum (inclusief NL-feestdagen), gemeente, voertuigtype, bran
 
 Bij elke pull request draait GitHub Actions: `ruff` en `sqlfluff` als linters, daarna `dbt build` — modellen én tests. De dbt-tests dekken `unique` en `not_null` op elke sleutel, `relationships` van elke foreign key naar de dimensie, `accepted_values` op referentiekolommen, plus eigen tests op de grain: geen dubbele rijen per graindefinitie.
 
-Dit is dezelfde werkwijze die ik bij klanten hanteer: transformaties als code, met een test op elke stap, zodat een fout opvalt vóór iemand op het cijfer stuurt.
+Dit is dezelfde werkwijze die ik in elk team hanteer: transformaties als code, met een test op elke stap, zodat een fout opvalt vóór iemand op het cijfer stuurt.
 
-## Opgeleverd
+## In de repo
 
-- [x] Ingestie vanuit RDW en CBS, incrementeel en reproduceerbaar
-- [x] dbt-project met staging-, warehouse- en marts-laag
-- [x] Sterschema met gedocumenteerde grain per feittabel
-- [x] Lint, build en tests in CI
-- [x] Architectuurdiagram en lineage-documentatie in de README
-- [x] Publicatiepagina op de marts (Evidence)
-- [x] Eén `make`-commando van lege map tot bevraagbaar warehouse
+- Ingestie vanuit RDW en CBS, incrementeel en reproduceerbaar
+- dbt-project met staging-, warehouse- en marts-laag
+- Sterschema met gedocumenteerde grain per feittabel
+- Lint, build en tests in CI
+- Architectuurdiagram en lineage-documentatie in de README
+- Publicatiepagina op de marts (Evidence)
+- Eén `make`-commando van lege map tot bevraagbaar warehouse
 
 ## Technologie
 

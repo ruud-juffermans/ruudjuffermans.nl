@@ -4,6 +4,12 @@ industry: "Own project"
 summary: "Streaming pipeline on the real-time positions of Dutch public transport: Kafka, 5-minute windows, a dead-letter queue and a live delay map — fully observed with Prometheus and Grafana."
 tags: ["Kafka", "Streaming", "Python", "Postgres", "Docker"]
 duration: "3 weeks"
+repo: "https://github.com/datavakwerk/ov-streaming-pipeline"
+proves: "reporting-automation"
+stats:
+  - { label: "Endurance", value: "24-hour run" }
+  - { label: "Windows", value: "5 minutes" }
+  - { label: "Failure path", value: "DLQ + replay" }
 ---
 
 *Own project, built because streaming is exactly the terrain a data engineer is judged on: windowing, idempotency, failure handling — and whether it keeps running when nobody is watching.*
@@ -47,15 +53,15 @@ The bar was set in advance, and it was cleared: a clean clone starts the full st
 
 ## Why this sits alongside the rest
 
-My client work is rarely streaming — dashboards, warehouses and reporting seldom need it. But the discipline is the same: handle failures explicitly, make processing idempotent, measure everything. This project shows that approach holds up when the data doesn't arrive once a night, but thousands of times a minute.
+Most day-to-day data work isn't streaming — dashboards, warehouses and reporting seldom need it. But the discipline is the same: handle failures explicitly, make processing idempotent, measure everything. This project shows that approach holds up when the data doesn't arrive once a night, but thousands of times a minute.
 
-## Delivered
+## In the repo
 
-- [x] Producer, raw archive and Kafka backbone
-- [x] Windowed processor with DLQ and idempotent sink
-- [x] Live dashboard with delay map
-- [x] Observability: Prometheus and Grafana with dashboards for lag, throughput and DLQ depth
-- [x] 24-hour run survived; measured throughput and screen recording in the README
+- Producer, raw archive and Kafka backbone
+- Windowed processor with DLQ and idempotent sink
+- Live dashboard with delay map
+- Observability: Prometheus and Grafana with dashboards for lag, throughput and DLQ depth
+- A 24-hour endurance run at nationwide feed volume; measured throughput and screen recording in the README
 
 ## Technology
 

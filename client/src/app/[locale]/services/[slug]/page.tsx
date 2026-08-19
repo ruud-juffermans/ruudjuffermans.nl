@@ -59,13 +59,6 @@ export default async function PackageDetailPage({
     items: string[];
   }[];
   const notIncluded = tp.raw(`${pkg.slug}.notIncluded`) as string[];
-  const modes = pkg.hasModes
-    ? (tp.raw(`${pkg.slug}.modes`) as {
-        title: string;
-        intro: string;
-        options: { title: string; duration: string; body: string }[];
-      })
-    : null;
   const related = [
     { label: tp("labels.fitConsumes"), slugs: pkg.consumes ?? [] },
     { label: tp("labels.fitFeeds"), slugs: pkg.feeds ?? [] },
@@ -181,68 +174,6 @@ export default async function PackageDetailPage({
           </Box>
         </Container>
       </Box>
-
-      {/* Two entry modes — only Sharpen the question defines this: on top of
-          the scans (shorter, cheaper) versus standalone (includes the focused
-          discovery). The first option is visually led: it's the recommended
-          path. */}
-      {modes && (
-        <Box sx={{ pb: { xs: 8, md: 11 } }}>
-          <Container>
-            <Reveal variant="rise">
-              <Typography variant="h3" sx={{ mb: 1.5 }}>
-                {modes.title}
-              </Typography>
-              <Typography variant="body1" sx={{ mb: 4, maxWidth: 720 }}>
-                {modes.intro}
-              </Typography>
-            </Reveal>
-            <Grid container spacing={{ xs: 2.5, md: 3 }}>
-              {modes.options.map((option, i) => (
-                <Grid size={{ xs: 12, md: 6 }} key={option.title}>
-                  <Reveal variant="rise" delay={i * 110} sx={{ height: "100%" }}>
-                    <Box
-                      sx={{
-                        height: "100%",
-                        p: { xs: 3, md: 4 },
-                        borderRadius: "16px",
-                        border: `1px solid var(--app-border-soft)`,
-                        backgroundColor: "var(--app-surface-elevated)",
-                        ...(i === 0 && {
-                          borderColor: `color-mix(in srgb, ${accent} 40%, var(--app-border-soft))`,
-                          backgroundColor: `color-mix(in srgb, ${accent} 5%, var(--app-surface-elevated))`,
-                        }),
-                      }}
-                    >
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          flexWrap: "wrap",
-                          gap: 1.5,
-                          mb: 1.5,
-                        }}
-                      >
-                        <Typography variant="h4">{option.title}</Typography>
-                        <Chip
-                          label={option.duration}
-                          size="small"
-                          sx={{
-                            fontWeight: 600,
-                            backgroundColor: `color-mix(in srgb, ${accent} 12%, transparent)`,
-                            color: accent,
-                          }}
-                        />
-                      </Box>
-                      <Typography variant="body1">{option.body}</Typography>
-                    </Box>
-                  </Reveal>
-                </Grid>
-              ))}
-            </Grid>
-          </Container>
-        </Box>
-      )}
 
       {/* What you get + the fixed terms */}
       <Box
@@ -485,7 +416,7 @@ export default async function PackageDetailPage({
         </Container>
       </Box>
 
-      {/* Where this fits — the path relations from packages.ts, so eight
+      {/* Where this fits — the path relations from packages.ts, so the
           packages read as one route instead of a menu: what this build starts
           from, and what its deliverables flow into. */}
       {related.length > 0 && (

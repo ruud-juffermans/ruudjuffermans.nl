@@ -3,10 +3,15 @@ title: "Strafrecht-RAG: semantisch zoeken in rechterlijke uitspraken"
 industry: "Eigen project"
 summary: "Een RAG-systeem over uitspraken van Rechtspraak.nl: vragen in gewone taal, antwoorden uitsluitend op basis van gevonden passages, altijd met ECLI-bronverwijzing."
 tags: ["GenAI", "RAG", "Python", "LLM"]
-duration: "Afgerond"
+repo: "https://github.com/datavakwerk/strafrecht-rag"
+proves: "ai-prototype"
+stats:
+  - { label: "Herleidbaarheid", value: "ECLI per claim" }
+  - { label: "Kwaliteitstoets", value: "Recall in CI" }
+  - { label: "Geen bron", value: "Geen antwoord" }
 ---
 
-*Eigen project, gebouwd om te laten zien hoe ik AI-systemen aanpak — geen betaalde klantopdracht. De ontwerpkeuzes zijn het eigenlijke verhaal: die bepalen of een RAG-systeem betrouwbaar wordt of een black box.*
+*Eigen project, gebouwd om te laten zien hoe ik AI-systemen aanpak. De ontwerpkeuzes zijn het eigenlijke verhaal: die bepalen of een RAG-systeem betrouwbaar wordt of een black box.*
 
 ## Wat het is
 
@@ -17,7 +22,7 @@ De twee regels waar het hele ontwerp om draait:
 1. **Elke bewering krijgt een ECLI-verwijzing.** Van antwoord terug naar de exacte passage in de exacte uitspraak. Geen black box.
 2. **Zonder relevante bron geen antwoord.** Het model mag niets verzinnen; "geen bron gevonden" is een volwaardige uitkomst, geen foutmelding.
 
-Dat zijn dezelfde eisen die ik aan elk AI-systeem voor een klant stel. Juridische teksten zijn er alleen genadelozer in: een verzonnen verwijzing valt direct door de mand.
+Dat zijn dezelfde eisen die ik aan elk AI-systeem stel. Juridische teksten zijn er alleen genadelozer in: een verzonnen verwijzing valt direct door de mand.
 
 ## De opzet
 
@@ -31,7 +36,7 @@ De hele keten draait vanaf de commandline: `ingest`, `index` en `ask` als losse 
 
 ## Kwaliteit wordt gemeten, niet gehoopt
 
-De vraag "werkt het?" is bij RAG-systemen berucht vaag, dus die is vervangen door een meting. Een vaste evaluatieset — vragen met de ECLI's die het systeem hoort te vinden — draait in CI bij elke wijziging en meet twee dingen: vindt de retrieval de juiste uitspraken (recall), en kloppen de bronverwijzingen in het antwoord met de aangeleverde passages. Een wijziging aan chunking, embeddingmodel of prompt is daarmee geen kwestie van "het voelt beter", maar van een cijfer dat omhoog of omlaag gaat — dezelfde aanpak als in mijn AI-prototypetraject, waar de meetlat er ligt vóór de eerste regel code.
+De vraag "werkt het?" is bij RAG-systemen berucht vaag, dus die is vervangen door een meting. Een vaste evaluatieset — vragen met de ECLI's die het systeem hoort te vinden — draait in CI bij elke wijziging en meet twee dingen: vindt de retrieval de juiste uitspraken (recall), en kloppen de bronverwijzingen in het antwoord met de aangeleverde passages. Een wijziging aan chunking, embeddingmodel of prompt is daarmee geen kwestie van "het voelt beter", maar van een cijfer dat omhoog of omlaag gaat — de meetlat ligt er vóór de eerste regel code.
 
 ## Het resultaat
 
@@ -42,13 +47,13 @@ Elk antwoord is klikbaar herleidbaar tot de onderliggende passages, per bewering
 - Uitspraken zijn openbaar, maar bevatten geanonimiseerde persoonsgegevens — de omgang daarmee is onderdeel van het ontwerp, niet een bijlage achteraf.
 - Antwoorden zijn geen juridisch advies; bronvermelding is verplicht in elke output.
 
-## Opgeleverd
+## In de repo
 
-- [x] Ingest: ophalen en parsen van uitspraken, met rate limiting en retries
-- [x] Index: chunking met behoud van sectienummers, embeddings en vector store
-- [x] Query: retrieval en antwoordgeneratie met verplichte bronvermelding
-- [x] CLI voor de hele keten: `ingest`, `index`, `ask`
-- [x] Evaluatieset met recall- en bronjuistheidsmeting in CI
+- Ingest: ophalen en parsen van uitspraken, met rate limiting en retries
+- Index: chunking met behoud van sectienummers, embeddings en vector store
+- Query: retrieval en antwoordgeneratie met verplichte bronvermelding
+- CLI voor de hele keten: `ingest`, `index`, `ask`
+- Evaluatieset met recall- en bronjuistheidsmeting in CI
 
 ## Technologie
 

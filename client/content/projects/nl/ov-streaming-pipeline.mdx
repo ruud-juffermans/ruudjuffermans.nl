@@ -4,6 +4,12 @@ industry: "Eigen project"
 summary: "Streamingpipeline op de realtime posities van het Nederlandse openbaar vervoer: Kafka, 5-minuten-windows, een dead-letter queue en een live vertragingskaart — volledig geobserveerd met Prometheus en Grafana."
 tags: ["Kafka", "Streaming", "Python", "Postgres", "Docker"]
 duration: "3 weken"
+repo: "https://github.com/datavakwerk/ov-streaming-pipeline"
+proves: "reporting-automation"
+stats:
+  - { label: "Duurtest", value: "24 uur non-stop" }
+  - { label: "Vensters", value: "5 minuten" }
+  - { label: "Foutpad", value: "DLQ + replay" }
 ---
 
 *Eigen project, gebouwd omdat streaming precies het terrein is waar je een data engineer op beoordeelt: windowing, idempotentie, foutafhandeling — en of het blijft draaien als niemand kijkt.*
@@ -47,15 +53,15 @@ De lat lag vooraf vast en is gehaald: een schone clone start met `make up` de vo
 
 ## Waarom dit ernaast staat
 
-Mijn klantwerk is meestal geen streaming — dashboards, warehouses en rapportages hebben dat zelden nodig. Maar de discipline is dezelfde: fouten expliciet afhandelen, verwerking idempotent maken, alles meetbaar. Dit project laat zien dat die aanpak overeind blijft als de data niet één keer per nacht komt, maar duizenden keren per minuut.
+Het meeste dagelijkse datawerk is geen streaming — dashboards, warehouses en rapportages hebben dat zelden nodig. Maar de discipline is dezelfde: fouten expliciet afhandelen, verwerking idempotent maken, alles meetbaar. Dit project laat zien dat die aanpak overeind blijft als de data niet één keer per nacht komt, maar duizenden keren per minuut.
 
-## Opgeleverd
+## In de repo
 
-- [x] Producer, ruw archief en Kafka-backbone
-- [x] Windowed processor met DLQ en idempotente sink
-- [x] Live dashboard met vertragingskaart
-- [x] Observability: Prometheus en Grafana met dashboards voor lag, doorvoer en DLQ-diepte
-- [x] 24-uursrun doorstaan; gemeten doorvoer en schermopname in de README
+- Producer, ruw archief en Kafka-backbone
+- Windowed processor met DLQ en idempotente sink
+- Live dashboard met vertragingskaart
+- Observability: Prometheus en Grafana met dashboards voor lag, doorvoer en DLQ-diepte
+- Een duurtest van 24 uur op het landelijke feedvolume; gemeten doorvoer en schermopname in de README
 
 ## Technologie
 

@@ -12,7 +12,6 @@ import type { Locale } from "@/i18n/routing";
 export type PackageSlug =
   | "data-scan"
   | "process-scan"
-  | "requirements-and-kpis"
   | "dashboards"
   | "single-source-of-truth"
   | "ai-prototype"
@@ -57,11 +56,6 @@ export interface PackageDef {
    */
   hasBridge?: boolean;
   /**
-   * Has a "two entry modes" block on its detail page (on top of scans vs
-   * standalone). Only Sharpen the question defines the `modes` copy.
-   */
-  hasModes?: boolean;
-  /**
    * Path relations, rendered as the "Where this fits" section on the detail
    * page. `consumes` = packages whose documents this build starts from;
    * `feeds` = packages this one's deliverables flow into. Mirrors the
@@ -81,7 +75,7 @@ export const PACKAGES: PackageDef[] = [
     price: 4950,
     discountPrice: 2475,
     priceKind: "fixed",
-    feeds: ["requirements-and-kpis", "single-source-of-truth", "ai-prototype"],
+    feeds: ["dashboards", "single-source-of-truth", "reporting-automation"],
   },
   {
     slug: "process-scan",
@@ -90,20 +84,7 @@ export const PACKAGES: PackageDef[] = [
     price: 4950,
     discountPrice: 2475,
     priceKind: "fixed",
-    feeds: ["requirements-and-kpis", "ai-prototype", "reporting-automation"],
-  },
-  {
-    slug: "requirements-and-kpis",
-    phase: "know",
-    accent: "#14B8A6",
-    // The floor is the on-top-of-scans mode; standalone (€12.500) lives in
-    // the modes block on the detail page.
-    price: 7500,
-    discountPrice: 3750,
-    priceKind: "from",
-    hasModes: true,
-    consumes: ["data-scan", "process-scan"],
-    feeds: ["dashboards", "single-source-of-truth", "ai-prototype"],
+    feeds: ["ai-prototype"],
   },
   // ── Bouwen ────────────────────────────────────────────────────────────────
   {
@@ -113,7 +94,7 @@ export const PACKAGES: PackageDef[] = [
     price: 7500,
     priceKind: "from",
     proofSlug: "open-data-warehouse",
-    consumes: ["data-scan", "requirements-and-kpis"],
+    consumes: ["data-scan"],
   },
   {
     slug: "single-source-of-truth",
@@ -123,7 +104,7 @@ export const PACKAGES: PackageDef[] = [
     priceKind: "from",
     proofSlug: "open-data-warehouse",
     hasBridge: true,
-    consumes: ["data-scan", "requirements-and-kpis"],
+    consumes: ["data-scan"],
     feeds: ["reporting-automation", "ai-prototype"],
   },
   {
@@ -133,7 +114,7 @@ export const PACKAGES: PackageDef[] = [
     price: 12500,
     priceKind: "fixed",
     proofSlug: "strafrecht-rag",
-    consumes: ["data-scan", "process-scan", "requirements-and-kpis"],
+    consumes: ["process-scan"],
   },
   // ── Draaiend houden ───────────────────────────────────────────────────────
   {
@@ -142,9 +123,11 @@ export const PACKAGES: PackageDef[] = [
     accent: "#10B981",
     price: 3950,
     priceKind: "fixed",
-    proofSlug: "open-data-warehouse",
+    // The observed streaming pipeline (Prometheus/Grafana, DLQ, alerting) is
+    // the natural proof for the observability package.
+    proofSlug: "ov-streaming-pipeline",
     hasBridge: true,
-    consumes: ["process-scan", "single-source-of-truth"],
+    consumes: ["data-scan", "single-source-of-truth"],
   },
 ];
 

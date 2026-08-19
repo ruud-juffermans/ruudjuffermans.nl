@@ -146,7 +146,7 @@ export default async function Home({
     "strafrecht-rag": ["§", "⊘", "⌕"],
   };
   const hoodVariants = [
-    { key: "open-data-warehouse", github: "https://github.com/datavakwerk/open-data-warehouse" },
+    { key: "open-data-warehouse", github: "https://github.com/datavakwerk/nl-vehicle-warehouse" },
     { key: "ov-streaming-pipeline", github: "https://github.com/datavakwerk/ov-streaming-pipeline" },
     { key: "strafrecht-rag", github: "https://github.com/datavakwerk/strafrecht-rag" },
   ].map(({ key, github }) => ({
@@ -260,7 +260,7 @@ export default async function Home({
               jobTitle: "Data & AI consultant",
               sameAs: [
                 "https://www.linkedin.com/in/r-j3",
-                "https://github.com/ruud-juffermans",
+                "https://github.com/datavakwerk",
               ],
             },
           ],

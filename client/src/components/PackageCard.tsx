@@ -54,7 +54,7 @@ export default function PackageCard(props: PackageCardProps) {
   return props.featured ? <FeaturedCard {...props} /> : <CompactCard {...props} />;
 }
 
-function MetaPair({
+export function MetaPair({
   label,
   value,
   strike,
