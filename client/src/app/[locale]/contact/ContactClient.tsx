@@ -13,16 +13,14 @@ import EmailIcon from "@mui/icons-material/EmailOutlined";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LocationOnIcon from "@mui/icons-material/LocationOnOutlined";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { submitContact } from "@/lib/api";
-import { useSession } from "@/lib/session";
 import SplitText from "@/components/SplitText";
 import { palette } from "@/theme/theme";
 
 export default function ContactClient() {
   const t = useTranslations("contact");
-  const { user } = useSession();
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -31,16 +29,6 @@ export default function ContactClient() {
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
-
-  // Prefill from the platform session, without clobbering anything typed.
-  useEffect(() => {
-    if (!user) return;
-    setForm((prev) => ({
-      ...prev,
-      name: prev.name || user.name || "",
-      email: prev.email || user.email,
-    }));
-  }, [user]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

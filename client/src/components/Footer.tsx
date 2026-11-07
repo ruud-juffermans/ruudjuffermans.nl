@@ -12,9 +12,8 @@ import Availability from "./Availability";
 import { Link } from "@/i18n/navigation";
 import type { AppPathname } from "@/i18n/routing";
 import { palette } from "@/theme/theme";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { subscribeNewsletter } from "@/lib/api";
-import { useSession } from "@/lib/session";
 
 type StaticPathname = Exclude<AppPathname, `${string}[${string}]${string}`>;
 
@@ -42,15 +41,8 @@ const FC = {
 
 export default function Footer() {
   const t = useTranslations("footer");
-  const { user } = useSession();
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-
-  // Prefill the subscribe field from the platform session, without clobbering
-  // anything typed.
-  useEffect(() => {
-    if (user) setEmail((prev) => prev || user.email);
-  }, [user]);
 
   const handleNewsletter = async (e: React.FormEvent) => {
     e.preventDefault();

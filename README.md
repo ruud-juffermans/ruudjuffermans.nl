@@ -52,11 +52,13 @@ platform-API integration (contact form, newsletter, analytics) are unchanged.
 
 ## Local development
 
-Run the platform API first, then the site:
+Run the backend (the admin panel) first, then the site:
 
 ```bash
-# 1. API — in ../ruudjuffermans-server (see its README):
-docker compose -f docker-compose.dev.yml up -d && npm run dev   # :4000
+# 1. API — in ../admin-panel (see its README); run its server on :3100 so it
+#    does not collide with Next on :3000:
+docker compose -f docker-compose.dev.yml up -d
+cd server && PORT=3100 npm run dev
 
 # 2. This site:
 cd client
@@ -65,15 +67,15 @@ npm run dev                                                     # :3000
 ```
 
 With `NEXT_PUBLIC_API_URL` unset (the dev default), the browser calls
-same-origin `/api/*` and `next.config.ts` rewrites it to the local platform
-server on `:4000`. Contact/verification emails print to the platform server's
-console when it has no `SMTP_HOST` configured.
+same-origin `/api/*` and `next.config.ts` rewrites it to the local panel
+server on `:3100`. Contact emails print to the panel server's console when it
+has no `SMTP_HOST` configured.
 
 Configuration (see [`.env.example`](.env.example)):
 
 | Variable               | Description                                              | Dev default |
 | ---------------------- | -------------------------------------------------------- | ----------- |
-| `NEXT_PUBLIC_API_URL`  | Platform API origin; empty = same-origin + dev rewrite   | *(empty)* |
+| `NEXT_PUBLIC_API_URL`  | Backend (admin panel) origin; empty = same-origin + dev rewrite | *(empty)* |
 | `NEXT_PUBLIC_SITE_URL` | Public site URL (metadata, www→apex redirect)            | `http://localhost:3000` |
 | `NEXT_PUBLIC_TWIN_URL` | Digital-twin assistant URL; empty hides "Try it live" + chat widget | *(empty)* |
 
