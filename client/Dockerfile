@@ -26,8 +26,8 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
-# NEXT_PUBLIC_* is inlined at build time. The API is the platform server
-# (ruudjuffermans-server), reached cross-origin; its CORS allowlists this site.
+# NEXT_PUBLIC_* is inlined at build time. The API is the admin panel
+# (../admin-panel), reached cross-origin; its CORS allowlists this site.
 ARG NEXT_PUBLIC_API_URL=https://api.ruudjuffermans.nl
 ARG NEXT_PUBLIC_SITE_URL=https://ruudjuffermans.nl
 # No default: the digital-twin "Try it live" buttons stay hidden until the

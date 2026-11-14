@@ -1,7 +1,7 @@
-// The platform API (ruudjuffermans-server, api.ruudjuffermans.nl) — the site's
-// backend moved there as the "website" module. Production bakes the absolute
-// origin in at build time; in dev this stays "" and the Next rewrite proxies
-// /api/* to the local platform server (see next.config.ts).
+// The site's backend: the admin panel (../admin-panel, api.ruudjuffermans.nl)
+// serves the contact form, newsletter signup and page-view beacon. Production
+// bakes the absolute origin in at build time; in dev this stays "" and the
+// Next rewrite proxies /api/* to the local panel server (see next.config.ts).
 export const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 async function request<T>(endpoint: string, options?: RequestInit): Promise<T> {

@@ -96,12 +96,13 @@ const nextConfig: NextConfig = {
       { source: "/blog/:slug.md", destination: "/raw/blog/nl/:slug" },
       { source: "/en/blog/:slug.md", destination: "/raw/blog/en/:slug" },
       // Dev convenience: with NEXT_PUBLIC_API_URL unset the browser calls
-      // same-origin /api/*, which this rewrite proxies to the local platform
-      // server (ruudjuffermans-server on :4000). Production bakes the absolute
-      // API origin into the client instead, so this never fires there.
+      // same-origin /api/*, which this rewrite proxies to the local admin
+      // panel server (../admin-panel/server on :3100 — its default :3000
+      // collides with Next's). Production bakes the absolute API origin into
+      // the client instead, so this never fires there.
       {
         source: "/api/:path*",
-        destination: `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000"}/api/:path*`,
+        destination: `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3100"}/api/:path*`,
       },
     ];
   },
