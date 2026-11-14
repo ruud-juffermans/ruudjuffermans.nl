@@ -3,7 +3,6 @@ import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
 import JsonLd from "@/components/JsonLd";
-import PageViewTracker from "@/components/PageViewTracker";
 import {
   Band,
   BulletCard,
@@ -67,7 +66,6 @@ export default async function DigitalTwinPage({
 
   return (
     <>
-      <PageViewTracker path={`/projects/${SLUG}`} locale={locale} />
       <JsonLd
         data={{
           "@context": "https://schema.org",

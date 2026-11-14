@@ -8,6 +8,7 @@ import ThemeRegistry from "@/theme/ThemeRegistry";
 import Header from "@/components/Header";
 import SkipLink from "@/components/SkipLink";
 import Footer from "@/components/Footer";
+import PageViewTracker from "@/components/PageViewTracker";
 import { routing } from "@/i18n/routing";
 
 // Self-hosted fonts (no CDN), via next/font so the woff2 files are preloaded
@@ -119,6 +120,7 @@ export default async function LocaleLayout({
             <Header />
             <main id="main">{children}</main>
             <Footer />
+            <PageViewTracker />
           </ThemeRegistry>
         </NextIntlClientProvider>
         {twinWidget ? (

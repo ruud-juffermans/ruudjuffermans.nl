@@ -17,7 +17,6 @@ import {
 } from "@/lib/seo";
 import { routing, type Locale } from "@/i18n/routing";
 import { palette } from "@/theme/theme";
-import PageViewTracker from "@/components/PageViewTracker";
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) =>
@@ -70,7 +69,6 @@ export default async function ProjectDetailPage({
 
   return (
     <Box sx={{ py: { xs: 4, md: 8 } }}>
-      <PageViewTracker path={`/projects/${slug}`} locale={locale} />
       <JsonLd
         data={{
           "@context": "https://schema.org",

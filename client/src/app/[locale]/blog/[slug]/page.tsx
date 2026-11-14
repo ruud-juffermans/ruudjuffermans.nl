@@ -18,7 +18,6 @@ import {
 } from "@/lib/seo";
 import { routing, type Locale } from "@/i18n/routing";
 import { palette } from "@/theme/theme";
-import PageViewTracker from "@/components/PageViewTracker";
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) =>
@@ -77,7 +76,6 @@ export default async function BlogPostPage({
 
   return (
     <Box sx={{ pt: { xs: 6, md: 10 }, pb: { xs: 8, md: 11 } }}>
-      <PageViewTracker path={`/blog/${slug}`} locale={locale} />
       <JsonLd
         data={{
           "@context": "https://schema.org",
