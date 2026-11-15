@@ -57,12 +57,14 @@
           "title": "Data engineering",
           "subtitle": "I engineer scalable data platforms built around robust ingestion, orchestration, data modeling, distributed processing, and infrastructure that can handle changing schemas and growing workloads.",
           "diagramAlt": "Architecture of a data platform in five layers: sources, ingestion, storage (raw, curated, consumption), processing and serving, with orchestration, governance and observability & cost spanning every layer.",
+          "mobileDiagramAlt": "A staging layer with two incoming data flows and one outgoing.",
           "learnMore": "More about data engineering"
         },
         "ai": {
           "title": "AI engineering",
           "subtitle": "I build production-ready AI systems with a focus on data privacy, traceability, evaluation and reliable data pipelines.",
           "diagramAlt": "Architecture of an AI agent system: an input gateway with auth and input guardrails, an orchestrator agent that plans tasks and hands them to specialist agents, a tool layer (functions and MCP), memory and knowledge (vector store / RAG), output guardrails with a human in the loop and a critic loop, and observability and governance around it all.",
+          "mobileDiagramAlt": "An LLM with an incoming prompt and an outgoing answer.",
           "learnMore": "More about AI engineering"
         }
       },

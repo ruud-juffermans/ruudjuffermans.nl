@@ -104,6 +104,13 @@ export default async function Home({
           width: 1010,
           height: 881,
         },
+        // The same subject as one node, low and wide, for phones.
+        mobileImage: {
+          src: "/images/data-engineering-mobile.svg",
+          alt: t("services.slides.data.mobileDiagramAlt"),
+          width: 420,
+          height: 110,
+        },
       },
     },
     {
@@ -121,6 +128,13 @@ export default async function Home({
           alt: t("services.slides.ai.diagramAlt"),
           width: 962,
           height: 872,
+        },
+        // The same subject as one node, low and wide, for phones.
+        mobileImage: {
+          src: "/images/ai-engineering-mobile.svg",
+          alt: t("services.slides.ai.mobileDiagramAlt"),
+          width: 420,
+          height: 132,
         },
       },
     },
