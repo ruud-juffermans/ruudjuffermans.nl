@@ -39,7 +39,8 @@ export interface ServiceItem {
   learnMore: string;
   href: ComponentProps<typeof Link>["href"];
   /** The slide's visual: a living flow diagram, or a diagram image. */
-  visual: { flow: FlowData } | { image: DiagramImage };
+  /** `mobileImage` is a small, wide diagram that replaces `image` on phones. */
+  visual: { flow: FlowData } | { image: DiagramImage; mobileImage?: DiagramImage };
 }
 
 export interface DiagramImage {
@@ -359,7 +360,21 @@ export default function ServicesShowcase({
                   <FlowDiagram flow={service.visual.flow} idPrefix={`svcflow-${service.key}`} />
                 </div>
               ) : (
-                <div className={styles.stageCol}>
+                <div
+                  className={`${styles.stageCol} ${service.visual.mobileImage ? styles.hasMobile : ""}`}
+                >
+                  {service.visual.mobileImage && (
+                    <div className={styles.mobileDiagram}>
+                      {/* An SVG, served as is. */}
+                      <Image
+                        src={service.visual.mobileImage.src}
+                        alt={service.visual.mobileImage.alt}
+                        width={service.visual.mobileImage.width}
+                        height={service.visual.mobileImage.height}
+                        unoptimized
+                      />
+                    </div>
+                  )}
                   <div className={styles.stage}>
                     {/* An SVG, served as is. */}
                     <Image

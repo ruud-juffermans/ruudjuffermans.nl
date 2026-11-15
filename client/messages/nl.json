@@ -57,12 +57,14 @@
           "title": "Data engineering.",
           "subtitle": "Ik ontwerp schaalbare data-oplossingen met robuuste ETL-ingestie, datamodellering, gedistribueerde verwerking en infrastructuur die kan omgaan met veranderende schema’s",
           "diagramAlt": "Architectuur van een dataplatform in vijf lagen: bronnen, ingestie, opslag (raw, curated, consumption), verwerking en levering, met orkestratie, governance en observability & kosten over alle lagen heen.",
+          "mobileDiagramAlt": "Een staging-laag met twee inkomende datastromen en één uitgaande.",
           "learnMore": "Meer over mij als Data Engineering"
         },
         "ai": {
           "title": "AI engineering",
           "subtitle": "Ik bouw AI-systemen voor productie met sterke focus op dataprivacy, traceerbaarheid, evaluatie en betrouwbaarheid. Ik bouw AI-systemen voor productie met sterke focus op dataprivacy, traceerbaarheid, evaluatie en betrouwbaarheid.",
           "diagramAlt": "Architectuur van een AI-agentsysteem: een input-gateway met authenticatie en input-guardrails, een orchestrator-agent die taken plant en verdeelt over gespecialiseerde agents, een toollaag (functies en MCP), geheugen en kennis (vector store / RAG), output-guardrails met een mens in de lus en een kritische controlelus, en daaromheen observability en governance.",
+          "mobileDiagramAlt": "Een LLM met een inkomende vraag en een uitgaand antwoord.",
           "learnMore": "Meer over mij als AI Engineering"
         }
       },
