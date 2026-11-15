@@ -11,7 +11,6 @@
     "login": "Log in",
     "logout": "Log out",
     "readMore": "Read more",
-    "backToBlog": "Back to blog",
     "backToProjects": "Back to portfolio",
     "readingTimeSuffix": "read",
     "languageLabel": "Language",
@@ -466,46 +465,6 @@
       "github": "GitHub",
       "location": "Amsterdam, Netherlands",
       "remote": "Based in Amsterdam. Open to hybrid and remote roles across the Netherlands."
-    }
-  },
-  "blog": {
-    "metaTitle": "Blog — Data engineering & AI",
-    "metaDescription": "Articles on data modelling, pipelines, CI for dbt, streaming on Kafka and RAG systems — written from the projects on this site.",
-    "eyebrow": "Blog",
-    "title": "Articles on data and AI",
-    "subtitle": "On what it really takes to build a data foundation that holds — written from the projects on this site.",
-    "empty": {
-      "title": "First articles coming soon",
-      "body": "I'm working on in-depth articles about data engineering and AI. Subscribe to the newsletter so you don't miss them."
-    },
-    "post": {
-      "ctaTitle": "Like how I think about this?",
-      "ctaBody": "I'm open to new roles in data engineering and AI. Let's talk.",
-      "ctaButton": "Get in touch",
-      "fallbackNotice": "This article hasn't been translated to English yet. You're reading the Dutch version."
-    },
-    "filters": {
-      "topicLabel": "Topic",
-      "projectLabel": "Project",
-      "all": "All",
-      "standalone": "Standalone",
-      "topics": {
-        "ai": "AI",
-        "data-engineering": "Data engineering"
-      },
-      "projects": {
-        "digital-twin": "AI Digital-twin",
-        "open-data-warehouse": "Open data warehouse",
-        "ov-streaming-pipeline": "OV streaming pipeline",
-        "strafrecht-rag": "Strafrecht-RAG"
-      },
-      "reset": "Show all",
-      "empty": {
-        "title": "No articles match this filter",
-        "body": "Try another topic or project, or show all articles."
-      },
-      "countOne": "1 article",
-      "countOther": "{count} articles"
     }
   },
   "projects": {

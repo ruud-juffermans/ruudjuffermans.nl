@@ -400,7 +400,7 @@ const en: PageContent = {
     live: "Try the assistant live",
     allProjects: "All projects",
     back: "Back to projects",
-    article: "Background article on the blog: “A digital twin that only says what it can prove” (in Dutch).",
+    article: "Background article on the blog: “A digital twin that only says what it can prove”.",
     scope: "The assistant speaks about me, never for me: anything that reaches my inbox passes through my approval first.",
   },
   hero: diagram(

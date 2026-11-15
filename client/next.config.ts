@@ -3,6 +3,9 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
+// Keep in sync with BLOG_URL in src/lib/blog.ts.
+const BLOG = "https://blog.ruudjuffermans.nl";
+
 const nextConfig: NextConfig = {
   output: "standalone",
   // The opengraph-image routes read these TTFs at runtime via fs; the
@@ -85,16 +88,31 @@ const nextConfig: NextConfig = {
       { source: "/diensten/:slug", destination: "/projecten", permanent: true },
       { source: "/en/services", destination: "/en/projects", permanent: true },
       { source: "/en/services/:slug", destination: "/en/projects", permanent: true },
+      // The blog moved to its own site (the blog-site repo). Post slugs are
+      // the same there, without the /blog prefix and in English only, so both
+      // locales' URLs land on the same post. The .md twins and the RSS feed
+      // the portfolio used to serve go to the post and the blog's Atom feed.
+      {
+        source: "/blog/een-digital-twin-die-alleen-zegt-wat-hij-kan-bewijzen",
+        destination: `${BLOG}/een-digitale-tweeling-die-alleen-zegt-wat-hij-kan-bewijzen/`,
+        permanent: true,
+      },
+      {
+        source: "/en/blog/een-digital-twin-die-alleen-zegt-wat-hij-kan-bewijzen",
+        destination: `${BLOG}/een-digitale-tweeling-die-alleen-zegt-wat-hij-kan-bewijzen/`,
+        permanent: true,
+      },
+      { source: "/blog", destination: `${BLOG}/`, permanent: true },
+      { source: "/en/blog", destination: `${BLOG}/`, permanent: true },
+      { source: "/blog/:slug([^/.]+).md", destination: `${BLOG}/:slug/`, permanent: true },
+      { source: "/en/blog/:slug([^/.]+).md", destination: `${BLOG}/:slug/`, permanent: true },
+      { source: "/blog/:slug", destination: `${BLOG}/:slug/`, permanent: true },
+      { source: "/en/blog/:slug", destination: `${BLOG}/:slug/`, permanent: true },
+      { source: "/feed.xml", destination: `${BLOG}/feed.xml`, permanent: true },
     ];
   },
   async rewrites() {
     return [
-      // Markdown twins of the blog posts (AEO): /blog/foo.md serves the raw
-      // post as text/markdown. Dotted paths are excluded from the i18n
-      // middleware matcher, so these reach the app router unprefixed and get
-      // mapped onto the raw/blog handler here.
-      { source: "/blog/:slug.md", destination: "/raw/blog/nl/:slug" },
-      { source: "/en/blog/:slug.md", destination: "/raw/blog/en/:slug" },
       // Dev convenience: with NEXT_PUBLIC_API_URL unset the browser calls
       // same-origin /api/*, which this rewrite proxies to the local admin
       // panel server (../admin-panel/server on :3100 — its default :3000

@@ -11,7 +11,6 @@
     "login": "Inloggen",
     "logout": "Uitloggen",
     "readMore": "Lees meer",
-    "backToBlog": "Terug naar blog",
     "backToProjects": "Terug naar portfolio",
     "readingTimeSuffix": "leestijd",
     "languageLabel": "Taal",
@@ -466,46 +465,6 @@
       "github": "GitHub",
       "location": "Amsterdam, Nederland",
       "remote": "Gevestigd in Amsterdam. Open voor hybride en remote rollen in heel Nederland."
-    }
-  },
-  "blog": {
-    "metaTitle": "Blog — Data engineering & AI",
-    "metaDescription": "Artikelen over datamodellering, pipelines, CI voor dbt, streaming op Kafka en RAG-systemen — geschreven vanuit de projecten op deze site.",
-    "eyebrow": "Blog",
-    "title": "Artikelen over data en AI",
-    "subtitle": "Over wat er echt voor nodig is om een datafundament te bouwen dat houdt — geschreven vanuit de projecten op deze site.",
-    "empty": {
-      "title": "Eerste artikelen komen eraan",
-      "body": "Ik werk aan diepgaande artikelen over data engineering en AI. Schrijf je in voor de nieuwsbrief om niets te missen."
-    },
-    "post": {
-      "ctaTitle": "Herken je je in deze manier van denken?",
-      "ctaBody": "Ik sta open voor een nieuwe rol in data engineering en AI. Laten we praten.",
-      "ctaButton": "Neem contact op",
-      "fallbackNotice": "Dit artikel is nog niet vertaald naar het Nederlands. Je leest de Engelse versie."
-    },
-    "filters": {
-      "topicLabel": "Onderwerp",
-      "projectLabel": "Project",
-      "all": "Alles",
-      "standalone": "Losstaand",
-      "topics": {
-        "ai": "AI",
-        "data-engineering": "Data engineering"
-      },
-      "projects": {
-        "digital-twin": "AI Digital-twin",
-        "open-data-warehouse": "Open-data warehouse",
-        "ov-streaming-pipeline": "OV streaming pipeline",
-        "strafrecht-rag": "Strafrecht-RAG"
-      },
-      "reset": "Toon alles",
-      "empty": {
-        "title": "Geen artikelen voor dit filter",
-        "body": "Kies een ander onderwerp of project, of toon alle artikelen."
-      },
-      "countOne": "1 artikel",
-      "countOther": "{count} artikelen"
     }
   },
   "projects": {

@@ -18,6 +18,7 @@ import { useState } from "react";
 import { Link, usePathname } from "@/i18n/navigation";
 import type { AppPathname } from "@/i18n/routing";
 import { palette } from "@/theme/theme";
+import { BLOG_URL } from "@/lib/blog";
 import LanguageSwitcher from "./LanguageSwitcher";
 import Logo from "./Logo";
 import ThemeSwitcher from "./ThemeSwitcher";
@@ -30,9 +31,14 @@ export default function Header() {
   const pathname = usePathname();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const navItems: { label: string; href: StaticPathname }[] = [
+  // The blog is its own site (blog.ruudjuffermans.nl); every other item is a
+  // route of this app and goes through the locale-aware Link.
+  type NavItem =
+    | { label: string; href: StaticPathname; external?: false }
+    | { label: string; href: string; external: true };
+  const navItems: NavItem[] = [
     { label: t("projects"), href: "/projects" },
-    { label: t("blog"), href: "/blog" },
+    { label: t("blog"), href: BLOG_URL, external: true },
     { label: t("about"), href: "/about" },
     { label: t("contact"), href: "/contact" },
   ];
@@ -93,8 +99,9 @@ export default function Header() {
               {navItems.map((item) => (
                 <Button
                   key={item.href}
-                  component={Link}
-                  href={item.href}
+                  {...(item.external
+                    ? { component: "a" as const, href: item.href }
+                    : { component: Link, href: item.href })}
                   sx={{
                     color: pathname === item.href ? palette.red : "var(--app-text-secondary)",
                     fontWeight: pathname === item.href ? 600 : 500,
@@ -216,8 +223,9 @@ export default function Header() {
             return (
               <Box
                 key={item.href}
-                component={Link}
-                href={item.href}
+                {...(item.external
+                  ? { component: "a" as const, href: item.href }
+                  : { component: Link, href: item.href })}
                 onClick={() => setDrawerOpen(false)}
                 sx={{
                   display: "flex",

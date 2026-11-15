@@ -31,7 +31,7 @@ import UnderTheHood from "@/components/UnderTheHood";
 import Availability from "@/components/Availability";
 import ProofStrip from "@/components/ProofStrip";
 import PrinciplesAccordion from "@/components/PrinciplesAccordion";
-import { getBlogPosts } from "@/lib/content";
+import { BLOG_URL, getLatestBlogPosts } from "@/lib/blog";
 import { LIVE_URL as TWIN_LIVE_URL } from "./projects/digital-twin/content";
 import JsonLd from "@/components/JsonLd";
 import { buildAlternates, buildOpenGraph, formatDate, SITE_URL } from "@/lib/seo";
@@ -83,11 +83,9 @@ export default async function Home({
   setRequestLocale(locale);
   const t = await getTranslations("home");
   const tc = await getTranslations("common");
-  const allPosts = getBlogPosts(locale);
-  const posts = allPosts.slice(0, 3);
-  // Assign over every post, not just the three shown, so a post keeps the same
-  // artwork here as on /blog.
-  const thumbVariants = assignThumbVariants(allPosts.map((p) => p.slug));
+  // Latest posts from blog.ruudjuffermans.nl (empty when it can't be reached).
+  const posts = await getLatestBlogPosts(3);
+  const thumbVariants = assignThumbVariants(posts.map((p) => p.slug));
 
   const servicesList = [
     {
@@ -614,8 +612,8 @@ export default async function Home({
                   </Typography>
                 </Box>
                 <Button
-                  component={Link}
-                  href="/blog"
+                  component="a"
+                  href={BLOG_URL}
                   endIcon={<ArrowForwardIcon />}
                   sx={{ display: { xs: "none", sm: "inline-flex" }, flexShrink: 0 }}
                 >
@@ -655,7 +653,7 @@ export default async function Home({
                     <BlogCard
                       post={post}
                       variant={thumbVariants[post.slug]}
-                      meta={`${formatDate(post.date, locale)} · ${post.readingTime} ${tc("readingTimeSuffix")}`}
+                      meta={formatDate(post.date, locale)}
                     />
                   </Box>
                 ))}
@@ -669,15 +667,15 @@ export default async function Home({
                     <BlogCard
                       post={post}
                       variant={thumbVariants[post.slug]}
-                      meta={`${formatDate(post.date, locale)} · ${post.readingTime} ${tc("readingTimeSuffix")}`}
+                      meta={formatDate(post.date, locale)}
                     />
                   </Reveal>
                 </Grid>
               ))}
             </Grid>
             <Button
-              component={Link}
-              href="/blog"
+              component="a"
+              href={BLOG_URL}
               endIcon={<ArrowForwardIcon />}
               sx={{ mt: 4, display: { xs: "inline-flex", sm: "none" } }}
             >
