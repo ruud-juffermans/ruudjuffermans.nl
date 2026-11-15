@@ -1,5 +1,4 @@
-import { Link } from "@/i18n/navigation";
-import type { PostMeta } from "@/lib/content";
+import type { BlogPost } from "@/lib/blog";
 import styles from "./BlogCard.module.css";
 
 // Abstract thumbnail art per card, in the site palette. Colors are absolute
@@ -366,24 +365,21 @@ export default function BlogCard({
   meta,
   variant,
 }: {
-  post: PostMeta;
+  post: BlogPost;
   meta?: string;
   /** From assignThumbVariants(), so no two cards in a listing share artwork. */
   variant?: number;
 }) {
   return (
-    <Link
-      className={styles.card}
-      href={{ pathname: "/blog/[slug]", params: { slug: post.slug } }}
-    >
+    <a className={styles.card} href={post.url}>
       <div className={styles.thumb}>
         <ThumbArt variant={variant ?? variantFor(post.slug)} />
       </div>
       <div className={styles.body}>
-        <span className={styles.tag}>{post.tags[0]}</span>
+        {post.category && <span className={styles.tag}>{post.category}</span>}
         <h3 className={styles.title}>{post.title}</h3>
         <div className={styles.date}>{meta ?? post.date}</div>
       </div>
-    </Link>
+    </a>
   );
 }

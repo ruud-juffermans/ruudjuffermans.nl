@@ -14,6 +14,7 @@ import type { AppPathname } from "@/i18n/routing";
 import { palette } from "@/theme/theme";
 import { useState } from "react";
 import { subscribeNewsletter } from "@/lib/api";
+import { BLOG_URL } from "@/lib/blog";
 
 type StaticPathname = Exclude<AppPathname, `${string}[${string}]${string}`>;
 
@@ -57,9 +58,13 @@ export default function Footer() {
     }
   };
 
-  const siteLinks: { label: string; href: StaticPathname }[] = [
+  // The blog is its own site (blog.ruudjuffermans.nl), hence the plain <a>.
+  const siteLinks: (
+    | { label: string; href: StaticPathname; external?: false }
+    | { label: string; href: string; external: true }
+  )[] = [
     { label: t("siteLinks.projects"), href: "/projects" },
-    { label: t("siteLinks.blog"), href: "/blog" },
+    { label: t("siteLinks.blog"), href: BLOG_URL, external: true },
     { label: t("siteLinks.about"), href: "/about" },
     { label: t("siteLinks.contact"), href: "/contact" },
     { label: t("siteLinks.privacy"), href: "/privacy" },
@@ -172,8 +177,9 @@ export default function Footer() {
             {siteLinks.map((item) => (
               <Box
                 key={item.href}
-                component={Link}
-                href={item.href}
+                {...(item.external
+                  ? { component: "a" as const, href: item.href }
+                  : { component: Link, href: item.href })}
                 sx={{
                   display: "block",
                   color: FC.link,

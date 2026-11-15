@@ -1,11 +1,13 @@
-import { getBlogPost, getBlogPosts, getProjectItem, getProjectItems } from "@/lib/content";
+import { BLOG_URL } from "@/lib/blog";
+import { getProjectItem, getProjectItems } from "@/lib/content";
 import { absolutizeLinks } from "@/lib/markdown";
-import { absoluteUrl, SITE_URL } from "@/lib/seo";
+import { absoluteUrl } from "@/lib/seo";
 import nlMessages from "../../../messages/nl.json";
 
 // The full corpus as one Markdown file (llms-full.txt convention): every
-// project and post, so an AI system can ingest the entire portfolio in a
-// single fetch. Rendered at build time, like the sitemap and feed.
+// project, so an AI system can ingest the entire portfolio in a single
+// fetch. Rendered at build time, like the sitemap. The blog posts live on
+// blog.ruudjuffermans.nl and are only pointed to here.
 export const dynamic = "force-static";
 
 export function GET() {
@@ -23,16 +25,6 @@ URL: ${absoluteUrl("/projects/[slug]", "nl", { slug: meta.slug })}
 ${meta.summary}
 
 ${absolutizeLinks(item.content.trim())}`;
-  });
-
-  const posts = getBlogPosts("nl").map((meta) => {
-    const post = getBlogPost("nl", meta.slug)!;
-    return `## ${meta.title}
-
-URL: ${absoluteUrl("/blog/[slug]", "nl", { slug: meta.slug })} (Markdown: ${SITE_URL}/blog/${meta.slug}.md)
-Datum: ${meta.date}
-
-${absolutizeLinks(post.content.trim())}`;
   });
 
   const body = `# ${nlMessages.site.title}
@@ -61,7 +53,7 @@ ${projects.join("\n\n---\n\n")}
 
 # Blog
 
-${posts.join("\n\n---\n\n")}
+De technische artikelen (Engels) staan op een eigen site: ${BLOG_URL}
 `;
 
   return new Response(body, {

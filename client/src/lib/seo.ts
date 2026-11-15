@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { routing, type AppPathname, type Locale } from "@/i18n/routing";
+import { BLOG_FEED_URL } from "@/lib/blog";
 
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
@@ -53,7 +54,7 @@ export function buildAlternates(
       // Dutch is the default locale and the primary audience.
       "x-default": nl,
     },
-    types: { "application/rss+xml": "/feed.xml" },
+    types: { "application/atom+xml": BLOG_FEED_URL },
   };
 }
 
@@ -85,7 +86,7 @@ export function buildOpenGraph(
 export function fallbackAlternates(href: AppPathname, params?: PathParams): Metadata["alternates"] {
   return {
     canonical: localizePathname(href, routing.defaultLocale, params),
-    types: { "application/rss+xml": "/feed.xml" },
+    types: { "application/atom+xml": BLOG_FEED_URL },
   };
 }
 

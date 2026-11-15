@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getBlogPosts, getProjectItems } from "@/lib/content";
+import { getProjectItems } from "@/lib/content";
 import { absoluteUrl } from "@/lib/seo";
 import type { AppPathname } from "@/i18n/routing";
 import { EXPERTISE_FIELDS } from "@/lib/expertise";
@@ -7,7 +7,6 @@ import { EXPERTISE_FIELDS } from "@/lib/expertise";
 const STATIC_ROUTES: AppPathname[] = [
   "/",
   "/projects",
-  "/blog",
   "/about",
   "/contact",
   "/privacy",
@@ -36,15 +35,14 @@ function entry(
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // getBlogPosts/getProjectItems already union locale + fallback slugs, so the
-  // default-locale listing covers every published slug.
-  const posts = getBlogPosts("nl");
+  // getProjectItems already unions locale + fallback slugs, so the
+  // default-locale listing covers every published slug. Blog posts are in the
+  // blog's own sitemap (blog.ruudjuffermans.nl/sitemap.xml).
   const projects = getProjectItems("nl");
 
   return [
     ...STATIC_ROUTES.flatMap((href) => entry(href)),
     ...Object.keys(EXPERTISE_FIELDS).flatMap((field) => entry("/expertise/[field]", { field })),
     ...projects.flatMap((p) => entry("/projects/[slug]", { slug: p.slug })),
-    ...posts.flatMap((p) => entry("/blog/[slug]", { slug: p.slug }, p.date)),
   ];
 }

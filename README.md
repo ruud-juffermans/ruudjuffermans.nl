@@ -1,8 +1,9 @@
 # ruudjuffermans-portfolio
 
 Personal portfolio site for finding a job: a bilingual (Dutch / English)
-Next.js site with project write-ups, a blog, an about/résumé page and a
-contact form. Forked from the freelance (ZZP) site
+Next.js site with project write-ups, an about/résumé page and a
+contact form. The blog is a separate site,
+[blog.ruudjuffermans.nl](https://blog.ruudjuffermans.nl) (the `blog-site` repo). Forked from the freelance (ZZP) site
 [ruudjuffermans.nl](https://ruudjuffermans.nl) and repositioned from "hire me
 for a fixed-price package" to "hire me for your team".
 
@@ -43,7 +44,7 @@ platform-API integration (contact form, newsletter, analytics) are unchanged.
 ```
 .
 ├── client/          # Next.js frontend (the deployed artifact)
-│   ├── content/     # MDX blog & project content (nl / en)
+│   ├── content/     # MDX project content (nl / en)
 │   ├── messages/    # i18n translation files
 │   └── src/
 ├── .env.example     # Client env template
@@ -84,8 +85,13 @@ Configuration (see [`.env.example`](.env.example)):
 - **Projects** live in `client/content/projects/{nl,en}/*.mdx`. Frontmatter
   carries `title`, `industry`, `summary`, `tags`, optional `duration`, `repo`,
   `stats` and an `accent` hex colour for the project's band on `/projects`.
-- **Blog posts** live in `client/content/blog/{nl,en}/*.mdx`; future-dated
-  posts stay hidden until their date.
+- **Blog posts** are not in this repo: the blog is its own site,
+  [blog.ruudjuffermans.nl](https://blog.ruudjuffermans.nl) (the `blog-site`
+  repo). This site links to it from the header and footer, shows the three
+  latest posts on the homepage from the blog's Atom feed (refreshed hourly,
+  hidden when the blog is unreachable; see `client/src/lib/blog.ts`), and
+  permanently redirects the old `/blog`, `/blog/<slug>`, `/blog/<slug>.md`
+  and `/feed.xml` URLs there (`client/next.config.ts`).
 - **Experience and skills** are translation data: `about.experience`,
   `home.experience.items` and `home.principles` in `client/messages/*.json`,
   plus the `skills` map at the top of `client/src/app/[locale]/about/page.tsx`.

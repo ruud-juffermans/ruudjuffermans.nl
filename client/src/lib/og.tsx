@@ -4,7 +4,7 @@ import { ImageResponse } from "next/og";
 
 /**
  * Shared 1200×630 Open Graph card used by the opengraph-image.tsx routes
- * under blog/[slug] and projects/[slug].
+ * under projects/[slug].
  *
  * Satori can't parse woff2, so src/assets/og/ holds static TTF instances
  * pinned from the same @fontsource-variable files the site itself loads

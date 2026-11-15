@@ -1,4 +1,5 @@
-import { getBlogPosts, getProjectItems } from "@/lib/content";
+import { BLOG_FEED_URL, BLOG_URL } from "@/lib/blog";
+import { getProjectItems } from "@/lib/content";
 import { absoluteUrl, SITE_URL } from "@/lib/seo";
 import nlMessages from "../../../messages/nl.json";
 
@@ -13,12 +14,6 @@ export function GET() {
     return `- [${p.title}](${url}): ${p.summary}`;
   });
 
-  // Posts link to their Markdown twin — the cheapest representation for an
-  // AI fetcher (~1.5K tokens instead of the full HTML page).
-  const posts = getBlogPosts("nl").map(
-    (p) => `- [${p.title}](${SITE_URL}/blog/${p.slug}.md): ${p.excerpt}`,
-  );
-
   const body = `# ${nlMessages.site.title}
 
 > ${nlMessages.site.description} Portfolio van een data engineer in Nederland, open voor een nieuwe rol.
@@ -31,7 +26,8 @@ ${projects.join("\n")}
 
 ## Blog
 
-${posts.join("\n")}
+- [Blog](${BLOG_URL}): technische artikelen (Engels) over data engineering en AI engineering, op een eigen site
+- Feed: ${BLOG_FEED_URL}
 
 ## Contact
 
@@ -41,7 +37,6 @@ ${posts.join("\n")}
 - [Contact](${absoluteUrl("/contact", "nl")}): neem contact op over een rol of een project
 - LinkedIn: https://www.linkedin.com/in/r-j3
 - GitHub: https://github.com/ruud-juffermans
-- RSS: ${SITE_URL}/feed.xml
 `;
 
   return new Response(body, {
