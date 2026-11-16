@@ -21,8 +21,8 @@
     "themeLight": "Licht thema",
     "themeDark": "Donker thema",
     "themeSystem": "Systeemvoorkeur",
-    "availableHero": "Open voor een nieuwe rol",
-    "availableFrom": "Open voor een nieuwe rol",
+    "availableHero": "Nu online",
+    "availableFrom": "Nu online",
     "proof": {
       "nlr": "Data engineer bij NLR",
       "police": "Data & AI bij de Politie",
@@ -90,42 +90,42 @@
     "experience": {
       "eyebrow": "Ervaring",
       "title": "Waar ik dit eerder deed",
-      "subtitle": "Werken met gevoelige data, complexe data en mensen zonder technische achtergrond. Drie plekken waar ik dit in de praktijk bracht.",
+      "subtitle": "Werken met gevoelige data, complexe data en mensen zonder technische achtergrond. Drie plekken waar ik ervaring heb opgedaan.",
       "photoAlt": "Ruud Juffermans presenteren.",
       "items": [
         {
-          "period": "2024",
+          "period": "2025",
           "role": "Data Specialist - Cryptocurrency",
           "org": "Politie Noord-Holland",
-          "body": "Data-analyse, automatisering en AI binnen het strafrecht — binnen harde eisen aan privacy en informatiebeveiliging, waar privacy by design het uitgangspunt is en geen bijlage."
+          "body": "Data-analyse, automatisering en AI binnen het strafrecht — binnen harde eisen aan privacy en informatiebeveiliging."
         },
         {
-          "period": "2023",
+          "period": "2024",
           "role": "Data Engineer",
           "org": "Nederlands Lucht- en Ruimtevaartcentrum (NLR)",
-          "body": "Uiteenlopende dataprojecten gebouwd in een onderzoeksomgeving waar de cijfers worden nagerekend — en de pipelines erachter dat moeten kunnen dragen."
+          "body": "Een project-organisatie waar ik uiteenlopende ETL-processen heb gebouwd en dashboards heb ontwikkeld voor stakeholders."
         },
         {
           "period": "Sinds 2020",
           "role": "Course Instructor",
           "org": "Udemy",
-          "body": "Cursussen die complexe techniek uitleggen aan mensen zonder technische achtergrond: 241 cursisten met een 4.2-rating. Een dashboard dat niemand begrijpt is geen dashboard — en dat geldt ook voor een overdracht."
+          "body": "Cursussen die complexe techniek uitleggen aan mensen zonder technische achtergrond: 241 cursisten met een 4.2-rating."
         }
       ],
       "cta": "Meer over mij"
     },
     "principles": {
       "eyebrow": "Hoe ik werk",
-      "title": "Wat je krijgt als ik bij het team kom",
-      "subtitle": "Vier gewoontes die in elk project op deze site terugkomen — en in de code erachter.",
-      "card1Title": "Eerst het fundament",
-      "card1Body": "De meeste AI- en rapportageprojecten stranden op de data, niet op het model. Ik begin bij de grain, de definities en de tests — en pas daarna bij wat erbovenop komt.",
+      "title": "In een omgevingen waar privacy en vertrouwelijkheid essentieel zijn",
+      "subtitle": "Vier gewoontes en principes die ik belangrijk vind in mijn werk",
+      "card1Title": "Een sterk fundament",
+      "card1Body": "Mijn achtergrond in data-architectuur en analyse heeft me geleerd dat goede oplossingen beginnen bij een goed begrip van data, structuur en het onderliggende probleem.",
       "card2Title": "Gewend aan strenge kaders",
-      "card2Body": "Bij de politie en in de luchtvaart werk je binnen harde eisen aan privacy en informatiebeveiliging. Privacy by design is bij mij het startpunt, geen bijzaak.",
-      "card3Title": "Uitleggen ís het vak",
-      "card3Body": "Sinds 2020 leg ik op Udemy complexe techniek uit aan mensen zonder technische achtergrond: 241 cursisten met een 4.2-rating. Datzelfde doe ik met stakeholders en collega's.",
-      "card4Title": "Getest, gedocumenteerd, overdraagbaar",
-      "card4Body": "Tests, CI en documentatie horen bij elk project — kijk in de repo's. Het doel is werk waar een team zelf mee verder kan, niet werk dat van mij afhangt."
+      "card2Body": "Bij de politie en in de luchtvaart heb ik ervaren wat werken binnen strenge kaders betekent. Zorgvuldig omgaan met informatie, privacy en veiligheid is voor mij vanzelfsprekend.",
+      "card3Title": "Heldere communicatie",
+      "card3Body": "Sinds 2020 geef ik via Udemy technische trainingen aan mensen zonder technische achtergrond. Goede communicatie begint bij begrijpen wie je tegenover je hebt.",
+      "card4Title": "Testen en documentatie",
+      "card4Body": "AI maakt ontwikkelen sneller, tests, documentatie en controleerbare oplossingen maken het verschil tussen een prototype en iets waarop een organisatie kan vertrouwen."
     },
     "underhood": {
       "eyebrow": "Portfolio",
@@ -189,8 +189,8 @@
       "all": "Alle artikelen"
     },
     "cta": {
-      "title": "Op zoek naar een data engineer of AI-specialist?",
-      "subtitle": "Ik sta open voor een nieuwe rol in data engineering en AI. Stuur me een bericht, of connect op LinkedIn.",
+      "title": "Laten we eens kennismaken",
+      "subtitle": "Op zoek naar iemand voor een data- of AI-vraagstuk? Of gewoon benieuwd of we iets voor elkaar kunnen betekenen?",
       "primary": "Neem contact op",
       "secondary": "Connect op LinkedIn"
     }
@@ -274,8 +274,8 @@
       }
     ],
     "cta": {
-      "title": "Denk je dat ik in jullie team pas?",
-      "subtitle": "Ik sta open voor een nieuwe rol. Neem contact op, of begin bij de projecten om te zien hoe ik werk.",
+      "title": "Tijd voor een kennismaking?",
+      "subtitle": "Neem contact op, of neem een kijkje bij de projecten waar ik aan heb gewerkt",
       "primary": "Neem contact op",
       "secondary": "Bekijk de projecten"
     }
@@ -290,7 +290,7 @@
     "principlesEyebrow": "Uitgangspunten",
     "relatedEyebrow": "Projecten",
     "cta": {
-      "subtitle": "Ik zoek een team waar ik dit werk goed kan doen. Een gesprek is zo gepland.",
+      "subtitle": "Neem contact op, of lees meer over mij",
       "primary": "Neem contact op",
       "secondary": "Meer over mij"
     },
@@ -365,7 +365,7 @@
         ],
         "relatedTitle": "Projecten die dit laten zien",
         "relatedSubtitle": "Twee eigen projecten, van ruwe bron tot werkend resultaat — met de volledige aanpak en de code open en bloot.",
-        "ctaTitle": "Een warehouse dat klopt, voor jouw team?"
+        "ctaTitle": "Laten we eens kennismaken"
       },
       "ai": {
         "metaTitle": "AI engineering — assistenten met bronnen, guardrails en evaluatie",
@@ -442,10 +442,10 @@
   },
   "contact": {
     "metaTitle": "Contact — Ruud Juffermans",
-    "metaDescription": "Neem contact op met Ruud Juffermans over een rol in data engineering of AI, of om over een project van gedachten te wisselen.",
+    "metaDescription": "Neem contact op met Ruud Juffermans over data engineering of AI, of om over een project van gedachten te wisselen.",
     "eyebrow": "Contact",
     "title": "Laten we praten",
-    "subtitle": "Zoek je iemand voor een data- of AI-rol, of wil je sparren over een van de projecten? Laat een bericht achter of neem direct contact op.",
+    "subtitle": "Op zoek naar iemand voor een data- of AI-vraagstuk? Of gewoon benieuwd of we iets voor elkaar kunnen betekenen? Laat een bericht achter of neem direct contact op.",
     "form": {
       "name": "Naam",
       "email": "E-mail",
@@ -466,7 +466,7 @@
       "linkedin": "LinkedIn",
       "github": "GitHub",
       "location": "Amsterdam, Nederland",
-      "remote": "Gevestigd in Amsterdam. Open voor hybride en remote rollen in heel Nederland."
+      "remote": "Ik ben nu online!"
     }
   },
   "projects": {
@@ -531,7 +531,7 @@
     "siteHeading": "Site",
     "elsewhereHeading": "Elders",
     "newsletterHeading": "Nieuwsbrief",
-    "newsletterBody": "Af en toe een artikel over data engineering en AI, geschreven vanuit de projecten — nooit vaker dan eens per maand.",
+    "newsletterBody": "Ik heb een blog waar ik schrijf over onderwerpen zoals data engineering en AI. Schrijf je in en blijf op de hoogte.",
     "newsletterLabel": "E-mailadres",
     "newsletterPlaceholder": "jouw@email.nl",
     "newsletterSubmit": "Inschrijven",

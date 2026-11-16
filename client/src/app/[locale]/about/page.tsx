@@ -154,7 +154,14 @@ export default async function AboutPage({
       </Box>
 
       {/* Experience — the résumé part: role, organisation, what I did there */}
-      <Box sx={{ py: { xs: 9, md: 13 } }}>
+      <Box 
+      sx={{
+          py: { xs: 9, md: 13 },
+          backgroundColor: palette.offWhite,
+          borderTop: `1px solid var(--app-border-soft)`,
+          borderBottom: `1px solid var(--app-border-soft)`,
+        }}
+        >
         <Container>
           <Reveal variant="rise">
             <Typography variant="overline" sx={{ mb: 1, display: "block" }}>
@@ -217,81 +224,6 @@ export default async function AboutPage({
                     </Box>
                   </Box>
                 </Box>
-              </Reveal>
-            ))}
-          </Box>
-        </Container>
-      </Box>
-
-      {/* Timeline */}
-      <Box
-        sx={{
-          py: { xs: 9, md: 13 },
-          backgroundColor: palette.offWhite,
-          borderTop: `1px solid var(--app-border-soft)`,
-          borderBottom: `1px solid var(--app-border-soft)`,
-        }}
-      >
-        <Container maxWidth="md">
-          <Reveal variant="rise">
-            <Typography variant="overline" sx={{ mb: 1, display: "block" }}>
-              {t("timelineEyebrow")}
-            </Typography>
-            <Typography variant="h2" sx={{ mb: 6 }}>
-              {t("timelineTitle")}
-            </Typography>
-          </Reveal>
-          <Box>
-            {timeline.map((item, i) => (
-              <Reveal variant="slide-left" delay={i * 120} key={item.year}>
-              <Box
-                sx={{
-                  display: "flex",
-                  gap: 4,
-                  pb: i < timeline.length - 1 ? 4 : 0,
-                  position: "relative",
-                  "&::before":
-                    i < timeline.length - 1
-                      ? {
-                          content: '""',
-                          position: "absolute",
-                          left: 32,
-                          top: 28,
-                          bottom: 0,
-                          width: 2,
-                          backgroundColor: palette.gray200,
-                        }
-                      : {},
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontFamily: "var(--font-heading)",
-                    fontWeight: 700,
-                    fontSize: "1.1rem",
-                    color: palette.red,
-                    minWidth: 48,
-                    pt: 0.3,
-                  }}
-                >
-                  {item.year}
-                </Typography>
-                <Box
-                  sx={{
-                    width: 10,
-                    height: 10,
-                    borderRadius: "50%",
-                    backgroundColor: palette.red,
-                    mt: 1,
-                    flexShrink: 0,
-                    position: "relative",
-                    zIndex: 1,
-                  }}
-                />
-                <Typography variant="body1" sx={{ color: palette.gray700, pt: 0.1 }}>
-                  {item.label}
-                </Typography>
-              </Box>
               </Reveal>
             ))}
           </Box>

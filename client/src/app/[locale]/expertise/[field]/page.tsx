@@ -175,16 +175,18 @@ export default async function ExpertisePage({
       {/* Experience in this field, plus what I work with */}
       <Box sx={{ py: { xs: 9, md: 13 } }}>
         <Container>
+          {/* The heading sits above the two columns, so the "works with" box
+              starts level with the first experience card. */}
+          <Reveal variant="rise">
+            <Typography variant="overline" sx={{ mb: 1, display: "block" }}>
+              {t("experienceEyebrow")}
+            </Typography>
+            <Typography variant="h2" sx={{ mb: { xs: 4, md: 5 } }}>
+              {t(`${f}.experienceTitle`)}
+            </Typography>
+          </Reveal>
           <Grid container spacing={{ xs: 6, md: 8 }}>
             <Grid size={{ xs: 12, md: 7 }}>
-              <Reveal variant="rise">
-                <Typography variant="overline" sx={{ mb: 1, display: "block" }}>
-                  {t("experienceEyebrow")}
-                </Typography>
-                <Typography variant="h2" sx={{ mb: { xs: 4, md: 5 } }}>
-                  {t(`${f}.experienceTitle`)}
-                </Typography>
-              </Reveal>
               <Box sx={{ display: "grid", gap: { xs: 2.5, md: 3 } }}>
                 {experience.map((item, i) => (
                   <Reveal variant="rise" delay={i * 100} key={`${item.org}-${item.period}`}>
@@ -227,6 +229,11 @@ export default async function ExpertisePage({
               </Box>
             </Grid>
             <Grid size={{ xs: 12, md: 5 }}>
+              {/* Side by side, the box follows the scroll just under the
+                  header until its bottom meets the last experience card's:
+                  the column is as tall as the cards, and sticky stops at
+                  the column's end. */}
+              <Box sx={{ position: { md: "sticky" }, top: { md: 92 } }}>
               <Reveal variant="slide-left" delay={200}>
                 <Box
                   sx={{
@@ -272,6 +279,7 @@ export default async function ExpertisePage({
                   </Box>
                 </Box>
               </Reveal>
+              </Box>
             </Grid>
           </Grid>
         </Container>
