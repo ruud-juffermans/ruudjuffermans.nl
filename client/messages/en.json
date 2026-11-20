@@ -42,6 +42,7 @@
     "hero": {
       "eyebrow": "Data engineering & AI",
       "title": "I build full-stack solutions with modern technology, following best practices",
+      "titleHighlight": "best practices",
       "subtitle": "Data & AI Engineer with experience at NLR and the Dutch Police. I build modeled data warehouses, tested pipelines, and AI systems in environments where handling confidential and privacy-sensitive data with care is essential.",
       "ctaPrimary": "Get in touch",
       "ctaSecondary": "View my portfolio",

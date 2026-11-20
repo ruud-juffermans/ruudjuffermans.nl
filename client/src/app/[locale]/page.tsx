@@ -311,7 +311,7 @@ export default async function Home({
               </Typography>
             </Reveal>
             <Typography variant="h1" sx={{ mb: 3.5 }}>
-              <SplitText text={t("hero.title")} />
+              <SplitText text={t("hero.title")} highlight={t("hero.titleHighlight")} />
             </Typography>
             <Reveal variant="rise" delay={240}>
               <Typography

@@ -24,26 +24,28 @@
   color: #a6c8f7;
 }
 
-/* The blinking primary light. */
+/* The blinking light, in the emphasis accent. */
 .dot {
+  --dot: var(--app-accent);
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--app-red);
+  background: var(--dot);
   animation: pulseDot 2.4s ease-in-out infinite;
 }
 
+/* The footer band is always navy, so it takes the dark-scheme accent. */
 .status .dot {
-  background: #60a5fa;
+  --dot: #fb923c;
 }
 
 @keyframes pulseDot {
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(96, 165, 250,0.5);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--dot) 50%, transparent);
   }
   50% {
-    box-shadow: 0 0 0 6px rgba(96, 165, 250,0);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--dot) 0%, transparent);
   }
 }
 

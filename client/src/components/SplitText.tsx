@@ -14,10 +14,13 @@ const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
 
 export default function SplitText({
   text,
+  highlight,
   stagger = 45,
   duration = 900,
 }: {
   text: string;
+  /** A phrase inside `text` to set in the emphasis accent colour. */
+  highlight?: string;
   stagger?: number;
   duration?: number;
 }) {
@@ -54,6 +57,13 @@ export default function SplitText({
   }, []);
 
   const words = text.split(" ");
+  // The highlighted phrase as a run of word indexes; -1 when it isn't found.
+  const highlightWords = highlight ? highlight.split(" ") : [];
+  const highlightStart = highlightWords.length
+    ? words.findIndex((_, i) => highlightWords.every((w, j) => words[i + j] === w))
+    : -1;
+  const isHighlighted = (i: number) =>
+    highlightStart >= 0 && i >= highlightStart && i < highlightStart + highlightWords.length;
   return (
     <span ref={ref}>
       {words.map((word, i) => (
@@ -67,6 +77,7 @@ export default function SplitText({
               // so line spacing is unchanged.
               paddingBottom: "0.12em",
               marginBottom: "-0.12em",
+              color: isHighlighted(i) ? "var(--app-accent)" : undefined,
             }}
           >
             <span

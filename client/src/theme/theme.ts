@@ -46,6 +46,11 @@ const LIGHT = {
   // Text on accent-filled surfaces (contained buttons). White passes on the
   // deep light-mode blue; the pale dark-mode blue needs dark ink (WCAG AA).
   onRed: "#FFFFFF",
+  // Second accent, for emphasis only (overlines, one highlighted phrase, the
+  // availability light). Blue stays the colour of everything clickable.
+  // #b93c0a clears WCAG 4.5:1 on bg, surface and surfaceElevated.
+  accent: "#b93c0a",
+  accentMuted: "rgba(185, 60, 10, 0.10)",
   textPrimary: "#0F172A",
   // Both tiers are used on the card surface (#ecead4), where 4.5:1 needs
   // secondary ≤ #52627A and muted ≤ #566578; keep secondary the darker tier.
@@ -76,6 +81,8 @@ const DARK = {
   redMuted: "rgba(147, 197, 253, 0.14)",
   redGlow: "rgba(147, 197, 253, 0.30)",
   onRed: "#0A0F1C",
+  accent: "#fb923c",
+  accentMuted: "rgba(251, 146, 60, 0.14)",
   textPrimary: "#F4F7FB",
   textSecondary: "#B9C4D6",
   textMuted: "#94A3B8",
@@ -106,6 +113,8 @@ const cssVarsFor = (tokens: typeof LIGHT) => ({
   "--app-on-red": tokens.onRed,
   "--app-red-muted": tokens.redMuted,
   "--app-red-glow": tokens.redGlow,
+  "--app-accent": tokens.accent,
+  "--app-accent-muted": tokens.accentMuted,
   "--app-text-primary": tokens.textPrimary,
   "--app-text-secondary": tokens.textSecondary,
   "--app-text-muted": tokens.textMuted,
@@ -127,6 +136,9 @@ export const palette = {
   redLight: "var(--app-red-light)",
   redMuted: "var(--app-red-muted)",
   redGlow: "var(--app-red-glow)",
+  // scheme-adaptive (emphasis accent)
+  accent: "var(--app-accent)",
+  accentMuted: "var(--app-accent-muted)",
   // scheme-adaptive (surfaces)
   offWhite: "var(--app-surface)",
   surfaceElevated: "var(--app-surface-elevated)",
@@ -499,7 +511,7 @@ const theme = createTheme({
         variantMapping: { subtitle1: "p", subtitle2: "p" },
       },
       styleOverrides: {
-        overline: { color: "var(--app-red)" },
+        overline: { color: "var(--app-accent)" },
       },
     },
     MuiAlert: {
