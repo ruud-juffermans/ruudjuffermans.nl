@@ -1,21 +1,15 @@
 import { Box, Container, Typography, Button, Card } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import HandshakeIcon from "@mui/icons-material/HandshakeOutlined";
 import MenuBookIcon from "@mui/icons-material/MenuBookOutlined";
-import LayersIcon from "@mui/icons-material/LayersOutlined";
+import RuleIcon from "@mui/icons-material/RuleOutlined";
 import ShieldIcon from "@mui/icons-material/ShieldOutlined";
-import PanToolIcon from "@mui/icons-material/PanToolOutlined";
 import FactCheckIcon from "@mui/icons-material/FactCheckOutlined";
 import GridOnIcon from "@mui/icons-material/GridOnOutlined";
-import TaskAltIcon from "@mui/icons-material/TaskAltOutlined";
-import SwapHorizIcon from "@mui/icons-material/SwapHorizOutlined";
-import StreamIcon from "@mui/icons-material/StreamOutlined";
-import TimelapseIcon from "@mui/icons-material/TimelapseOutlined";
-import MonitorHeartIcon from "@mui/icons-material/MonitorHeartOutlined";
-import FormatQuoteIcon from "@mui/icons-material/FormatQuoteOutlined";
-import BlockIcon from "@mui/icons-material/BlockOutlined";
-import ManageSearchIcon from "@mui/icons-material/ManageSearchOutlined";
+import HistoryIcon from "@mui/icons-material/HistoryOutlined";
+import BarChartIcon from "@mui/icons-material/BarChartOutlined";
+import FunctionsIcon from "@mui/icons-material/FunctionsOutlined";
+import MapIcon from "@mui/icons-material/MapOutlined";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
@@ -32,7 +26,6 @@ import Availability from "@/components/Availability";
 import ProofStrip from "@/components/ProofStrip";
 import PrinciplesAccordion from "@/components/PrinciplesAccordion";
 import { BLOG_URL, getLatestBlogPosts } from "@/lib/blog";
-import { LIVE_URL as TWIN_LIVE_URL } from "./projects/digital-twin/content";
 import JsonLd from "@/components/JsonLd";
 import { buildAlternates, buildOpenGraph, formatDate, SITE_URL } from "@/lib/seo";
 import { hasLocale } from "next-intl";
@@ -87,58 +80,36 @@ export default async function Home({
   const posts = await getLatestBlogPosts(3);
   const thumbVariants = assignThumbVariants(posts.map((p) => p.slug));
 
-  const servicesList = [
-    {
-      key: "analytics",
-      label: t("services.service1Title"),
-      title: t("services.slides.data.title"),
-      subtitle: t("services.slides.data.subtitle"),
-      slideLabel: `${t("services.carousel.slide", { index: 1, total: 2 })}: ${t("services.service1Title")}`,
-      learnMore: t("services.slides.data.learnMore"),
-      href: { pathname: "/expertise/[field]", params: { field: "data-engineering" } } as const,
-      // Built from the draw.io export with scripts/drawio-to-web.mjs.
-      visual: {
-        image: {
-          src: "/images/data-engineering.svg",
-          alt: t("services.slides.data.diagramAlt"),
-          width: 1010,
-          height: 881,
-        },
-        // The same subject as one node, low and wide, for phones.
-        mobileImage: {
-          src: "/images/data-engineering-mobile.svg",
-          alt: t("services.slides.data.mobileDiagramAlt"),
-          width: 420,
-          height: 110,
-        },
+  // The two disciplines of "What I do". Each slide's visual is the living
+  // flow diagram: what goes in, the model in the middle, what comes out.
+  const servicesList = (
+    [
+      { key: "modeling", field: "data-modeling", label: t("services.service1Title") },
+      { key: "bi", field: "business-intelligence", label: t("services.service2Title") },
+    ] as const
+  ).map(({ key, field, label }, i) => ({
+    key,
+    label,
+    title: t(`services.slides.${key}.title`),
+    subtitle: t(`services.slides.${key}.subtitle`),
+    slideLabel: `${t("services.carousel.slide", { index: i + 1, total: 2 })}: ${label}`,
+    learnMore: t(`services.slides.${key}.learnMore`),
+    href: { pathname: "/expertise/[field]", params: { field } } as const,
+    visual: {
+      flow: {
+        sources: [
+          t(`services.flow.${key}.src1`),
+          t(`services.flow.${key}.src2`),
+          t(`services.flow.${key}.src3`),
+        ] as [string, string, string],
+        hub: { label: t(`services.flow.${key}.hubLabel`), title: t(`services.flow.${key}.hubTitle`) },
+        outputs: [
+          { label: t(`services.flow.${key}.out1Label`), title: t(`services.flow.${key}.out1Title`) },
+          { label: t(`services.flow.${key}.out2Label`), title: t(`services.flow.${key}.out2Title`) },
+        ] as [{ label: string; title: string }, { label: string; title: string }],
       },
     },
-    {
-      key: "ai",
-      label: t("services.service2Title"),
-      title: t("services.slides.ai.title"),
-      subtitle: t("services.slides.ai.subtitle"),
-      slideLabel: `${t("services.carousel.slide", { index: 2, total: 2 })}: ${t("services.service2Title")}`,
-      learnMore: t("services.slides.ai.learnMore"),
-      href: { pathname: "/expertise/[field]", params: { field: "ai-engineering" } } as const,
-      // Built from the draw.io export with scripts/drawio-to-web.mjs.
-      visual: {
-        image: {
-          src: "/images/ai-engineering.svg",
-          alt: t("services.slides.ai.diagramAlt"),
-          width: 962,
-          height: 872,
-        },
-        // The same subject as one node, low and wide, for phones.
-        mobileImage: {
-          src: "/images/ai-engineering-mobile.svg",
-          alt: t("services.slides.ai.mobileDiagramAlt"),
-          width: 420,
-          height: 132,
-        },
-      },
-    },
-  ];
+  }));
 
   // The three roles, in the order a hiring manager reads them: most recent
   // first. Copy lives in the `home.experience.items` translation array.
@@ -151,47 +122,27 @@ export default async function Home({
 
   // The portfolio projects, toggled in the dark "Under the hood" section.
   // Each variant links to its write-up on this site and to the repo. Icons
-  // follow the features: shield/hand/fact-check for the agent's guards,
-  // approval and evals; grid/check/swap for the modelling project;
-  // stream/timer/monitor for the streaming one; quote/block/search for the
-  // case-law RAG.
+  // follow the features: grid/history/chart for the modelling project;
+  // function/rule/map for the delay metrics.
   const hoodIcon = { fontSize: 19 } as const;
   const hoodIcons: Record<string, [React.ReactNode, React.ReactNode, React.ReactNode]> = {
-    "digital-twin": [
-      <ShieldIcon sx={hoodIcon} key="1" />,
-      <PanToolIcon sx={hoodIcon} key="2" />,
-      <FactCheckIcon sx={hoodIcon} key="3" />,
-    ],
     "open-data-warehouse": [
       <GridOnIcon sx={hoodIcon} key="1" />,
-      <TaskAltIcon sx={hoodIcon} key="2" />,
-      <SwapHorizIcon sx={hoodIcon} key="3" />,
+      <HistoryIcon sx={hoodIcon} key="2" />,
+      <BarChartIcon sx={hoodIcon} key="3" />,
     ],
     "ov-streaming-pipeline": [
-      <StreamIcon sx={hoodIcon} key="1" />,
-      <TimelapseIcon sx={hoodIcon} key="2" />,
-      <MonitorHeartIcon sx={hoodIcon} key="3" />,
-    ],
-    "strafrecht-rag": [
-      <FormatQuoteIcon sx={hoodIcon} key="1" />,
-      <BlockIcon sx={hoodIcon} key="2" />,
-      <ManageSearchIcon sx={hoodIcon} key="3" />,
+      <FunctionsIcon sx={hoodIcon} key="1" />,
+      <RuleIcon sx={hoodIcon} key="2" />,
+      <MapIcon sx={hoodIcon} key="3" />,
     ],
   };
   const hoodVariants = [
-    {
-      key: "digital-twin",
-      github: "https://github.com/datavakwerk/digital-twin",
-      live: TWIN_LIVE_URL,
-    },
     { key: "open-data-warehouse", github: "https://github.com/datavakwerk/nl-vehicle-warehouse" },
     { key: "ov-streaming-pipeline", github: "https://github.com/datavakwerk/ov-streaming-pipeline" },
-    { key: "strafrecht-rag", github: "https://github.com/datavakwerk/strafrecht-rag" },
-  ].map(({ key, github, live }: { key: string; github: string; live?: string }) => ({
+  ].map(({ key, github }) => ({
     key,
     github,
-    live,
-    liveLabel: t("underhood.live"),
     toggleLabel: t(`underhood.projects.${key}.toggle`),
     eyebrow: t("underhood.eyebrow"),
     title: t(`underhood.projects.${key}.title`),
@@ -221,10 +172,10 @@ export default async function Home({
   // Four working habits that are specific to Ruud and visible in the repos;
   // generic "team player / fast learner" lines were left out deliberately.
   const principleCards = [
-    { icon: <LayersIcon sx={{ fontSize: 21 }} />, key: "card1" },
+    { icon: <RuleIcon sx={{ fontSize: 21 }} />, key: "card1" },
     { icon: <ShieldIcon sx={{ fontSize: 21 }} />, key: "card2" },
     { icon: <MenuBookIcon sx={{ fontSize: 21 }} />, key: "card3" },
-    { icon: <HandshakeIcon sx={{ fontSize: 21 }} />, key: "card4" },
+    { icon: <FactCheckIcon sx={{ fontSize: 21 }} />, key: "card4" },
   ].map(({ icon, key }) => ({
     icon,
     title: t(`principles.${key}Title`),
@@ -247,7 +198,7 @@ export default async function Home({
           "@id": `${SITE_URL}/#person`,
           name: "Ruud Juffermans",
           url: SITE_URL,
-          jobTitle: "Data Engineer",
+          jobTitle: "Data Analyst",
           description: t("metaDescription"),
           image: `${SITE_URL}/images/ruud-juffermans-portrait.jpg`,
           address: { "@type": "PostalAddress", addressLocality: "Amsterdam", addressCountry: "NL" },
@@ -389,20 +340,19 @@ export default async function Home({
       </Box>
 
       {/* What I do — deep brand-dark band with a soft dot grid; a two-slide
-          slideshow (data engineering, AI & GenAI), each slide with its own
-          heading and intro on the left and its diagram right. The band's
-          overflow: hidden crops the data slide's diagram at its bottom edge. */}
+          slideshow (data modeling, BI & reporting), each slide with its own
+          heading and intro on the left and its flow diagram right. */}
       <Box
         sx={{
           py: { xs: 10, md: 13 },
-          backgroundColor: "#0D2242",
+          backgroundColor: "#3A1907",
           position: "relative",
           overflow: "hidden",
           "&::before": {
             content: '""',
             position: "absolute",
             inset: 0,
-            backgroundImage: "radial-gradient(rgba(166, 200, 247, 0.16) 1px, transparent 1px)",
+            backgroundImage: "radial-gradient(rgba(253, 201, 160, 0.16) 1px, transparent 1px)",
             backgroundSize: "26px 26px",
             maskImage: "radial-gradient(ellipse 70% 90% at 70% 50%, #000, transparent 75%)",
             WebkitMaskImage:
@@ -578,7 +528,7 @@ export default async function Home({
                           mb: 2,
                           "[data-mui-color-scheme='dark'] &": {
                             backgroundColor: palette.navy,
-                            color: "#a6c8f7",
+                            color: "#fdc9a0",
                           },
                         }}
                       >
@@ -713,7 +663,7 @@ export default async function Home({
             position: "absolute",
             inset: 0,
             background:
-              "radial-gradient(640px 340px at 50% 115%, rgba(37, 99, 235, 0.35), transparent 70%)",
+              "radial-gradient(640px 340px at 50% 115%, rgba(234, 88, 12, 0.35), transparent 70%)",
             pointerEvents: "none",
           },
         }}

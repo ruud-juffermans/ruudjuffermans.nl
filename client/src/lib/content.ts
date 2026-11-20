@@ -11,8 +11,6 @@ const contentDir = path.join(process.cwd(), "content");
 // [slug] route must skip them or its prerender overwrites the custom page.
 export const CUSTOM_PROJECT_PAGES: ReadonlySet<string> = new Set([
   "ov-streaming-pipeline",
-  "strafrecht-rag",
-  "digital-twin",
   "open-data-warehouse",
 ]);
 const DEFAULT_LOCALE = routing.defaultLocale;

@@ -15,8 +15,8 @@ export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = "image/png";
 
 const NAVY = "#0F172A";
-const BLUE = "#2563eb";
-const BLUE_LIGHT = "#60a5fa";
+const ORANGE = "#ea580c";
+const ORANGE_LIGHT = "#fb923c";
 const GRAY = "#94A3B8";
 
 async function loadFont(file: string) {
@@ -49,7 +49,7 @@ export async function renderOgImage({ eyebrow, title, meta }: OgCardProps) {
           justifyContent: "space-between",
           padding: "64px 72px",
           backgroundColor: NAVY,
-          backgroundImage: `radial-gradient(circle at 85% -10%, rgba(37, 99, 235, 0.35), transparent 55%), radial-gradient(circle at -5% 110%, rgba(37, 99, 235, 0.18), transparent 45%)`,
+          backgroundImage: `radial-gradient(circle at 85% -10%, rgba(234, 88, 12, 0.35), transparent 55%), radial-gradient(circle at -5% 110%, rgba(234, 88, 12, 0.18), transparent 45%)`,
           fontFamily: "Outfit",
         }}
       >
@@ -59,7 +59,7 @@ export async function renderOgImage({ eyebrow, title, meta }: OgCardProps) {
               width: 16,
               height: 16,
               borderRadius: 4,
-              backgroundColor: BLUE,
+              backgroundColor: ORANGE,
             }}
           />
           <div style={{ fontSize: 28, color: "#E2E8F0" }}>ruudjuffermans.nl</div>
@@ -72,7 +72,7 @@ export async function renderOgImage({ eyebrow, title, meta }: OgCardProps) {
               fontSize: 24,
               letterSpacing: "0.14em",
               textTransform: "uppercase",
-              color: BLUE_LIGHT,
+              color: ORANGE_LIGHT,
               marginBottom: 24,
             }}
           >
@@ -94,7 +94,7 @@ export async function renderOgImage({ eyebrow, title, meta }: OgCardProps) {
           ) : null}
         </div>
 
-        <div style={{ display: "flex", width: 120, height: 6, backgroundColor: BLUE }} />
+        <div style={{ display: "flex", width: 120, height: 6, backgroundColor: ORANGE }} />
       </div>
     ),
     {

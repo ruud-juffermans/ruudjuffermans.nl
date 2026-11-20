@@ -165,7 +165,7 @@ export default function FlowLines({
           >
             <stop offset="0%" stopColor="var(--app-red-light)" />
             <stop offset="45%" stopColor="var(--app-red)" />
-            <stop offset="100%" stopColor="#1e40af" />
+            <stop offset="100%" stopColor="#9a3412" />
           </linearGradient>
         </defs>
         {Array.from({ length: tiles }, (_, tile) => (

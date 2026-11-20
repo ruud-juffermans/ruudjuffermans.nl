@@ -1,35 +1,28 @@
-# ruudjuffermans-portfolio
+# ruudjuffermans-portfolio-analyst
 
-Personal portfolio site for finding a job: a bilingual (Dutch / English)
-Next.js site with project write-ups, an about/résumé page and a
-contact form. The blog is a separate site,
-[blog.ruudjuffermans.nl](https://blog.ruudjuffermans.nl) (the `blog-site` repo). Forked from the freelance (ZZP) site
-[ruudjuffermans.nl](https://ruudjuffermans.nl) and repositioned from "hire me
-for a fixed-price package" to "hire me for your team".
+The **data analyst / BI / data modeling** edition of the portfolio: a bilingual
+(Dutch / English) Next.js site with project write-ups, an about/résumé page
+and a contact form. It is a copy of `../ruudjuffermans-portfolio` (the
+data & AI engineering edition), repositioned for analyst roles. The blog is a
+separate site, [blog.ruudjuffermans.nl](https://blog.ruudjuffermans.nl).
 
-[![Homepage](docs/screenshot.png)](https://ruudjuffermans.nl)
+## What differs from the engineering edition
 
-## What changed from the freelance site
-
-- **No services or packages.** The six priced packages, their detail pages,
-  the nav dropdown, footer links, sitemap entries and `llms.txt` sections are
-  gone. Old `/diensten/*` and `/en/services/*` URLs redirect to the projects
-  overview.
-- **Homepage sections:** hero (open to new roles), what I do, **experience**
-  (three roles as cards), projects, **how I work** (four working habits),
-  latest articles, and a CTA pointing at contact + LinkedIn.
-- **About page** gained an experience section with per-role bullets, and the
-  skill chips now match what the projects and articles actually show.
-- **Copy** throughout is aimed at a hiring manager: "Get in touch" instead of
-  "Book a call", "Open to new roles" instead of "Available for new projects".
-- **Blog:** the two pricing posts ("what does a dashboard / data warehouse
-  cost") were dropped; the remaining post that linked into the packages now
-  points at the open-data-warehouse project instead.
-- **Structured data:** a `Person` (jobTitle Data Engineer) instead of a
-  `ProfessionalService`.
-
-The design system, animations, i18n setup, MDX content pipeline and the
-platform-API integration (contact form, newsletter, analytics) are unchanged.
+- **Positioning.** All copy (`client/messages/{nl,en}.json`) is aimed at data
+  analyst, BI and analytics roles: data modeling, Power BI, reporting, data
+  quality. Structured data is a `Person` with jobTitle Data Analyst.
+- **Main colour is orange** instead of blue: the tokens in
+  `client/src/theme/theme.ts` (`#c2410c` light, `#fb923c` dark), plus the
+  hard-coded accents in the CSS modules, the icon and the OG card.
+- **Expertise pages** are `/expertise/data-modeling` and
+  `/expertise/business-intelligence` (see `client/src/lib/expertise.ts`).
+- **Two projects, not four.** The AI projects (digital twin, strafrecht-RAG)
+  and the chat widget are gone. The open data warehouse and the public
+  transport delays project are told from the analyst's side: the questions,
+  the model, the metric definitions, the dashboards and the data quality.
+- **Homepage:** "What I do" shows data modeling and BI & reporting with flow
+  diagrams, the tools marquee lists analyst tooling, and the latest-articles
+  section leaves out the blog's AI posts (`client/src/lib/blog.ts`).
 
 ## Tech stack
 
@@ -78,7 +71,6 @@ Configuration (see [`.env.example`](.env.example)):
 | ---------------------- | -------------------------------------------------------- | ----------- |
 | `NEXT_PUBLIC_API_URL`  | Backend (admin panel) origin; empty = same-origin + dev rewrite | *(empty)* |
 | `NEXT_PUBLIC_SITE_URL` | Public site URL (metadata, www→apex redirect)            | `http://localhost:3000` |
-| `NEXT_PUBLIC_TWIN_URL` | Digital-twin assistant URL; empty hides "Try it live" + chat widget | *(empty)* |
 
 ## Content
 
@@ -88,7 +80,7 @@ Configuration (see [`.env.example`](.env.example)):
 - **Blog posts** are not in this repo: the blog is its own site,
   [blog.ruudjuffermans.nl](https://blog.ruudjuffermans.nl) (the `blog-site`
   repo). This site links to it from the header and footer, shows the three
-  latest posts on the homepage from the blog's Atom feed (refreshed hourly,
+  latest data posts on the homepage from the blog's Atom feed (refreshed hourly,
   hidden when the blog is unreachable; see `client/src/lib/blog.ts`), and
   permanently redirects the old `/blog`, `/blog/<slug>`, `/blog/<slug>.md`
   and `/feed.xml` URLs there (`client/next.config.ts`).

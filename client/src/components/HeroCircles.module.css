@@ -68,13 +68,13 @@
   height: 100px;
   width: 100px;
   border-radius: 50%;
-  /* Light scheme: near-white -> brand blue (#2563eb), darken blend so the
+  /* Light scheme: near-white -> brand orange (#c2410c), darken blend so the
      white end melts into the page background. */
   background: radial-gradient(
     circle at 50% 0%,
-    oklch(0.99 0.003 262),
-    oklch(0.8 0.1 258),
-    oklch(0.546 0.245 262.88)
+    oklch(0.99 0.004 70),
+    oklch(0.84 0.1 62),
+    oklch(0.63 0.21 42)
   );
   mix-blend-mode: darken;
   /* --base is the petal's fixed slot in the flower; --spin is animated on
@@ -93,13 +93,13 @@
   animation: expand 4.01s cubic-bezier(0.8, 0, 0.2, 1) infinite alternate;
 }
 
-/* Dark scheme: page-bg navy -> brand blue (#60a5fa), lighten blend. */
+/* Dark scheme: page-bg navy -> brand orange (#fb923c), lighten blend. */
 :global([data-mui-color-scheme="dark"]) .circle {
   background: radial-gradient(
     circle at 50% 0%,
     oklch(0.1706 0.0284 267.36),
-    oklch(0.4 0.14 259),
-    oklch(0.707 0.165 254.62)
+    oklch(0.42 0.12 45),
+    oklch(0.75 0.17 55)
   );
   mix-blend-mode: lighten;
 }

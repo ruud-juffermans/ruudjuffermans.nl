@@ -28,11 +28,11 @@ export async function generateMetadata({
   };
 }
 
-// Every chip is backed by a project or an article on this site.
-const skills: Record<"data" | "ai" | "engineering", string[]> = {
-  data: ["Data modeling", "Kimball / star schema", "dbt", "ELT pipelines", "Power BI"],
-  ai: ["LLMs", "RAG", "Retrieval evaluation", "Document processing", "AI agents"],
-  engineering: ["Python", "SQL", "PostgreSQL", "Kafka", "Docker", "CI/CD", "Azure"],
+// Every chip is backed by a role above, a project or an article.
+const skills: Record<"modeling" | "bi" | "analysis", string[]> = {
+  modeling: ["Data modeling", "Kimball / star schema", "SCD type 2", "dbt", "Data-quality tests"],
+  bi: ["Power BI", "DAX", "Dashboards", "Management reporting", "Excel"],
+  analysis: ["SQL", "Python", "pandas", "PostgreSQL", "DuckDB", "Azure"],
 };
 
 export default async function AboutPage({
@@ -244,7 +244,7 @@ export default async function AboutPage({
             position: "absolute",
             inset: 0,
             background:
-              "radial-gradient(640px 340px at 50% 115%, rgba(37, 99, 235, 0.35), transparent 70%)",
+              "radial-gradient(640px 340px at 50% 115%, rgba(234, 88, 12, 0.35), transparent 70%)",
             pointerEvents: "none",
           },
         }}

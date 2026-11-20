@@ -22,7 +22,7 @@ export default function GlobalNotFound() {
         <div>
           <p style={{ letterSpacing: "0.12em", color: "#EF4444", margin: 0 }}>404</p>
           <h1 style={{ fontSize: 28, margin: "12px 0 24px" }}>Page not found</h1>
-          <a href="/" style={{ color: "#60A5FA" }}>
+          <a href="/" style={{ color: "#fb923c" }}>
             ruudjuffermans.nl
           </a>
         </div>

@@ -5,10 +5,10 @@ import styles from "./BlogCard.module.css";
 // (like the navy CTA panel) so the artwork is identical in both schemes.
 const NAVY = "#0B1120";
 const NAVY_LIGHT = "#131B2E";
-const RED = "#2563eb";
-const RED_SOFT = "#60a5fa";
-const PINK = "#a6c8f7";
-const PINK_PALE = "#e0ecfd";
+const RED = "#ea580c";
+const RED_SOFT = "#fb923c";
+const PINK = "#fdc9a0";
+const PINK_PALE = "#ffeadb";
 
 function ThumbArt({ variant }: { variant: number }) {
   const art = [

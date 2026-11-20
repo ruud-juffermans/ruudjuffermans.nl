@@ -16,7 +16,7 @@ export function GET() {
 
   const body = `# ${nlMessages.site.title}
 
-> ${nlMessages.site.description} Portfolio van een data engineer in Nederland, open voor een nieuwe rol.
+> ${nlMessages.site.description} Portfolio van een data-analist in Nederland, open voor een nieuwe rol.
 
 Taal: Nederlands (primair), Engels onder ${SITE_URL}/en. Volledige inhoud in één bestand: ${SITE_URL}/llms-full.txt
 
@@ -26,14 +26,14 @@ ${projects.join("\n")}
 
 ## Blog
 
-- [Blog](${BLOG_URL}): technische artikelen (Engels) over data engineering en AI engineering, op een eigen site
+- [Blog](${BLOG_URL}): technische artikelen (Engels) over datamodellering, SQL en data-engineering, op een eigen site
 - Feed: ${BLOG_FEED_URL}
 
 ## Contact
 
 - [Over Ruud Juffermans](${absoluteUrl("/about", "nl")}): achtergrond, ervaring en expertise
-- [Data engineering](${absoluteUrl("/expertise/[field]", "nl", { field: "data-engineering" })}): aanpak, ervaring en projecten in data engineering
-- [AI engineering](${absoluteUrl("/expertise/[field]", "nl", { field: "ai-engineering" })}): aanpak, ervaring en projecten in AI engineering
+- [Datamodellering](${absoluteUrl("/expertise/[field]", "nl", { field: "data-modeling" })}): aanpak, ervaring en projecten in datamodellering
+- [BI & rapportage](${absoluteUrl("/expertise/[field]", "nl", { field: "business-intelligence" })}): aanpak, ervaring en projecten in BI en rapportage
 - [Contact](${absoluteUrl("/contact", "nl")}): neem contact op over een rol of een project
 - LinkedIn: https://www.linkedin.com/in/r-j3
 - GitHub: https://github.com/ruud-juffermans

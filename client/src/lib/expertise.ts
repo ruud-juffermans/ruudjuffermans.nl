@@ -3,13 +3,13 @@
 // translation namespace under `key`; `projects` lists the case studies that
 // belong to the field, in the order the page shows them.
 export const EXPERTISE_FIELDS = {
-  "data-engineering": {
-    key: "data",
+  "data-modeling": {
+    key: "modeling",
     projects: ["open-data-warehouse", "ov-streaming-pipeline"],
   },
-  "ai-engineering": {
-    key: "ai",
-    projects: ["digital-twin", "strafrecht-rag"],
+  "business-intelligence": {
+    key: "bi",
+    projects: ["ov-streaming-pipeline", "open-data-warehouse"],
   },
 } as const;
 

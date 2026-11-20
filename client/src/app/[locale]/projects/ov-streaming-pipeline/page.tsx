@@ -7,7 +7,6 @@ import JsonLd from "@/components/JsonLd";
 import {
   Band,
   BulletCard,
-  CodeCards,
   CodeNote,
   FigureBlock,
   MetricsTable,
@@ -15,8 +14,6 @@ import {
   ProjectClosing,
   ProjectHero,
   ProseBlock,
-  ProseWithCallouts,
-  PullQuote,
   SectionTitle,
   SplitBand,
   SubTitle,
@@ -26,7 +23,7 @@ import { absoluteUrl, buildAlternates, buildOpenGraph, SITE_URL } from "@/lib/se
 import { routing, type Locale } from "@/i18n/routing";
 import { ACCENT, CONTENT, REPO_URL, SLUG } from "./content";
 
-// Bespoke page for the OV streaming pipeline. It shadows the generic
+// Bespoke page for the OV delay metrics project (slug: ov-streaming-pipeline). It shadows the generic
 // /projects/[slug] article for this slug (see CUSTOM_PROJECT_PAGES); the
 // project's MDX file still supplies the frontmatter for the /projects
 // listing, the sitemap, the OG image and llms-full.txt.
@@ -103,73 +100,19 @@ export default async function OvStreamingPipelinePage({
       <SplitBand title={c.why.title} paragraphs={c.why.body} />
 
       <Band>
-        <SectionTitle title={c.architecture.title} />
-        <ProseBlock paragraphs={c.architecture.body} />
-        <FigureBlock figure={c.architecture.figure} />
-        <SubTitle title={c.architecture.choicesTitle} />
-        <NumberedCards items={c.architecture.choices} accent={ACCENT} />
-      </Band>
-
-      <Band shaded>
-        <SectionTitle title={c.producer.title} />
-        <ProseWithCallouts paragraphs={c.producer.body} callouts={c.producer.callouts} accent={ACCENT} />
-        <Reveal variant="rise" sx={{ mt: { xs: 4, md: 6 } }}>
-          <BulletCard
-            title={c.producer.quirksTitle}
-            items={c.producer.quirks}
-            note={c.producer.quirksNote}
-            accent={ACCENT}
-          />
-        </Reveal>
-      </Band>
-
-      <Band>
-        <SectionTitle title={c.windows.title} />
-        <ProseBlock paragraphs={c.windows.body} />
-        <FigureBlock figure={c.windows.figure} />
-        <SubTitle title={c.windows.lessonsTitle} />
-        <NumberedCards items={c.windows.lessons} columns={3} accent={ACCENT} />
-      </Band>
-
-      <Band shaded>
-        <SectionTitle title={c.delivery.title} />
-        <ProseBlock paragraphs={c.delivery.body} />
-        <FigureBlock figure={c.delivery.figure} />
-        <SubTitle title={c.delivery.detailsTitle} />
-        <NumberedCards items={c.delivery.details} accent={ACCENT} />
-        <CodeNote code={c.delivery.proof.test} body={c.delivery.proof.body} />
-      </Band>
-
-      <Band>
-        <SectionTitle title={c.failure.title} />
-        <ProseBlock paragraphs={c.failure.body} />
-        <FigureBlock figure={c.failure.figure} />
-        <SubTitle title={c.failure.pathsTitle} />
-        <CodeCards items={c.failure.paths.map((p) => ({ code: p.command, title: p.title, body: p.body }))} />
-        <PullQuote text={c.failure.measured} accent={ACCENT} />
-      </Band>
-
-      <Band shaded>
-        <Grid container spacing={{ xs: 4, md: 8 }}>
-          <Grid size={{ xs: 12, md: 7 }}>
-            <SectionTitle title={c.schema.title} />
-            <ProseBlock paragraphs={c.schema.body} />
-          </Grid>
-          <Grid size={{ xs: 12, md: 5 }} sx={{ mt: { md: 9 } }}>
-            <BulletCard title={c.schema.stepsTitle} items={c.schema.steps} accent={ACCENT} ordered />
-          </Grid>
-        </Grid>
-      </Band>
-
-      <Band>
-        <SectionTitle title={c.practice.title} intro={c.practice.intro} />
-        <MetricsTable caption={c.practice.tableCaption} rows={c.practice.rows} accent={ACCENT} />
+        <SectionTitle title={c.definitions.title} />
+        <ProseBlock paragraphs={c.definitions.body} />
         <Reveal variant="rise" sx={{ mt: { xs: 5, md: 7 } }}>
-          <SubTitle title={c.practice.notesTitle} />
+          <SubTitle title={c.definitions.choicesTitle} />
         </Reveal>
-        <NumberedCards items={c.practice.notes} accent={ACCENT} />
+        <NumberedCards items={c.definitions.choices} accent={ACCENT} />
+      </Band>
+
+      <Band shaded>
+        <SectionTitle title={c.dashboards.title} />
+        <ProseBlock paragraphs={c.dashboards.body} />
         <Grid container spacing={{ xs: 4, md: 3 }} sx={{ mt: { xs: 2, md: 3 } }}>
-          {c.practice.screenshots.map((f, i) => (
+          {c.dashboards.screenshots.map((f, i) => (
             <Grid size={{ xs: 12, md: 6 }} key={f.src}>
               <Reveal variant="fade" delay={i * 100}>
                 <ProjectFigure {...f} sizes="(min-width: 900px) 50vw, 100vw" />
@@ -177,17 +120,55 @@ export default async function OvStreamingPipelinePage({
             </Grid>
           ))}
         </Grid>
-      </Band>
-
-      <Band shaded>
-        <SectionTitle title={c.choices.title} intro={c.choices.intro} />
-        <NumberedCards items={c.choices.items} columns={3} accent={ACCENT} />
+        <FigureBlock figure={c.dashboards.grafana} />
       </Band>
 
       <Band>
-        <SectionTitle title={c.testing.title} />
-        <ProseBlock paragraphs={c.testing.body} />
-        <FigureBlock figure={c.testing.figure} />
+        <SectionTitle title={c.quality.title} />
+        <ProseBlock paragraphs={c.quality.body} />
+        <Reveal variant="rise" sx={{ mt: { xs: 3, md: 4 } }}>
+          <BulletCard
+            title={c.quality.quirksTitle}
+            items={c.quality.quirks}
+            note={c.quality.quirksNote}
+            accent={ACCENT}
+          />
+        </Reveal>
+        <Reveal variant="rise" sx={{ mt: { xs: 5, md: 7 } }}>
+          <SubTitle title={c.quality.notesTitle} />
+        </Reveal>
+        <NumberedCards items={c.quality.notes} accent={ACCENT} />
+      </Band>
+
+      <Band shaded>
+        <SectionTitle title={c.incidents.title} />
+        <ProseBlock paragraphs={c.incidents.body} />
+        <Reveal variant="rise" sx={{ mt: { xs: 3, md: 4 } }}>
+          <NumberedCards items={c.incidents.items} accent={ACCENT} />
+        </Reveal>
+        <FigureBlock figure={c.incidents.figure} />
+      </Band>
+
+      <Band>
+        <SectionTitle title={c.trust.title} />
+        <ProseBlock paragraphs={c.trust.body} />
+        <Reveal variant="rise" sx={{ mt: { xs: 3, md: 4 } }}>
+          <NumberedCards items={c.trust.items} columns={3} accent={ACCENT} />
+        </Reveal>
+        <FigureBlock figure={c.trust.figure} />
+        <CodeNote code={c.trust.proof.test} body={c.trust.proof.body} />
+      </Band>
+
+      <Band shaded>
+        <SectionTitle title={c.measured.title} intro={c.measured.intro} />
+        <MetricsTable caption={c.measured.tableCaption} rows={c.measured.rows} accent={ACCENT} />
+      </Band>
+
+      <Band>
+        <SectionTitle title={c.underneath.title} />
+        <ProseBlock paragraphs={c.underneath.body} />
+        <FigureBlock figure={c.underneath.figure} />
+        <NumberedCards items={c.underneath.items} columns={3} accent={ACCENT} />
       </Band>
 
       <ProjectClosing

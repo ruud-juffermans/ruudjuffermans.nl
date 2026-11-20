@@ -1,9 +1,9 @@
 {
   "site": {
-    "title": "Ruud Juffermans — Data engineering & AI",
+    "title": "Ruud Juffermans — Data analysis & BI",
     "titleTemplate": "%s | Ruud Juffermans",
-    "description": "Data engineer with a background at the Netherlands Aerospace Centre and the Dutch police. I build the data foundations that reporting and AI run on — modelled, tested and documented.",
-    "siteName": "Ruud Juffermans — Data engineering & AI"
+    "description": "Data analyst with a background at the Netherlands Aerospace Centre and the Dutch police. I turn raw data into dimensional models, Power BI reports and figures a team can steer by — defined once, checked and documented.",
+    "siteName": "Ruud Juffermans — Data & BI"
   },
   "common": {
     "cta": "Get in touch",
@@ -24,8 +24,8 @@
     "availableHero": "Open to new roles",
     "availableFrom": "Open to new roles",
     "proof": {
-      "nlr": "Data engineer at NLR",
-      "police": "Data & AI at the Dutch police",
+      "nlr": "Data models and dashboards at NLR",
+      "police": "Data-driven working at the Dutch police",
       "udemy": "241 students with a 4.2 rating on Udemy"
     }
   },
@@ -37,54 +37,61 @@
     "contact": "Contact"
   },
   "home": {
-    "metaTitle": "Ruud Juffermans — Data engineering & AI",
-    "metaDescription": "Data engineer with a background at NLR and the Dutch police. Portfolio of open projects — a dbt warehouse, a Kafka streaming pipeline and a RAG system — plus articles on how I work.",
+    "metaTitle": "Ruud Juffermans — Data analysis & BI",
+    "metaDescription": "Data analyst with a background at NLR and the Dutch police. Portfolio of open projects — a Kimball star schema with a Power BI report, and delay metrics for Dutch public transport — plus articles on how I work.",
     "hero": {
-      "eyebrow": "Data engineering & AI",
-      "title": "I build full-stack solutions with modern technology, following best practices",
-      "subtitle": "Data & AI Engineer with experience at NLR and the Dutch Police. I build modeled data warehouses, tested pipelines, and AI systems in environments where handling confidential and privacy-sensitive data with care is essential.",
+      "eyebrow": "Data analysis · BI · data modeling",
+      "title": "I turn raw data into figures a team can steer by",
+      "subtitle": "Data analyst with experience at NLR and the Dutch police. I build dimensional data models, Power BI reports and analyses, in environments where handling confidential and privacy-sensitive data with care is essential.",
       "ctaPrimary": "Get in touch",
       "ctaSecondary": "View my portfolio",
-      "toolsLabel": "Working daily with technology like"
+      "toolsLabel": "Working daily with tools like"
     },
     "projects": {
       "all": "All projects"
     },
     "services": {
       "eyebrow": "What I do",
-      "slides": {
-        "data": {
-          "title": "Data engineering",
-          "subtitle": "I engineer scalable data platforms built around robust ingestion, orchestration, data modeling, distributed processing, and infrastructure that can handle changing schemas and growing workloads.",
-          "diagramAlt": "Architecture of a data platform in five layers: sources, ingestion, storage (raw, curated, consumption), processing and serving, with orchestration, governance and observability & cost spanning every layer.",
-          "mobileDiagramAlt": "A staging layer with two incoming data flows and one outgoing.",
-          "learnMore": "More about data engineering"
-        },
-        "ai": {
-          "title": "AI engineering",
-          "subtitle": "I build production-ready AI systems with a focus on data privacy, traceability, evaluation and reliable data pipelines.",
-          "diagramAlt": "Architecture of an AI agent system: an input gateway with auth and input guardrails, an orchestrator agent that plans tasks and hands them to specialist agents, a tool layer (functions and MCP), memory and knowledge (vector store / RAG), output guardrails with a human in the loop and a critic loop, and observability and governance around it all.",
-          "mobileDiagramAlt": "An LLM with an incoming prompt and an outgoing answer.",
-          "learnMore": "More about AI engineering"
-        }
-      },
-      "service1Title": "Data engineering",
-      "service2Title": "AI & GenAI",
-      "flow": {
-        "ai": {
-          "src1": "Documents",
-          "src2": "Databases",
-          "src3": "FAQ & policy",
-          "hubLabel": "retrieval · guardrails",
-          "hubTitle": "AI assistant",
-          "out1Label": "with sources",
-          "out1Title": "Answer",
-          "out2Label": "automation",
-          "out2Title": "System action"
-        }
-      },
+      "service1Title": "Data modeling",
+      "service2Title": "BI & reporting",
       "carousel": {
         "slide": "{index} of {total}"
+      },
+      "slides": {
+        "modeling": {
+          "title": "Data modeling",
+          "subtitle": "I bring scattered sources together in a dimensional model: facts with an explicit grain, dimensions that keep their history, and one definition per figure, so every department reads the same number.",
+          "learnMore": "More about data modeling"
+        },
+        "bi": {
+          "title": "BI & reporting",
+          "subtitle": "I translate questions from the business into Power BI reports and dashboards: the right KPI, defined once, on a model that has been checked, and explained so that people actually use it.",
+          "learnMore": "More about BI & reporting"
+        }
+      },
+      "flow": {
+        "modeling": {
+          "src1": "Source systems",
+          "src2": "Spreadsheets",
+          "src3": "Open data",
+          "hubLabel": "grain · facts · dimensions",
+          "hubTitle": "Star schema",
+          "out1Label": "one definition",
+          "out1Title": "Measures",
+          "out2Label": "tested",
+          "out2Title": "Marts"
+        },
+        "bi": {
+          "src1": "Questions",
+          "src2": "KPI definitions",
+          "src3": "Data model",
+          "hubLabel": "Power BI · DAX",
+          "hubTitle": "Semantic model",
+          "out1Label": "to steer by",
+          "out1Title": "Dashboard",
+          "out2Label": "to decide on",
+          "out2Title": "Report"
+        }
       }
     },
     "experience": {
@@ -94,94 +101,69 @@
       "photoAlt": "Ruud Juffermans presenting.",
       "items": [
         {
-          "period": "2024",
+          "period": "2025 – now",
           "role": "Data Specialist - Cryptocurrency",
           "org": "Politie Noord-Holland",
-          "body": "Data analysis, automation and AI within criminal law — under hard privacy and information-security requirements, where privacy by design is the starting point rather than an appendix."
+          "body": "Set up data-driven working in a team that didn't have it yet: mapped the sources, designed dimensional data models and delivered the Power BI reports detectives and managers steer by — under hard privacy and information-security requirements."
         },
         {
-          "period": "2023",
+          "period": "2024 – 2025",
           "role": "Data Engineer",
           "org": "Netherlands Aerospace Centre (NLR)",
-          "body": "Built a wide range of data projects in a research environment where the numbers are checked, and the pipelines behind them have to hold up to that."
+          "body": "For the EU project COMPASS I turned stakeholder needs into specifications and data models, built the transformations with dbt and developed Power BI dashboards for project stakeholders."
         },
         {
-          "period": "Since 2020",
-          "role": "Course Instructor",
+          "period": "2020 – 2024",
+          "role": "Course Creator",
           "org": "Udemy",
-          "body": "Courses that explain complex technology to people without a technical background: 241 students with a 4.2 rating. A dashboard nobody understands isn't a dashboard — and the same goes for a handover."
+          "body": "Courses that explain complex technology to people without a technical background: 241 students with a 4.2 rating. A dashboard nobody understands isn't a dashboard."
         }
       ],
       "cta": "More about me"
     },
     "principles": {
       "eyebrow": "How I work",
-      "title": "What you get when I join the team",
-      "subtitle": "Four habits that come back in every project on this site — and in the code behind them.",
-      "card1Title": "Foundations first",
-      "card1Body": "Most AI and reporting projects fail on the data, not the model. I start with the grain, the definitions and the tests — and only then with what sits on top.",
+      "title": "Figures an organisation can rely on",
+      "subtitle": "Four habits that come back in my work — and in the projects on this site.",
+      "card1Title": "Definitions first",
+      "card1Body": "Most arguments about a report are about definitions, not about numbers. I pin down the grain and the definition of a figure first, and only then build the model and the dashboard.",
       "card2Title": "Used to strict frameworks",
-      "card2Body": "At the police and in aerospace you work under hard privacy and information-security requirements. Privacy by design is how I start, not an afterthought.",
+      "card2Body": "At the police and in aerospace you work under hard privacy and information-security requirements. Handling information with care is how I start, not an afterthought.",
       "card3Title": "Explaining is the job",
-      "card3Body": "Since 2020 I've explained complex technology on Udemy to people without a technical background: 241 students with a 4.2 rating. I do the same with stakeholders and teammates.",
-      "card4Title": "Tested, documented, handed over",
-      "card4Body": "Tests, CI and documentation are part of every project — check the repos. The goal is work a team can carry on with, not work that depends on me."
+      "card3Body": "Since 2020 I've explained complex technology on Udemy to people without a technical background: 241 students with a 4.2 rating. I do the same with the people who have to steer by a report.",
+      "card4Title": "Checked and documented",
+      "card4Body": "Tests on keys and grain, measures reconciled with the warehouse, limitations written down. That is the difference between a nice chart and a figure you can take into a meeting."
     },
     "underhood": {
       "eyebrow": "Projects",
       "viewProject": "View the project",
       "github": "View on GitHub",
       "projects": {
-        "digital-twin": {
-          "toggle": "AI Digital-twin",
-          "title": "An AI that speaks about me — only when it can cite me",
-          "sub": "A digital twin for this site: a LangGraph agent over my CV, projects and writing that streams cited answers, refuses when it has no source, stays under a daily cost cap, and pauses for my approval before it acts on my behalf.",
-          "codeNote": "fails closed",
-          "f1Title": "Guards before tokens",
-          "f1Body": "Prompt-injection, PII and off-topic screens run in plain Python before a single token is spent — every guard fails closed, never crashes.",
-          "f2Title": "Human in the loop",
-          "f2Body": "Drafting a message on my behalf is high-risk: the graph interrupts, queues it for my approval, and tells the visitor it's waiting for review.",
-          "f3Title": "Evals gate every change",
-          "f3Body": "Two labelled datasets against the real agent — tool selection ≥ 95%, task completion ≥ 90% — with failure injection to prove the retries hold."
-        },
         "open-data-warehouse": {
           "toggle": "Open data warehouse",
-          "title": "A star schema in the open, on data anyone can check",
-          "sub": "End-to-end ELT platform on Dutch open data: Python ingestion, dbt transformations and a documented Kimball star schema — with tests and CI on every pull request, built the way a platform team delivers it.",
-          "codeNote": "tested on every PR",
+          "title": "A star schema on open data, with Power BI on top",
+          "sub": "A dimensional model on Dutch open data from RDW and CBS: fact tables with an explicit grain, a municipality dimension that keeps its history, and a Power BI report whose measures are checked against the warehouse.",
+          "codeNote": "grain in one sentence",
           "f1Title": "Explicit grain",
           "f1Body": "Two fact tables with different grains in one schema, each pinned down in a single sentence — because that's exactly where modelling goes wrong.",
-          "f2Title": "Tests and CI",
-          "f2Body": "dbt tests and docs run on every pull request; a broken model never reaches main.",
-          "f3Title": "Warehouse-agnostic",
-          "f3Body": "DuckDB in CI, Snowflake or Databricks with a profile switch — the modelling is the point, not the engine."
+          "f2Title": "History that stays put",
+          "f2Body": "Municipalities merge almost every year. An SCD type 2 dimension keeps a 2016 figure with the municipality as it was called then.",
+          "f3Title": "Power BI on the model",
+          "f3Body": "The semantic model mirrors the star schema, and the DAX measures are cross-checked against the warehouse: one truth, not two."
         },
         "ov-streaming-pipeline": {
-          "toggle": "OV streaming pipeline",
+          "toggle": "Public transport delays",
           "title": "Real-time delays across Dutch public transport",
-          "sub": "Streaming pipeline on the national OV feed: vehicle positions flow through Kafka, delay aggregates are computed in five-minute windows, and a live map shows where the network runs late — right now.",
-          "codeNote": "streams, not batches",
-          "f1Title": "Kafka end to end",
-          "f1Body": "GTFS-realtime vehicle positions consumed through Redpanda, with a dead-letter queue for events that don't parse.",
-          "f2Title": "Windowed aggregates",
-          "f2Body": "Delay per line and station in five-minute tumbling windows — correct under late and duplicate events.",
-          "f3Title": "Live dashboard",
-          "f3Body": "A Streamlit map of current delays, fed straight from the stream."
-        },
-        "strafrecht-rag": {
-          "toggle": "Strafrecht AI RAG",
-          "title": "Ask questions of Dutch case law — with sources",
-          "sub": "RAG system over court rulings: semantic search across judgments, answers formulated by an LLM, and every claim traced back to the ECLI it came from.",
-          "codeNote": "no source, no answer",
-          "f1Title": "Citations by default",
-          "f1Body": "Every answer carries its ECLI references — from claim back to the underlying passage.",
-          "f2Title": "Honest refusal",
-          "f2Body": "No relevant passage retrieved means no answer. The system doesn't improvise case law.",
-          "f3Title": "Evaluated retrieval",
-          "f3Body": "Retrieval quality is measured against a test set with LangFuse tracing — not a demo that went well once."
+          "sub": "Delay metrics on the national public-transport feed: per line, stop, operator and network in five-minute windows, shown on a live map that tells you where the network runs late — right now.",
+          "codeNote": "one row per window",
+          "f1Title": "Defined metrics",
+          "f1Body": "Every figure has one definition: a five-minute window, a dimension, and count, mean, exact P90, max and min of the delay.",
+          "f2Title": "No double counting",
+          "f2Body": "Processing the same data twice yields the same windows — correct under late and duplicate events.",
+          "f3Title": "Live dashboards",
+          "f3Body": "A Streamlit map of current delays, with Grafana panels that show whether the data behind it is healthy."
         }
-      },
-      "live": "Try it live"
+      }
     },
     "blog": {
       "eyebrow": "Blog",
@@ -189,27 +171,27 @@
       "all": "All articles"
     },
     "cta": {
-      "title": "Looking for a data engineer or AI-specialist?",
-      "subtitle": "I'm open to new roles in data engineering and AI. Send me a message, or connect on LinkedIn.",
+      "title": "Looking for a data analyst or BI specialist?",
+      "subtitle": "I'm open to new roles in data analysis, BI and data modeling. Send me a message, or connect on LinkedIn.",
       "primary": "Get in touch",
       "secondary": "Connect on LinkedIn"
     }
   },
   "about": {
-    "metaTitle": "About me — data engineer with a background at NLR and the Dutch police",
-    "metaDescription": "Data engineer and AI builder with 241 Udemy students at a 4.2 rating. Designed and built a data platform at the Netherlands Aerospace Centre and set up data-driven working at the Noord-Holland police. Open to new roles.",
+    "metaTitle": "About me — data analyst with a background at NLR and the Dutch police",
+    "metaDescription": "Data analyst with 241 Udemy students at a 4.2 rating. Set up data-driven working at the Noord-Holland police with data models and Power BI reports, and built dbt transformations and dashboards at the Netherlands Aerospace Centre. Open to new roles.",
     "eyebrow": "About",
     "name": "Ruud Juffermans",
     "portraitAlt": "Portrait of Ruud Juffermans",
-    "intro1": "At the Noord-Holland police unit I set up data-driven working in a team that didn't have it yet. I mapped the data sources, built pipelines in Python and SQL, designed the data models and delivered the reports that detectives and managers now steer by. All of that happens under strict privacy and information-security requirements, with data where a wrong conclusion has real consequences.",
-    "intro2": "Before that I was a data engineer at the Netherlands Aerospace Centre (NLR), working on COMPASS, an EU project on digital product passports. I led requirements engineering with partners across Europe, made the architecture decisions for the data platform and built the MVP in an international Agile team. My degree in Business Data Management laid the groundwork: data modeling, data warehousing and BI.",
-    "intro3": "Alongside that work I spent four years creating Udemy courses on Python, SQL and full-stack development. Explaining complex technology to people without a technical background is the entire job there — and it's also what a data engineer on a team does most of the day. The same curiosity led me to AI: RAG, agents and retrieval evaluation, worked out in the projects on this site. I'm now looking for a team where I can build that data foundation and the AI layer on top of it, together.",
-    "pullQuote": "I've seen what happens when data and AI work — and what happens when the foundation is missing.",
+    "intro1": "At the Noord-Holland police unit I set up data-driven working in a team that didn't have it yet. I mapped the data sources, assessed their quality, designed the data models and delivered the reports that detectives and managers now steer by. All of that happens under strict privacy and information-security requirements, with data where a wrong conclusion has real consequences.",
+    "intro2": "Before that I worked at the Netherlands Aerospace Centre (NLR) on COMPASS, an EU project on digital product passports. I interviewed partners across Europe and turned their needs into specifications, decided on the data models and structures, built the transformations with dbt and developed Power BI dashboards for the project's stakeholders. My degree in Business Data Management laid the groundwork: data modeling, data warehousing and BI.",
+    "intro3": "Alongside that work I spent four years creating Udemy courses on Python and SQL, among other things. Explaining complex technology to people without a technical background is the entire job there — and it's also what a data analyst does most of the day: explaining what a figure says, and what it doesn't. The projects on this site show how I work, with everything in the open. I'm now looking for a team where I can turn data into models, reports and insights that people actually use.",
+    "pullQuote": "I've seen what happens when everyone steers by the same figure — and what happens when every department brings its own.",
     "expertiseTitle": "Expertise",
     "skills": {
-      "data": "Data engineering",
-      "ai": "AI & GenAI",
-      "engineering": "Engineering"
+      "modeling": "Data modeling",
+      "bi": "BI & reporting",
+      "analysis": "Analysis & tools"
     },
     "experienceEyebrow": "Experience",
     "experienceTitle": "Roles, and what I did there",
@@ -220,9 +202,9 @@
         "org": "Noord-Holland Police",
         "bullets": [
           "Set up data-driven working from scratch: inventoried data sources, assessed their quality and translated the needs of operations, tactics and management into a concrete plan.",
-          "Built ETL pipelines in Python and SQL, dimensional data models and Power BI reports for operational and strategic decision-making.",
-          "Developed automated tooling that replaces manual analysis work, including for financial and cryptocurrency investigations.",
-          "Put governance in place — data quality, classification, documentation — and gave training to raise data literacy in the team."
+          "Designed dimensional data models and built Power BI reports for operational and strategic decision-making, fed by ETL in Python and SQL.",
+          "Analysed data quality, flagged inconsistencies and drafted improvement proposals for data owners.",
+          "Acted as the link between technical and non-technical colleagues, put data governance in place and gave training to raise data literacy in the team."
         ]
       },
       {
@@ -230,9 +212,10 @@
         "role": "Data Engineer",
         "org": "Netherlands Aerospace Centre (NLR)",
         "bullets": [
-          "Led requirements engineering for COMPASS, an EU-funded project on digital product passports: turned interviews with European partners into specifications.",
-          "Designed the data platform architecture — integrations, data models, data structures — and built and iteratively delivered the MVP in an international Agile team.",
-          "Built data transformations with dbt and developed Power BI dashboards for project stakeholders."
+          "Led requirements engineering for COMPASS, an EU-funded project on digital product passports: turned interviews with European partners into functional specifications.",
+          "Decided on the data models and data structures of the data platform, aligned with IT and the business, in an international Agile team.",
+          "Built data transformations with dbt and developed Power BI dashboards for project stakeholders.",
+          "Monitored project progress and reported on it to the project lead and partners."
         ]
       },
       {
@@ -295,13 +278,13 @@
       "secondary": "More about me"
     },
     "fields": {
-      "data": {
-        "metaTitle": "Data engineering — warehouses, pipelines and streaming",
-        "metaDescription": "How I approach data engineering: modelled warehouses, tested pipelines and streaming — with the experience at NLR and the Police and the projects that show it.",
-        "eyebrow": "Data engineering",
-        "title": "From scattered sources to one warehouse that adds up",
-        "intro": "I bring sources together into a modelled, tested data warehouse: pipelines that run every day, figures that are the same for every department, and reporting nobody has to assemble by hand anymore.",
-        "intro2": "That's the work I did as a data engineer at the Netherlands Aerospace Centre and as a data analyst at Politie Noord-Holland — two environments where a wrong figure has real consequences. The projects on this site show the same approach, with the code in the open.",
+      "modeling": {
+        "metaTitle": "Data modeling — star schemas, grain and definitions that hold",
+        "metaDescription": "How I approach data modeling: dimensional models with an explicit grain, history that is kept and one definition per figure — with the experience at NLR and the police and the projects that show it.",
+        "eyebrow": "Data modeling",
+        "title": "From scattered sources to one model that adds up",
+        "intro": "I bring sources together in a dimensional model: facts with an explicit grain, dimensions that keep their history, and one definition per figure — so every department reads the same number.",
+        "intro2": "At Politie Noord-Holland I designed the data models behind the reports the unit steers by; at the Netherlands Aerospace Centre I decided on the data models and structures of an EU project's data platform. The projects on this site show the same approach, with everything in the open.",
         "approachTitle": "What a team can expect from me",
         "approach": [
           {
@@ -309,149 +292,146 @@
             "body": "Grain and dimensions on paper first, SQL second. A documented star schema stays understandable after I've moved on."
           },
           {
-            "title": "Tests on every change",
-            "body": "Not-null, uniqueness and relationships as tests in the pipeline, with CI running them on every pull request. A mistake surfaces before it reaches a dashboard."
+            "title": "One definition per figure",
+            "body": "A figure gets one definition, written down in one place. The discussion about what counts happens once, not in every monthly meeting."
           },
           {
-            "title": "Batch and streaming",
-            "body": "Daily ELT where that's enough, Kafka and windows where figures have to be right within minutes — including a dead-letter queue and replay for the failure path."
+            "title": "History stays history",
+            "body": "Organisations change: teams merge, municipalities redraw their borders. Slowly changing dimensions keep an old figure with the situation as it was then."
           },
           {
-            "title": "Explainable to the business",
-            "body": "A warehouse isn't finished until the people using it understand it. Documentation and handover are part of the work, not an afterthought."
+            "title": "Tested and explainable",
+            "body": "Uniqueness, relationships and grain as tests on every change, with documentation and lineage alongside. A model isn't finished until the people using it understand it."
           }
         ],
         "experienceTitle": "Where I did this",
         "experience": [
           {
-            "period": "2024",
-            "role": "Data Analyst",
+            "period": "2025 – now",
+            "role": "Data Specialist - Cryptocurrency",
             "org": "Politie Noord-Holland",
-            "body": "Data analysis and automation within criminal law, under hard privacy and information-security requirements. Pipelines where privacy by design is the starting point, not an appendix."
+            "body": "Mapped the data sources and designed the dimensional data models behind the reports for operational and strategic decision-making, under hard privacy and information-security requirements."
           },
           {
-            "period": "2023",
+            "period": "2024 – 2025",
             "role": "Data Engineer",
             "org": "Netherlands Aerospace Centre (NLR)",
-            "body": "A wide range of data projects in a research environment where the figures get checked — and where the pipelines behind them have to hold up to that."
+            "body": "Decided on the data models and data structures for the data platform of an EU project, and built the transformations on top with dbt."
           },
           {
-            "period": "Since 2020",
-            "role": "Instructor",
+            "period": "2020 – 2024",
+            "role": "Course Creator",
             "org": "Udemy",
-            "body": "Courses on data and technology for people without a technical background: 241 students with a 4.2 rating. The same skill a team needs at every handover."
+            "body": "Courses on data and technology for people without a technical background: 241 students with a 4.2 rating. The same skill it takes to explain a model to the people who use it."
           }
         ],
         "skills": [
           "Data modeling",
           "Kimball / star schema",
-          "dbt",
+          "Explicit grain",
+          "SCD type 2",
+          "Date dimensions",
           "SQL",
-          "Python",
-          "ELT pipelines",
-          "Kafka",
-          "Streaming",
+          "dbt",
+          "Data-quality tests",
+          "Documentation & lineage",
           "PostgreSQL",
           "DuckDB",
-          "Docker",
-          "CI/CD",
-          "Azure",
-          "Power BI"
+          "Power BI data model"
         ],
         "principles": [
           "One definition per figure, the same for every department.",
-          "Mistakes surface in the pipeline, not in the dashboard.",
-          "Everything reproducible: from zero with one command."
+          "A grain you can state in one sentence.",
+          "Limitations written down, not discovered afterwards."
         ],
         "relatedTitle": "Projects that show it",
-        "relatedSubtitle": "Two own projects, from raw source to working result — with the full approach and the code in the open.",
-        "ctaTitle": "A warehouse that adds up, for your team?"
+        "relatedSubtitle": "Two own projects, from raw source to a figure you can check — with the full approach and the code in the open.",
+        "ctaTitle": "A model that adds up, for your team?"
       },
-      "ai": {
-        "metaTitle": "AI engineering — assistants with sources, guardrails and evaluation",
-        "metaDescription": "How I approach AI engineering: RAG and agents that answer with citations, refuse honestly and only act with approval — with the experience at the Police and the projects that show it.",
-        "eyebrow": "AI engineering",
-        "title": "AI that answers with sources, and knows when to stay silent",
-        "intro": "I build AI systems for production: assistants that answer with citations, say honestly what they don't know, and only act where a person has approved it — with evaluation guarding every change.",
-        "intro2": "At Politie Noord-Holland I applied AI within criminal law, an environment where privacy and information security are not an afterthought. Most AI projects fail on the data, not the model; so I build the foundation first and the assistant second.",
+      "bi": {
+        "metaTitle": "BI & reporting — dashboards and analyses people steer by",
+        "metaDescription": "How I approach BI and reporting: start from the question, report on a checked model and explain what a figure means — with the experience at the police and NLR and the projects that show it.",
+        "eyebrow": "BI & reporting",
+        "title": "From a question to a dashboard people actually use",
+        "intro": "I translate questions from the business into reports and dashboards: the right figure, defined once, on a model that has been checked — presented so that someone without a technical background knows what to do with it.",
+        "intro2": "At Politie Noord-Holland I delivered the Power BI reports that detectives and managers steer by; at the Netherlands Aerospace Centre I developed Power BI dashboards for project stakeholders. The projects on this site show the same approach, with everything in the open.",
         "approachTitle": "What a team can expect from me",
         "approach": [
           {
-            "title": "Sources behind every claim",
-            "body": "An answer without a retrieved passage is no answer. Every claim points to the document or ruling it came from."
+            "title": "Start from the question",
+            "body": "Which decision does this figure have to support? I start with the people who will use the report, and only then decide what goes on it."
           },
           {
-            "title": "Guardrails before the model",
-            "body": "Prompt injection, PII and off-topic questions are caught in plain code before a single token is spent. Fail closed, never crash."
+            "title": "Report on the model",
+            "body": "The semantic model mirrors the star schema. A report that bypasses the model is a second model — and then you have two truths."
           },
           {
-            "title": "Human in the loop",
-            "body": "Actions with consequences — sending a message, changing something — wait for approval. A hard daily cost limit keeps the bill predictable."
+            "title": "Check the figures",
+            "body": "Measures are reconciled with the warehouse before a report goes out. A data-quality problem goes back to the data owner; it isn't patched in a visual."
           },
           {
-            "title": "Evaluation on every change",
-            "body": "Labelled datasets and thresholds in CI: retrieval recall, correct tool selection, task completion. A regression blocks the merge."
+            "title": "Explain and hand over",
+            "body": "A dashboard nobody understands isn't a dashboard. Explanation, documentation and training are part of the delivery."
           }
         ],
         "experienceTitle": "Where I did this",
         "experience": [
           {
-            "period": "2024",
-            "role": "Data Analyst",
+            "period": "2025 – now",
+            "role": "Data Specialist - Cryptocurrency",
             "org": "Politie Noord-Holland",
-            "body": "Applied AI and automation within criminal law — where confidential and privacy-sensitive data is the norm and every outcome has to be traceable."
+            "body": "Translated the needs of operations, tactics and management into Power BI reports for operational and strategic decision-making, and trained colleagues to work with them."
           },
           {
-            "period": "2023",
+            "period": "2024 – 2025",
             "role": "Data Engineer",
             "org": "Netherlands Aerospace Centre (NLR)",
-            "body": "Built the data foundation AI applications have to stand on: clean, modelled and tested data in a research environment."
+            "body": "Developed Power BI dashboards for the stakeholders of an EU project, and reported on project progress to the project lead and partners."
           },
           {
-            "period": "Since 2020",
-            "role": "Instructor",
+            "period": "2020 – 2024",
+            "role": "Course Creator",
             "org": "Udemy",
-            "body": "Explaining complex technology to people without a technical background, 241 students with a 4.2 rating — including what AI can and cannot do."
+            "body": "Courses for people without a technical background: 241 students with a 4.2 rating. The same skill it takes to explain a figure to a manager."
           }
         ],
         "skills": [
-          "LLMs",
-          "RAG",
-          "AI agents",
-          "LangGraph",
-          "LangChain",
-          "Retrieval evaluation",
-          "Guardrails",
-          "pgvector",
-          "LangFuse",
+          "Power BI",
+          "DAX",
+          "Dashboards",
+          "Management reporting",
+          "SQL",
           "Python",
-          "FastAPI",
-          "Document processing",
-          "Streaming (SSE)"
+          "pandas",
+          "Excel",
+          "Data-quality analysis",
+          "Stakeholder interviews",
+          "Streamlit",
+          "Grafana"
         ],
         "principles": [
-          "No source, no answer.",
-          "Guards in code, not in the prompt.",
-          "Risky actions only with human approval."
+          "A dashboard nobody understands isn't a dashboard.",
+          "Report and warehouse give the same number.",
+          "Every figure traceable back to its source."
         ],
         "relatedTitle": "Projects that show it",
-        "relatedSubtitle": "Two own AI systems running in production — with guardrails, evaluation and the code in the open.",
-        "ctaTitle": "AI you'd dare to show a client?"
+        "relatedSubtitle": "Two own projects, from raw source to a dashboard — with the full approach and the code in the open.",
+        "ctaTitle": "Reporting your team can steer by?"
       }
     }
   },
   "contact": {
     "metaTitle": "Contact — Ruud Juffermans",
-    "metaDescription": "Get in touch with Ruud Juffermans about a data engineering or AI role, or to talk shop about a project.",
+    "metaDescription": "Get in touch with Ruud Juffermans about a data analyst, BI or data modeling role, or to talk shop about a project.",
     "eyebrow": "Contact",
     "title": "Let's talk",
-    "subtitle": "Hiring for a data or AI role, or want to compare notes on one of the projects? Leave a message or reach out directly.",
+    "subtitle": "Hiring for a data analyst, BI or analytics role, or want to compare notes on one of the projects? Leave a message or reach out directly.",
     "form": {
       "name": "Name",
       "email": "Email",
       "company": "Company or organisation (optional)",
       "message": "Message",
-      "messagePlaceholder": "Tell me about the role, the team, or what you're building...",
+      "messagePlaceholder": "Tell me about the role, the team, or the questions you want answered with data...",
       "submit": "Send message",
       "submitting": "Sending...",
       "genericError": "Something went wrong"
@@ -470,11 +450,11 @@
     }
   },
   "projects": {
-    "metaTitle": "Projects — Data & AI in practice",
-    "metaDescription": "Own projects that build the full chain: from raw source to a dashboard and a working AI application, with the code in the open.",
+    "metaTitle": "Projects — data modeling and BI in practice",
+    "metaDescription": "Own projects that go from raw source to a checked data model and a dashboard, with the approach and the code in the open.",
     "eyebrow": "Projects",
-    "title": "What I build, and how",
-    "subtitle": "Own projects where I build the whole chain — from raw source to a working dashboard or AI application, with the full approach and the code in the open so you can see how I work.",
+    "title": "What I make, and how",
+    "subtitle": "Own projects in which I go from raw source to a data model, a report and a dashboard — with the full approach and the code in the open, so you can see how I work.",
     "view": "View project",
     "repoLabel": "View the code on GitHub",
     "empty": {
@@ -493,7 +473,7 @@
     "sections": [
       {
         "title": "1. Who I am",
-        "content": "Ruud Juffermans, data engineer, based in Noord-Holland, Netherlands. This is my personal portfolio site. Email: ruudjuffermans@pm.me."
+        "content": "Ruud Juffermans, data analyst, based in Noord-Holland, Netherlands. This is my personal portfolio site. Email: ruudjuffermans@pm.me."
       },
       {
         "title": "2. What data I collect",
@@ -526,12 +506,12 @@
     ]
   },
   "footer": {
-    "tagline": "Data engineering & AI",
+    "tagline": "Data analysis & BI",
     "portraitAlt": "Portrait of Ruud Juffermans",
     "siteHeading": "Site",
     "elsewhereHeading": "Elsewhere",
     "newsletterHeading": "Newsletter",
-    "newsletterBody": "Occasional notes on data engineering and AI, written from the projects — never more than once a month.",
+    "newsletterBody": "Occasional notes on data modeling, SQL and reporting, written from the projects — never more than once a month.",
     "newsletterLabel": "Email address",
     "newsletterPlaceholder": "you@email.com",
     "newsletterSubmit": "Subscribe",

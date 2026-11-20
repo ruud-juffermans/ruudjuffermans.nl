@@ -1,136 +1,110 @@
 ---
-title: "Realtime OV-streamingpipeline op Kafka"
+title: "Realtime vertragingscijfers voor het Nederlandse OV"
 industry: "Eigen project"
-summary: "Elk voertuig in het Nederlandse openbaar vervoer, live gestreamd — van GTFS-realtime feed tot een kaart van het hele land, met de correctheidsgaranties erbij: per-partitie watermarks, at-least-once met idempotente upserts, een dead-letter queue en replay uit het ruwe archief."
-tags: ["Kafka", "Streaming", "Python", "Postgres", "Docker"]
+summary: "Vertragingen in het Nederlandse openbaar vervoer, samengevat per vijf minuten per lijn, station, vervoerder en netwerk, op een live kaart van het hele land. Met vaste definities (aantal, gemiddelde, exacte P90, max, min), zichtbare datakwaliteit en cijfers die bij herverwerking niet dubbel tellen en uit het ruwe archief opnieuw uit te rekenen zijn."
+tags: ["Dashboards", "Datakwaliteit", "SQL", "Postgres", "Kafka"]
 duration: "3 weken"
 repo: "https://github.com/datavakwerk/ov-streaming-pipeline"
 accent: "#10B981"
 stats:
-  - { label: "Ochtendspits", value: "176 berichten/s" }
   - { label: "Vensters", value: "5 min · 4 dimensies" }
-  - { label: "Foutpad", value: "DLQ + replay" }
+  - { label: "Dashboards", value: "Live kaart + Grafana" }
+  - { label: "Tests", value: "106, zonder infra" }
 ---
 
-*Eigen project. Deze tekst is de leesversie; de projectpagina zelf toont dezelfde inhoud met de architectuurdiagrammen en schermopnames.*
+*Eigen project. Deze tekst is de leesversie; de projectpagina zelf toont dezelfde inhoud met de diagrammen en schermopnames.*
 
-Twee bestanden op een open endpoint bevatten elke minuut waar ongeveer 4.900 voertuigen zich bevinden en hoeveel vertraging ze hebben. Daar een dashboard van maken is een middag werk. Daar een pipeline van maken die 24 uur per dag doorloopt, na een crash de juiste cijfers geeft, kapotte berichten niet stilzwijgend verliest en waarvan je een uur uit het verleden opnieuw kunt uitrekenen — dat is een ander project.
+Twee bestanden op een open endpoint bevatten elke minuut waar ongeveer 4.900 voertuigen zich bevinden en hoeveel vertraging ze hebben. Daar een dashboard van maken is een middag werk. Daar cijfers van maken die 24 uur per dag doorlopen, na een crash nog steeds kloppen, waarin kapotte records niet stilzwijgend verdwijnen en waarvan je een uur uit het verleden opnieuw kunt uitrekenen — dat is een ander project.
 
-Dit is dat tweede project. Een producer die snapshots in wijzigingsevents omzet, Redpanda als bus, een streamprocessor met tumbling windows en per-partitie watermarks, een ruw archief in MinIO waaruit je kunt replayen, Postgres als serving-laag en een live kaart erbovenop. Dertien containers, `make up`, geen accounts en geen sleutels.
+Dit is dat tweede project. Vaste definities voor de vertragingscijfers, per venster opgeslagen in Postgres, met een live dashboard in Streamlit erbovenop en een Grafana-dashboard dat laat zien hoe de aanvoer erbij staat. Daaronder draait een streamingpipeline op Kafka met een ruw archief waaruit je kunt herberekenen. Dertien containers, `make up`, geen accounts en geen sleutels.
 
-**In het kort:** Python 3.12 · Kafka (Redpanda) · Postgres · MinIO · Prometheus + Grafana · Streamlit + pydeck · Docker Compose — 106 unit tests, ruff schoon — draait volledig lokaal, nul kosten.
+**In het kort:** Postgres · Streamlit + pydeck · Prometheus + Grafana · Python 3.12 · Kafka (Redpanda) · MinIO · Docker Compose — 106 unit tests, ruff schoon — draait volledig lokaal, nul kosten.
 
 ## Waarom dit project
 
-Streaming leer je niet van een tutorial met een `for`-lus over een lijst. De interessante dingen gebeuren pas als er echte tijd in het spel is: events die te laat aankomen, partities die uit de pas lopen, een proces dat omvalt tussen twee schrijfacties, een feed die zich niet aan zijn eigen documentatie houdt.
+Een vertragingscijfer op een dashboard zetten is het makkelijke deel. De interessante dingen gebeuren pas als er echte tijd in het spel is: metingen die te laat aankomen, een proces dat omvalt tussen twee schrijfacties, een feed die zich niet aan zijn eigen documentatie houdt. Elk daarvan kan een cijfer verkeerd maken zonder dat het dashboard er anders uitziet.
 
 Ik wilde die dingen tegenkomen in plaats van erover lezen. Een landelijke, publieke, altijd-aan databron dwingt dat af — en levert meteen iets op wat je kunt laten zien.
 
-## Architectuur
+## Wat er gemeten wordt
 
-De keten loopt van links naar rechts. De producer haalt twee protobuf-feeds op, parseert ze naar een geversioneerd eventcontract en publiceert naar twee Kafka-topics. Twee onafhankelijke consumergroepen lezen mee: de processor rekent vensters uit en schrijft naar Postgres, de archiver schrijft de ruwe bytes naar MinIO. Een sidecar laadt dagelijks de statische GTFS-referentiedata. Het dashboard staat op Postgres, Prometheus scrapet alles.
+De vertraging komt uit de ritvoorspellingen in de feed; de voertuigposities zelf bevatten geen vertraging. Die vertragingen worden samengevat in vaste vensters van vijf minuten over vier dimensies tegelijk: lijn, station, vervoerder en netwerk. Per venster zijn er vijf kengetallen: het aantal waarnemingen, het gemiddelde, de exacte P90, het maximum en het minimum.
 
-Twee architectuurkeuzes bepalen de rest van het ontwerp.
+Elk afgesloten venster staat als één rij in Postgres, in de tabel `delay_aggregates`, met als sleutel `(window_start, dimension, dimension_id)`. Het dashboard leest die tabel, en dezelfde cijfers per lijn, station, vervoerder of netwerk zijn met gewone SQL op te vragen.
 
-**De broker is een buffer, geen archief.** De retentie op de ruwe topics staat op 24 uur. Wat je over een maand nog nodig hebt staat in MinIO, als bytes — niet als geparseerde events. Dat onderscheid lijkt klein en is het niet: omdat het archief bytes bewaart, kun je er later een níeuwe decoder overheen draaien. Had je geparseerde events opgeslagen, dan had je de interpretatie van toen voor altijd vastgelegd.
+Vier keuzes in de definitie:
 
-**Twee consumergroepen in plaats van één service die allebei doet.** Archiveren en verwerken hebben verschillende faalmodi en verschillende snelheden. Als MinIO even weg is, moet de processor gewoon doorlopen — en andersom.
+**Exacte P90 in plaats van een schatting.** Met een paar duizend waarnemingen per venster per sleutel kost een exacte berekening (nearest-rank) niets, en het maakt een test mogelijk tegen een venster dat met de hand is uitgerekend. Op echte schaal is dit het onderdeel dat je zou vervangen, bijvoorbeeld door een t-digest.
 
-## Het probleem dat de producer oplost
+**Elke dimensie apart, niet afgeleid.** De P90 van het netwerk kun je niet uit de P90's per lijn afleiden. De vier dimensies worden daarom elk apart bijgehouden.
 
-Beide feeds zijn `FULL_DATASET`-snapshots: elke minuut komt het volledige beeld opnieuw langs. Publiceer je dat rechtstreeks, dan zit je op zo'n 700 berichten per seconde die grotendeels herhaling zijn.
+**Een stilstaande vertraging blijft meetellen.** Alleen wijzigingen ten opzichte van de vorige meting worden doorgestuurd. Om te voorkomen dat een trein die al twintig minuten op +5:00 staat uit de statistiek verdwijnt, gaat er elke zestig seconden een heartbeat mee.
 
-De producer diffed daarom elke snapshot tegen de vorige en publiceert alleen wat veranderd is. In de ochtendspits onderdrukt dat ongeveer 45% van de entiteiten per poll. Om te voorkomen dat een trein die al twintig minuten op +5:00 staat uit de statistiek verdwijnt, gaat er elke zestig seconden een heartbeat mee. Het resultaat: vijf tot twintig keer minder berichten, met identieke venstercijfers.
+**Wat "te laat" betekent.** Een venster wordt precies één keer vastgesteld. Wat meer dan twee minuten achterloopt telt niet meer mee, maar wordt wel geteld als te laat. In de praktijk is dat aantal nul, omdat de tijd van een meting de generatietijd van de feed zelf is en die alleen oploopt.
 
-Daarnaast zit er een verzameling correcties in die rechtstreeks uit de feed komt en die je nergens gedocumenteerd vindt. Entiteits-id's zoals `2026-09-06:GVB:13:13605` bevatten de vervoerderscode die verder nergens in het bericht staat, dus die wordt uit het id geparseerd. `VehiclePosition` bevat geen vertraging — die zit in `TripUpdate`. Er rijden spookvoertuigen rond: een bus die elf dagen op dezelfde plek "STOPPED_AT" staat, en één voertuig dat vanuit 29 minuten in de toekomst rapporteerde. Posities ouder dan tien minuten of meer dan een minuut vooruit worden weggegooid.
+## De dashboards
 
-Al die gevallen zijn vastgelegd in opgenomen protobuf-fixtures in de repo. 140 KB die elke parsertest aan de werkelijkheid vastpint.
+Het live dashboard, gebouwd in Streamlit, leest rechtstreeks uit Postgres. Bovenaan staan zes KPI-tegels over het laatste gesloten venster: voertuigen live, ritten met voorspelling, gemiddelde vertraging, P90, percentage op tijd en de slechtste lijn. Daaronder de kaart met alle voertuigposities en de slechtste lijnen van dat venster.
 
-## Vensters, watermarks en late events
+De detailpanelen tonen de netwerkvertraging over de laatste drie uur in vensters van vijf minuten, de gemiddelde vertraging per vervoerder en de verdeling van de huidige vertraging over actieve ritten. Onderaan staat een health-strip met de cijfers over de aanvoer zelf: berichten per seconde in en verwerkt, achterstand, late events en opzijgezette records per uur.
 
-De processor rekent tumbling vensters van vijf minuten uit, uitgelijnd op het epoch, over vier dimensies tegelijk: lijn, station, vervoerder en netwerk. Per venster: count, gemiddelde, exacte P90, max en min.
+Het Grafana-dashboard gaat een laag dieper, met 26 panelen: doorvoer, achterstand en verwerkingstijd, correctheid (opzijgezette records, late events, vensters) en state en archief.
 
-De watermark is waar het echte werk zit. Eerste versie: één globaal maximum over alle binnengekomen events. Dat werkte prima tot er een inhaalslag van veertig minuten kwam — de zes partities werden op verschillende snelheden geconsumeerd, de snelste trok de watermark vooruit, en 169.000 volstrekt normale events van de tragere partities werden als "te laat" bestempeld en weggegooid.
+## Hoe de data er echt uitziet
 
-De oplossing is wat Flink doet: een watermark per partitie, en het minimum daarvan geldt. Met één toevoeging, want anders houdt een partitie die niets meer stuurt de watermark voor altijd tegen: na 120 seconden stilte telt een partitie niet meer mee tot ze weer iets zegt.
+De feed houdt zich niet aan zijn eigen documentatie. Entiteits-id's zoals `2026-09-06:GVB:13:13605` bevatten de vervoerderscode die verder nergens in het bericht staat, dus die wordt uit het id gehaald. Er rijden spookvoertuigen rond: een bus die elf dagen op dezelfde plek "STOPPED_AT" staat, en één voertuig dat vanuit 29 minuten in de toekomst rapporteerde. Posities ouder dan tien minuten of meer dan een minuut vooruit worden weggegooid. Al die gevallen zijn vastgelegd in opgenomen feedbestanden in de repo: 140 KB die elke parsertest aan de werkelijkheid vastpint.
 
-Events achter de watermark worden geteld en weggegooid. Dat is een expliciete afweging: begrensde state en precies één emissie per venster, in ruil voor het negeren van alles wat meer dan twee minuten achterloopt. In de praktijk is dat aantal nul, omdat de event-tijd de generatietijd van de feed zelf is en die monotoon oploopt.
+De spits en de nacht schelen een factor honderd: om half twaalf 's avonds zijn het 50 tot 110 berichten per seconde en 1.400 voertuigen, om vier uur 's nachts twee berichten per seconde en twintig bussen — het dashboard zegt dat dan ook eerlijk in plaats van beweging te faken. Tussen 01:00 en 05:00 rijden er twintig à dertig nachtbussen. Zonder ingreep wordt het laatste venster nooit vastgesteld, want er komt geen meting meer die de tijd vooruit duwt; na negentig seconden stilte schuift de verwerking daarom op de wandklok door.
 
-En dan is er nog de nacht. Tussen 01:00 en 05:00 rijden er twintig à dertig nachtbussen in het hele land. Zonder ingreep sluit het laatste venster nooit, want er komt geen event meer dat de watermark vooruit duwt. Na negentig seconden stilte schuift de processor daarom de watermark op de wandklok vooruit.
+Een slapende laptop is geen storing, maar ziet er in Grafana precies zo uit: macOS wordt elk uur 45 seconden wakker voor onderhoud, wat één hoge piek per uur en een watermark lag van een half uur oplevert. `make keep-awake` staat inmiddels in de runbook.
 
-## At-least-once, veilig gemaakt door idempotentie
+Kapotte records gaan opzij, niet verloren. Wat niet te lezen is gaat met de originele bytes en de foutreden naar een aparte wachtrij (dead-letter queue) en blokkeert de rest niet. De feed stuurt dezelfde kapotte entiteit elke minuut opnieuw, dus elke combinatie van entiteit en reden wordt één keer opzijgezet. Binnen tien seconden staat zo'n record op het Grafana-paneel en in de health-strip; na een fix kan het opnieuw worden aangeboden.
 
-Exactly-once levering wordt bewust niet nagestreefd. De goedkopere garantie geeft hetzelfde antwoord, zonder transactionele machinerie.
+## Twee keer klopte een cijfer stilletjes niet
 
-De volgorde is: verwerk, upsert de gefinaliseerde vensters, en commit de offsets pas daarna. Valt het proces om tussen die twee stappen, dan levert de broker dezelfde berichten opnieuw, herberekent de processor hetzelfde venster uit dezelfde events, en schrijft die weg op dezelfde sleutel. De primary key van `delay_aggregates` is `(window_start, dimension, dimension_id)` — de upsert vervángt de rij met identieke waarden in plaats van erbij op te tellen. Dubbeltellen kan dus niet.
+Beide keren werden goede metingen als "te laat" bestempeld en weggegooid, waardoor vensters op minder waarnemingen rustten dan er waren. Het begrip erachter is de watermark: de klok die bepaalt hoe ver de data is, en dus welke vensters dicht mogen. Te late events verdwijnen niet stil: ze worden geteld, en die teller staat op het Grafana-dashboard en in de health-strip.
 
-Twee details maken dat waterdicht in plaats van ongeveer goed.
+**169.000 events weg na een inhaalslag.** De eerste versie had één klok voor alles: de nieuwste meting die was binnengekomen. Dat werkte prima tot er een inhaalslag van veertig minuten kwam. De zes partities van de stroom werden op verschillende snelheden gelezen, de snelste trok de klok vooruit, en 169.000 volstrekt normale events van de tragere partities golden als te laat. Nu heeft elke partitie een eigen klok en geldt de traagste; een partitie die 120 seconden niets stuurt telt niet mee, anders zou er nooit meer een venster sluiten.
 
-**Offsets lopen nooit vóór op open vensters.** Per partitie houdt de processor de geconsumeerde `(offset, window_end)`-paren in aankomstvolgorde bij, en commit één voorbij het langste aaneengesloten begin waarvan alle vensters gesloten zijn. Zit er halverwege een bericht dat nog in een open venster valt, dan stopt de commit daar — ook als er achter dat bericht al wél afgeronde vensters staan. Alles in een open venster wordt na een crash opnieuw geleverd en bouwt dat venster van voren af aan opnieuw op.
+**130.000 events weg door een klok in de toekomst.** Bij het opstarten wordt de klok gezet op het laatste venster dat al in Postgres staat, zodat opnieuw geleverde berichten geen gedeeltelijk venster over een compleet venster heen schrijven. Eén keer zette een herberekening die nog liep die klok in de toekomst, waarna 130.000 goede events werden weggegooid. Sindsdien wordt die startwaarde begrensd op de wandklok.
 
-**De watermark wordt bij het opstarten uit Postgres gezaaid.** `max(window_end)` zorgt dat opnieuw geleverde berichten die bij een al weggeschreven venster horen als te laat gelden, in plaats van dat er een gedeeltelijk venster over een compleet venster heen wordt geschreven. Die seed wordt op de wandklok geklemd — een les uit de praktijk: één keer zaaide een replay die nog liep de watermark in de toekomst, waarna 130.000 goede events werden weggegooid.
+## Waarom de cijfers kloppen
 
-Er is een test die het bewijst tegen de échte database: `test_duplicate_delivery_does_not_double_count_in_real_postgres` past hetzelfde gefinaliseerde venster twee keer toe en controleert dat er één rij staat, met de oorspronkelijke count.
+**Opnieuw verwerken telt niet dubbel.** Een venster wordt eerst naar Postgres geschreven; pas daarna wordt vastgelegd tot waar de stroom gelezen is. Valt het proces daartussen om, dan komen dezelfde berichten opnieuw binnen, wordt hetzelfde venster uit dezelfde events herberekend en op dezelfde sleutel weggeschreven. De rij wordt vervangen, er wordt niets bij opgeteld. `test_duplicate_delivery_does_not_double_count_in_real_postgres` past hetzelfde venster twee keer toe tegen de échte database en controleert dat er één rij staat, met de oorspronkelijke count.
 
-## Als het misgaat
+**Een tijdvak is opnieuw uit te rekenen.** Alle ruwe berichten gaan ook naar een archief. `make replay FROM=… TO=…` rekent een tijdvak daaruit opnieuw uit, door dezelfde code als de live verwerking: er is geen tweede versie van de rekenregels. Gemeten: 122.364 gearchiveerde berichten uit twaalf minuten ochtendspits, herberekend tot 11.323 vensters in ongeveer tien seconden.
 
-Alles wat niet geparseerd (producer) of niet gedecodeerd (processor) kan worden gaat naar `dlq.<source_topic>` als de originele bytes, met headers voor stage, brontopic, partitie, offset, fout, tijdstip en schemaversie. De hoofdlus blokkeert nooit.
+**Getest tegen een handberekend venster.** `make test` draait 106 unit tests zonder infrastructuur, waaronder de parser tegen opgenomen feeds (ook een van gemengde kwaliteit en een met pure onzin), een venster dat met de hand is uitgerekend en de SQL-invarianten van het dashboard. De integratietests draaien de dashboardqueries en de dubbele-levering-test tegen echte Postgres.
 
-Eén detail dat je pas ontdekt als je het draait: parse-fouten herhalen zich elke minuut, want de feed stuurt dezelfde kapotte entiteit gewoon opnieuw. Zonder maatregel loopt je DLQ vol met duizend keer hetzelfde bericht. De producer dead-lettert daarom elke unieke combinatie van entiteit en reden één keer.
-
-Van daaruit lopen twee herstelpaden. `make replay-dlq` draait de mislukte stap opnieuw met de huidige code — een parserfix, een nieuwe schemaversie — en injecteert de geslaagde terug in het brontopic met een `replayed_from`-header; wat nog steeds stuk is blijft staan en wordt samengevat per reden. En `make replay FROM=… TO=…` herberekent een tijdvak uit het MinIO-archief.
-
-Dat laatste heeft één eigenschap waar ik bewust op gestuurd heb: replay draait door dezelfde `Pipeline`-klasse als de live consumer. Geen tweede implementatie van de windowinglogica. Zou dat wel zo zijn, dan test je twee dingen en vertrouw je er één. Gemeten: 122.364 gearchiveerde berichten uit twaalf minuten ochtendspits, herberekend tot 11.323 vensters in ongeveer tien seconden.
-
-## Schema-evolutie
-
-`SCHEMA_VERSION` staat zowel in de body van elk bericht als in een Kafka-header, zodat een consument op versie kan routeren zonder de body te parseren. Achterwaarts compatibele wijzigingen — een optioneel veld met een default erbij — bumpen de versie niet. Een veld weghalen, hernoemen of van type veranderen wel.
-
-`common.serde` houdt een decoder per ondersteunde versie bij, en de processor accepteert de huidige én de vorige. Daardoor kunnen producer en consumer onafhankelijk uitgerold worden: eerst de processor die v1 en v2 leest, dan de producer die v2 schrijft, en na 24 uur retentie zonder v1 in omloop kan de oude decoder weg. Een onbekende versie is een `SchemaError` — dus de DLQ, nooit een crash.
-
-En omdat het archief bytes bewaart en geen events, kan een nieuwe decoder altijd over de historie heen worden gedraaid.
-
-## Wat het in de praktijk doet
+## Gemeten
 
 Gemeten op een MacBook Pro uit 2019 met de hele stack in Docker Desktop, landelijke feed, geen filter op vervoerder. `make throughput` haalt deze cijfers rechtstreeks uit Prometheus.
 
 | Maandagochtendspits 08:15–09:15 | |
 | --- | --- |
 | Berichten in, gemiddeld | 176 per seconde (piekminuut 347) |
-| Voertuigen in de feed per poll | 3.625; de snapshot-differ onderdrukte 45% |
-| Vensters gefinaliseerd | 2.739 per vijf minuten, 6.994 tegelijk open |
-| Consumer lag | p50 nul; maximaal 3.806 direct na een herstart, binnen een minuut ingelopen |
+| Voertuigen in de feed per poll | 3.625; 45% ongewijzigd en dus niet doorgestuurd |
+| Vensters vastgesteld | 2.739 per vijf minuten, 6.994 tegelijk open |
 | Watermark lag | 170 seconden — 120 s toegestane vertraging plus ~50 s feedcadans |
+| Achterstand (consumer lag) | p50 nul; maximaal 3.806 direct na een herstart, binnen een minuut ingelopen |
 | Batchverwerking p95 | 0,18 s voor een batch van 2.000 berichten, inclusief de state-upserts |
 | Ruw archief | 718 objecten, 30 MB gzip per uur in de spits; ~1 MB/uur 's nachts |
 
-En twee dingen die je alleen leert door het echt een nacht te laten draaien. De ochtendspits en de nacht schelen een factor honderd: om half twaalf 's avonds zijn het 50 tot 110 berichten per seconde en 1.400 voertuigen, om vier uur 's nachts twee berichten per seconde en twintig bussen — het dashboard zegt dat dan ook eerlijk in plaats van beweging te faken. En een slapende laptop is geen pipeline-storing, maar ziet er in Grafana precies zo uit: macOS wordt elk uur 45 seconden wakker voor onderhoud, wat één hoge piek per uur en een watermark lag van een half uur oplevert. `make keep-awake` staat inmiddels in de runbook.
+## Hoe het eronder werkt
 
-## Ontwerpkeuzes, kort
+Een producer haalt de twee feeds op en publiceert ze naar Kafka (Redpanda). Twee onafhankelijke afnemers lezen mee: de ene rekent de vensters uit en schrijft naar Postgres, de andere schrijft de ruwe bytes naar het archief in MinIO. Valt het archief even weg, dan lopen de cijfers gewoon door, en andersom. Een sidecar laadt dagelijks de statische GTFS-referentiedata in stagingtabellen die in één transactie worden omgewisseld, zodat lezers nooit een half geladen set zien.
 
-**Pure-Python windowingengine, zonder Kafka-imports.** De vensterlogica kent geen broker. Daardoor zijn de tests deterministisch met synthetische reeksen — inclusief een venster dat met de hand is uitgerekend — en draait dezelfde engine ook de replay.
+**Alleen wijzigingen gaan door.** De feed stuurt elke minuut het volledige beeld opnieuw; rechtstreeks doorzetten geeft zo'n 700 berichten per seconde die grotendeels herhaling zijn. Elke meting wordt daarom vergeleken met de vorige. In de ochtendspits valt zo ongeveer 45% weg: vijf tot twintig keer minder berichten, met identieke venstercijfers.
 
-**Exacte P90 in plaats van een t-digest.** Een paar duizend waarnemingen per venster per sleutel maakt nearest-rank gratis, en het maakt een handberekende test mogelijk. Op echte schaal is dit het onderdeel dat je zou vervangen; de accumulator-interface verandert daar niet van.
+**Het archief bewaart ruwe bytes.** Kafka is hier een buffer van 24 uur, geen archief. Wat je over een maand nog nodig hebt staat in MinIO, onbewerkt. Daardoor kun je er later een nieuwe leesregel overheen draaien; had ik de al geïnterpreteerde gegevens opgeslagen, dan lag de interpretatie van toen voor altijd vast.
 
-**Extra dimensies in plaats van afleiden.** Netwerk-P90 kun je niet uit de P90's per lijn afleiden. Vier dimensies kosten één dict-insert elk, dus die worden gewoon apart bijgehouden.
-
-**Statische GTFS via `COPY` en een atomische tabelwissel.** De zip van 220 MB gaat rechtstreeks in `COPY`, in stagingtabellen die daarna in één transactie worden omgewisseld. Lezers zien nooit een half geladen set. Een dagelijkse `sleep`-loop, geen Airflow — dit is een cron-sidecar, geen orkestratie.
-
-**Python in plaats van Spark Structured Streaming.** Het simpelste dat windowing correct demonstreert. De overstap is een gedocumenteerde migratie, geen voorwaarde vooraf.
-
-## Testen en observability
-
-`make test` draait 106 unit tests zonder enige infrastructuur: de parser tegen opgenomen feeds — inclusief een fixture van gemengde kwaliteit en een met pure onzin — serde-rondgangen en elk `SchemaError`-pad, de snapshot-differ, vensterindeling, lateness, duplicaten, per-partitie watermarks, het handberekende venster, idempotentie van de sink, DLQ-headers, de offset-ledger en de SQL-invarianten van het dashboard.
-
-`make test-integration` draait tegen de draaiende stack: de dubbele-levering-test op echte Postgres, de atomische swap van de GTFS-loader, de dashboardqueries. In CI draaien lint en unit tests; de integratietests blijven lokaal.
-
-Prometheus scrapet elke service en Redpanda zelf. Grafana krijgt een geprovisioneerd dashboard van 26 panelen mee — throughput, consumer lag, watermark lag, DLQ-rate, late events, verwerkingstijd, state size en archiefvolume. `make inject-bad` publiceert twee vergiftigde berichten; binnen tien seconden zie je ze in `make dlq-peek`, op het Grafana-paneel en in de health-strip van het dashboard.
+**Een nieuw berichtformaat breekt niets.** Elk bericht draagt een versienummer, en de verwerking leest de huidige én de vorige versie, zodat beide kanten los van elkaar kunnen worden bijgewerkt. Een onbekende versie crasht niet maar gaat opzij, net als elk ander onleesbaar record.
 
 ## Wat dit project laat zien
 
-Kafka en event-driven ontwerp · streamwindowing met watermarks en lateness · at-least-once met idempotente sinks · dead-letter queues en replay · schema-evolutie · Postgres · Docker Compose · Prometheus en Grafana · Streamlit en pydeck.
+Metriekdefinities (vensters, dimensies, P90) · dashboards in Streamlit en Grafana · datakwaliteit en opzijgezette records · SQL en Postgres · herberekenbare cijfers zonder dubbeltellingen · testen tegen handberekende waarden · Python · Kafka (Redpanda) · Docker Compose.
 
-Of korter: een pipeline waarvan ik kan uitleggen wat er gebeurt als hij omvalt.
+Of korter: cijfers waarvan ik kan uitleggen waarom ze kloppen, ook nadat er iets is omgevallen.
 
 ## Links
 

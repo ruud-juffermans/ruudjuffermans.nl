@@ -21,7 +21,7 @@
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  color: #a6c8f7;
+  color: #fdc9a0;
 }
 
 .title {
@@ -205,11 +205,11 @@
 
 .squareActive::before,
 .squareActive:hover::before {
-  background: #a6c8f7;
+  background: #fdc9a0;
 }
 
 .square:focus-visible {
-  outline: 2px solid #a6c8f7;
+  outline: 2px solid #fdc9a0;
   outline-offset: 0;
 }
 
@@ -248,7 +248,7 @@
   margin-top: 26px;
   font-size: 14.5px;
   font-weight: 600;
-  color: #a6c8f7;
+  color: #fdc9a0;
   text-decoration: none;
 }
 
@@ -286,8 +286,8 @@
   height: auto;
   padding: 28px;
   border-radius: 18px;
-  border: 1px solid rgba(166, 200, 247, 0.22);
-  background: rgba(13, 34, 66, 0.72);
+  border: 1px solid rgba(253, 201, 160, 0.22);
+  background: rgba(58, 25, 7, 0.72);
   transform-origin: 0 0;
   transform: rotate(8deg);
 }
@@ -320,7 +320,7 @@
 }
 
 .flowNode .flowPort {
-  fill: #0d2242;
+  fill: #3a1907;
   stroke: rgba(255, 255, 255, 0.4);
   stroke-width: 1;
   animation: flowPortFlash 5s ease-out infinite;
@@ -338,24 +338,24 @@
 
 @keyframes flowNodeFlash {
   0% {
-    stroke: #e0ecfd;
-    filter: drop-shadow(0 0 10px rgba(166, 200, 247, 0.55));
+    stroke: #ffeadb;
+    filter: drop-shadow(0 0 10px rgba(253, 201, 160, 0.55));
   }
   22%,
   100% {
     stroke: rgba(255, 255, 255, 0.22);
-    filter: drop-shadow(0 0 0 rgba(166, 200, 247, 0));
+    filter: drop-shadow(0 0 0 rgba(253, 201, 160, 0));
   }
 }
 
 @keyframes flowPortFlash {
   0% {
-    fill: #e0ecfd;
-    stroke: #e0ecfd;
+    fill: #ffeadb;
+    stroke: #ffeadb;
   }
   18%,
   100% {
-    fill: #0d2242;
+    fill: #3a1907;
     stroke: rgba(255, 255, 255, 0.4);
   }
 }
@@ -387,13 +387,13 @@
 /* lit overlay draws itself along the wire just behind the travelling pulse */
 .flowWireLit {
   fill: none;
-  stroke: #a6c8f7;
+  stroke: #fdc9a0;
   stroke-width: 2;
   stroke-linecap: round;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
   opacity: 0;
-  filter: drop-shadow(0 0 4px rgba(166, 200, 247, 0.6));
+  filter: drop-shadow(0 0 4px rgba(253, 201, 160, 0.6));
 }
 
 .flowIn {

@@ -88,7 +88,7 @@ export default function PrinciplesAccordion({
                 flexShrink: 0,
                 "[data-mui-color-scheme='dark'] &": {
                   backgroundColor: palette.navy,
-                  color: "#a6c8f7",
+                  color: "#fdc9a0",
                 },
               }}
             >

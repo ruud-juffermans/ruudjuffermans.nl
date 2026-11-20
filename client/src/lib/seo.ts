@@ -74,7 +74,7 @@ export function buildOpenGraph(
     url: localizePathname(href, locale, params),
     locale: locale === "nl" ? "nl_NL" : "en_US",
     // Mirrors site.siteName in messages/{nl,en}.json (identical in both).
-    siteName: "Ruud Juffermans — Data Engineer",
+    siteName: "Ruud Juffermans — Data & BI",
   };
 }
 

@@ -67,7 +67,14 @@ export async function getLatestBlogPosts(limit = 3): Promise<BlogPost[]> {
       signal: AbortSignal.timeout(5000),
     });
     if (!res.ok) return [];
-    return parseBlogFeed(await res.text()).slice(0, limit);
+    // The blog also covers AI engineering; this site is about data analysis,
+    // modelling and BI, so only the data posts are shown here.
+    return parseBlogFeed(await res.text())
+      .filter((post) => !/artificial intelligence|\bai\b/i.test(post.category))
+      // The blog files its modelling and SQL posts under "Data Engineering";
+      // here the card label is simply "Data".
+      .map((post) => (/^data engineering$/i.test(post.category) ? { ...post, category: "Data" } : post))
+      .slice(0, limit);
   } catch {
     return [];
   }

@@ -7,7 +7,6 @@ import {
   Band,
   BulletCard,
   CodeCards,
-  CodeNote,
   FigureBlock,
   MetricsTable,
   NumberedCards,
@@ -102,49 +101,25 @@ export default async function OpenDataWarehousePage({
       <SplitBand title={c.why.title} paragraphs={c.why.body} />
 
       <Band>
-        <Grid container spacing={{ xs: 4, md: 8 }}>
+        <SectionTitle title={c.questions.title} intro={c.questions.intro} />
+        <NumberedCards items={c.questions.items} columns={3} accent={ACCENT} />
+        <Grid container spacing={{ xs: 4, md: 8 }} sx={{ mt: { xs: 2, md: 3 } }}>
           <Grid size={{ xs: 12, md: 5 }}>
-            <SectionTitle title={c.sources.title} />
-            <ProseBlock paragraphs={[...c.sources.body, c.sources.note]} />
+            <SubTitle title={c.questions.sourcesTitle} />
+            <ProseBlock paragraphs={c.questions.sourcesBody} />
           </Grid>
-          <Grid size={{ xs: 12, md: 7 }} sx={{ mt: { md: 9 } }}>
-            <MetricsTable columns={c.sources.columns} rows={c.sources.rows} accent={ACCENT} />
+          <Grid size={{ xs: 12, md: 7 }}>
+            <MetricsTable columns={c.questions.columns} rows={c.questions.rows} accent={ACCENT} />
           </Grid>
         </Grid>
       </Band>
 
       <Band shaded>
-        <SectionTitle title={c.architecture.title} />
-        <ProseBlock paragraphs={c.architecture.body} />
-        <Reveal variant="rise" sx={{ mt: { xs: 4, md: 6 } }}>
-          <SubTitle title={c.architecture.partsTitle} />
-        </Reveal>
-        <NumberedCards items={c.architecture.parts} columns={3} accent={ACCENT} />
-      </Band>
-
-      <Band>
-        <SectionTitle title={c.ingestion.title} />
-        <ProseWithCallouts paragraphs={c.ingestion.body} callouts={c.ingestion.callouts} accent={ACCENT} />
-        <Reveal variant="rise" sx={{ mt: { xs: 4, md: 6 } }}>
-          <BulletCard
-            title={c.ingestion.resultTitle}
-            items={c.ingestion.results}
-            note={c.ingestion.resultNote}
-            accent={ACCENT}
-          />
-        </Reveal>
-        <Reveal variant="rise" sx={{ mt: { xs: 4, md: 6 } }}>
-          <SubTitle title={c.ingestion.choicesTitle} />
-        </Reveal>
-        <NumberedCards items={c.ingestion.choices} accent={ACCENT} />
-        <CodeNote code={c.ingestion.manifest.code} body={c.ingestion.manifest.body} />
-      </Band>
-
-      <Band shaded>
         <SectionTitle title={c.model.title} />
         <ProseBlock paragraphs={c.model.body} />
-        <FigureBlock figure={c.model.figure} />
-        <SubTitle title={c.model.tablesTitle} />
+        <Reveal variant="rise" sx={{ mt: { xs: 4, md: 6 } }}>
+          <SubTitle title={c.model.tablesTitle} />
+        </Reveal>
         <CodeCards items={c.model.tables} />
         <PullQuote text={c.model.quote} accent={ACCENT} />
       </Band>
@@ -163,26 +138,55 @@ export default async function OpenDataWarehousePage({
       </Band>
 
       <Band shaded>
+        <SectionTitle title={c.powerbi.title} />
+        <ProseBlock paragraphs={c.powerbi.body} />
+        <Reveal variant="rise" sx={{ mt: { xs: 4, md: 5 } }}>
+          <BulletCard title={c.powerbi.choicesTitle} items={c.powerbi.choices} accent={ACCENT} ordered />
+        </Reveal>
+        <PullQuote text={c.powerbi.quote} accent={ACCENT} />
+      </Band>
+
+      <Band>
         <SectionTitle title={c.limits.title} />
         <ProseBlock paragraphs={c.limits.body} />
         <PullQuote text={c.limits.quote} accent={ACCENT} />
       </Band>
 
-      <Band>
+      <Band shaded>
         <SectionTitle title={c.quality.title} />
         <ProseBlock paragraphs={c.quality.body} />
-        <FigureBlock figure={c.quality.figure} />
-        <MetricsTable columns={c.quality.columns} rows={c.quality.rows} accent={ACCENT} />
         <Reveal variant="rise" sx={{ mt: { xs: 4, md: 5 } }}>
-          <ProseBlock paragraphs={c.quality.after} delay={0} />
+          <MetricsTable columns={c.quality.columns} rows={c.quality.rows} accent={ACCENT} />
+        </Reveal>
+        <FigureBlock figure={c.quality.figure} />
+        <ProseBlock paragraphs={c.quality.after} delay={0} />
+      </Band>
+
+      <Band>
+        <SectionTitle title={c.consistency.title} />
+        <ProseWithCallouts
+          paragraphs={c.consistency.body}
+          callouts={c.consistency.callouts}
+          accent={ACCENT}
+        />
+        <Reveal variant="rise" sx={{ mt: { xs: 4, md: 6 } }}>
+          <BulletCard
+            title={c.consistency.resultTitle}
+            items={c.consistency.results}
+            note={c.consistency.resultNote}
+            accent={ACCENT}
+          />
         </Reveal>
       </Band>
 
       <Band shaded>
-        <SectionTitle title={c.powerbi.title} intro={c.powerbi.intro} />
-        <NumberedCards items={c.powerbi.questions} columns={3} accent={ACCENT} />
-        <Reveal variant="rise" sx={{ mt: { xs: 4, md: 6 } }}>
-          <ProseBlock paragraphs={c.powerbi.body} delay={0} />
+        <SectionTitle title={c.pipeline.title} />
+        <ProseBlock paragraphs={c.pipeline.body} />
+        <FigureBlock figure={c.pipeline.figure} />
+        <SubTitle title={c.pipeline.partsTitle} />
+        <NumberedCards items={c.pipeline.parts} columns={3} accent={ACCENT} />
+        <Reveal variant="rise" sx={{ mt: { xs: 4, md: 5 } }}>
+          <ProseBlock paragraphs={c.pipeline.after} delay={0} />
         </Reveal>
       </Band>
 

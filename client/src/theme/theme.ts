@@ -15,10 +15,10 @@ const ABS = {
 
 // ── Scheme-specific color tokens (switch via data-mui-color-scheme) ─────────
 // Light mode: warm cream background (EXAMPLE_LANDING palette: bg #f6f3eb,
-// warm #ecead4, deep #e0ddc7), deep blue primary. The border / divider /
+// warm #ecead4, deep #e0ddc7), burnt-orange primary. The border / divider /
 // light-gray tiers are warmed to match — cool slate hairlines look dirty
 // on cream.
-// Dark mode: near-black background with a slight blue cast, softened blue primary
+// Dark mode: near-black background with a slight blue cast, soft orange primary
 const LIGHT = {
   bg: "#f6f3eb",
   surface: "#ecead4",
@@ -38,13 +38,13 @@ const LIGHT = {
   gray700: "#334155",
   gray800: "#1E293B",
   gray900: "#0F172A",
-  red: "#2563eb",
-  redHover: "#1d4ed8",
-  redLight: "#60a5fa",
-  redMuted: "rgba(37, 99, 235, 0.10)",
-  redGlow: "rgba(37, 99, 235, 0.22)",
+  red: "#c2410c",
+  redHover: "#9a3412",
+  redLight: "#fb923c",
+  redMuted: "rgba(234, 88, 12, 0.10)",
+  redGlow: "rgba(234, 88, 12, 0.22)",
   // Text on accent-filled surfaces (contained buttons). White passes on the
-  // deep light-mode blue; the pale dark-mode blue needs dark ink (WCAG AA).
+  // deep light-mode orange (#c2410c, 5.2:1); the pale dark-mode orange needs dark ink (WCAG AA).
   onRed: "#FFFFFF",
   textPrimary: "#0F172A",
   // Both tiers are used on the card surface (#ecead4), where 4.5:1 needs
@@ -70,11 +70,11 @@ const DARK = {
   gray700: "#DBE3EE",
   gray800: "#E8EDF5",
   gray900: "#F4F7FB",
-  red: "#60a5fa",
-  redHover: "#93c5fd",
-  redLight: "#bfdbfe",
-  redMuted: "rgba(147, 197, 253, 0.14)",
-  redGlow: "rgba(147, 197, 253, 0.30)",
+  red: "#fb923c",
+  redHover: "#fdba74",
+  redLight: "#fed7aa",
+  redMuted: "rgba(253, 186, 116, 0.14)",
+  redGlow: "rgba(253, 186, 116, 0.30)",
   onRed: "#0A0F1C",
   textPrimary: "#F4F7FB",
   textSecondary: "#B9C4D6",

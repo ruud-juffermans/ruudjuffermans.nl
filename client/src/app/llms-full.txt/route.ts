@@ -31,7 +31,7 @@ ${absolutizeLinks(item.content.trim())}`;
 
 > ${nlMessages.site.description}
 
-Portfolio van een data engineer in Nederland, open voor een nieuwe rol. Contact: ${absoluteUrl("/contact", "nl")}
+Portfolio van een data-analist in Nederland, open voor een nieuwe rol. Contact: ${absoluteUrl("/contact", "nl")}
 
 # Over
 

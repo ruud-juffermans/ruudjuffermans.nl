@@ -19,7 +19,7 @@ export const routing = defineRouting({
       en: "/about",
     },
     // The two disciplines from the homepage's "What I do": field is
-    // "data-engineering" or "ai-engineering" (see EXPERTISE_FIELDS).
+    // "data-modeling" or "business-intelligence" (see EXPERTISE_FIELDS).
     "/expertise/[field]": "/expertise/[field]",
     "/contact": "/contact",
     "/privacy": "/privacy",

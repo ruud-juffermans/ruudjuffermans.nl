@@ -94,7 +94,7 @@ export default function DrawioViewer({
           "data-mxgraph",
           JSON.stringify({
             xml,
-            highlight: "#3b82f6",
+            highlight: "#f97316",
             nav: true,
             resize: true,
             center: true,

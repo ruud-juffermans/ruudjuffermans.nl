@@ -1,14 +1,14 @@
 /* Rose mark gradient stops + blend, per color scheme. Matches the
-   HeroCircles gradients: light = white -> brand blue with darken blend,
-   dark = page navy -> soft blue with lighten blend. */
+   HeroCircles gradients: light = white -> brand orange with darken blend,
+   dark = page navy -> soft orange with lighten blend. */
 .stopA {
   stop-color: #fbfcfe;
 }
 .stopB {
-  stop-color: #a3c4f7;
+  stop-color: #fdc49a;
 }
 .stopC {
-  stop-color: #2563eb;
+  stop-color: #d9500b;
 }
 .petal {
   mix-blend-mode: darken;
@@ -18,10 +18,10 @@
   stop-color: #0a0f1c;
 }
 :global([data-mui-color-scheme="dark"]) .stopB {
-  stop-color: #1c3f8a;
+  stop-color: #8a3a0c;
 }
 :global([data-mui-color-scheme="dark"]) .stopC {
-  stop-color: #60a5fa;
+  stop-color: #fb923c;
 }
 :global([data-mui-color-scheme="dark"]) .petal {
   mix-blend-mode: lighten;

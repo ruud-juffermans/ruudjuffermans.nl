@@ -35,64 +35,34 @@ export interface HoodVariant {
 }
 
 // Code panels stay untranslated — code is code in either locale. Keyed by
-// project slug; each panel echoes the real repo, not a generic snippet.
+// project slug; each panel is the kind of question the project's model answers.
 const CODE: Record<string, { file: string; lines: CodeLine[]; tools: string[] }> = {
-  "digital-twin": {
-    file: "agent/graph.py",
-    lines: [
-      { t: [["cmt", "# one chat turn as a state machine; only generate() calls a model"]] },
-      { t: [["punc", "graph.add_edge(START, "], ["str", '"guard_input"'], ["punc", ")"]] },
-      { t: [["punc", "graph.add_conditional_edges("], ["str", '"guard_input"'], ["punc", ", route, ["], ["str", '"refuse"'], ["punc", ", "], ["str", '"generate"'], ["punc", "])"]], added: true },
-      { t: [["punc", "graph.add_conditional_edges("], ["str", '"generate"'], ["punc", ", route,"]] },
-      { t: [["punc", "    ["], ["str", '"request_approval"'], ["punc", ", "], ["str", '"execute_tools"'], ["punc", ", "], ["str", '"verify"'], ["punc", "])"]], added: true },
-      { t: [["key", "if"], ["punc", " budget.exceeded "], ["key", "or"], ["punc", " tool_rounds >= MAX_TOOL_ROUNDS: "], ["key", "return"], ["punc", " refuse()"]], added: true },
-      { t: [["cmt", "# interrupt: Ruud approves"]] },
-      { t: [["punc", "graph.add_edge("], ["str", '"request_approval"'], ["punc", ", "], ["str", '"execute_tools"'], ["punc", ")  "]] },
-      { t: [["key", "if not"], ["punc", " citations "], ["key", "and"], ["punc", " len(answer) > "], ["str", "240"], ["punc", ": flags += ["], ["str", '"uncited-answer"'], ["punc", "]"]], added: true },
-    ],
-    tools: ["Python", "FastAPI", "LangGraph", "pgvector", "SSE"],
-  },
   "open-data-warehouse": {
-    file: "fct_gebreken.sql",
+    file: "top_gebreken.sql",
     lines: [
-      { t: [["cmt", "-- grain: één rij per geconstateerd gebrek"]] },
-      { t: [["key", "select"], ["punc", " k.voertuig_sk, d.datum_sk, g.gebrek_sk,"]] },
-      { t: [["punc", "    count(*) "], ["key", "as"], ["punc", " aantal_gebreken"]] },
-      { t: [["key", "from"], ["punc", " "], ["str", "{{ ref('stg_rdw__gebreken') }}"], ["punc", " g"]], added: true },
-      { t: [["key", "join"], ["punc", " dim_voertuig k "], ["key", "using"], ["punc", " (kenteken)"]] },
-      { t: [["key", "join"], ["punc", " dim_datum d "], ["key", "using"], ["punc", " (meld_datum)"]] },
-      { t: [["key", "group by"], ["punc", " "], ["str", "1, 2, 3"]], added: true },
-      { t: [["cmt", "-- dbt test: not_null + relationships op elke sk"]], added: true },
+      { t: [["cmt", "-- grain: één geconstateerd gebrek per keuring per voertuig"]], added: true },
+      { t: [["key", "select"], ["punc", " v.voertuigsoort, g.omschrijving,"]] },
+      { t: [["punc", "    count(*) "], ["key", "as"], ["punc", " aantal_gebreken"]], added: true },
+      { t: [["key", "from"], ["punc", " fct_gebrek_constatering f"]] },
+      { t: [["key", "join"], ["punc", " dim_voertuig v "], ["key", "using"], ["punc", " (voertuig_key)"]] },
+      { t: [["key", "join"], ["punc", " dim_gebrek g "], ["key", "using"], ["punc", " (gebrek_key)"]] },
+      { t: [["key", "group by"], ["punc", " "], ["str", "1, 2"]] },
+      { t: [["cmt", "-- count(*) volstaat: de grain is getest, niets telt dubbel"]], added: true },
     ],
-    tools: ["Python", "dbt", "DuckDB", "SQL", "GitHub Actions"],
+    tools: ["SQL", "dbt", "DuckDB", "Power BI", "DAX"],
   },
   "ov-streaming-pipeline": {
-    file: "delay_aggregator.py",
+    file: "vertraging_per_lijn.sql",
     lines: [
-      { t: [["cmt", "# delay_aggregator.py"]] },
-      { t: [["key", "async def"], ["punc", " verwerk(stream: KafkaStream) -> "], ["str", "None"], ["punc", ":"]] },
-      { t: [["key", "    async for"], ["punc", " positie "], ["key", "in"], ["punc", " stream.topic("], ["str", '"gtfs-rt"'], ["punc", "):"]] },
-      { t: [["punc", "        venster = tumbling(positie, minuten="], ["str", "5"], ["punc", ")"]], added: true },
-      { t: [["punc", "        vertraging = venster.mean(positie.delay)"]] },
-      { t: [["punc", "        dode_brief.vang(positie, on_error=parse_fout)"]], added: true },
-      { t: [["key", "        await"], ["punc", " publiceer(lijn=positie.lijn,"]] },
-      { t: [["punc", "            station=positie.halte, p95=venster.p95)"]], added: true },
+      { t: [["cmt", "-- één rij per venster van vijf minuten, per dimensie"]], added: true },
+      { t: [["cmt", "-- sleutel: (window_start, dimension, dimension_id)"]], added: true },
+      { t: [["key", "select"], ["punc", " *"]] },
+      { t: [["key", "from"], ["punc", " delay_aggregates"]] },
+      { t: [["key", "where"], ["punc", " dimension = "], ["str", "'line'"]], added: true },
+      { t: [["key", "  and"], ["punc", " window_start >= now() - "], ["key", "interval"], ["punc", " "], ["str", "'1 hour'"]] },
+      { t: [["key", "order by"], ["punc", " window_start "], ["key", "desc"]] },
     ],
-    tools: ["Python", "Kafka", "Redpanda", "Streamlit", "Docker"],
-  },
-  "strafrecht-rag": {
-    file: "uitspraak_retrieval.py",
-    lines: [
-      { t: [["cmt", "# uitspraak_retrieval.py"]] },
-      { t: [["key", "def"], ["punc", " beantwoord(vraag: "], ["str", "str"], ["punc", ") -> Antwoord:"]] },
-      { t: [["punc", "    passages = vectorindex.search(vraag, k="], ["str", "8"], ["punc", ")"]] },
-      { t: [["key", "    if not"], ["punc", " passages: "], ["key", "return"], ["punc", " GeenAntwoord()"]], added: true },
-      { t: [["punc", "    resultaat = keten.invoke({"], ["str", '"vraag"'], ["punc", ": vraag, "], ["str", '"context"'], ["punc", ": passages})"]] },
-      { t: [["punc", "    langfuse.trace(vraag, resultaat, passages)"]], added: true },
-      { t: [["key", "    return"], ["punc", " Antwoord(tekst=resultaat,"]] },
-      { t: [["punc", "        ecli=[p.ecli "], ["key", "for"], ["punc", " p "], ["key", "in"], ["punc", " passages])"]], added: true },
-    ],
-    tools: ["Python", "LangChain", "LangFuse", "pgvector", "Rechtspraak.nl"],
+    tools: ["SQL", "PostgreSQL", "Streamlit", "Grafana", "Python"],
   },
 };
 
@@ -106,7 +76,7 @@ export default function UnderTheHood({
   const [active, setActive] = useState(0);
   const v = variants[active];
   if (!v) return null;
-  const code = CODE[v.key] ?? CODE["strafrecht-rag"];
+  const code = CODE[v.key] ?? CODE["open-data-warehouse"];
 
   return (
     <section className={styles.section}>

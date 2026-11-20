@@ -420,7 +420,7 @@ export default async function ExpertisePage({
             position: "absolute",
             inset: 0,
             background:
-              "radial-gradient(640px 340px at 50% 115%, rgba(37, 99, 235, 0.35), transparent 70%)",
+              "radial-gradient(640px 340px at 50% 115%, rgba(234, 88, 12, 0.35), transparent 70%)",
             pointerEvents: "none",
           },
         }}

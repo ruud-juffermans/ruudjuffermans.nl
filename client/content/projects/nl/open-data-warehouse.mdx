@@ -1,79 +1,78 @@
 ---
-title: "Open-data-warehouse: een Kimball-sterschema op RDW en CBS"
+title: "Open-data-warehouse: een sterschema en Power BI-rapport op RDW en CBS"
 industry: "Eigen project"
-summary: "End-to-end ELT-platform op Nederlandse open data: Python-ingestie, dbt-transformaties en een gedocumenteerd sterschema — met tests en CI op elke pull request."
-tags: ["dbt", "SQL", "Python", "DuckDB", "Data Engineering"]
+summary: "Een dimensioneel model op Nederlandse open data met een Power BI-rapport erop: grain per feit vastgelegd, een gemeentedimensie met historie, DAX-measures nagelopen tegen het warehouse en datakwaliteitstests op sleutels, relaties en grain."
+tags: ["Datamodellering", "SQL", "Power BI", "DAX", "dbt", "Datakwaliteit"]
 repo: "https://github.com/datavakwerk/nl-vehicle-warehouse"
-accent: "#3B82F6"
+accent: "#F97316"
 stats:
-  - { label: "Sterschema", value: "3 gedocumenteerde grains" }
-  - { label: "CI op elke PR", value: "Lint + build + tests" }
-  - { label: "Vanaf nul", value: "Eén commando" }
+  - { label: "Sterschema", value: "2 feiten · 5 dimensies · 1 bridge" }
+  - { label: "Power BI", value: "3 vragen op het sterschema" }
+  - { label: "Datakwaliteit", value: "Tests op sleutels, relaties en grain" }
 ---
 
 *Eigen project, gebouwd om mijn aanpak te laten zien. Alles wat hier staat is echt en na te lezen in de repo.*
 
 ## Waarom dit project
 
-Een data warehouse beoordeel je niet op het dashboard dat erop staat, maar op wat eronder zit: klopt de grain, zijn de definities vastgelegd, worden fouten gevangen vóór ze in een rapport belanden. Dit project bouwt dat fundament in het openbaar, op data die iedereen kan controleren.
+Een rapport beoordeel je niet op het dashboard, maar op wat eronder zit: klopt de grain, zijn de definities vastgelegd, worden fouten gevangen vóór ze in een rapport belanden. Dit project legt die keuzes in het openbaar vast, op data die iedereen kan controleren.
 
 Twee publieke bronnen, allebei zonder API-sleutel te bevragen:
 
-- **RDW open data** — gekentekende voertuigen, brandstof en geconstateerde gebreken: transactiefeiten met miljoenen rijen
-- **CBS StatLine** — het motorvoertuigenpark en de gemeentelijke indeling: een periodieke snapshot op gemeenteniveau
+- **RDW open data** — gekentekende voertuigen, brandstof, geconstateerde gebreken en gebrekcodes: transactiefeiten op recordniveau
+- **CBS StatLine** — het motorvoertuigenpark per gemeente en de gemeentelijke indeling per jaar: een periodieke snapshot plus de gemeentedimensie
 
-De combinatie is bewust gekozen. Twee feittabellen met een verschillende grain in één schema is precies waar dimensioneel modelleren over gaat — en waar het misgaat als je de grain niet expliciet maakt.
+De combinatie is bewust gekozen. Twee feiten met een verschillende grain in één schema is precies waar dimensioneel modelleren over gaat — en waar het misgaat als je de grain niet expliciet maakt.
 
-## De architectuur
+## De vragen die het rapport beantwoordt
 
-```
-RDW / CBS API
-      │  Python-ingestie (incrementeel, gepagineerd, met retries)
-      ▼
- data/raw/*.parquet
-      ▼
- DuckDB:  staging  →  warehouse (dim_* / fct_*)  →  marts
-      ▼
- dbt tests · dbt docs (lineage)
-```
+Het Power BI-rapport beantwoordt drie vragen, rechtstreeks op het sterschema:
 
-DuckDB omdat het gratis is en in CI draait. Hetzelfde dbt-project richt zich met een ander profiel op Snowflake of Databricks; de modellen zijn daarop geschreven — geen DuckDB-specifieke SQL buiten de staging-laag. De warehouse-keuze is geen onderdeel van de modellering. Dat is precies het punt.
+- Het voertuigpark per gemeente en peiljaar, inclusief heringedeelde gemeenten
+- De top-gebreken per voertuigsoort en bouwjaar, met een slicer op energiedrager
+- De aansluiting tussen de RDW-steekproef en het park dat CBS per gemeente rapporteert
 
 ## Het sterschema
 
-Per feittabel staat de **grain** expliciet: één zin, geen interpretatie mogelijk.
+Twee feiten, vijf dimensies en één bridge. Per feittabel staat de **grain** expliciet: één zin, geen interpretatie mogelijk.
 
 | Feittabel | Eén rij per… | Type |
 | --- | --- | --- |
-| `fct_voertuig_registratie` | kenteken per tenaamstelling | transactie |
 | `fct_gebrek_constatering` | geconstateerd gebrek per keuring per voertuig | transactie |
-| `fct_voertuigpark_gemeente` | gemeente per peiljaar per brandstofsoort | periodieke snapshot |
+| `fct_voertuigpark_gemeente` | gemeente per peiljaar per voertuigsoort | periodieke snapshot |
 
-Met dimensies voor datum (inclusief NL-feestdagen), gemeente, voertuigtype, brandstof en gebrek.
+Met dimensies voor datum (gegenereerd, inclusief NL-feestdagen), gemeente, voertuig, brandstof en gebrek. De datumdimensie is de conformed dimension die beide feiten delen.
 
 ## Ontwerpkeuzes
 
-- **Waarom deze grain.** `fct_voertuig_registratie` staat op tenaamstelling, niet op voertuig: een voertuig wisselt van eigenaar en dat is precies de gebeurtenis die je wilt kunnen tellen. Op voertuigniveau verlies je die.
-- **Waarom SCD type 2 op gemeente.** Nederland herindeelt gemiddeld elk jaar wel iets. Zonder historie verschuiven historische cijfers met terugwerkende kracht — een klassieke stille fout in stuurinformatie.
-- **Waarom incrementeel laden.** De RDW-voertuigenset is te groot voor een volledige refresh per run. Incrementeel met een watermerk op wijzigingsdatum, met een gedocumenteerde full-refresh-route voor als de brondefinitie verandert.
-- **Waarom reproduceerbaar.** Elke ingestie legt een snapshotdatum vast en de selectiequery staat in de repo. Een run is na te doen, een cijfer is na te rekenen.
+- **Waarom deze grain.** `fct_gebrek_constatering` staat op één geconstateerd gebrek per keuring per voertuig, zodat gebreken tellen gewoon `count(*)` is. De bronkolom met het keuringtotaal is bewust weggelaten: die herhaalt hetzelfde getal op elke regel, en een `sum()` daarover telt dubbel.
+- **Waarom een bridge.** 12.671 voertuigen hebben meer dan één brandstof. Zonder brugtabel tel je die dubbel zodra iemand filtert op energiedrager.
+- **Waarom SCD type 2 op gemeente.** Nederland ging van 393 gemeenten in 2015 naar 342 in 2026. Zonder historie verschuiven historische cijfers met terugwerkende kracht — een stille fout in stuurinformatie. Het feit joint op gemeentecode én peildatum binnen de geldigheidsperiode; drie eigen tests bewaken dat de perioden aansluiten, niet overlappen en hoogstens één actuele versie hebben.
+- **Wat niet kon.** De beoogde grain gemeente × brandstofsoort bestaat niet bij CBS: de brandstofsplitsing gaat niet lager dan provincie. Het is gemeente × voertuigsoort geworden, en die keuze staat uitgeschreven in de repo.
 
-## Kwaliteit en CI
+## Power BI
 
-Bij elke pull request draait GitHub Actions: `ruff` en `sqlfluff` als linters, daarna `dbt build` — modellen én tests. De dbt-tests dekken `unique` en `not_null` op elke sleutel, `relationships` van elke foreign key naar de dimensie, `accepted_values` op referentiekolommen, plus eigen tests op de grain: geen dubbele rijen per graindefinitie.
+Het semantisch model spiegelt het schema en repareert het niet. Relaties staan 1:* van dimensie naar feit met enkelzijdig kruisfilter, de SCD2-dimensie hangt via de surrogaatsleutel aan het feit, de bridge staat als many-to-many met één bidirectioneel kruisfilter, en de DAX-measures zijn gekruist met `dbt show`. Een rapport dat het model omzeilt is een tweede model — en dan heb je twee waarheden.
 
-Dit is dezelfde werkwijze die ik in elk team hanteer: transformaties als code, met een test op elke stap, zodat een fout opvalt vóór iemand op het cijfer stuurt.
+## Datakwaliteit
+
+De dbt-tests dekken `unique` en `not_null` op elke sleutel, `relationships` van elke foreign key naar de dimensie, `accepted_values` op referentiekolommen, plus eigen tests op de grain: geen dubbele rijen per graindefinitie. Ze draaien bij elke pull request, samen met `dbt build` en de linters.
+
+Die tests vingen ook een dataset die er goed uitziet en niet klopt. De standaardrun werkt met een steekproef uit de RDW-sets (samen ongeveer 58 miljoen rijen). De eerste 500.000 rijen van elke set pakken levert drie verschillende voertuigpopulaties op, waardoor feiten naar dimensierijen wijzen die niet in de snapshot zitten. De oplossing is één kentekenbereik, bepaald op de voertuigenset en hergebruikt voor elke andere set. Resultaat: nul weesrijen in brandstof en gebreken, en alle 622 gebruikte gebrekcodes aanwezig in de codelijst.
+
+Dit is dezelfde werkwijze die ik in elk team hanteer: definities en transformaties vastgelegd, met een test op elke stap, zodat een fout opvalt vóór iemand op het cijfer stuurt.
 
 ## In de repo
 
-- Ingestie vanuit RDW en CBS, incrementeel en reproduceerbaar
-- dbt-project met staging-, warehouse- en marts-laag
 - Sterschema met gedocumenteerde grain per feittabel
+- Gemeentedimensie als SCD type 2, met eigen tests op de geldigheidsperioden
+- Marts die de businessvragen beantwoorden, en een Power BI-rapport op het sterschema
+- Datakwaliteitstests op sleutels, relaties en grain
+- Documentatie van de data, de steekproefopzet en de beperkingen
+- Lineage van bron tot mart (dbt docs)
+- Ingestie vanuit RDW en CBS in Python, reproduceerbaar via een manifest in git
 - Lint, build en tests in CI
-- Architectuurdiagram en lineage-documentatie in de README
-- Publicatiepagina op de marts (Evidence)
-- Eén `make`-commando van lege map tot bevraagbaar warehouse
 
 ## Technologie
 
-Python, dbt, DuckDB, SQL, GitHub Actions, ruff, sqlfluff, Make
+SQL, dbt, Power BI, DAX, DuckDB, Python, GitHub Actions
